@@ -19,7 +19,7 @@ description: >
 # and never end with a slash. Set it to a blank value if hosting at the
 # root of your server.
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "" # the base hostname & protocol for your site
+url: "https://seto-stats.com" # the base hostname & protocol for your site
 cover: "/assets/cover-1.webp"
 logo: "/assets/magitek-icon.jpg"
 
