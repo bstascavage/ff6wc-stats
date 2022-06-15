@@ -3,7 +3,7 @@ layout: page
 title:  "Time Breakdown"
 desc: "Stats pertaining to run times"
 cover:  "/assets/cover-1.webp"
-permalink: /times/
+permalink: /stats/times/
 main_nav: true
 ---
 
