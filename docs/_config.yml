@@ -10,11 +10,11 @@ exclude:
 
 # Site settings
 title: Seto Stats
-subtitle: "A statistical journey through Seto Kiaba's World's Collide runs."
-email: brian@stascavage.com
+subtitle: "A statistical journey through  Worlds Collide: The Final Fantasy VI Randomizer"
+email: seto@notreal.com
 name: Seto Kiaba
 description: >
-  A statistical journey through Seto Kiaba's World's Collide runs.
+  A collection of Worlds Collide stats.
 # Base URL of site (i.e. /blog). It should always start with a slash,
 # and never end with a slash. Set it to a blank value if hosting at the
 # root of your server.
@@ -76,6 +76,16 @@ descriptions:
 #     desc: Follow me on Twitter            # Description to display as link title, etc
 #     share: true                           # Include in the "Share" section of posts
 social:
+  - name: FF6WC Home
+    icon: link
+    url: "https://ff6wc.com"
+    desc: FFVI Worlds Collide
+
+  - name: Discord
+    icon: discord
+    url: "https://discord.gg/5MPeng5"
+    desc: FF6WC Discord
+
   - name: Twitter
     icon: twitter
     username: ""
@@ -92,8 +102,8 @@ social:
 
   - name: GitHub
     icon: github
-    username: bstascavage
-    url: https://github.com/bstascavage
+    username: ""
+    url: ""
     desc: Fork me on GitHub
     share: false
 

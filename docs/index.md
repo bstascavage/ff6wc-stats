@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Seto Stats"
-desc: "A statistical journey through Seto Kiaba's World's Collide practice"
+desc: "A statistical journey through  Worlds Collide: The Final Fantasy VI Randomizer"
 cover:  "/assets/cover-1.webp"
 main_nav: false
 ---

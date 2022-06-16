@@ -16,20 +16,27 @@
 
       <p><strong>Contact</strong></p>
       <ul class="social-media-list">
-        <li>
+        <!-- <li>
           <a href="mailto:{{ site.email }}">
             <i class="fa fa-envelope-o"></i>
             <span class="username">{{ site.email }}</span>
           </a>
-        </li>
+        </li> -->
 
         {% for social in site.social %}
           {% if social.url != "" %}
           <li>
-            <a href="{{ social.url }}" title="{{ social.desc }}">
-              <i class="fa fa-{{ social.icon }}"></i>
-              <span class="username">{% if social.username %}{{ social.username }}{% else %}{{ social.name }}{% endif %}</span>
-            </a>
+						{% if social.icon == "discord" %}
+							<a href="{{ social.url }}" title="{{ social.desc }}">
+								<i class="fa-brands fa-{{ social.icon }}"></i>
+								<span class="username">{% if social.username %}{{ social.username }}{% else %}{{ social.name }}{% endif %}</span>
+							</a>
+						{% else %}
+							<a href="{{ social.url }}" title="{{ social.desc }}">
+								<i class="fa fa-{{ social.icon }}"></i>
+								<span class="username">{% if social.username %}{{ social.username }}{% else %}{{ social.name }}{% endif %}</span>
+							</a>
+						{% endif %}
           </li>
           {% endif %}
         {% endfor %}
@@ -38,8 +45,9 @@
     </div>
 
     <div class="site-signature">
-      <p class="rss-subscribe text"><strong>Subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></strong></p>
-      <p class="text">{{ site.description }}</p>
+      <!-- <p class="rss-subscribe text"><strong>Subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></strong></p> -->
+      <p><strong>Site Description</strong></p>
+			<p class="text">{{ site.description }}</p>
     </div>
 
   </div>
