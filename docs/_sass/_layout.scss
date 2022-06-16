@@ -290,8 +290,16 @@ pre code.hljs {
 
 	/* Mobile view */
 	@media screen and (max-width: 600px) {
-		.page-content .flex-container {
+		.flex-container {
 			flex-direction: column;
+		}
+		.flex-container-centered {
+			flex-direction: column;
+		}
+		.parent{
+			width: 100%;
+			display: flex;
+			justify-content: center;
 		}
 	}
 	#item {
