@@ -290,7 +290,7 @@ pre code.hljs {
 
 	/* Mobile view */
 	@media screen and (max-width: 600px) {
-		article {
+		.flex-container {
 			flex-direction: column;
 		}
 	}
