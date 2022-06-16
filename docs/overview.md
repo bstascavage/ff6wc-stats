@@ -65,3 +65,18 @@ main_nav: true
 </div>
 </nav>
 </div>
+
+<br>
+<p style="text-align: center; font-size: 24px">Time Breakdown</p>
+<div class="flex-container-centered">
+<nav class="item">
+<div class="shadow">
+<iframe width="823" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRiTdSqwPMqGoHBbeToYQvZd2e2I6RdaXCL4BTJVJrg1cAX7G61heSd1XSQCr62lwCSL72wMksKED8c/pubchart?oid=621759507&amp;format=interactive"></iframe>
+</div>
+</nav>
+<nav class="item">
+<div class="shadow">
+<iframe width="823" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRiTdSqwPMqGoHBbeToYQvZd2e2I6RdaXCL4BTJVJrg1cAX7G61heSd1XSQCr62lwCSL72wMksKED8c/pubchart?oid=501344415&amp;format=interactive"></iframe>
+</div>
+</nav>
+</div>
