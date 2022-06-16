@@ -287,6 +287,13 @@ pre code.hljs {
 		overflow:hidden;
 		position:relative;
 	}
+
+	/* Mobile view */
+	@media screen and (max-width: 600px) {
+		article {
+			flex-direction: column;
+		}
+	}
 	#item {
 		flex-shrink: 3;
 	}
@@ -495,4 +502,7 @@ iframe {
 			text-decoration: underline;
 		}
 	}
+
+	
 }
+
