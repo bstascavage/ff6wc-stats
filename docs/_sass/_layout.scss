@@ -319,7 +319,22 @@ pre code.hljs {
 		display: flex;
 		/* or inline-flex */
 		justify-content: space-evenly;
-		// gap: 15px;
+		gap: 15px;
+	}
+
+	.flex-container-left {
+		display: flex;
+		/* or inline-flex */
+		justify-content: flex-start;
+		gap: 15px;
+	}
+
+	.flex-container-wrapped {
+		display: flex;
+		/* or inline-flex */
+		justify-content: space-evenly;
+		gap: 15px;
+		flex-wrap: wrap;
 	}
 
 	.shadow {
@@ -333,6 +348,11 @@ pre code.hljs {
 		position: relative;
 	}
 
+	#item {
+		flex-grow: 4;
+		flex-shrink: 1;
+	}
+
 	/* Mobile view */
 	@media screen and (max-width: 600px) {
 		.flex-container {
@@ -343,6 +363,10 @@ pre code.hljs {
 			flex-direction: column;
 		}
 
+		.flex-container-wrapped {
+			flex-direction: column;
+		}
+
 		.parent {
 			width: 100%;
 			display: flex;
@@ -350,9 +374,7 @@ pre code.hljs {
 		}
 	}
 
-	#item {
-		flex-shrink: 3;
-	}
+
 
 	#third_frame {
 		width: 30%;

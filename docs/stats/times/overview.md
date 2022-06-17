@@ -7,6 +7,30 @@ permalink: /stats/times/
 main_nav: true
 ---
 
+
+
+<head>
+  <script src="https://unpkg.com/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+  <script src="https://unpkg.com/sheetrock@1.2.0/dist/sheetrock.min.js"></script>
+  <script src="https://unpkg.com/handlebars@4.5.0/dist/handlebars.min.js"></script>
+  <script async src="./javascript/index.js"></script>
+</head>
+
+
+
+<!-- <table id="statistics" class="table table-condensed table-striped"></table> -->
+<table id="runs" class="table table-condensed table-striped"></table>
+<!-- <h4>NL Home Run Leaders</h4>
+<ol id="hr">
+  <script id="hr-template" type="text/x-handlebars-template">
+    <li>
+      <strong>{{cells.First}} {{cells.Last}}</strong>,
+      {{cells.Team}}, {{cells.HR}}
+    </li>
+  </script>
+</ol> -->
+
+
 <p style="text-align: center; font-size: 24px">Overview</p>
 <div class="parent">
   <div class="flex-container-centered">
@@ -98,7 +122,7 @@ main_nav: true
 <br>
 <p style="text-align: center; font-size: 24px">Time Breakdown</p>
 <div class="parent">
-  <div class="flex-container-centered">
+  <div class="flex-container-wrapped">
     <nav class="item">
       <div class="shadow">
         <!-- Average Time per Starting Character -->
@@ -115,3 +139,23 @@ main_nav: true
     </nav>
   </div>
 </div>
+
+<br>
+<p style="text-align: center; font-size: 24px">Misc Stats</p>
+
+A breakdown of an average run:
+<div class="parent">
+  <div class="flex-container-left">
+    <nav class="item">
+      <div class="shadow">
+        <!-- Number of Dragons -->
+        <iframe width="147" height="50" seamless frameborder="0" scrolling="no"
+          src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRiTdSqwPMqGoHBbeToYQvZd2e2I6RdaXCL4BTJVJrg1cAX7G61heSd1XSQCr62lwCSL72wMksKED8c/pubchart?oid=1842509497&amp;format=interactive"></iframe>
+      </div>
+    </nav>
+  </div>
+</div>
+
+
+
+<h4 id='date'></h4>
