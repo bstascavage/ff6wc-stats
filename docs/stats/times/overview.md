@@ -14,16 +14,14 @@ main_nav: true
   <script src="https://unpkg.com/sheetrock@1.2.0/dist/sheetrock.min.js" defer></script>
   <script src="https://unpkg.com/handlebars@4.5.0/dist/handlebars.min.js" defer></script>
   <script defer src="./javascript/index.js"></script>
+
+
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
 
-
-<!-- <table id="runs" class="table table-condensed table-striped"></table> -->
-<!-- <ol id="hr">
-  <li>
-    {{cells.Attempt}}, {{cells.Time}}
-  </li>
-</ol> -->
 
 <p style="text-align: center; font-size: 24px">Overview</p>
 <div class="parent">
@@ -36,29 +34,77 @@ main_nav: true
   </div>
 </div>
 
-<div class="parent">
+<section class="main-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4 offset-sm-2">
+        <div class="stat-card">
+          <div class="stat-card__content">
+            <p class="text-uppercase mb-1 text-muted">Average Time</p>
+            <h2> <span id="average_time"></span></h2>
+            <div>
+              <div id="average_time_delta_div">
+                <div id="average_time_delta_arrow"></div> <span id="average_time_delta"></span>
+              </div>
+
+              <!-- <span class="text-success font-weight-bold mr-1"><i class="fa fa-arrow-up"></i> +5%</span> -->
+              <span class="text-muted">after last run</span>
+            </div>
+          </div>
+          <!-- <div class="stat-card__icon stat-card__icon--success">
+            <div class="stat-card__icon-circle">
+              <i class="fa fa-suitcase"></i>
+            </div>
+          </div> -->
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="stat-card">
+          <div class="stat-card__content">
+            <p class="text-uppercase mb-1 text-muted">Average Time - Last 5 Runs</p>
+            <h2> <span id="average_time_last_five"></span></h2>
+            <div>
+              <div id="average_time_delta_last_five_div">
+                <div id="average_time_delta_last_five_arrow"></div> <span id="average_time_delta_last_five"></span>
+              </div>
+
+              <!-- <span class="text-success font-weight-bold mr-1"><i class="fa fa-arrow-up"></i> +5%</span> -->
+              <span class="text-muted">after last run</span>
+            </div>
+          </div>
+          <!-- <div class="stat-card__icon stat-card__icon--success">
+            <div class="stat-card__icon-circle">
+              <i class="fa fa-suitcase"></i>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- <div class="parent">
   <div class="flex-container">
     <nav class="item">
-      <!-- Best Time -->
+      Best Time
       <iframe width="270" height="117" seamless frameborder="0" scrolling="no"
         src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRiTdSqwPMqGoHBbeToYQvZd2e2I6RdaXCL4BTJVJrg1cAX7G61heSd1XSQCr62lwCSL72wMksKED8c/pubchart?oid=1700953034&amp;format=interactive"></iframe>
 
     </nav>
     <nav class="item">
-      <!-- Average Time -->
+      Average Time
       <iframe width="270" height="117" seamless frameborder="0" scrolling="no"
         src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRiTdSqwPMqGoHBbeToYQvZd2e2I6RdaXCL4BTJVJrg1cAX7G61heSd1XSQCr62lwCSL72wMksKED8c/pubchart?oid=274751191&amp;format=interactive"></iframe>
 
     </nav>
     <nav class="item">
-      <!-- Average Time - Last 5 -->
+      Average Time - Last 5
       <iframe width="270" height="117" seamless frameborder="0" scrolling="no"
         src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRiTdSqwPMqGoHBbeToYQvZd2e2I6RdaXCL4BTJVJrg1cAX7G61heSd1XSQCr62lwCSL72wMksKED8c/pubchart?oid=709726460&amp;format=interactive"></iframe>
 
     </nav>
 
   </div>
-</div>
+</div> -->
 
 <br>
 <div class="parent">

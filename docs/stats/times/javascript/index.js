@@ -1,11 +1,5 @@
 var mySpreadsheet = 'https://docs.google.com/spreadsheets/d/1UyLm10dokjffi5glQINoHRaCqYH0ewD-dn-0T34V6RU/edit#gid=0';
 var miscSpreadsheet = 'https://docs.google.com/spreadsheets/d/1UyLm10dokjffi5glQINoHRaCqYH0ewD-dn-0T34V6RU/edit#gid=1152025324'
-// $('#runs').sheetrock({
-//   url: mySpreadsheet,
-// 	query: "select A, B order by A desc",
-//   // query: "select A,B,C,D,E,L where E = 'Both' order by L desc",
-//   fetchSize: 5
-// });
 
 $('#num_of_dragons').sheetrock({
   url: miscSpreadsheet,
@@ -24,3 +18,44 @@ $('#highest_level').sheetrock({
   fetchSize: 1,
 });
 
+$('#average_time').sheetrock({
+  url: miscSpreadsheet,
+	 query: "select N",
+  fetchSize: 5
+});
+
+$('#average_time_delta').sheetrock({
+  url: miscSpreadsheet,
+	query: "select O",
+  fetchSize: 5,
+	callback: function (error, options, response) {
+		if (response.rows[1].cells.O.charAt(0) == "-") {
+			document.getElementById('average_time_delta_div').className="text-success font-weight-bold mr-1";
+			document.getElementById('average_time_delta_arrow').className="fa fa-arrow-up"; 
+		} else {
+			document.getElementById('average_time_delta_div').className="text-danger font-weight-bold mr-11";
+			document.getElementById('average_time_delta_arrow').className="fa fa-arrow-down"; 
+		}
+  }
+});
+
+$('#average_time_last_five').sheetrock({
+  url: miscSpreadsheet,
+	query: "select P",
+  fetchSize: 5
+});
+
+$('#average_time_delta_last_five').sheetrock({
+  url: miscSpreadsheet,
+	query: "select Q",
+  fetchSize: 5,
+	callback: function (error, options, response) {
+		if (response.rows[1].cells.Q.charAt(0) == "-") {
+			document.getElementById('average_time_delta_last_five_div').className="text-success font-weight-bold mr-1";
+			document.getElementById('average_time_delta_last_five_arrow').className="fa fa-arrow-up"; 
+		} else {
+			document.getElementById('average_time_delta_last_five_div').className="text-danger font-weight-bold mr-11";
+			document.getElementById('average_time_delta_last_five_arrow').className="fa fa-arrow-down"; 
+		}
+  }
+});
