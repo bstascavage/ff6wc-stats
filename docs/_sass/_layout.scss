@@ -337,6 +337,13 @@ pre code.hljs {
 		flex-wrap: wrap;
 	}
 
+	.flex-container-stats {
+		display: flex;
+		/* or inline-flex */
+		justify-content: center;
+		gap: 15px;
+	}
+
 	.shadow {
 		display: flex;
 		/* or inline-flex */
@@ -349,8 +356,15 @@ pre code.hljs {
 	}
 
 	#item {
-		flex-grow: 4;
+		flex-grow: 1;
 		flex-shrink: 1;
+	}
+
+	#stat-card-flex {
+		height: 100%;
+		flex-grow: 15;
+		flex-shrink: 1;
+		align-self: baseline;
 	}
 
 	/* Mobile view */
@@ -364,6 +378,10 @@ pre code.hljs {
 		}
 
 		.flex-container-wrapped {
+			flex-direction: column;
+		}
+
+		.flex-container-stats {
 			flex-direction: column;
 		}
 

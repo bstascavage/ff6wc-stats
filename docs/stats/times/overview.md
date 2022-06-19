@@ -34,54 +34,79 @@ main_nav: true
   </div>
 </div>
 
-<section class="main-content">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-4 offset-sm-2">
-        <div class="stat-card">
-          <div class="stat-card__content">
-            <p class="text-uppercase mb-1 text-muted">Average Time</p>
-            <h2> <span id="average_time"></span></h2>
-            <div>
-              <div id="average_time_delta_div">
-                <div id="average_time_delta_arrow"></div> <span id="average_time_delta"></span>
-              </div>
-
-              <!-- <span class="text-success font-weight-bold mr-1"><i class="fa fa-arrow-up"></i> +5%</span> -->
-              <span class="text-muted">after last run</span>
-            </div>
-          </div>
-          <!-- <div class="stat-card__icon stat-card__icon--success">
+<div class="parent">
+  <div class="flex-container-stats">
+    <nav class="stat-card-flex">
+      <div class="stat-card">
+        <div class="stat-card__content">
+          <p class="text-uppercase mb-1 text-muted">Best Time</p>
+          <h2> <span id="best_time"></span></h2>
+        </div>
+        <!-- <div class="stat-card__icon stat-card__icon--success">
             <div class="stat-card__icon-circle">
               <i class="fa fa-suitcase"></i>
             </div>
           </div> -->
-        </div>
       </div>
-      <div class="col-sm-4">
-        <div class="stat-card">
-          <div class="stat-card__content">
-            <p class="text-uppercase mb-1 text-muted">Average Time - Last 5 Runs</p>
-            <h2> <span id="average_time_last_five"></span></h2>
-            <div>
-              <div id="average_time_delta_last_five_div">
-                <div id="average_time_delta_last_five_arrow"></div> <span id="average_time_delta_last_five"></span>
-              </div>
-
-              <!-- <span class="text-success font-weight-bold mr-1"><i class="fa fa-arrow-up"></i> +5%</span> -->
-              <span class="text-muted">after last run</span>
-            </div>
-          </div>
-          <!-- <div class="stat-card__icon stat-card__icon--success">
+    </nav>
+    <nav class="stat-card-flex">
+      <div class="stat-card">
+        <div class="stat-card__content">
+          <p class="text-uppercase mb-1 text-muted">Number of Attempts</p>
+          <h2> <span id="num_of_attempts"></span></h2>
+        </div>
+        <!-- <div class="stat-card__icon stat-card__icon--success">
             <div class="stat-card__icon-circle">
               <i class="fa fa-suitcase"></i>
             </div>
           </div> -->
-        </div>
       </div>
-    </div>
+    </nav>
+    <nav class="stat-card-flex">
+      <div class="stat-card">
+        <div class="stat-card__content">
+          <p class="text-uppercase mb-1 text-muted">Average Time</p>
+          <h2> <span id="average_time"></span></h2>
+          <div>
+            <div id="average_time_delta_div">
+              <div id="average_time_delta_arrow"></div> <span id="average_time_delta"></span>
+            </div>
+
+            <!-- <span class="text-success font-weight-bold mr-1"><i class="fa fa-arrow-up"></i> +5%</span> -->
+            <span class="text-muted">after last run</span>
+          </div>
+        </div>
+        <!-- <div class="stat-card__icon stat-card__icon--success">
+            <div class="stat-card__icon-circle">
+              <i class="fa fa-suitcase"></i>
+            </div>
+          </div> -->
+      </div>
+    </nav>
+    <nav class="stat-card-flex">
+      <div class="stat-card">
+        <div class="stat-card__content">
+          <p class="text-uppercase mb-1 text-muted">Average Time - Last 5 Runs</p>
+          <h2> <span id="average_time_last_five"></span></h2>
+          <div>
+            <div id="average_time_delta_last_five_div">
+              <div id="average_time_delta_last_five_arrow"></div> <span id="average_time_delta_last_five"></span>
+            </div>
+
+            <!-- <span class="text-success font-weight-bold mr-1"><i class="fa fa-arrow-up"></i> +5%</span> -->
+            <span class="text-muted">after last run</span>
+          </div>
+        </div>
+        <!-- <div class="stat-card__icon stat-card__icon--success">
+            <div class="stat-card__icon-circle">
+              <i class="fa fa-suitcase"></i>
+            </div>
+          </div> -->
+      </div>
+    </nav>
   </div>
-</section>
+</div>
+
 <!-- <div class="parent">
   <div class="flex-container">
     <nav class="item">

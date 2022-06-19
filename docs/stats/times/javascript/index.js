@@ -18,6 +18,18 @@ $('#highest_level').sheetrock({
   fetchSize: 1,
 });
 
+$('#num_of_attempts').sheetrock({
+  url: miscSpreadsheet,
+	 query: "select L",
+  fetchSize: 5
+});
+
+$('#best_time').sheetrock({
+  url: miscSpreadsheet,
+	 query: "select T",
+  fetchSize: 5
+});
+
 $('#average_time').sheetrock({
   url: miscSpreadsheet,
 	 query: "select N",
