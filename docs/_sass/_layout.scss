@@ -360,11 +360,12 @@ pre code.hljs {
 		flex-shrink: 1;
 	}
 
-	#stat-card-flex {
-		height: 100%;
-		flex-grow: 15;
-		flex-shrink: 1;
-		align-self: baseline;
+	.stat-card-flex {
+		.stat-card {
+			height: 100%;
+			text-align: center;
+			justify-content: center;
+		}
 	}
 
 	/* Mobile view */
