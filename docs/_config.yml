@@ -21,7 +21,7 @@ description: >
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "https://setokiaba.com" # the base hostname & protocol for your site
 cover: "/assets/cover-1.webp"
-logo: "/assets/magitek-icon.jpg"
+logo: "/assets/magitek-icon.png"
 
 # Build settings
 markdown: kramdown
