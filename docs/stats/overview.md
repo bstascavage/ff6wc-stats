@@ -14,8 +14,8 @@ main_nav: true
   <script src="https://unpkg.com/jquery@3.6.0/dist/jquery.slim.min.js" defer></script>
   <script src="https://unpkg.com/sheetrock@1.2.0/dist/sheetrock.min.js" defer></script>
   <script src="https://unpkg.com/handlebars@4.5.0/dist/handlebars.min.js" defer></script>
-  <script src="javascript/index.js" defer></script>
-  <script src="javascript/charts.js" defer></script>
+  <script src="/stats/javascript/index.js" defer></script>
+  <script src="/stats/javascript/charts.js" defer></script>
 
 
   <!-- <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
