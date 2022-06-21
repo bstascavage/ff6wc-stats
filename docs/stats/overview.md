@@ -1,9 +1,9 @@
 ---
-layout: page
-title: "Time Breakdown"
+layout: post
+title: "Run Stats"
 desc: "Stats pertaining to run times"
-cover: "/assets/cover-1.webp"
-permalink: /stats/times/
+cover: "/assets/cover.jpg"
+permalink: /stats
 main_nav: true
 ---
 
@@ -22,36 +22,14 @@ main_nav: true
 
 
 
-<p style="text-align: center; font-size: 24px">Overview</p>
-<div class="parent">
-  <div class="flex-container-centered">
-    <nav class="item">
-      <!-- Attempts -->
-      <iframe width="295" height="50" seamless frameborder="0" scrolling="no"
-        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRiTdSqwPMqGoHBbeToYQvZd2e2I6RdaXCL4BTJVJrg1cAX7G61heSd1XSQCr62lwCSL72wMksKED8c/pubchart?oid=1936065713&amp;format=interactive"></iframe>
-    </nav>
-  </div>
-</div>
+<p style="text-align: center; font-size: 32px">Overview</p>
 
 <div class="parent">
   <div class="flex-container-stats">
     <nav class="stat-card-flex">
       <div class="stat-card">
         <div class="stat-card__content">
-          <p class="text-uppercase mb-1 text-muted">Best Time</p>
-          <h2> <span id="best_time"></span></h2>
-        </div>
-        <!-- <div class="stat-card__icon stat-card__icon--success">
-            <div class="stat-card__icon-circle">
-              <i class="fa fa-suitcase"></i>
-            </div>
-          </div> -->
-      </div>
-    </nav>
-    <nav class="stat-card-flex">
-      <div class="stat-card">
-        <div class="stat-card__content">
-          <p class="text-uppercase mb-1 text-muted">Number of Attempts</p>
+          <p class="text-uppercase mb-1 text-muted">Attempts</p>
           <h2> <span id="num_of_attempts"></span></h2>
         </div>
         <!-- <div class="stat-card__icon stat-card__icon--success">
@@ -64,6 +42,33 @@ main_nav: true
     <nav class="stat-card-flex">
       <div class="stat-card">
         <div class="stat-card__content">
+          <p class="text-uppercase mb-1 text-muted">Best Time</p>
+          <h2> <span id="best_time"></span></h2>
+        </div>
+        <div class="stat-card__icon stat-card__icon--success">
+          <div class="stat-card__icon-medal stat-card__icon-circle">
+            <i class="fa-solid fa-medal"></i>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <nav class="stat-card-flex">
+      <div class="stat-card">
+        <div class="stat-card__content">
+          <p class="text-uppercase mb-1 text-muted">Last Time</p>
+          <h2> <span id="last_time"></span></h2>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<br>
+<div class="parent">
+  <div class="flex-container-stats">
+    <nav class="stat-card-flex">
+      <div class="stat-card-trend stat-card">
+        <div class="stat-card__content">
           <p class="text-uppercase mb-1 text-muted">Average Time</p>
           <h2> <span id="average_time"></span></h2>
           <div>
@@ -72,7 +77,7 @@ main_nav: true
             </div>
 
             <!-- <span class="text-success font-weight-bold mr-1"><i class="fa fa-arrow-up"></i> +5%</span> -->
-            <span class="text-muted">after last run</span>
+            <span class="text-muted-small">after last run</span>
           </div>
         </div>
         <!-- <div class="stat-card__icon stat-card__icon--success">
@@ -83,7 +88,7 @@ main_nav: true
       </div>
     </nav>
     <nav class="stat-card-flex">
-      <div class="stat-card">
+      <div class="stat-card-trend stat-card">
         <div class="stat-card__content">
           <p class="text-uppercase mb-1 text-muted">Average Time - Last 5 Runs</p>
           <h2> <span id="average_time_last_five"></span></h2>
@@ -93,7 +98,7 @@ main_nav: true
             </div>
 
             <!-- <span class="text-success font-weight-bold mr-1"><i class="fa fa-arrow-up"></i> +5%</span> -->
-            <span class="text-muted">after last run</span>
+            <span class="text-muted-small">after last run</span>
           </div>
         </div>
         <!-- <div class="stat-card__icon stat-card__icon--success">
@@ -106,29 +111,71 @@ main_nav: true
   </div>
 </div>
 
-<!-- <div class="parent">
-  <div class="flex-container">
-    <nav class="item">
-      Best Time
-      <iframe width="270" height="117" seamless frameborder="0" scrolling="no"
-        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRiTdSqwPMqGoHBbeToYQvZd2e2I6RdaXCL4BTJVJrg1cAX7G61heSd1XSQCr62lwCSL72wMksKED8c/pubchart?oid=1700953034&amp;format=interactive"></iframe>
+<br>
+<p style="text-align: center; font-size: 18px">Skip Stats</p>
+<div class="parent">
+  <div class="flex-container-stats">
 
+    <nav class="stat-card-flex">
+      <div class="stat-card">
+        <div class="stat-card__content">
+          <p class="text-uppercase mb-1 text-muted">Skip Rate</p>
+          <h2> <span id="skip_rate"></span></h2>
+        </div>
+        <!-- <div class="stat-card__icon stat-card__icon--success">
+            <div class="stat-card__icon-circle">
+              <i class="fa fa-suitcase"></i>
+            </div>
+          </div> -->
+      </div>
     </nav>
-    <nav class="item">
-      Average Time
-      <iframe width="270" height="117" seamless frameborder="0" scrolling="no"
-        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRiTdSqwPMqGoHBbeToYQvZd2e2I6RdaXCL4BTJVJrg1cAX7G61heSd1XSQCr62lwCSL72wMksKED8c/pubchart?oid=274751191&amp;format=interactive"></iframe>
+    <nav class="stat-card-flex">
+      <div class="stat-card-trend stat-card">
+        <div class="stat-card__content">
+          <p class="text-uppercase mb-1 text-muted">Average Time - Skip</p>
+          <h2> <span id="average_time_skip"></span></h2>
+          <div>
+            <div id="average_time_delta_skip_div">
+              <div id="average_time_delta_skip_arrow"></div> <span id="average_time_delta_skip"></span>
+            </div>
 
+            <!-- <span class="text-success font-weight-bold mr-1"><i class="fa fa-arrow-up"></i> +5%</span> -->
+            <span class="text-muted-small">after last run with skip</span>
+          </div>
+        </div>
+        <!-- <div class="stat-card__icon stat-card__icon--success">
+            <div class="stat-card__icon-circle">
+              <i class="fa fa-suitcase"></i>
+            </div>
+          </div> -->
+      </div>
     </nav>
-    <nav class="item">
-      Average Time - Last 5
-      <iframe width="270" height="117" seamless frameborder="0" scrolling="no"
-        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRiTdSqwPMqGoHBbeToYQvZd2e2I6RdaXCL4BTJVJrg1cAX7G61heSd1XSQCr62lwCSL72wMksKED8c/pubchart?oid=709726460&amp;format=interactive"></iframe>
+    <nav class="stat-card-flex">
+      <div class="stat-card-trend stat-card">
+        <div class="stat-card__content">
+          <p class="text-uppercase mb-1 text-muted">Average Time - No Skip</p>
+          <h2> <span id="average_time_no_skip"></span></h2>
+          <div>
+            <div id="average_time_delta_no_skip_div">
+              <div id="average_time_delta_no_skip_arrow"></div> <span id="average_time_delta_no_skip"></span>
+            </div>
 
+            <!-- <span class="text-success font-weight-bold mr-1"><i class="fa fa-arrow-up"></i> +5%</span> -->
+            <span class="text-muted-small">after last run without skip</span>
+          </div>
+        </div>
+        <!-- <div class="stat-card__icon stat-card__icon--success">
+            <div class="stat-card__icon-circle">
+              <i class="fa fa-suitcase"></i>
+            </div>
+          </div> -->
+      </div>
     </nav>
-
   </div>
-</div> -->
+</div>
+
+<br>
+<p style="text-align: center; font-size: 28px">Time Breakdown</p>
 
 <br>
 <div class="parent">
@@ -144,31 +191,6 @@ main_nav: true
 </div>
 
 <br>
-<p style="text-align: center; font-size: 24px">Skip Stats</p>
-<div class="parent">
-  <div class="flex-container">
-    <nav class="item">
-      <!-- Skip Rate -->
-      <iframe width="259" height="50" seamless frameborder="0" scrolling="no"
-        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRiTdSqwPMqGoHBbeToYQvZd2e2I6RdaXCL4BTJVJrg1cAX7G61heSd1XSQCr62lwCSL72wMksKED8c/pubchart?oid=906300537&amp;format=interactive"></iframe>
-    </nav>
-  </div>
-</div>
-
-<div class="parent">
-  <div class="flex-container-centered">
-    <nav class="item">
-      <!-- Average Time - Skip -->
-      <iframe width="270" height="117" seamless frameborder="0" scrolling="no"
-        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRiTdSqwPMqGoHBbeToYQvZd2e2I6RdaXCL4BTJVJrg1cAX7G61heSd1XSQCr62lwCSL72wMksKED8c/pubchart?oid=221549340&amp;format=interactive"></iframe>
-    </nav>
-    <nav class="item">
-      <!-- Average Time - No Skip -->
-      <iframe width="270" height="117" seamless frameborder="0" scrolling="no"
-        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRiTdSqwPMqGoHBbeToYQvZd2e2I6RdaXCL4BTJVJrg1cAX7G61heSd1XSQCr62lwCSL72wMksKED8c/pubchart?oid=1931176540&amp;format=interactive"></iframe>
-    </nav>
-  </div>
-</div>
 
 <br>
 <div class="parent">

@@ -16,19 +16,23 @@ body {
 }
 
 .stat-card {
-	background: #fff;
+	background: #ffffff;
 	padding: 25px;
 	margin-bottom: 25px;
-	border-radius: 5px;
+	border-radius: 6px;
 	overflow: hidden;
 	display: flex;
 	justify-content: space-between;
+	text-align: center;
+	justify-content: center;
+	// flex-direction: column;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 	transition: all 0.2s;
 	;
 
 	&:hover {
-		transform: translateY(-2px);
+		// transform: translateY(-5px);
+		transform: scale(1.07);
 		box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 	}
 
@@ -48,9 +52,24 @@ body {
 			}
 		}
 
+		&-medal {
+			background: none;
+			display: flex;
+			align-items: right;
+			justify-content: right;
+		}
+
 		&.stat-card__icon--success {
 			.stat-card__icon-circle {
 				background: rgba($success, 0.2);
+
+				i {
+					color: $success;
+				}
+			}
+
+			.stat-card__icon-medal {
+				background: none;
 
 				i {
 					color: $success;
@@ -88,4 +107,13 @@ body {
 			}
 		}
 	}
+}
+
+.stat-card-row {
+	flex-direction: row;
+	padding: 25px;
+}
+
+.stat-card-trend {
+	padding-bottom: 5px;
 }
