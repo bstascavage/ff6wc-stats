@@ -164,8 +164,9 @@ main_nav: true
     <nav class="charts">
       <div class="chart">
         <div id="chart_div"></div>
-      </div>
+        <p style="text-align: center; font-size: 12px">*Red data points indicate runs where the skip is used.</p>
 
+      </div>
     </nav>
   </div>
 </div>
