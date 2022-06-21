@@ -26,6 +26,7 @@ main_nav: true
 
 <p style="text-align: center; font-size: 32px">Overview</p>
 
+<!-- Overview stats -->
 <div class="parent">
   <div class="flex-container-stats">
     <nav class="stat-card-flex">
@@ -34,11 +35,6 @@ main_nav: true
           <p class="text-uppercase mb-1 text-muted">Attempts</p>
           <h2> <span id="num_of_attempts"></span></h2>
         </div>
-        <!-- <div class="stat-card__icon stat-card__icon--success">
-            <div class="stat-card__icon-circle">
-              <i class="fa fa-suitcase"></i>
-            </div>
-          </div> -->
       </div>
     </nav>
     <nav class="stat-card-flex">
@@ -66,6 +62,7 @@ main_nav: true
 </div>
 
 <br>
+<!-- Average Times -->
 <div class="parent">
   <div class="flex-container-stats">
     <nav class="stat-card-flex">
@@ -77,16 +74,9 @@ main_nav: true
             <div id="average_time_delta_div">
               <div id="average_time_delta_arrow"></div> <span id="average_time_delta"></span>
             </div>
-
-            <!-- <span class="text-success font-weight-bold mr-1"><i class="fa fa-arrow-up"></i> +5%</span> -->
             <span class="text-muted-small">after last run</span>
           </div>
         </div>
-        <!-- <div class="stat-card__icon stat-card__icon--success">
-            <div class="stat-card__icon-circle">
-              <i class="fa fa-suitcase"></i>
-            </div>
-          </div> -->
       </div>
     </nav>
     <nav class="stat-card-flex">
@@ -98,16 +88,23 @@ main_nav: true
             <div id="average_time_delta_last_five_div">
               <div id="average_time_delta_last_five_arrow"></div> <span id="average_time_delta_last_five"></span>
             </div>
-
-            <!-- <span class="text-success font-weight-bold mr-1"><i class="fa fa-arrow-up"></i> +5%</span> -->
             <span class="text-muted-small">after last run</span>
           </div>
         </div>
-        <!-- <div class="stat-card__icon stat-card__icon--success">
-            <div class="stat-card__icon-circle">
-              <i class="fa fa-suitcase"></i>
+      </div>
+    </nav>
+    <nav class="stat-card-flex">
+      <div class="stat-card-trend stat-card">
+        <div class="stat-card__content">
+          <p class="text-uppercase mb-1 text-muted">Ultros Average Time</p>
+          <h2> <span id="average_time_ultros"></span></h2>
+          <div>
+            <div id="average_time_delta_ultros_div">
+              <div id="average_time_delta_ultros_arrow"></div> <span id="average_time_delta_ultros"></span>
             </div>
-          </div> -->
+            <span class="text-muted-small">after last Ultros run</span>
+          </div>
+        </div>
       </div>
     </nav>
   </div>
@@ -124,11 +121,6 @@ main_nav: true
           <p class="text-uppercase mb-1 text-muted">Skip Rate</p>
           <h2> <span id="skip_rate"></span></h2>
         </div>
-        <!-- <div class="stat-card__icon stat-card__icon--success">
-            <div class="stat-card__icon-circle">
-              <i class="fa fa-suitcase"></i>
-            </div>
-          </div> -->
       </div>
     </nav>
     <nav class="stat-card-flex">
@@ -140,16 +132,9 @@ main_nav: true
             <div id="average_time_delta_skip_div">
               <div id="average_time_delta_skip_arrow"></div> <span id="average_time_delta_skip"></span>
             </div>
-
-            <!-- <span class="text-success font-weight-bold mr-1"><i class="fa fa-arrow-up"></i> +5%</span> -->
             <span class="text-muted-small">after last run with skip</span>
           </div>
         </div>
-        <!-- <div class="stat-card__icon stat-card__icon--success">
-            <div class="stat-card__icon-circle">
-              <i class="fa fa-suitcase"></i>
-            </div>
-          </div> -->
       </div>
     </nav>
     <nav class="stat-card-flex">
@@ -161,16 +146,9 @@ main_nav: true
             <div id="average_time_delta_no_skip_div">
               <div id="average_time_delta_no_skip_arrow"></div> <span id="average_time_delta_no_skip"></span>
             </div>
-
-            <!-- <span class="text-success font-weight-bold mr-1"><i class="fa fa-arrow-up"></i> +5%</span> -->
             <span class="text-muted-small">after last run without skip</span>
           </div>
         </div>
-        <!-- <div class="stat-card__icon stat-card__icon--success">
-            <div class="stat-card__icon-circle">
-              <i class="fa fa-suitcase"></i>
-            </div>
-          </div> -->
       </div>
     </nav>
   </div>
@@ -180,6 +158,7 @@ main_nav: true
 <p style="text-align: center; font-size: 28px">Time Breakdown</p>
 
 <p style="text-align: center; font-size: 18px">Run Times</p>
+<!-- Run times line chart -->
 <div class="parent">
   <div class="flex-container-stats">
     <nav class="charts">
