@@ -7,22 +7,22 @@ $('#skip_rate').sheetrock({
   fetchSize: 5,
 });
 
-$('#num_of_dragons').sheetrock({
-  url: miscSpreadsheet,
-  query: "select U",
-  fetchSize: 5,
-});
+// $('#num_of_dragons').sheetrock({
+//   url: miscSpreadsheet,
+//   query: "select U",
+//   fetchSize: 5,
+// });
 
-$('#num_of_dead_checks').sheetrock({
-  url: miscSpreadsheet,
-  query: "select V",
-  fetchSize: 1,
-});
-$('#highest_level').sheetrock({
-  url: miscSpreadsheet,
-  query: "select W",
-  fetchSize: 1,
-});
+// $('#num_of_dead_checks').sheetrock({
+//   url: miscSpreadsheet,
+//   query: "select V",
+//   fetchSize: 1,
+// });
+// $('#highest_level').sheetrock({
+//   url: miscSpreadsheet,
+//   query: "select W",
+//   fetchSize: 1,
+// });
 
 $('#num_of_attempts').sheetrock({
   url: miscSpreadsheet,

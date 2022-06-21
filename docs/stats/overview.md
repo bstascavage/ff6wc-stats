@@ -10,10 +10,12 @@ main_nav: true
 
 
 <head>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js" defer></script>
   <script src="https://unpkg.com/jquery@3.6.0/dist/jquery.slim.min.js" defer></script>
   <script src="https://unpkg.com/sheetrock@1.2.0/dist/sheetrock.min.js" defer></script>
   <script src="https://unpkg.com/handlebars@4.5.0/dist/handlebars.min.js" defer></script>
-  <script defer src="./javascript/index.js"></script>
+  <script src="./javascript/index.js" defer></script>
+  <script src="./javascript/charts.js" defer></script>
 
 
   <!-- <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
@@ -177,62 +179,14 @@ main_nav: true
 <br>
 <p style="text-align: center; font-size: 28px">Time Breakdown</p>
 
-<br>
+<p style="text-align: center; font-size: 18px">Run Times</p>
 <div class="parent">
-  <div class="flex-container">
-    <nav class="item">
-      <div class="shadow">
-        <!-- Run Times -->
-        <iframe width="823" height="371" seamless frameborder="0" scrolling="no"
-          src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRiTdSqwPMqGoHBbeToYQvZd2e2I6RdaXCL4BTJVJrg1cAX7G61heSd1XSQCr62lwCSL72wMksKED8c/pubchart?oid=293573893&amp;format=interactive"></iframe>
+  <div class="flex-container-stats">
+    <nav class="charts">
+      <div class="chart">
+        <div id="chart_div"></div>
       </div>
+
     </nav>
   </div>
 </div>
-
-<br>
-
-<br>
-<div class="parent">
-  <div class="flex-container">
-    <nav class="item">
-      <div class="shadow">
-        <!-- Run Times - Skip vs No Skip -->
-        <iframe width="823" height="371" seamless frameborder="0" scrolling="no"
-          src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRiTdSqwPMqGoHBbeToYQvZd2e2I6RdaXCL4BTJVJrg1cAX7G61heSd1XSQCr62lwCSL72wMksKED8c/pubchart?oid=99849945&amp;format=interactive"></iframe>
-      </div>
-    </nav>
-  </div>
-</div>
-
-<br>
-<p style="text-align: center; font-size: 24px">Time Breakdown</p>
-<div class="parent">
-  <div class="flex-container-wrapped">
-    <nav class="item">
-      <div class="shadow">
-        <!-- Average Time per Starting Character -->
-        <iframe width="823" height="371" seamless frameborder="0" scrolling="no"
-          src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRiTdSqwPMqGoHBbeToYQvZd2e2I6RdaXCL4BTJVJrg1cAX7G61heSd1XSQCr62lwCSL72wMksKED8c/pubchart?oid=621759507&amp;format=interactive"></iframe>
-      </div>
-    </nav>
-    <nav class="item">
-      <div class="shadow">
-        <!-- Average Time per # of Dead Checks -->
-        <iframe width="823" height="371" seamless frameborder="0" scrolling="no"
-          src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRiTdSqwPMqGoHBbeToYQvZd2e2I6RdaXCL4BTJVJrg1cAX7G61heSd1XSQCr62lwCSL72wMksKED8c/pubchart?oid=501344415&amp;format=interactive"></iframe>
-      </div>
-    </nav>
-  </div>
-</div>
-
-<br>
-<p style="text-align: center; font-size: 24px">Misc Stats</p>
-
-A breakdown of an average run:
-
-- <span id="num_of_dragons">{{cells}}</span> Dragons killed
-- <span id="num_of_dead_checks">{{cells}}</span> Dead Checks
-- The highest level amonst all part members is level <span id="highest_level">{{cells}}</span>
-
-<table id="num_of_dragons" class="table table-condensed table-striped"></table>

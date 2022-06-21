@@ -356,9 +356,28 @@ pre code.hljs {
 		position: relative;
 	}
 
-	#item {
+	.charts {
+		flex-grow: 1;
+		text-align: center;
+		justify-content: center;
+	}
+
+	.chart {
+		background: #ffffff;
+		// padding: 25px;
+		// margin-bottom: 25px;
+		border-radius: 6px;
+		// overflow: hidden;
+		display: flex;
 		flex-grow: 1;
 		flex-shrink: 1;
+		// justify-content: space-between;
+		text-align: center;
+		justify-content: center;
+		flex-direction: column;
+		box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
+		transition: all 0.2s;
+		;
 	}
 
 	.stat-card-flex {
