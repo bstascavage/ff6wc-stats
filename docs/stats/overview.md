@@ -163,10 +163,28 @@ main_nav: true
   <div class="flex-container-stats">
     <nav class="charts">
       <div class="chart">
-        <div id="chart_div"></div>
+        <div id="run_times_chart_div"></div>
         <p style="text-align: center; font-size: 12px">*Red data points indicate runs where the skip is used.</p>
 
       </div>
     </nav>
   </div>
+
 </div>
+
+<br>
+<p style="text-align: center; font-size: 18px">Times per Dead Check</p>
+<div class="parent">
+  <div class="flex-container-stats">
+    <nav class="charts">
+      <div class="chart">
+        <div id="dead_check_times_chart_div"></div>
+        <p style="text-align: center; font-size: 12px">*Number inside bar is number of runs with that amount of dead
+          checks.</p>
+
+      </div>
+    </nav>
+  </div>
+</div>
+<br>
+<br>
