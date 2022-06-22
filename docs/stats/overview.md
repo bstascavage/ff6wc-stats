@@ -181,10 +181,21 @@ main_nav: true
         <div id="dead_check_times_chart_div"></div>
         <p style="text-align: center; font-size: 12px">*Number inside bar is number of runs with that amount of dead
           checks.</p>
-
       </div>
     </nav>
   </div>
 </div>
 <br>
 <br>
+
+<p style="text-align: center; font-size: 18px">Times per Starting Character</p>
+<div class="parent">
+  <div class="flex-container-stats">
+    <nav class="charts">
+      <div class="chart">
+        <div id="character_times_chart_div"></div>
+        <p style="text-align: center; font-size: 12px">*Number inside bar is number of runs with that character.</p>
+      </div>
+    </nav>
+  </div>
+</div>

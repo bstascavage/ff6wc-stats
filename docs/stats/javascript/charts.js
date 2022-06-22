@@ -3,7 +3,8 @@ google.charts.load('current', { 'packages': ['corechart'] });
 
 // Set a callback to run when the Google Visualization API is loaded.
 google.charts.setOnLoadCallback(drawRunTimesLineChart);
-google.charts.setOnLoadCallback(drawDeadcheckTimesBarChart);
+google.charts.setOnLoadCallback(drawDeadcheckTimesColumnChart);
+google.charts.setOnLoadCallback(drawCharacterTimesColumnChart);
 
 function drawRunTimesLineChart() {
 	var opts = {
@@ -71,9 +72,8 @@ function drawRunTimesLineChart() {
 	});
 }
 
-function drawDeadcheckTimesBarChart() {
+function drawDeadcheckTimesColumnChart() {
 	var opts = {
-		title: 'Run Times',
 		titlePosition: 'none',
 		legend: {
 			'position': "none"
@@ -99,6 +99,8 @@ function drawDeadcheckTimesBarChart() {
 	deadCheckQuery.send(function (response) {
 		var data = response.getDataTable();
 		data.addColumn({ type: 'string', role: 'annotation' });
+
+		// Annotate number of runs within bars
 		for (var i = 0; i < data.getNumberOfRows(); i++) {
 			data.setCell(i, 3, String(data.Wf[i].c[2].v))
 		};
@@ -186,6 +188,127 @@ function drawDeadcheckTimesBarChart() {
 		}
 
 		var chart = new google.visualization.ColumnChart(document.getElementById('dead_check_times_chart_div'));
+		chart.draw(view, opts);
+	});
+
+}
+
+function drawCharacterTimesColumnChart() {
+	var opts = {
+		titlePosition: 'none',
+		legend: {
+			'position': "none"
+		},
+		hAxis: {
+			title: 'characters',
+			gridlines: {
+				color: 'transparent'
+			},
+			slantedText: true, slantedTextAngle: 90
+		},
+		vAxis: {
+			title: 'Time',
+		},
+		focusTarget: 'category',
+		chartArea: { left: 100, top: 40, bottom: 70, right: 30, width: "100%", height: "100%" },
+		height: 350
+	};
+
+	var miscQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1UyLm10dokjffi5glQINoHRaCqYH0ewD-dn-0T34V6RU/gviz/tq?gid=1152025324&headers=1');
+	miscQuery.setQuery("select I,J,K limit 14")
+
+	miscQuery.send(function (response) {
+		var data = response.getDataTable();
+		data.addColumn({ type: 'string', role: 'annotation' });
+
+		// Annotate number of runs within bars
+		for (var i = 0; i < data.getNumberOfRows(); i++) {
+			data.setCell(i, 3, String(data.Wf[i].c[2].v))
+		};
+
+		// Some janky crap to make sure the duration time is correct.  Thanks Google.
+		var view = new google.visualization.DataView(data);
+		view.setColumns([0, {
+			calc: function (dt, row) {
+				// initialize variables
+				var timeFormat = '';
+				var timeValue = 0;
+				var duration = [dt.getValue(row, 1).getHours(), dt.getValue(row, 1).getMinutes(), dt.getValue(row, 1).getSeconds()];
+
+				// calculate total time
+				duration.forEach(function (value, index) {
+					// determine time part
+					switch (index) {
+						// hours
+						case 0:
+							timeFormat += value;
+							timeValue += (value * 60);
+							break;
+
+						// minutes
+						case 1:
+							timeFormat += ':' + value;
+							timeValue += value;
+							break;
+
+						// seconds
+						case 2:
+							if (value < 10) {
+								timeFormat += ':0' + value;
+							} else {
+								timeFormat += ':' + value;
+							}
+							timeValue += (value / 60);
+							break;
+
+						// miliseconds
+						case 3:
+							timeValue += (value / 60000);
+							break;
+					}
+				});
+
+				// build object notation
+				return {
+					v: timeValue,
+					f: timeFormat
+				};
+			},
+			label: data.getColumnLabel(1),
+			type: 'number'
+		}, 3]);
+
+		// get range of duration in minutes
+		var range = view.getColumnRange(1);
+
+		// determine max number of hours for y-axis
+		var maxHours = Math.ceil(range.max - 60);
+		var roundTo = parseInt('1' + Array(maxHours.toFixed(0).length).join('0'));
+		var maxHours = Math.ceil((range.max - 60) / roundTo) * roundTo;
+
+		// build y-axis ticks
+		var ticks = [];
+		var min_time;
+		for (var hour = 0; hour <= maxHours; hour += roundTo) {
+			var time_format
+			if (hour == 0) {
+				time_format = '1:00:00'
+				min_time = hour + 60
+			} else {
+				time_format = '1:' + hour + ':00';
+			}
+			ticks.push({
+				v: hour + 60,
+				f: time_format
+			});
+		}
+
+		opts.vAxis.ticks = ticks;
+		opts.vAxis.viewWindow = {
+			min: min_time
+		}
+
+		var chart = new google.visualization.ColumnChart(document.getElementById('character_times_chart_div'));
 		chart.draw(view, opts);
 	});
 
