@@ -200,7 +200,7 @@ function drawCharacterTimesColumnChart() {
 			'position': "none"
 		},
 		hAxis: {
-			title: 'characters',
+			title: 'Character',
 			gridlines: {
 				color: 'transparent'
 			},
@@ -282,21 +282,25 @@ function drawCharacterTimesColumnChart() {
 		var range = view.getColumnRange(1);
 
 		// determine max number of hours for y-axis
-		var maxHours = Math.ceil(range.max - 60);
-		var roundTo = parseInt('1' + Array(maxHours.toFixed(0).length).join('0'));
-		var maxHours = Math.ceil((range.max - 60) / roundTo) * roundTo;
+		var maxTime = Math.ceil((range.max - 60) / 5) * 5;
+		var minTime = Math.floor((range.min - 60) / 5) * 5;
 
 		// build y-axis ticks
 		var ticks = [];
 		var min_time;
-		for (var hour = 0; hour <= maxHours; hour += roundTo) {
+		for (var hour = minTime; hour <= maxTime; hour += 2.5) {
 			var time_format
 			if (hour == 0) {
 				time_format = '1:00:00'
-				min_time = hour + 60
 			} else {
-				time_format = '1:' + hour + ':00';
+				time_format = '1:' + Math.floor(hour);
+				if (hour % 1 != 0) {
+					time_format += ':30'
+				} else {
+					time_format += ':00'
+				}
 			}
+
 			ticks.push({
 				v: hour + 60,
 				f: time_format
@@ -304,9 +308,9 @@ function drawCharacterTimesColumnChart() {
 		}
 
 		opts.vAxis.ticks = ticks;
-		opts.vAxis.viewWindow = {
-			min: min_time
-		}
+		// opts.vAxis.viewWindow = {
+		// 	min: min_time
+		// }
 
 		var chart = new google.visualization.ColumnChart(document.getElementById('character_times_chart_div'));
 		chart.draw(view, opts);
