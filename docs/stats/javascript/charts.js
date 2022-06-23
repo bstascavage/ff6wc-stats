@@ -2,14 +2,14 @@
 google.charts.load('current', { 'packages': ['corechart'] });
 
 // Set a callback to run when the Google Visualization API is loaded.
-google.charts.setOnLoadCallback(drawRunTimesLineChart);
+// google.charts.setOnLoadCallback(drawRunTimesLineChart);
 google.charts.setOnLoadCallback(drawDeadcheckTimesColumnChart);
 google.charts.setOnLoadCallback(drawCharacterTimesColumnChart);
 google.charts.setOnLoadCallback(initialize_everything);
 
 var globalData;
 
-var metricSheetMapping = {
+var metricsConfig = {
 	num_of_attempts: { position: ['L', 2] },
 	best_time: { position: ['V', 2] },
 	last_time: { position: ['W', 2] },
@@ -25,6 +25,62 @@ var metricSheetMapping = {
 	average_time_no_skip: { position: ['T', 2] },
 	average_time_delta_no_skip: { position: ['U', 2], delta: true }
 }
+
+var chartsConfig = {
+	run_times_chart: {
+		x_axis: {
+			column: 'A',
+			type: 'number'
+		},
+		y_axis: {
+			column: 'B',
+			type: 'datetime'
+		},
+		annotation: {
+			column: 'G',
+			color: 'red'
+		},
+		opts: {
+			title: 'Run Times',
+			titlePosition: 'none',
+			legend: {
+				'position': "none"
+			},
+			hAxis:
+			{
+				textPosition: 'none',
+				gridlines: {
+					color: 'transparent'
+				},
+			},
+			vAxis: {
+				title: 'Time',
+				format: 'HH:mm:ss',
+				gridlines: {
+					multiple: 10,
+					units: {
+						format: ['HH:mm:ss']
+					}
+				}
+			},
+			pointSize: 5,
+			trendlines: {
+				0: {
+					type: 'linear',
+					color: 'blue',
+					lineWidth: 2,
+					opacity: 0.3,
+					showR: true,
+					pointSize: 0,
+					tooltip: false
+				}
+			},
+			focusTarget: 'category',
+			chartArea: { left: 100, top: 40, bottom: 40, right: 30, width: "100%", height: "100%" },
+			height: 400
+		}
+	}
+}
 $(window).onload = function () {
 	initialize_everything(function () {
 		console.log('loading');
@@ -38,21 +94,47 @@ function initialize_everything(callback) {
 	query.setQuery("select *")
 
 	query.send(function (response) {
-		var data = response.getDataTable();
+		var queryData = response.getDataTable();
 
-		setMetricElems(data)
+		setMetricElems(queryData)
+		google.charts.setOnLoadCallback(drawRunTimesLineChart(queryData));
 	})
 }
 
-function setMetricElems(data) {
-	// Loop through metricSheetMapping to create divs for single metrics
-	Object.keys(metricSheetMapping).forEach(key => {
+function drawRunTimesLineChart(queryData) {
+	var data = new google.visualization.DataTable();
+	data.addColumn({ 'type': chartsConfig.run_times_chart.x_axis.type });
+	data.addColumn({ 'type': chartsConfig.run_times_chart.y_axis.type });
+	data.addColumn({ 'type': 'string', 'role': 'style' });
+
+	var xAxis = getIndexByColumn(queryData.bf, chartsConfig.run_times_chart.x_axis.column)
+	var yAxis = getIndexByColumn(queryData.bf, chartsConfig.run_times_chart.y_axis.column)
+	var annotations = getIndexByColumn(queryData.bf, chartsConfig.run_times_chart.annotation.column)
+
+	for (let index = 0; index < queryData.Wf.length; ++index) {
+		var annotation = ''
+		if (queryData.Wf[index].c[annotations]) {
+			if (queryData.Wf[index].c[annotations].v == 'Yes') {
+				annotation = 'point {fill-color: ' + chartsConfig.run_times_chart.annotation.color
+			}
+		}
+
+		data.addRows([[queryData.Wf[index].c[xAxis], queryData.Wf[index].c[yAxis], annotation]])
+	}
+
+	var chart = new google.visualization.LineChart(document.getElementById('run_times_chart_div'));
+	chart.draw(data, chartsConfig.run_times_chart.opts)
+}
+
+function setMetricElems(queryData) {
+	// Loop through metricsConfig to create divs for single metrics
+	Object.keys(metricsConfig).forEach(key => {
 		var span = document.getElementById(key);
-		var value = data.Wf[metricSheetMapping[key].position[1] - 2].c[getIndexByColumn(data.bf, metricSheetMapping[key].position[0])].f;
+		var value = queryData.Wf[metricsConfig[key].position[1] - 2].c[getIndexByColumn(queryData.bf, metricsConfig[key].position[0])].f;
 		span.textContent = value
 
 		// For delta metrics, sets the elems for the up/down arrows
-		if (metricSheetMapping[key].delta === true) {
+		if (metricsConfig[key].delta === true) {
 			if (value.charAt(0) == "-") {
 				document.getElementById(key + '_div').className = "text-success font-weight-bold mr-1";
 				document.getElementById(key + '_arrow').className = "fa fa-arrow-up";
@@ -73,71 +155,6 @@ function getIndexByColumn(columns, columnLetter) {
 	}
 }
 
-function drawRunTimesLineChart() {
-	var opts = {
-		title: 'Run Times',
-		titlePosition: 'none',
-		legend: {
-			'position': "none"
-		},
-		hAxis:
-		{
-			textPosition: 'none',
-			gridlines: {
-				color: 'transparent'
-			},
-		},
-		vAxis: {
-			title: 'Time',
-			format: 'HH:mm:ss',
-			gridlines: {
-				multiple: 10,
-				units: {
-					format: ['HH:mm:ss']
-				}
-			}
-		},
-		pointSize: 5,
-		trendlines: {
-			0: {
-				type: 'linear',
-				color: 'blue',
-				lineWidth: 2,
-				opacity: 0.3,
-				showR: true,
-				pointSize: 0,
-				tooltip: false
-			}
-		},
-		focusTarget: 'category',
-		chartArea: { left: 100, top: 40, bottom: 40, right: 30, width: "100%", height: "100%" },
-		height: 400
-	};
-	var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1UyLm10dokjffi5glQINoHRaCqYH0ewD-dn-0T34V6RU/edit#gid=0&headers=1&tq=');
-	query.setQuery('select V')
-
-	// Nested query to get the skip-only datapoints
-	query.send(function (response) {
-		var skip_data = response.getDataTable();
-		query.setQuery('select A,B')
-
-		query.send(function (response) {
-			var data = response.getDataTable();
-			data.addColumn({ 'type': 'string', 'role': 'style' });
-
-			// Setting color style for any runs that use the skip
-			for (var i = 0; i < skip_data.getNumberOfRows(); i++) {
-				if (skip_data.Wf[i].c[0].v == 'Yes') {
-					data.setCell(i, 2, 'point {fill-color: red');
-				}
-			};
-
-			// var chart = new google.visualization.LineChart(document.getElementById('run_times_chart_div'));
-			// chart.draw(data, opts)
-		});
-
-	});
-}
 
 function drawDeadcheckTimesColumnChart() {
 	var opts = {
