@@ -5,6 +5,73 @@ google.charts.load('current', { 'packages': ['corechart'] });
 google.charts.setOnLoadCallback(drawRunTimesLineChart);
 google.charts.setOnLoadCallback(drawDeadcheckTimesColumnChart);
 google.charts.setOnLoadCallback(drawCharacterTimesColumnChart);
+google.charts.setOnLoadCallback(initialize_everything);
+
+var globalData;
+
+var metricSheetMapping = {
+	num_of_attempts: { position: ['L', 2] },
+	best_time: { position: ['V', 2] },
+	last_time: { position: ['W', 2] },
+	average_time: { position: ['N', 2] },
+	average_time_delta: { position: ['O', 2], delta: true },
+	average_time_last_five: { position: ['P', 2] },
+	average_time_delta_last_five: { position: ['Q', 2], delta: true },
+	average_time_ultros: { position: ['X', 2] },
+	average_time_delta_ultros: { position: ['Y', 2], delta: true },
+	skip_rate: { position: ['AD', 2] },
+	average_time_skip: { position: ['R', 2] },
+	average_time_delta_skip: { position: ['S', 2], delta: true },
+	average_time_no_skip: { position: ['T', 2] },
+	average_time_delta_no_skip: { position: ['U', 2], delta: true }
+}
+$(window).onload = function () {
+	initialize_everything(function () {
+		console.log('loading');
+
+	});
+}
+
+function initialize_everything(callback) {
+	// Fetching the formula Google Sheet
+	var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1UyLm10dokjffi5glQINoHRaCqYH0ewD-dn-0T34V6RU/gviz/tq?gid=1152025324&headers=1');
+	query.setQuery("select *")
+
+	query.send(function (response) {
+		var data = response.getDataTable();
+
+		setMetricElems(data)
+	})
+}
+
+function setMetricElems(data) {
+	// Loop through metricSheetMapping to create divs for single metrics
+	Object.keys(metricSheetMapping).forEach(key => {
+		var span = document.getElementById(key);
+		var value = data.Wf[metricSheetMapping[key].position[1] - 2].c[getIndexByColumn(data.bf, metricSheetMapping[key].position[0])].f;
+		span.textContent = value
+
+		// For delta metrics, sets the elems for the up/down arrows
+		if (metricSheetMapping[key].delta === true) {
+			if (value.charAt(0) == "-") {
+				document.getElementById(key + '_div').className = "text-success font-weight-bold mr-1";
+				document.getElementById(key + '_arrow').className = "fa fa-arrow-up";
+			} else {
+				document.getElementById(key + '_div').className = "text-danger font-weight-bold mr-11";
+				document.getElementById(key + '_arrow').className = "fa fa-arrow-down";
+			}
+		}
+	});
+}
+
+function getIndexByColumn(columns, columnLetter) {
+	// Converts human-readable Sheets info (ie cell C2) to the proper index in the DataTable object
+	for (let index = 0; index < columns.length; ++index) {
+		if (columns[index].id == columnLetter) {
+			return index
+		}
+	}
+}
 
 function drawRunTimesLineChart() {
 	var opts = {
@@ -65,8 +132,8 @@ function drawRunTimesLineChart() {
 				}
 			};
 
-			var chart = new google.visualization.LineChart(document.getElementById('run_times_chart_div'));
-			chart.draw(data, opts)
+			// var chart = new google.visualization.LineChart(document.getElementById('run_times_chart_div'));
+			// chart.draw(data, opts)
 		});
 
 	});
@@ -191,8 +258,8 @@ function drawDeadcheckTimesColumnChart() {
 			min: min_time
 		}
 
-		var chart = new google.visualization.ColumnChart(document.getElementById('dead_check_times_chart_div'));
-		chart.draw(view.toDataTable(), opts);
+		// var chart = new google.visualization.ColumnChart(document.getElementById('dead_check_times_chart_div'));
+		// chart.draw(view.toDataTable(), opts);
 	});
 
 }
@@ -316,12 +383,10 @@ function drawCharacterTimesColumnChart() {
 		}
 
 		opts.vAxis.ticks = ticks;
-		// opts.vAxis.viewWindow = {
-		// 	min: min_time
-		// }
 
-		var chart = new google.visualization.ColumnChart(document.getElementById('character_times_chart_div'));
-		chart.draw(view.toDataTable(), opts);
+		// var chart = new google.visualization.ColumnChart(document.getElementById('character_times_chart_div'));
+		// chart.draw(view.toDataTable(), opts);
 	});
 
 }
+

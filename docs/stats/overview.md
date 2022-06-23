@@ -12,13 +12,8 @@ main_nav: true
 <head>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js" defer></script>
   <script src="https://unpkg.com/jquery@3.6.0/dist/jquery.slim.min.js" defer></script>
-  <script src="https://unpkg.com/sheetrock@1.2.0/dist/sheetrock.min.js" defer></script>
-  <script src="https://unpkg.com/handlebars@4.5.0/dist/handlebars.min.js" defer></script>
-  <script src="/stats/javascript/index.js" defer></script>
   <script src="/stats/javascript/charts.js" defer></script>
 
-
-  <!-- <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
