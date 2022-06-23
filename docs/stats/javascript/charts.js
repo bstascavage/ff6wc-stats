@@ -92,7 +92,7 @@ function drawDeadcheckTimesColumnChart() {
 		chartArea: { left: 100, top: 40, bottom: 40, right: 30, width: "100%", height: "100%" },
 		height: 350,
 		animation: {
-			duration: 1500,
+			duration: 2500,
 			startup: true
 		}
 	};
@@ -217,7 +217,7 @@ function drawCharacterTimesColumnChart() {
 		chartArea: { left: 100, top: 40, bottom: 70, right: 30, width: "100%", height: "100%" },
 		height: 350,
 		animation: {
-			duration: 1500,
+			duration: 2500,
 			startup: true
 		}
 	};
