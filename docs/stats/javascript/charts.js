@@ -90,7 +90,11 @@ function drawDeadcheckTimesColumnChart() {
 		},
 		focusTarget: 'category',
 		chartArea: { left: 100, top: 40, bottom: 40, right: 30, width: "100%", height: "100%" },
-		height: 350
+		height: 350,
+		animation: {
+			duration: 1500,
+			startup: true
+		}
 	};
 
 	var deadCheckQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1UyLm10dokjffi5glQINoHRaCqYH0ewD-dn-0T34V6RU/gviz/tq?gid=540902420&headers=1');
@@ -188,7 +192,7 @@ function drawDeadcheckTimesColumnChart() {
 		}
 
 		var chart = new google.visualization.ColumnChart(document.getElementById('dead_check_times_chart_div'));
-		chart.draw(view, opts);
+		chart.draw(view.toDataTable(), opts);
 	});
 
 }
@@ -211,7 +215,11 @@ function drawCharacterTimesColumnChart() {
 		},
 		focusTarget: 'category',
 		chartArea: { left: 100, top: 40, bottom: 70, right: 30, width: "100%", height: "100%" },
-		height: 350
+		height: 350,
+		animation: {
+			duration: 1500,
+			startup: true
+		}
 	};
 
 	var miscQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1UyLm10dokjffi5glQINoHRaCqYH0ewD-dn-0T34V6RU/gviz/tq?gid=1152025324&headers=1');
@@ -313,7 +321,7 @@ function drawCharacterTimesColumnChart() {
 		// }
 
 		var chart = new google.visualization.ColumnChart(document.getElementById('character_times_chart_div'));
-		chart.draw(view, opts);
+		chart.draw(view.toDataTable(), opts);
 	});
 
 }
