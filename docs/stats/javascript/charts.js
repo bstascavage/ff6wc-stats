@@ -61,6 +61,11 @@ var chartsConfig = {
 					units: {
 						format: ['HH:mm:ss']
 					}
+				},
+				viewWindow: {
+					// Need to dynamically determine this
+					min: new Date('Sat Dec 30 1899 01:10:00 GMT-0500 (Eastern Standard Time'),
+					max: new Date('Sat Dec 30 1899 01:50:00 GMT-0500 (Eastern Standard Time)'),
 				}
 			},
 			pointSize: 5,
@@ -77,7 +82,12 @@ var chartsConfig = {
 			},
 			focusTarget: 'category',
 			chartArea: { left: 100, top: 40, bottom: 40, right: 30, width: "100%", height: "100%" },
-			height: 400
+			height: 400,
+			animation: {
+				duration: 25,
+				startup: true,
+				easing: 'linear'
+			}
 		}
 	}
 }
@@ -96,34 +106,49 @@ function initialize_everything(callback) {
 	query.send(function (response) {
 		var queryData = response.getDataTable();
 
+		// Start setting divs
 		setMetricElems(queryData)
 		google.charts.setOnLoadCallback(drawRunTimesLineChart(queryData));
 	})
 }
 
 function drawRunTimesLineChart(queryData) {
-	var data = new google.visualization.DataTable();
-	data.addColumn({ 'type': chartsConfig.run_times_chart.x_axis.type });
-	data.addColumn({ 'type': chartsConfig.run_times_chart.y_axis.type });
-	data.addColumn({ 'type': 'string', 'role': 'style' });
+	// Draws a linechart for average times
+	var data = new google.visualization.DataTable({
+		cols: [
+			{ 'type': chartsConfig.run_times_chart.x_axis.type },
+			{ 'type': chartsConfig.run_times_chart.y_axis.type },
+			{ 'type': 'string', 'role': 'style' }
+		]
+	});
 
 	var xAxis = getIndexByColumn(queryData.bf, chartsConfig.run_times_chart.x_axis.column)
 	var yAxis = getIndexByColumn(queryData.bf, chartsConfig.run_times_chart.y_axis.column)
 	var annotations = getIndexByColumn(queryData.bf, chartsConfig.run_times_chart.annotation.column)
 
-	for (let index = 0; index < queryData.Wf.length; ++index) {
-		var annotation = ''
-		if (queryData.Wf[index].c[annotations]) {
-			if (queryData.Wf[index].c[annotations].v == 'Yes') {
-				annotation = 'point {fill-color: ' + chartsConfig.run_times_chart.annotation.color
+	var chart = new google.visualization.LineChart(document.getElementById('run_times_chart_div'));
+
+	// LineChart is dumb and we have to redraw it on every datapoint
+	var rowIndex = 0;
+	drawChart();
+	setInterval(drawChart, 50);
+
+	function drawChart() {
+		if (rowIndex < queryData.Wf.length) {
+			if (queryData.Wf[rowIndex].c[xAxis] !== null) {
+				var annotation = ''
+				if (queryData.Wf[rowIndex].c[annotations]) {
+					if (queryData.Wf[rowIndex].c[annotations].v == 'Yes') {
+						annotation = 'point {fill-color: ' + chartsConfig.run_times_chart.annotation.color
+					}
+				}
+
+				data.addRows([[queryData.Wf[rowIndex].c[xAxis], queryData.Wf[rowIndex].c[yAxis], annotation]])
+				chart.draw(data, chartsConfig.run_times_chart.opts);
+				rowIndex++
 			}
 		}
-
-		data.addRows([[queryData.Wf[index].c[xAxis], queryData.Wf[index].c[yAxis], annotation]])
 	}
-
-	var chart = new google.visualization.LineChart(document.getElementById('run_times_chart_div'));
-	chart.draw(data, chartsConfig.run_times_chart.opts)
 }
 
 function setMetricElems(queryData) {
