@@ -173,7 +173,7 @@ main_nav: true
   <div class="flex-container-stats">
     <nav class="charts">
       <div class="chart">
-        <div id="dead_check_times_chart_div"></div>
+        <div id="dead_checks_times_chart_div"></div>
         <p style="text-align: center; font-size: 12px">*Number inside bar is number of runs with that amount of dead
           checks.</p>
       </div>
@@ -188,7 +188,7 @@ main_nav: true
   <div class="flex-container-stats">
     <nav class="charts">
       <div class="chart">
-        <div id="character_times_chart_div"></div>
+        <div id="char_times_chart_div"></div>
         <p style="text-align: center; font-size: 12px">*Number inside bar is number of runs with that character.</p>
       </div>
     </nav>
