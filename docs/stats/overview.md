@@ -181,7 +181,6 @@ main_nav: true
   </div>
 </div>
 <br>
-<br>
 
 <p style="text-align: center; font-size: 18px">Times per Starting Character</p>
 <div class="parent">
