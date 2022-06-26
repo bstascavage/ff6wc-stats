@@ -30,6 +30,8 @@ main_nav: true
     <p style="text-align: center; font-size: 32px">Overview</p>
 
   </div>
+</div>
+<div class="parent">
   <div class="flex-container-stats">
     <nav class="stat-card-flex">
       <div class="stat-card">
@@ -64,6 +66,7 @@ main_nav: true
 </div>
 
 <br>
+
 <!-- Average Times -->
 <div class="parent">
   <div class="flex-container-stats">
@@ -118,8 +121,9 @@ main_nav: true
   <div class="flex-container-stats">
     <p style="text-align: center; font-size: 18px">Skip Stats</p>
   </div>
+</div>
+<div class="parent">
   <div class="flex-container-stats">
-
     <nav class="stat-card-flex">
       <div class="stat-card">
         <div class="stat-card__content">
