@@ -153,7 +153,7 @@ pre code.hljs {
 
 	// Nav menu
 	.navigation-wrapper {
-		@include outer-container;
+		@include outer-container(70em);
 		@include clearfix;
 		position: relative;
 	}
@@ -261,7 +261,7 @@ pre code.hljs {
 	}
 
 	.post-meta {
-		@include outer-container;
+		@include outer-container(70em);
 		// padding: 1em 0;
 		color: $medium-gray;
 
@@ -630,7 +630,7 @@ pre code.hljs {
 	}
 
 	.wrapper {
-		@include outer-container;
+		@include outer-container(70em);
 	}
 
 	.footer-heading {}
