@@ -59,11 +59,6 @@ var chartsConfig = {
 						format: ['HH:mm:ss']
 					}
 				},
-				viewWindow: {
-					// Need to dynamically determine this
-					min: new Date('Sat Dec 30 1899 01:10:00 GMT-0500 (Eastern Standard Time'),
-					max: new Date('Sat Dec 30 1899 01:50:00 GMT-0500 (Eastern Standard Time)'),
-				}
 			},
 			pointSize: 5,
 			trendlines: {
