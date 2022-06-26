@@ -2,7 +2,7 @@
 layout: page
 title:  "Submit Run"
 desc: "Submit your last run's stats"
-cover:  "/assets/cover-1.webp"
+cover:  "/assets/index-cover.webp"
 permalink: /submit/
 main_nav: true
 ---

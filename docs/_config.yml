@@ -20,7 +20,7 @@ description: >
 # root of your server.
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "https://setokiaba.com" # the base hostname & protocol for your site
-cover: "/assets/cover-1.webp"
+cover: "/assets/index-cover.webp"
 logo: "/assets/magitek-icon.jpeg"
 
 # Build settings

@@ -2,7 +2,7 @@
 layout: post
 title: "Run Stats"
 desc: "Stats pertaining to run times"
-cover: "/assets/cover.jpg"
+cover: "/assets/overview-cover.jpg"
 permalink: /stats
 main_nav: true
 ---
