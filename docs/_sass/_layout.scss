@@ -247,7 +247,8 @@ pre code.hljs {
 	background-color: #f4f4f4;
 
 	.wrapper {
-		@include outer-container;
+		// @include outer-container;
+		@include outer-container(70em);
 		padding: 1em;
 	}
 
@@ -382,6 +383,32 @@ pre code.hljs {
 		box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
 		transition: all 0.2s;
 		;
+	}
+
+
+	.stat-card-flex-slim {
+		// flex-grow: 3;
+		// flex-shrink: 2;
+		flex-basis: 20%;
+
+		.stat-card-slim {
+			height: 100%;
+			text-align: center;
+			justify-content: center;
+			flex-basis: 50%;
+		}
+
+		.stat-card {
+			height: 100%;
+			text-align: center;
+			justify-content: center;
+		}
+
+		.stat-card-trend {
+			height: 100%;
+			text-align: center;
+			justify-content: center;
+		}
 	}
 
 	.stat-card-flex {

@@ -33,11 +33,12 @@ main_nav: true
 </div>
 <div class="parent">
   <div class="flex-container-stats">
-    <nav class="stat-card-flex">
+    <nav class="stat-card-flex-slim">
       <div class="stat-card">
         <div class="stat-card__content">
           <p class="text-uppercase mb-1 text-muted">Attempts</p>
-          <h2> <span id="num_of_attempts"></span></h2>
+          <h2><span id="num_of_attempts"></span></h2>
+
         </div>
       </div>
     </nav>
@@ -59,6 +60,15 @@ main_nav: true
         <div class="stat-card__content">
           <p class="text-uppercase mb-1 text-muted">Last Time</p>
           <h2> <span id="last_time"></span></h2>
+        </div>
+      </div>
+    </nav>
+    <nav class="stat-card-flex">
+      <div class="stat-card">
+        <div class="stat-card__content">
+          <p class="text-uppercase mb-1 text-muted">Standard Deviation</p>
+          <h2><span id="standard_deviation"></span></h2>
+
         </div>
       </div>
     </nav>
@@ -188,29 +198,20 @@ main_nav: true
 </div>
 
 <br>
-<div class="flex-container-stats">
-  <p style="text-align: center; font-size: 18px">Times per Dead Check</p>
-</div>
+
 
 <div class="parent">
   <div class="flex-container-stats">
     <nav class="charts">
+      <p style="text-align: center; font-size: 18px">Times per Dead Check</p>
       <div class="chart">
         <div id="dead_checks_times_chart_div"></div>
         <p style="text-align: center; font-size: 12px">*Number inside bar is number of runs with that amount of dead
           checks.</p>
       </div>
     </nav>
-  </div>
-</div>
-<br>
-
-<div class="flex-container-stats">
-  <p style="text-align: center; font-size: 18px">Times per Dead Check</p>
-</div>
-<div class="parent">
-  <div class="flex-container-stats">
     <nav class="charts">
+      <p style="text-align: center; font-size: 18px">Times per Character</p>
       <div class="chart">
         <div id="char_times_chart_div"></div>
         <p style="text-align: center; font-size: 12px">*Number inside bar is number of runs with that character.</p>
@@ -218,3 +219,4 @@ main_nav: true
     </nav>
   </div>
 </div>
+<br>

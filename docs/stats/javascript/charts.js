@@ -8,6 +8,7 @@ var metricsConfig = {
 	num_of_attempts: { position: ['L', 2] },
 	best_time: { position: ['V', 2] },
 	last_time: { position: ['W', 2] },
+	standard_deviation: { position: ['AN', 2] },
 	average_time: { position: ['N', 2] },
 	average_time_delta: { position: ['O', 2], delta: true },
 	average_time_last_five: { position: ['P', 2] },
