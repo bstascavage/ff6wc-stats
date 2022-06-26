@@ -134,7 +134,7 @@ main_nav: true
 </div>
 <div class="parent">
   <div class="flex-container-stats">
-    <nav class="stat-card-flex">
+    <nav class="stat-card-flex-slim">
       <div class="stat-card">
         <div class="stat-card__content">
           <p class="text-uppercase mb-1 text-muted">Skip Rate</p>
@@ -167,6 +167,15 @@ main_nav: true
             </div>
             <span class="text-muted-small">after last run without skip</span>
           </div>
+        </div>
+      </div>
+    </nav>
+    <nav class="stat-card-flex">
+      <div class="stat-card">
+        <div class="stat-card__content">
+          <p class="text-uppercase mb-1 text-muted">Time Difference</p>
+          <h2><span id="skip_diff"></span></h2>
+
         </div>
       </div>
     </nav>

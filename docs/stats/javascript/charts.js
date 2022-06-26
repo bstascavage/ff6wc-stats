@@ -19,7 +19,8 @@ var metricsConfig = {
 	average_time_skip: { position: ['R', 2] },
 	average_time_delta_skip: { position: ['S', 2], delta: true },
 	average_time_no_skip: { position: ['T', 2] },
-	average_time_delta_no_skip: { position: ['U', 2], delta: true }
+	average_time_delta_no_skip: { position: ['U', 2], delta: true },
+	skip_diff: { position: ['AO', 2] },
 }
 
 var chartsConfig = {
