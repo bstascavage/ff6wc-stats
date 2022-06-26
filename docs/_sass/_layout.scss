@@ -309,6 +309,10 @@ pre code.hljs {
 		}
 	}
 
+	.loading-image {
+		display: flex;
+	}
+
 	.flex-container-centered {
 		display: flex;
 		/* or inline-flex */
@@ -339,7 +343,7 @@ pre code.hljs {
 	}
 
 	.flex-container-stats {
-		display: flex;
+		display: none;
 		/* or inline-flex */
 		justify-content: center;
 		gap: 15px;
@@ -417,7 +421,7 @@ pre code.hljs {
 
 		.parent {
 			width: 100%;
-			display: flex;
+			display: none;
 			// flex-direction: column;
 			justify-content: center;
 		}

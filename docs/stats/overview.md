@@ -19,10 +19,17 @@ main_nav: true
 
 
 
-<p style="text-align: center; font-size: 32px">Overview</p>
-
+<div class="parent">
+  <div class="loading-image">
+    <img src="/assets/loading-page.gif">
+  </div>
+</div>
 <!-- Overview stats -->
 <div class="parent">
+  <div class="flex-container-stats">
+    <p style="text-align: center; font-size: 32px">Overview</p>
+
+  </div>
   <div class="flex-container-stats">
     <nav class="stat-card-flex">
       <div class="stat-card">
@@ -106,8 +113,11 @@ main_nav: true
 </div>
 
 <br>
-<p style="text-align: center; font-size: 18px">Skip Stats</p>
+
 <div class="parent">
+  <div class="flex-container-stats">
+    <p style="text-align: center; font-size: 18px">Skip Stats</p>
+  </div>
   <div class="flex-container-stats">
 
     <nav class="stat-card-flex">
@@ -150,9 +160,15 @@ main_nav: true
 </div>
 
 <br>
-<p style="text-align: center; font-size: 28px">Time Breakdown</p>
+<div class="flex-container-stats">
+  <p style="text-align: center; font-size: 28px">Time Breakdown</p>
+</div>
 
-<p style="text-align: center; font-size: 18px">Run Times</p>
+
+<div class="flex-container-stats">
+  <p style="text-align: center; font-size: 18px">Run Times</p>
+</div>
+
 <!-- Run times line chart -->
 <div class="parent">
   <div class="flex-container-stats">
@@ -168,7 +184,10 @@ main_nav: true
 </div>
 
 <br>
-<p style="text-align: center; font-size: 18px">Times per Dead Check</p>
+<div class="flex-container-stats">
+  <p style="text-align: center; font-size: 18px">Times per Dead Check</p>
+</div>
+
 <div class="parent">
   <div class="flex-container-stats">
     <nav class="charts">
@@ -182,7 +201,9 @@ main_nav: true
 </div>
 <br>
 
-<p style="text-align: center; font-size: 18px">Times per Starting Character</p>
+<div class="flex-container-stats">
+  <p style="text-align: center; font-size: 18px">Times per Dead Check</p>
+</div>
 <div class="parent">
   <div class="flex-container-stats">
     <nav class="charts">

@@ -2,7 +2,7 @@
 layout: post
 title:  "Seto Stats"
 desc: "A statistical journey through  Worlds Collide: The Final Fantasy VI Randomizer"
-cover:  "/assets/cover-1.webp"
+cover:  "/assets/index-cover.webp"
 main_nav: false
 ---
 

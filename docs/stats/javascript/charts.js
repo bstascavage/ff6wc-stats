@@ -469,7 +469,7 @@ function populateDataTable(queryData, chart_name) {
 	return data
 }
 
-function setMetricElems(queryData) {
+async function setMetricElems(queryData) {
 	// Loop through metricsConfig to create divs for single metrics
 	Object.keys(metricsConfig).forEach(key => {
 		var span = document.getElementById(key);
@@ -487,6 +487,22 @@ function setMetricElems(queryData) {
 			}
 		}
 	});
+
+	loadPage()
+}
+
+function loadPage() {
+	// Unloads the loading-image gif and loads all other elements
+	var elements = document.getElementsByClassName('loading-image');
+
+	for (i = 0; i < elements.length; i++) {
+		elements[i].style.display = 'none'
+	}
+	var elements = document.getElementsByClassName('flex-container-stats');
+
+	for (i = 0; i < elements.length; i++) {
+		elements[i].style.display = 'flex'
+	}
 }
 
 function getColumnIndex(queryData, columnLetter) {
