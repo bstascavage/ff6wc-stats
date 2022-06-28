@@ -336,9 +336,9 @@ pre code.hljs {
 	}
 
 	.flex-container-wrapped {
-		display: flex;
+		display: none;
 		/* or inline-flex */
-		justify-content: space-evenly;
+		justify-content: center;
 		gap: 15px;
 		flex-wrap: wrap;
 	}
@@ -365,6 +365,16 @@ pre code.hljs {
 		flex-grow: 1;
 		text-align: center;
 		justify-content: center;
+
+	}
+
+	.charts-half {
+		flex-grow: 1;
+		flex-shrink: 1;
+		text-align: center;
+		justify-content: center;
+		flex-basis: 50%;
+
 	}
 
 	.chart {

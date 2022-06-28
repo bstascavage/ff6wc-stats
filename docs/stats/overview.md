@@ -210,13 +210,20 @@ main_nav: true
 
 
 <div class="parent">
-  <div class="flex-container-stats">
+  <div class="flex-container-wrapped">
     <nav class="charts">
       <p style="text-align: center; font-size: 18px">Times per Dead Check</p>
       <div class="chart">
         <div id="dead_checks_times_chart_div"></div>
         <p style="text-align: center; font-size: 12px">*Number inside bar is number of runs with that amount of dead
           checks.</p>
+      </div>
+    </nav>
+    <nav class="charts-half">
+      <p style="text-align: center; font-size: 18px">Times per Ability</p>
+      <div class="chart">
+        <div id="abilities_times_chart_div"></div>
+        <p style="text-align: center; font-size: 12px">*Number inside bar is number of runs with that ability.</p>
       </div>
     </nav>
     <nav class="charts">
@@ -226,6 +233,7 @@ main_nav: true
         <p style="text-align: center; font-size: 12px">*Number inside bar is number of runs with that character.</p>
       </div>
     </nav>
+
   </div>
 </div>
 <br>

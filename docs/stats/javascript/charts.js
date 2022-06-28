@@ -163,8 +163,52 @@ var chartsConfig = {
 			// 	startup: true
 			// }
 		}
-	}
+	},
+	abilities_times_chart: {
+		x_axis: {
+			column: 'AP',
+			type: 'string'
+		},
+		y_axis: {
+			column: 'AQ',
+			type: 'datetime'
+		},
+		annotation: {
+			column: 'AR',
+			type: 'string',
+			role: 'annotation'
+		},
+		opts: {
+			title: 'Ability times',
+			titlePosition: 'none',
+			legend: {
+				'position': "none"
+			},
+			hAxis: {
+				title: 'Ability',
+				gridlines: {
+					color: 'transparent'
+				},
+				slantedText: true, slantedTextAngle: 90
+			},
+			vAxis: {
+				title: 'Time',
+			},
+			focusTarget: 'category',
+			chartArea: { left: 100, top: 40, bottom: 90, right: 30, width: "100%", height: "100%" },
+			height: 350,
+			// Animations are disabled in till I can figure out the performance issues
+			// animation: {
+			// 	duration: 2000,
+			// 	startup: true,
+			// 	easing: 'inAndOut'
+			// }
+		}
+	},
 }
+
+var elemToHide = ["flex-container-stats", "flex-container-wrapped"]
+
 $(window).onload = function () {
 	initialize_everything(function () {
 		console.log('loading');
@@ -185,7 +229,110 @@ function initialize_everything(callback) {
 		google.charts.setOnLoadCallback(drawRunTimesLineChart(queryData));
 		google.charts.setOnLoadCallback(drawCharacterTimesColumnChart(queryData));
 		google.charts.setOnLoadCallback(drawDeadcheckTimesColumnChart(queryData));
+		google.charts.setOnLoadCallback(drawAbilityTimesColumnChart(queryData));
 	})
+}
+
+function drawAbilityTimesColumnChart(queryData) {
+	var chart_name = 'abilities_times_chart'
+	var data = populateDataTable(queryData, chart_name)
+
+	// Set number of runs with that dead check count as an annotation
+	var annotations = getColumnIndex(queryData, chartsConfig[chart_name].annotation.column)
+	data.addColumn({ 'type': chartsConfig[chart_name].annotation.type, role: chartsConfig[chart_name].annotation.role });
+
+	for (var rowIndex = 0; rowIndex < data.Wf.length; rowIndex++) {
+		if (queryData.Wf[rowIndex].c[annotations] !== null) {
+			data.setCell(rowIndex, 2, String(queryData.Wf[rowIndex].c[annotations].v))
+		}
+	}
+
+	// Some janky crap to make sure the duration time is correct.  Thanks Google.
+	// TODO: move to its own function to combine with drawCharacterTimesColumnChart()
+	var view = new google.visualization.DataView(data);
+	view.setColumns([0, {
+		calc: function (dt, row) {
+			// initialize variables
+			var timeFormat = '';
+			var timeValue = 0;
+			var duration = [dt.getValue(row, 1).getHours(), dt.getValue(row, 1).getMinutes(), dt.getValue(row, 1).getSeconds()];
+
+			// calculate total time
+			duration.forEach(function (value, index) {
+				// determine time part
+				switch (index) {
+					// hours
+					case 0:
+						timeFormat += value;
+						timeValue += (value * 60);
+						break;
+
+					// minutes
+					case 1:
+						timeFormat += ':' + value;
+						timeValue += value;
+						break;
+
+					// seconds
+					case 2:
+						if (value < 10) {
+							timeFormat += ':0' + value;
+						} else {
+							timeFormat += ':' + value;
+						}
+						timeValue += (value / 60);
+						break;
+
+					// miliseconds
+					case 3:
+						timeValue += (value / 60000);
+						break;
+				}
+			});
+
+			// build object notation
+			return {
+				v: timeValue,
+				f: timeFormat
+			};
+		},
+		label: data.getColumnLabel(1),
+		type: 'number'
+	}, 2]);
+
+	// get range of duration in minutes
+	var range = view.getColumnRange(1);
+
+	// determine max number of hours for y-axis
+	var maxHours = Math.ceil(range.max - 60);
+	var roundTo = parseInt('1' + Array(maxHours.toFixed(0).length).join('0'));
+	var maxHours = Math.ceil((range.max - 60) / roundTo) * roundTo;
+
+	// build y-axis ticks
+	var ticks = [];
+	var min_time;
+	for (var hour = 0; hour <= maxHours; hour += roundTo) {
+		var time_format
+		if (hour == 0) {
+			time_format = '1:00:00'
+			min_time = hour + 60
+		} else {
+			time_format = '1:' + hour + ':00';
+		}
+		ticks.push({
+			v: hour + 60,
+			f: time_format
+		});
+	}
+
+	chartsConfig[chart_name].opts.vAxis.ticks = ticks
+	chartsConfig[chart_name].opts.vAxis.viewWindow = {
+		min: min_time
+	}
+
+	var chart = new google.visualization.ColumnChart(document.getElementById(chart_name + '_div'));
+	chart.draw(view.toDataTable(), chartsConfig[chart_name].opts);
+
 }
 
 function drawDeadcheckTimesColumnChart(queryData) {
@@ -495,15 +642,23 @@ async function setMetricElems(queryData) {
 
 function loadPage() {
 	// Unloads the loading-image gif and loads all other elements
-	var elements = document.getElementsByClassName('loading-image');
+	var unload_elements = document.getElementsByClassName('loading-image');
 
-	for (i = 0; i < elements.length; i++) {
-		elements[i].style.display = 'none'
+	for (i = 0; i < unload_elements.length; i++) {
+		unload_elements[i].style.display = 'none'
 	}
-	var elements = document.getElementsByClassName('flex-container-stats');
 
-	for (i = 0; i < elements.length; i++) {
-		elements[i].style.display = 'flex'
+	var load_elements = []
+	for (i = 0; i < elemToHide.length; i++) {
+		if (i == 0) {
+			load_elements = Array.prototype.slice.call(document.getElementsByClassName(elemToHide[i]), 0)
+		} else {
+			load_elements = load_elements.concat(Array.prototype.slice.call(document.getElementsByClassName(elemToHide[i]), 0))
+		}
+	}
+
+	for (i = 0; i < load_elements.length; i++) {
+		load_elements[i].style.display = 'flex'
 	}
 }
 
