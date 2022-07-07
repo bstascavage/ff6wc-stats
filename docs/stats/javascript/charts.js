@@ -1,81 +1,87 @@
 // Load the Visualization API and the corechart package.
-google.charts.load('current', { 'packages': ['corechart'] });
+google.charts.load("current", { packages: ["corechart"] });
 
 // Set a callback to run when the Google Visualization API is loaded.
 google.charts.setOnLoadCallback(initialize_everything);
 
 var metricsConfig = {
-	num_of_attempts: { position: ['L', 2] },
-	best_time: { position: ['V', 2] },
-	last_time: { position: ['W', 2] },
-	standard_deviation: { position: ['AN', 2] },
-	average_time: { position: ['N', 2] },
-	average_time_delta: { position: ['O', 2], delta: true },
-	average_time_last_five: { position: ['P', 2] },
-	average_time_delta_last_five: { position: ['Q', 2], delta: true },
-	average_time_ultros: { position: ['X', 2] },
-	average_time_delta_ultros: { position: ['Y', 2], delta: true },
-	skip_rate: { position: ['AD', 2] },
-	average_time_skip: { position: ['R', 2] },
-	average_time_delta_skip: { position: ['S', 2], delta: true },
-	average_time_no_skip: { position: ['T', 2] },
-	average_time_delta_no_skip: { position: ['U', 2], delta: true },
-	skip_diff: { position: ['AO', 2] },
-}
+	num_of_attempts: { position: ["L", 2] },
+	best_time: { position: ["V", 2] },
+	last_time: { position: ["W", 2] },
+	standard_deviation: { position: ["AN", 2] },
+	average_time: { position: ["N", 2] },
+	average_time_delta: { position: ["O", 2], delta: true },
+	average_time_last_five: { position: ["P", 2] },
+	average_time_delta_last_five: { position: ["Q", 2], delta: true },
+	average_time_ultros: { position: ["X", 2] },
+	average_time_delta_ultros: { position: ["Y", 2], delta: true },
+	skip_rate: { position: ["AD", 2] },
+	average_time_skip: { position: ["R", 2] },
+	average_time_delta_skip: { position: ["S", 2], delta: true },
+	average_time_no_skip: { position: ["T", 2] },
+	average_time_delta_no_skip: { position: ["U", 2], delta: true },
+	skip_diff: { position: ["AO", 2] },
+};
 
 var chartsConfig = {
 	run_times_chart: {
 		x_axis: {
-			column: 'A',
-			type: 'number'
+			column: "A",
+			type: "number",
 		},
 		y_axis: {
-			column: 'B',
-			type: 'datetime'
+			column: "B",
+			type: "datetime",
 		},
 		annotation: {
-			column: 'G',
-			type: 'string',
-			color: 'red',
-			role: 'style'
+			column: "G",
+			type: "string",
+			color: "red",
+			role: "style",
 		},
 		opts: {
-			title: 'Run Times',
-			titlePosition: 'none',
+			title: "Run Times",
+			titlePosition: "none",
 			legend: {
-				'position': "none"
+				position: "none",
 			},
-			hAxis:
-			{
-				textPosition: 'none',
+			hAxis: {
+				textPosition: "none",
 				gridlines: {
-					color: 'transparent'
+					color: "transparent",
 				},
 			},
 			vAxis: {
-				title: 'Time',
-				format: 'HH:mm:ss',
+				title: "Time",
+				format: "HH:mm:ss",
 				gridlines: {
 					multiple: 10,
 					units: {
-						format: ['HH:mm:ss']
-					}
+						format: ["HH:mm:ss"],
+					},
 				},
 			},
 			pointSize: 5,
 			trendlines: {
 				0: {
-					type: 'linear',
-					color: 'blue',
+					type: "linear",
+					color: "blue",
 					lineWidth: 2,
 					opacity: 0.3,
 					showR: true,
 					pointSize: 0,
-					tooltip: false
-				}
+					tooltip: false,
+				},
 			},
-			focusTarget: 'category',
-			chartArea: { left: 100, top: 40, bottom: 40, right: 30, width: "100%", height: "100%" },
+			focusTarget: "category",
+			chartArea: {
+				left: 100,
+				top: 40,
+				bottom: 40,
+				right: 30,
+				width: "100%",
+				height: "100%",
+			},
 			height: 400,
 			// Animations are disabled in till I can figure out the performance issues
 			// animation: {
@@ -83,40 +89,48 @@ var chartsConfig = {
 			// 	startup: true,
 			// 	easing: 'linear'
 			// }
-		}
+		},
 	},
 	char_times_chart: {
 		x_axis: {
-			column: 'I',
-			type: 'string'
+			column: "I",
+			type: "string",
 		},
 		y_axis: {
-			column: 'J',
-			type: 'datetime'
+			column: "J",
+			type: "datetime",
 		},
 		annotation: {
-			column: 'K',
-			type: 'string',
-			role: 'annotation'
+			column: "K",
+			type: "string",
+			role: "annotation",
 		},
 		opts: {
-			title: 'Character times',
-			titlePosition: 'none',
+			title: "Character times",
+			titlePosition: "none",
 			legend: {
-				'position': "none"
+				position: "none",
 			},
 			hAxis: {
-				title: 'Character',
+				title: "Character",
 				gridlines: {
-					color: 'transparent'
+					color: "transparent",
 				},
-				slantedText: true, slantedTextAngle: 90
+				slantedText: true,
+				slantedTextAngle: 90,
 			},
 			vAxis: {
-				title: 'Time',
+				title: "Time",
 			},
-			focusTarget: 'category',
-			chartArea: { left: 100, top: 40, bottom: 70, right: 30, width: "100%", height: "100%" },
+			focusTarget: "category",
+			chartArea: {
+				left: 100,
+				top: 40,
+				bottom: 70,
+				right: 30,
+				width: "100%",
+				height: "100%",
+			},
 			height: 350,
 			// Animations are disabled in till I can figure out the performance issues
 			// animation: {
@@ -124,78 +138,93 @@ var chartsConfig = {
 			// 	startup: true,
 			// 	easing: 'inAndOut'
 			// }
-		}
+		},
 	},
 	dead_checks_times_chart: {
 		x_axis: {
-			column: 'AK',
-			type: 'number'
+			column: "AK",
+			type: "number",
 		},
 		y_axis: {
-			column: 'AL',
-			type: 'datetime'
+			column: "AL",
+			type: "datetime",
 		},
 		annotation: {
-			column: 'AM',
-			type: 'string',
-			role: 'annotation'
+			column: "AM",
+			type: "string",
+			role: "annotation",
 		},
 		opts: {
-			titlePosition: 'none',
+			titlePosition: "none",
 			legend: {
-				'position': "none"
+				position: "none",
 			},
 			hAxis: {
 				ticks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], //Hard-code deadcheck intervals
-				title: 'Number of Dead Checks',
+				title: "Number of Dead Checks",
 				gridlines: {
-					color: 'transparent'
+					color: "transparent",
 				},
 			},
 			vAxis: {
-				title: 'Time',
+				title: "Time",
 			},
-			focusTarget: 'category',
-			chartArea: { left: 100, top: 40, bottom: 40, right: 30, width: "100%", height: "100%" },
+			focusTarget: "category",
+			chartArea: {
+				left: 100,
+				top: 40,
+				bottom: 40,
+				right: 30,
+				width: "100%",
+				height: "100%",
+			},
 			height: 350,
 			// animation: {
 			// 	duration: 2500,
 			// 	startup: true
 			// }
-		}
+		},
 	},
 	abilities_times_chart: {
 		x_axis: {
-			column: 'AP',
-			type: 'string'
+			column: "AP",
+			type: "string",
 		},
 		y_axis: {
-			column: 'AQ',
-			type: 'datetime'
+			column: "AQ",
+			type: "datetime",
 		},
 		annotation: {
-			column: 'AR',
-			type: 'string',
-			role: 'annotation'
+			column: "AR",
+			type: "string",
+			role: "annotation",
 		},
 		opts: {
-			title: 'Ability times',
-			titlePosition: 'none',
+			title: "Ability times",
+			titlePosition: "none",
 			legend: {
-				'position': "none"
+				position: "none",
 			},
 			hAxis: {
-				title: 'Ability',
+				title: "Ability",
 				gridlines: {
-					color: 'transparent'
+					color: "transparent",
 				},
-				slantedText: true, slantedTextAngle: 90
+				slantedText: true,
+				slantedTextAngle: 90,
 			},
 			vAxis: {
-				title: 'Time',
+				title: "Time",
 			},
-			focusTarget: 'category',
-			chartArea: { left: 100, top: 40, bottom: 90, right: 30, width: "100%", height: "100%" },
+			focusTarget: "category",
+			chartArea: {
+				left: 100,
+				top: 40,
+				bottom: 90,
+				right: 30,
+				width: "100%",
+				height: "100%",
+			},
 			height: 350,
 			// Animations are disabled in till I can figure out the performance issues
 			// animation: {
@@ -203,304 +232,362 @@ var chartsConfig = {
 			// 	startup: true,
 			// 	easing: 'inAndOut'
 			// }
-		}
+		},
 	},
-}
+};
 
-var elemToHide = ["flex-container-stats", "flex-container-wrapped"]
+var elemToHide = ["flex-container-stats", "flex-container-wrapped"];
 
 $(window).onload = function () {
 	initialize_everything(function () {
-		console.log('loading');
-
+		console.log("loading");
 	});
-}
+};
 
 function initialize_everything(callback) {
 	// Fetching the formula Google Sheet
-	var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1UyLm10dokjffi5glQINoHRaCqYH0ewD-dn-0T34V6RU/gviz/tq?gid=1152025324&headers=1');
-	query.setQuery("select *")
+	var query = new google.visualization.Query(
+		"https://docs.google.com/spreadsheets/d/1UyLm10dokjffi5glQINoHRaCqYH0ewD-dn-0T34V6RU/gviz/tq?gid=1152025324&headers=1"
+	);
+	query.setQuery("select *");
 
 	query.send(function (response) {
 		var queryData = response.getDataTable();
 
 		// Start setting divs
-		setMetricElems(queryData)
+		setMetricElems(queryData);
 		google.charts.setOnLoadCallback(drawRunTimesLineChart(queryData));
 		google.charts.setOnLoadCallback(drawCharacterTimesColumnChart(queryData));
 		google.charts.setOnLoadCallback(drawDeadcheckTimesColumnChart(queryData));
 		google.charts.setOnLoadCallback(drawAbilityTimesColumnChart(queryData));
-	})
+	});
 }
 
 function drawAbilityTimesColumnChart(queryData) {
-	var chart_name = 'abilities_times_chart'
-	var data = populateDataTable(queryData, chart_name)
+	var chart_name = "abilities_times_chart";
+	var data = populateDataTable(queryData, chart_name);
 
 	// Set number of runs with that dead check count as an annotation
-	var annotations = getColumnIndex(queryData, chartsConfig[chart_name].annotation.column)
-	data.addColumn({ 'type': chartsConfig[chart_name].annotation.type, role: chartsConfig[chart_name].annotation.role });
+	var annotations = getColumnIndex(
+		queryData,
+		chartsConfig[chart_name].annotation.column
+	);
+	data.addColumn({
+		type: chartsConfig[chart_name].annotation.type,
+		role: chartsConfig[chart_name].annotation.role,
+	});
 
 	for (var rowIndex = 0; rowIndex < data.Wf.length; rowIndex++) {
 		if (queryData.Wf[rowIndex].c[annotations] !== null) {
-			data.setCell(rowIndex, 2, String(queryData.Wf[rowIndex].c[annotations].v))
+			data.setCell(
+				rowIndex,
+				2,
+				String(queryData.Wf[rowIndex].c[annotations].v)
+			);
 		}
 	}
 
 	// Some janky crap to make sure the duration time is correct.  Thanks Google.
 	// TODO: move to its own function to combine with drawCharacterTimesColumnChart()
 	var view = new google.visualization.DataView(data);
-	view.setColumns([0, {
-		calc: function (dt, row) {
-			// initialize variables
-			var timeFormat = '';
-			var timeValue = 0;
-			var duration = [dt.getValue(row, 1).getHours(), dt.getValue(row, 1).getMinutes(), dt.getValue(row, 1).getSeconds()];
+	view.setColumns([
+		0,
+		{
+			calc: function (dt, row) {
+				// initialize variables
+				var timeFormat = "";
+				var timeValue = 0;
+				var duration = [
+					dt.getValue(row, 1).getHours(),
+					dt.getValue(row, 1).getMinutes(),
+					dt.getValue(row, 1).getSeconds(),
+				];
 
-			// calculate total time
-			duration.forEach(function (value, index) {
-				// determine time part
-				switch (index) {
-					// hours
-					case 0:
-						timeFormat += value;
-						timeValue += (value * 60);
-						break;
+				// calculate total time
+				duration.forEach(function (value, index) {
+					// determine time part
+					switch (index) {
+						// hours
+						case 0:
+							timeFormat += value;
+							timeValue += value * 60;
+							break;
 
-					// minutes
-					case 1:
-						timeFormat += ':' + value;
-						timeValue += value;
-						break;
+						// minutes
+						case 1:
+							timeFormat += ":" + value;
+							timeValue += value;
+							break;
 
-					// seconds
-					case 2:
-						if (value < 10) {
-							timeFormat += ':0' + value;
-						} else {
-							timeFormat += ':' + value;
-						}
-						timeValue += (value / 60);
-						break;
+						// seconds
+						case 2:
+							if (value < 10) {
+								timeFormat += ":0" + value;
+							} else {
+								timeFormat += ":" + value;
+							}
+							timeValue += value / 60;
+							break;
 
-					// miliseconds
-					case 3:
-						timeValue += (value / 60000);
-						break;
-				}
-			});
+						// miliseconds
+						case 3:
+							timeValue += value / 60000;
+							break;
+					}
+				});
 
-			// build object notation
-			return {
-				v: timeValue,
-				f: timeFormat
-			};
+				// build object notation
+				return {
+					v: timeValue,
+					f: timeFormat,
+				};
+			},
+			label: data.getColumnLabel(1),
+			type: "number",
 		},
-		label: data.getColumnLabel(1),
-		type: 'number'
-	}, 2]);
+		2,
+	]);
 
 	// get range of duration in minutes
 	var range = view.getColumnRange(1);
 
 	// determine max number of hours for y-axis
 	var maxHours = Math.ceil(range.max - 60);
-	var roundTo = parseInt('1' + Array(maxHours.toFixed(0).length).join('0'));
+	var roundTo = parseInt("1" + Array(maxHours.toFixed(0).length).join("0"));
 	var maxHours = Math.ceil((range.max - 60) / roundTo) * roundTo;
 
 	// build y-axis ticks
 	var ticks = [];
 	var min_time;
 	for (var hour = 0; hour <= maxHours; hour += roundTo) {
-		var time_format
+		var time_format;
 		if (hour == 0) {
-			time_format = '1:00:00'
-			min_time = hour + 60
+			time_format = "1:00:00";
+			min_time = hour + 60;
 		} else {
-			time_format = '1:' + hour + ':00';
+			time_format = "1:" + hour + ":00";
 		}
 		ticks.push({
 			v: hour + 60,
-			f: time_format
+			f: time_format,
 		});
 	}
 
-	chartsConfig[chart_name].opts.vAxis.ticks = ticks
+	chartsConfig[chart_name].opts.vAxis.ticks = ticks;
 	chartsConfig[chart_name].opts.vAxis.viewWindow = {
-		min: min_time
-	}
+		min: min_time,
+	};
 
-	var chart = new google.visualization.ColumnChart(document.getElementById(chart_name + '_div'));
+	var chart = new google.visualization.ColumnChart(
+		document.getElementById(chart_name + "_div")
+	);
 	chart.draw(view.toDataTable(), chartsConfig[chart_name].opts);
-
 }
 
 function drawDeadcheckTimesColumnChart(queryData) {
-	var chart_name = 'dead_checks_times_chart'
-	var data = populateDataTable(queryData, chart_name)
+	var chart_name = "dead_checks_times_chart";
+	var data = populateDataTable(queryData, chart_name);
 
 	// Set number of runs with that dead check count as an annotation
-	var annotations = getColumnIndex(queryData, chartsConfig[chart_name].annotation.column)
-	data.addColumn({ 'type': chartsConfig[chart_name].annotation.type, role: chartsConfig[chart_name].annotation.role });
+	var annotations = getColumnIndex(
+		queryData,
+		chartsConfig[chart_name].annotation.column
+	);
+	data.addColumn({
+		type: chartsConfig[chart_name].annotation.type,
+		role: chartsConfig[chart_name].annotation.role,
+	});
 
 	for (var rowIndex = 0; rowIndex < data.Wf.length; rowIndex++) {
 		if (queryData.Wf[rowIndex].c[annotations] !== null) {
-			data.setCell(rowIndex, 2, String(queryData.Wf[rowIndex].c[annotations].v))
+			data.setCell(
+				rowIndex,
+				2,
+				String(queryData.Wf[rowIndex].c[annotations].v)
+			);
 		}
 	}
 
 	// Some janky crap to make sure the duration time is correct.  Thanks Google.
 	// TODO: move to its own function to combine with drawCharacterTimesColumnChart()
 	var view = new google.visualization.DataView(data);
-	view.setColumns([0, {
-		calc: function (dt, row) {
-			// initialize variables
-			var timeFormat = '';
-			var timeValue = 0;
-			var duration = [dt.getValue(row, 1).getHours(), dt.getValue(row, 1).getMinutes(), dt.getValue(row, 1).getSeconds()];
+	view.setColumns([
+		0,
+		{
+			calc: function (dt, row) {
+				// initialize variables
+				var timeFormat = "";
+				var timeValue = 0;
+				var duration = [
+					dt.getValue(row, 1).getHours(),
+					dt.getValue(row, 1).getMinutes(),
+					dt.getValue(row, 1).getSeconds(),
+				];
 
-			// calculate total time
-			duration.forEach(function (value, index) {
-				// determine time part
-				switch (index) {
-					// hours
-					case 0:
-						timeFormat += value;
-						timeValue += (value * 60);
-						break;
+				// calculate total time
+				duration.forEach(function (value, index) {
+					// determine time part
+					switch (index) {
+						// hours
+						case 0:
+							timeFormat += value;
+							timeValue += value * 60;
+							break;
 
-					// minutes
-					case 1:
-						timeFormat += ':' + value;
-						timeValue += value;
-						break;
+						// minutes
+						case 1:
+							timeFormat += ":" + value;
+							timeValue += value;
+							break;
 
-					// seconds
-					case 2:
-						if (value < 10) {
-							timeFormat += ':0' + value;
-						} else {
-							timeFormat += ':' + value;
-						}
-						timeValue += (value / 60);
-						break;
+						// seconds
+						case 2:
+							if (value < 10) {
+								timeFormat += ":0" + value;
+							} else {
+								timeFormat += ":" + value;
+							}
+							timeValue += value / 60;
+							break;
 
-					// miliseconds
-					case 3:
-						timeValue += (value / 60000);
-						break;
-				}
-			});
+						// miliseconds
+						case 3:
+							timeValue += value / 60000;
+							break;
+					}
+				});
 
-			// build object notation
-			return {
-				v: timeValue,
-				f: timeFormat
-			};
+				// build object notation
+				return {
+					v: timeValue,
+					f: timeFormat,
+				};
+			},
+			label: data.getColumnLabel(1),
+			type: "number",
 		},
-		label: data.getColumnLabel(1),
-		type: 'number'
-	}, 2]);
+		2,
+	]);
 
 	// get range of duration in minutes
 	var range = view.getColumnRange(1);
 
 	// determine max number of hours for y-axis
 	var maxHours = Math.ceil(range.max - 60);
-	var roundTo = parseInt('1' + Array(maxHours.toFixed(0).length).join('0'));
+	var roundTo = parseInt("1" + Array(maxHours.toFixed(0).length).join("0"));
 	var maxHours = Math.ceil((range.max - 60) / roundTo) * roundTo;
 
 	// build y-axis ticks
 	var ticks = [];
 	var min_time;
 	for (var hour = 0; hour <= maxHours; hour += roundTo) {
-		var time_format
+		var time_format;
 		if (hour == 0) {
-			time_format = '1:00:00'
-			min_time = hour + 60
+			time_format = "1:00:00";
+			min_time = hour + 60;
 		} else {
-			time_format = '1:' + hour + ':00';
+			time_format = "1:" + hour + ":00";
 		}
 		ticks.push({
 			v: hour + 60,
-			f: time_format
+			f: time_format,
 		});
 	}
 
-	chartsConfig[chart_name].opts.vAxis.ticks = ticks
+	chartsConfig[chart_name].opts.vAxis.ticks = ticks;
 	chartsConfig[chart_name].opts.vAxis.viewWindow = {
-		min: min_time
-	}
+		min: min_time,
+	};
 
-	var chart = new google.visualization.ColumnChart(document.getElementById(chart_name + '_div'));
+	var chart = new google.visualization.ColumnChart(
+		document.getElementById(chart_name + "_div")
+	);
 	chart.draw(view.toDataTable(), chartsConfig[chart_name].opts);
 }
 
 function drawCharacterTimesColumnChart(queryData) {
-	var chart_name = 'char_times_chart'
-	var data = populateDataTable(queryData, chart_name)
+	var chart_name = "char_times_chart";
+	var data = populateDataTable(queryData, chart_name);
 
 	// Set number of runs with that given character as an annotation
-	var annotations = getColumnIndex(queryData, chartsConfig[chart_name].annotation.column)
-	data.addColumn({ 'type': chartsConfig[chart_name].annotation.type, role: chartsConfig[chart_name].annotation.role });
+	var annotations = getColumnIndex(
+		queryData,
+		chartsConfig[chart_name].annotation.column
+	);
+	data.addColumn({
+		type: chartsConfig[chart_name].annotation.type,
+		role: chartsConfig[chart_name].annotation.role,
+	});
 
 	for (var rowIndex = 0; rowIndex < data.Wf.length; rowIndex++) {
 		if (queryData.Wf[rowIndex].c[annotations] !== null) {
-			data.setCell(rowIndex, 2, String(queryData.Wf[rowIndex].c[annotations].v))
+			data.setCell(
+				rowIndex,
+				2,
+				String(queryData.Wf[rowIndex].c[annotations].v)
+			);
 		}
 	}
 
 	// Some janky crap to make sure the duration time is correct.  Thanks Google.
 	var view = new google.visualization.DataView(data);
-	view.setColumns([0, {
-		calc: function (dt, row) {
-			// initialize variables
-			var timeFormat = '';
-			var timeValue = 0;
-			var duration = [dt.getValue(row, 1).getHours(), dt.getValue(row, 1).getMinutes(), dt.getValue(row, 1).getSeconds()];
+	view.setColumns([
+		0,
+		{
+			calc: function (dt, row) {
+				// initialize variables
+				var timeFormat = "";
+				var timeValue = 0;
+				var duration = [
+					dt.getValue(row, 1).getHours(),
+					dt.getValue(row, 1).getMinutes(),
+					dt.getValue(row, 1).getSeconds(),
+				];
 
-			// calculate total time
-			duration.forEach(function (value, index) {
-				// determine time part
-				switch (index) {
-					// hours
-					case 0:
-						timeFormat += value;
-						timeValue += (value * 60);
-						break;
+				// calculate total time
+				duration.forEach(function (value, index) {
+					// determine time part
+					switch (index) {
+						// hours
+						case 0:
+							timeFormat += value;
+							timeValue += value * 60;
+							break;
 
-					// minutes
-					case 1:
-						timeFormat += ':' + value;
-						timeValue += value;
-						break;
+						// minutes
+						case 1:
+							timeFormat += ":" + value;
+							timeValue += value;
+							break;
 
-					// seconds
-					case 2:
-						if (value < 10) {
-							timeFormat += ':0' + value;
-						} else {
-							timeFormat += ':' + value;
-						}
-						timeValue += (value / 60);
-						break;
+						// seconds
+						case 2:
+							if (value < 10) {
+								timeFormat += ":0" + value;
+							} else {
+								timeFormat += ":" + value;
+							}
+							timeValue += value / 60;
+							break;
 
-					// miliseconds
-					case 3:
-						timeValue += (value / 60000);
-						break;
-				}
-			});
+						// miliseconds
+						case 3:
+							timeValue += value / 60000;
+							break;
+					}
+				});
 
-			// build object notation
-			return {
-				v: timeValue,
-				f: timeFormat
-			};
+				// build object notation
+				return {
+					v: timeValue,
+					f: timeFormat,
+				};
+			},
+			label: data.getColumnLabel(1),
+			type: "number",
 		},
-		label: data.getColumnLabel(1),
-		type: 'number'
-	}, 2]);
+		2,
+	]);
 
 	// get range of duration in minutes
 	var range = view.getColumnRange(1);
@@ -513,53 +600,61 @@ function drawCharacterTimesColumnChart(queryData) {
 	var ticks = [];
 	var min_time;
 	for (var hour = minTime; hour <= maxTime; hour += 2.5) {
-		var time_format
+		var time_format;
 		if (hour == 0) {
-			time_format = '1:00:00'
+			time_format = "1:00:00";
 		} else {
-			time_format = '1:' + Math.floor(hour);
+			time_format = "1:" + Math.floor(hour);
 			if (hour % 1 != 0) {
-				time_format += ':30'
+				time_format += ":30";
 			} else {
-				time_format += ':00'
+				time_format += ":00";
 			}
 		}
 
 		ticks.push({
 			v: hour + 60,
-			f: time_format
+			f: time_format,
 		});
 	}
 
-	chartsConfig[chart_name].opts.vAxis.ticks = ticks
+	chartsConfig[chart_name].opts.vAxis.ticks = ticks;
 
-	var chart = new google.visualization.ColumnChart(document.getElementById(chart_name + '_div'));
+	var chart = new google.visualization.ColumnChart(
+		document.getElementById(chart_name + "_div")
+	);
 	chart.draw(view.toDataTable(), chartsConfig[chart_name].opts);
 }
 
 function drawRunTimesLineChart(queryData) {
 	// Draws a linechart for average times
-	var chart_name = 'run_times_chart'
-	var data = populateDataTable(queryData, chart_name)
+	var chart_name = "run_times_chart";
+	var data = populateDataTable(queryData, chart_name);
 
 	// Set point annotation color for runs that use the skip
-	var annotations = getColumnIndex(queryData, chartsConfig[chart_name].annotation.column)
+	var annotations = getColumnIndex(
+		queryData,
+		chartsConfig[chart_name].annotation.column
+	);
 	data.addColumn({
 		type: chartsConfig[chart_name].annotation.type,
-		role: chartsConfig[chart_name].annotation.role
+		role: chartsConfig[chart_name].annotation.role,
 	});
 
 	for (var rowIndex = 0; rowIndex < data.Wf.length; rowIndex++) {
 		if (queryData.Wf[rowIndex].c[annotations]) {
-			var annotation = ''
-			if (queryData.Wf[rowIndex].c[annotations].v == 'Yes') {
-				annotation = 'point {fill-color: ' + chartsConfig[chart_name].annotation.color
-				data.setCell(rowIndex, 2, annotation)
+			var annotation = "";
+			if (queryData.Wf[rowIndex].c[annotations].v == "Yes") {
+				annotation =
+					"point {fill-color: " + chartsConfig[chart_name].annotation.color;
+				data.setCell(rowIndex, 2, annotation);
 			}
 		}
 	}
 
-	var chart = new google.visualization.LineChart(document.getElementById(chart_name + '_div'));
+	var chart = new google.visualization.LineChart(
+		document.getElementById(chart_name + "_div")
+	);
 	chart.draw(data, chartsConfig[chart_name].opts);
 
 	// This is logic to animate the chart's drawing.
@@ -595,89 +690,102 @@ function populateDataTable(queryData, chart_name) {
 		cols: [
 			{
 				type: chartsConfig[chart_name].x_axis.type,
-				label: getColumnName(queryData, chartsConfig[chart_name].x_axis.column)
+				label: getColumnName(queryData, chartsConfig[chart_name].x_axis.column),
 			},
 			{
 				type: chartsConfig[chart_name].y_axis.type,
-				label: getColumnName(queryData, chartsConfig[chart_name].y_axis.column)
+				label: getColumnName(queryData, chartsConfig[chart_name].y_axis.column),
 			},
-		]
+		],
 	});
 
-	var xAxis = getColumnIndex(queryData, chartsConfig[chart_name].x_axis.column)
-	var yAxis = getColumnIndex(queryData, chartsConfig[chart_name].y_axis.column)
+	var xAxis = getColumnIndex(queryData, chartsConfig[chart_name].x_axis.column);
+	var yAxis = getColumnIndex(queryData, chartsConfig[chart_name].y_axis.column);
 
 	for (var rowIndex = 0; rowIndex < queryData.Wf.length; rowIndex++) {
 		if (queryData.Wf[rowIndex].c[xAxis] !== null) {
-			data.addRows([[
-				queryData.Wf[rowIndex].c[xAxis],
-				queryData.Wf[rowIndex].c[yAxis]]])
-		};
+			data.addRows([
+				[queryData.Wf[rowIndex].c[xAxis], queryData.Wf[rowIndex].c[yAxis]],
+			]);
+		}
 	}
 
-	return data
+	return data;
 }
 
 async function setMetricElems(queryData) {
 	// Loop through metricsConfig to create divs for single metrics
-	Object.keys(metricsConfig).forEach(key => {
+	Object.keys(metricsConfig).forEach((key) => {
 		var span = document.getElementById(key);
-		var value = queryData.Wf[metricsConfig[key].position[1] - 2].c[getColumnIndex(queryData, metricsConfig[key].position[0])].f;
-		span.textContent = value
+		var value =
+			queryData.Wf[metricsConfig[key].position[1] - 2].c[
+				getColumnIndex(queryData, metricsConfig[key].position[0])
+			].f;
+		span.textContent = value;
 
 		// For delta metrics, sets the elems for the up/down arrows
 		if (metricsConfig[key].delta === true) {
 			if (value.charAt(0) == "-") {
-				document.getElementById(key + '_div').className = "text-success font-weight-bold mr-1";
-				document.getElementById(key + '_arrow').className = "fa fa-arrow-up";
+				document.getElementById(key + "_div").className =
+					"text-success font-weight-bold mr-1";
+				document.getElementById(key + "_arrow").className = "fa fa-arrow-up";
 			} else {
-				document.getElementById(key + '_div').className = "text-danger font-weight-bold mr-11";
-				document.getElementById(key + '_arrow').className = "fa fa-arrow-down";
+				document.getElementById(key + "_div").className =
+					"text-danger font-weight-bold mr-11";
+				document.getElementById(key + "_arrow").className = "fa fa-arrow-down";
 			}
 		}
 	});
 
-	loadPage()
+	loadPage();
 }
 
 function loadPage() {
 	// Unloads the loading-image gif and loads all other elements
-	var unload_elements = document.getElementsByClassName('loading-image');
+	var unload_elements = document.getElementsByClassName("loading-image");
 
 	for (i = 0; i < unload_elements.length; i++) {
-		unload_elements[i].style.display = 'none'
+		unload_elements[i].style.display = "none";
 	}
 
-	var load_elements = []
+	var load_elements = [];
 	for (i = 0; i < elemToHide.length; i++) {
 		if (i == 0) {
-			load_elements = Array.prototype.slice.call(document.getElementsByClassName(elemToHide[i]), 0)
+			load_elements = Array.prototype.slice.call(
+				document.getElementsByClassName(elemToHide[i]),
+				0
+			);
 		} else {
-			load_elements = load_elements.concat(Array.prototype.slice.call(document.getElementsByClassName(elemToHide[i]), 0))
+			load_elements = load_elements.concat(
+				Array.prototype.slice.call(
+					document.getElementsByClassName(elemToHide[i]),
+					0
+				)
+			);
 		}
 	}
 
 	for (i = 0; i < load_elements.length; i++) {
-		load_elements[i].style.display = 'flex'
+		load_elements[i].style.display = "flex";
 	}
 }
 
 function getColumnIndex(queryData, columnLetter) {
-	var columns = queryData.bf
+	var columns = queryData.bf;
 	// Converts human-readable Sheets info (ie cell C2) to the proper index in the DataTable object
 	for (let index = 0; index < columns.length; ++index) {
 		if (columns[index].id == columnLetter) {
-			return index
+			return index;
 		}
 	}
 }
 
 function getColumnName(queryData, columnLetter) {
 	// Converts human-readable Sheets column name to the proper label in the DataTable object
-	var columns = queryData.bf
+	var columns = queryData.bf;
 	for (let index = 0; index < columns.length; ++index) {
 		if (columns[index].id == columnLetter) {
-			return columns[index].label
+			return columns[index].label;
 		}
 	}
 }

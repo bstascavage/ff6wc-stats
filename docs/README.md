@@ -3,13 +3,14 @@
 A simple yet classy theme for your Jekyll website or blog. Customizable to fit your style or brand.
 
 Built with these awesome libraries:
-* [Bourbon][bourbon]
-* [Neat][neat]
-* [Bitters][bitters]
-* [Refills][refills]
-* [Font Awesome][fontawesome]
-* [HighlightJS][highlightjs]
-* [Lightbox][lightbox]
+
+- [Bourbon][bourbon]
+- [Neat][neat]
+- [Bitters][bitters]
+- [Refills][refills]
+- [Font Awesome][fontawesome]
+- [HighlightJS][highlightjs]
+- [Lightbox][lightbox]
 
 Here's a [demo](http://bencentra.com/centrarium). It also works on [GitHub Pages](http://bencentra.github.io/centrarium/). I also use it for [my own website][bencentra].
 
@@ -20,15 +21,16 @@ Cover image by Chris M. Morris ([flickr][cover]).
 ## Features
 
 This theme comes with a number of features, including:
-* Easily customizable fonts and colors
-* Cover images for your homepage and blog posts
-* Pagination enabled by default
-* Archiving of posts by categories and tags
-* Syntax highlighting for code snippets
-* Disqus integration for post comments
-* Lightbox for viewing full-screen photos and albums
-* Google Analytics with custom page name tracking
-* Social media integration (Twitter, Facebook, LinkedIn, GitHub, and more)
+
+- Easily customizable fonts and colors
+- Cover images for your homepage and blog posts
+- Pagination enabled by default
+- Archiving of posts by categories and tags
+- Syntax highlighting for code snippets
+- Disqus integration for post comments
+- Lightbox for viewing full-screen photos and albums
+- Google Analytics with custom page name tracking
+- Social media integration (Twitter, Facebook, LinkedIn, GitHub, and more)
 
 ## Installation
 
@@ -41,6 +43,7 @@ If your site already uses Jekyll, follow these steps:
 3. Copy the contents of the `_config.yml` from this project in to yours, and update the necessary information.
 
 Don't forget to install Jekyll and other dependencies:
+
 ```bash
 # cd into project directory
 cd centrarium
@@ -52,7 +55,7 @@ bundle install
 
 ## Stackbit Deploy
 
-This theme is ready to import into Stackbit. This theme can be deployed to Netlify and you can connect any headless CMS including Forestry, NetlifyCMS, DatoCMS or Contentful. 
+This theme is ready to import into Stackbit. This theme can be deployed to Netlify and you can connect any headless CMS including Forestry, NetlifyCMS, DatoCMS or Contentful.
 
 [![Create with Stackbit](https://assets.stackbit.com/badge/create-with-stackbit.svg)](https://app.stackbit.com/create?theme=https://github.com/bencentra/centrarium)
 
@@ -64,20 +67,20 @@ Links in the header and footer are auto-generated. Links will be made for all fi
 
 If you want change the CSS of the theme, you'll probably want to check out these files in the `_sass/` directory:
 
-* `base/_variables.scss`: Common values found throughout the project, including base font size, font families, colors, and more.
-* `base/_typography.scss`: Base typography values for the site (see `typography.html` for a demonstration)
-* `_layout.scss`: The primary styles for the layout and design of the theme.
+- `base/_variables.scss`: Common values found throughout the project, including base font size, font families, colors, and more.
+- `base/_typography.scss`: Base typography values for the site (see `typography.html` for a demonstration)
+- `_layout.scss`: The primary styles for the layout and design of the theme.
 
 ### Important Variables
 
 Here are the important variables from `base/_variables.scss` you can tweak to customize the theme to your liking:
 
-* `$base-font-family`: The font-family of the body text. Make sure to `@import` any new fonts!
-* `$heading-font-family`: The font-family of the headers. Make sure to `@import` any new fonts!
-* `$base-font-size`: The base font-size. Defaults to $em-base from Bourbon (`bourbon/settings/_px-to-em.scss`).
-* `$base-font-color`: The color for the body text.
-* `$action-color`: The color for links in the body text.
-* `$highlight-color`: The color for the footer and page headers (when no cover image provided).
+- `$base-font-family`: The font-family of the body text. Make sure to `@import` any new fonts!
+- `$heading-font-family`: The font-family of the headers. Make sure to `@import` any new fonts!
+- `$base-font-size`: The base font-size. Defaults to $em-base from Bourbon (`bourbon/settings/_px-to-em.scss`).
+- `$base-font-color`: The color for the body text.
+- `$action-color`: The color for links in the body text.
+- `$highlight-color`: The color for the footer and page headers (when no cover image provided).
 
 ## Configuration
 
@@ -85,20 +88,20 @@ All configuration options can be found in `_config.yml`.
 
 ### Site Settings
 
-* __title:__ The title for your site. Displayed in the navigation menu, the `index.html` header, and the footer.
-* __subtitle:__ The subtitle of your site. Displayed in the `index.html` header.
-* __email:__ Your email address, displayed with the Contact info in the footer.
-* __name:__ Your name. _Currently unused._
-* __description:__ The description of your site. Used for search engine results and displayed in the footer.
-* __baseurl:__ The subpath of your site (e.g. /blog/).
-* __url:__ The base hostname and protocol for your site.
-* __cover:__ The relative path to your site's cover image.
-* __logo:__ The relative path to your site's logo. Used in the navigation menu instead of the title if provided.
+- **title:** The title for your site. Displayed in the navigation menu, the `index.html` header, and the footer.
+- **subtitle:** The subtitle of your site. Displayed in the `index.html` header.
+- **email:** Your email address, displayed with the Contact info in the footer.
+- **name:** Your name. _Currently unused._
+- **description:** The description of your site. Used for search engine results and displayed in the footer.
+- **baseurl:** The subpath of your site (e.g. /blog/).
+- **url:** The base hostname and protocol for your site.
+- **cover:** The relative path to your site's cover image.
+- **logo:** The relative path to your site's logo. Used in the navigation menu instead of the title if provided.
 
 ### Build Settings
 
-* __markdown:__ Markdown parsing engine. Default is kramdown.
-* __inter_post_navigation:__ Whether to render links to the next and previous post on each post.
+- **markdown:** Markdown parsing engine. Default is kramdown.
+- **inter_post_navigation:** Whether to render links to the next and previous post on each post.
 
 ### Pagination settings
 
@@ -108,22 +111,22 @@ See the documentation for [jekyll-paginate-v2](https://github.com/sverrirs/jekyl
 
 Although this theme comes with a combined, categorized archive (see `posts.html`), you can enable further archive creation thanks to [jekyll-archives][archives]. Support for category and tag archive pages is included, but you can also add your own archive pages for years, months, and days.
 
-To change archive settings, see the __jekyll-archives__ section of `_config.yml`:
+To change archive settings, see the **jekyll-archives** section of `_config.yml`:
 
 ```yml
 jekyll-archives:
   enabled:
     - categories
     - tags
-  layout: 'archive'
+  layout: "archive"
   permalinks:
-    category: '/category/:name/'
-    tag: '/tag/:name/'
+    category: "/category/:name/"
+    tag: "/tag/:name/"
 ```
 
-To fully disable the archive, remove the __jekyll-archives__ section AND remove it from the __gems__ list.
+To fully disable the archive, remove the **jekyll-archives** section AND remove it from the **gems** list.
 
-__NOTE:__ the Jekyll Archive gem is NOT included with GitHub pages! Disable the archive feature if you intend to deploy your site to GitHub pages. [Here is a guide](http://ixti.net/software/2013/01/28/using-jekyll-plugins-on-github-pages.html) on how you can use the `jekyll archive` gem with GitHub pages. The general gist: compile the Jekyll site locally and then push that compiled site to GitHub.
+**NOTE:** the Jekyll Archive gem is NOT included with GitHub pages! Disable the archive feature if you intend to deploy your site to GitHub pages. [Here is a guide](http://ixti.net/software/2013/01/28/using-jekyll-plugins-on-github-pages.html) on how you can use the `jekyll archive` gem with GitHub pages. The general gist: compile the Jekyll site locally and then push that compiled site to GitHub.
 
 A sitemap is also generated using [jekyll-sitemap][sitemap].
 
@@ -152,28 +155,28 @@ highlightjs_theme: "monokai_sublime"
 
 You can enable [Disqus][disqus] comments for you site by including one config option:
 
-* __disqus_shortname:__ Your Disqus username. If the property is set, Disqus comments will be included with your blog posts.
+- **disqus_shortname:** Your Disqus username. If the property is set, Disqus comments will be included with your blog posts.
 
-If you want to disable Disqus for only a specific page, add __disqus_disabled: true__ to the page's front matter.
+If you want to disable Disqus for only a specific page, add **disqus_disabled: true** to the page's front matter.
 
 ### Google Analytics Settings
 
 You can enable basic [Google Analytics][ga] pageview tracking by including your site's tracking ID:
 
-* __ga_tracking_id__: The Tracking ID for your website. You can find it on your Google Analytics dashboard. If the property is set, Google Analytics will be added to the footer of each page.
+- **ga_tracking_id**: The Tracking ID for your website. You can find it on your Google Analytics dashboard. If the property is set, Google Analytics will be added to the footer of each page.
 
 ### Social Settings
 
-Your personal social network settings are combined with the social sharing options. In the __social__ section of `_config.yml`, include an entry for each network you want to include. For example:
+Your personal social network settings are combined with the social sharing options. In the **social** section of `_config.yml`, include an entry for each network you want to include. For example:
 
 ```yml
 social:
-  - name: Twitter                         # Name of the service
-    icon: twitter                         # Font Awesome icon to use (minus fa- prefix)
-    username: TheBenCentra                # (User) Name to display in the footer link
+  - name: Twitter # Name of the service
+    icon: twitter # Font Awesome icon to use (minus fa- prefix)
+    username: TheBenCentra # (User) Name to display in the footer link
     url: https://twitter.com/TheBenCentra # URL of your profile (leave blank to not display in footer)
-    desc: Follow me on Twitter            # Description to display as link title, etc
-    share: true                           # Include in the "Share" section of posts
+    desc: Follow me on Twitter # Description to display as link title, etc
+    share: true # Include in the "Share" section of posts
 ```
 
 ### Social Protocols
@@ -184,7 +187,7 @@ Also there is another protocol, the Open Source protocol, for saying where your 
 
 ### Category Descriptions
 
-You can enhance the `posts.html` archive page with descriptions of your post categories. See the __descriptions__ section of `_config.yml`:
+You can enhance the `posts.html` archive page with descriptions of your post categories. See the **descriptions** section of `_config.yml`:
 
 ```yml
 # Category descriptions (for archive pages)
@@ -195,19 +198,19 @@ descriptions:
 
 ### Custom Page-Specific Javascript
 
-You can add page-specific javascript files by adding them to the top-level `/js` directory and including the filename in the __custom_js__ page's configuration file:
+You can add page-specific javascript files by adding them to the top-level `/js` directory and including the filename in the **custom_js** page's configuration file:
 
 ```yml
 # Custom js (for individual pages)
 ---
 layout: post
-title:  "Dummy Post"
-date:   2015-04-18 08:43:59
+title: "Dummy Post"
+date: 2015-04-18 08:43:59
 author: Ben Centra
 categories: Dummy
 custom_js:
-- Popmotion
-- Vue
+  - Popmotion
+  - Vue
 ---
 ```
 

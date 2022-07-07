@@ -19,10 +19,10 @@
 ///   }
 
 @mixin display-context($display: block) {
-  $scope-display: $container-display-table;
-  $container-display-table: $display == table !global;
+	$scope-display: $container-display-table;
+	$container-display-table: $display == table !global;
 
-  @content;
+	@content;
 
-  $container-display-table: $scope-display !global;
+	$container-display-table: $scope-display !global;
 }

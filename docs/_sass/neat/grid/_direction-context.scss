@@ -19,15 +19,15 @@
 ///   }
 
 @mixin direction-context($direction: left-to-right) {
-  $scope-direction: $layout-direction;
+	$scope-direction: $layout-direction;
 
-  @if to-lower-case($direction) == "left-to-right" {
-    $layout-direction: LTR !global;
-  } @else if to-lower-case($direction) == "right-to-left" {
-    $layout-direction: RTL !global;
-  }
+	@if to-lower-case($direction) == "left-to-right" {
+		$layout-direction: LTR !global;
+	} @else if to-lower-case($direction) == "right-to-left" {
+		$layout-direction: RTL !global;
+	}
 
-  @content;
+	@content;
 
-  $layout-direction: $scope-direction !global;
+	$layout-direction: $scope-direction !global;
 }

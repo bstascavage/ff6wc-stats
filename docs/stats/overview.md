@@ -7,8 +7,6 @@ permalink: /stats
 main_nav: true
 ---
 
-
-
 <head>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js" defer></script>
   <script src="https://unpkg.com/jquery@3.6.0/dist/jquery.slim.min.js" defer></script>
@@ -16,8 +14,6 @@ main_nav: true
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-
-
 
 <div class="parent">
   <div class="loading-image">
@@ -72,6 +68,7 @@ main_nav: true
         </div>
       </div>
     </nav>
+
   </div>
 </div>
 
@@ -179,6 +176,7 @@ main_nav: true
         </div>
       </div>
     </nav>
+
   </div>
 </div>
 
@@ -186,7 +184,6 @@ main_nav: true
 <div class="flex-container-stats">
   <p style="text-align: center; font-size: 28px">Time Breakdown</p>
 </div>
-
 
 <div class="flex-container-stats">
   <p style="text-align: center; font-size: 18px">Run Times</p>
@@ -202,12 +199,12 @@ main_nav: true
 
       </div>
     </nav>
+
   </div>
 
 </div>
 
 <br>
-
 
 <div class="parent">
   <div class="flex-container-wrapped">

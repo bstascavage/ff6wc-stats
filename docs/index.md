@@ -1,14 +1,14 @@
 ---
 layout: post
-title:  "Seto Stats"
+title: "Seto Stats"
 desc: "A statistical journey through  Worlds Collide: The Final Fantasy VI Randomizer"
-cover:  "/assets/index-cover.webp"
+cover: "/assets/index-cover.webp"
 main_nav: false
 ---
 
-Welcome to Seto Kiaba's Final Fantasy VI: Worlds Collide statistical dashboard.  Click the things at the top to do the things.
+Welcome to Seto Kiaba's Final Fantasy VI: Worlds Collide statistical dashboard. Click the things at the top to do the things.
 
-<!-- 
+<!--
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 
 ## Adding New Posts
@@ -31,12 +31,12 @@ Use the [Liquid][liquid] `{% raw %}{% highlight <language> %}{% endraw %}` tag t
 
 For instance, this template...
 {% highlight html %}
-{% raw %}{% highlight javascript %}    
-function demo(string, times) {    
-  for (var i = 0; i < times; i++) {    
-    console.log(string);    
-  }    
-}    
+{% raw %}{% highlight javascript %}
+function demo(string, times) {
+  for (var i = 0; i < times; i++) {
+    console.log(string);
+  }
+}
 demo("hello, world!", 10);
 {% endhighlight %}{% endraw %}
 {% endhighlight %}
@@ -74,7 +74,7 @@ With Tippy.js, you can add tooltips to your text with a little bit of HTML and J
 
 See the [Tippy.js docs](https://atomiks.github.io/tippyjs/) for additional configuration that you can provide for your tooltips.
 
-You can also use a Liquid `include` to import tooltip text or HTML from an external file: 
+You can also use a Liquid `include` to import tooltip text or HTML from an external file:
 
 ```
 window.tooltips.push(['#someOtherId', { content: "{% raw %}{% include tooltips/example.html %}{% endraw %}" }])

@@ -84,7 +84,6 @@ pre code.hljs {
 	border-bottom: 1px dotted $medium-gray;
 }
 
-
 .site-header-container,
 .post-header-container {
 	width: 100%;
@@ -146,7 +145,7 @@ pre code.hljs {
 		font-size: 1.5em;
 		padding-top: 0.5em;
 
-		@include media ($tablet) {
+		@include media($tablet) {
 			display: none;
 		}
 	}
@@ -162,7 +161,7 @@ pre code.hljs {
 		float: left;
 		height: 4em;
 
-		@include media ($tablet) {
+		@include media($tablet) {
 			padding-left: $em-base;
 		}
 
@@ -181,7 +180,7 @@ pre code.hljs {
 		float: none;
 		padding: 1.25em 0;
 
-		@include media ($tablet) {
+		@include media($tablet) {
 			float: right;
 			line-height: 1.5em;
 		}
@@ -195,7 +194,7 @@ pre code.hljs {
 		padding: 0;
 		width: 100%;
 
-		@include media ($tablet) {
+		@include media($tablet) {
 			display: block;
 			margin: 0;
 			padding: 0;
@@ -213,7 +212,7 @@ pre code.hljs {
 		width: 100%;
 		padding: 0.25em 0;
 
-		@include media ($tablet) {
+		@include media($tablet) {
 			background: transparent;
 			display: inline;
 			text-decoration: none;
@@ -225,13 +224,13 @@ pre code.hljs {
 		a {
 			display: inline-block;
 
-			@include media ($tablet) {
+			@include media($tablet) {
 				padding-right: 1.5em;
 			}
 		}
 
 		&:last-child a {
-			@include media ($tablet) {
+			@include media($tablet) {
 				padding-right: 1em;
 			}
 		}
@@ -365,7 +364,6 @@ pre code.hljs {
 		flex-grow: 1;
 		text-align: center;
 		justify-content: center;
-
 	}
 
 	.charts-half {
@@ -374,7 +372,6 @@ pre code.hljs {
 		text-align: center;
 		justify-content: center;
 		flex-basis: 50%;
-
 	}
 
 	.chart {
@@ -392,9 +389,7 @@ pre code.hljs {
 		flex-direction: column;
 		box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
 		transition: all 0.2s;
-		;
 	}
-
 
 	.stat-card-flex-slim {
 		// flex-grow: 3;
@@ -464,8 +459,6 @@ pre code.hljs {
 		}
 	}
 
-
-
 	#third_frame {
 		width: 30%;
 	}
@@ -531,7 +524,7 @@ pre code.hljs {
 			margin: 1em 0 0 0;
 			@include span-columns(12);
 
-			@include media ($tablet) {
+			@include media($tablet) {
 				margin: 1em 0;
 				@include span-columns(6);
 			}
@@ -542,7 +535,7 @@ pre code.hljs {
 			margin: 0 0 1em 0;
 			@include span-columns(12);
 
-			@include media ($tablet) {
+			@include media($tablet) {
 				@include span-columns(6);
 				margin: 1em 0;
 				text-align: right;
@@ -643,7 +636,8 @@ pre code.hljs {
 		@include outer-container(70em);
 	}
 
-	.footer-heading {}
+	.footer-heading {
+	}
 
 	/*
 	*	Site Navigation (left)
@@ -651,11 +645,11 @@ pre code.hljs {
 	.site-navigation {
 		@include span-columns(12);
 
-		@include media ($mobile) {
+		@include media($mobile) {
 			@include span-columns(6);
 		}
 
-		@include media ($tablet) {
+		@include media($tablet) {
 			@include span-columns(4);
 		}
 
@@ -673,13 +667,13 @@ pre code.hljs {
 		margin-top: 1em;
 		@include span-columns(12);
 
-		@include media ($mobile) {
+		@include media($mobile) {
 			@include span-columns(6);
 			margin-top: 0;
 			margin-right: 0;
 		}
 
-		@include media ($tablet) {
+		@include media($tablet) {
 			@include span-columns(4);
 			margin-top: 0;
 		}
@@ -703,7 +697,7 @@ pre code.hljs {
 		margin-top: 1em;
 		@include span-columns(12);
 
-		@include media ($tablet) {
+		@include media($tablet) {
 			@include span-columns(4);
 			margin-right: 0;
 			margin-top: 0;
@@ -715,6 +709,4 @@ pre code.hljs {
 			text-decoration: underline;
 		}
 	}
-
-
 }
