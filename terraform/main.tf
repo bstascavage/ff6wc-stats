@@ -1,3 +1,5 @@
+data "aws_caller_identity" "current" {}
+
 ### AWS Amplify App config and branch config ###
 resource "aws_amplify_app" "setokiaba" {
   name       = var.app_name
@@ -54,8 +56,7 @@ resource "aws_cloudwatch_event_rule" "amplify_app_main" {
       ],
       "jobStatus" = [
         "SUCCEED",
-        "FAILED",
-        "STARTED"
+        "FAILED"
       ]
     }
     "detail-type" = [
@@ -81,18 +82,44 @@ resource "aws_cloudwatch_event_target" "amplify_app_main" {
       status = "$.detail.jobStatus"
     }
 
-    input_template = "\"Build notification from the AWS Amplify Console for app: https://<branch>.<appId>.amplifyapp.com/. Your build status is <status>. Go to https://console.aws.amazon.com/amplify/home?region=<region>#<appId>/<branch>/<jobId> to view details on your build. \""
+    input_template = "\"BUILD STATUS: <status>. Build notification from the AWS Amplify Console for app: https://<branch>.<appId>.amplifyapp.com/. Your build status is <status>. Go to https://console.aws.amazon.com/amplify/home?region=<region>#<appId>/<branch>/<jobId> to view details on your build. \""
   }
 }
 
 resource "aws_sns_topic" "amplify_app_main" {
   name              = "amplify-${aws_amplify_app.setokiaba.id}_${aws_amplify_branch.main.branch_name}"
+  display_name      = "amplify-build-${var.app_name}"
   kms_master_key_id = aws_kms_key.build-sns-encrypt.arn
 }
 
 resource "aws_kms_key" "build-sns-encrypt" {
   description         = "This key is used to encrypt the SNS topic for Amplify build notifications"
   enable_key_rotation = true
+  policy              = data.aws_iam_policy_document.build-sns-encrypt-policy-document.json
+}
+
+data "aws_iam_policy_document" "build-sns-encrypt-policy-document" {
+  statement {
+    sid    = "Allow KMS Use"
+    effect = "Allow"
+    principals {
+      type        = "Service"
+      identifiers = ["events.amazonaws.com"]
+    }
+    principals {
+      type = "AWS"
+      identifiers = [
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root",
+        "${data.aws_caller_identity.current.arn}"
+      ]
+    }
+    actions = [
+      "kms:*",
+    ]
+    resources = [
+      "*"
+    ]
+  }
 }
 
 data "aws_iam_policy_document" "amplify_app_main" {
