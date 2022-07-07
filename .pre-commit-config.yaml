@@ -29,5 +29,5 @@ repos:
       - id: terraform_fmt
       - id: terraform_docs
       - id: terraform_tflint
-      # - id: terraform_tfsec # Disabling because it is late and I am tired
+      - id: terraform_tfsec # Disabling because it is late and I am tired
       - id: terraform_validate
