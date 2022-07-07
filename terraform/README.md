@@ -33,8 +33,8 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_app_name"></a> [app\_name](#input\_app\_name) | Name of the application | `string` | `"setokiaba.com"` | no |
-| <a name="input_source_repo"></a> [source\_repo](#input\_source\_repo) | Source repo for frontend code | `string` | `"https://github.com/bstascavage/ff6wc-stats"` | no |
+| <a name="input_app_name"></a> [app\_name](#input\_app\_name) | Name of the application | `string` | n/a | yes |
+| <a name="input_source_repo"></a> [source\_repo](#input\_source\_repo) | Source repo for frontend code | `string` | n/a | yes |
 
 ## Outputs
 
