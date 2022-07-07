@@ -4,6 +4,8 @@
 
 This is the terraform module to deploy setokiaba.com. This site utilizes [AWS Amplify](https://aws.amazon.com/amplify/) to manage and deploy the application.
 
+This uses the [Terraform S3 backend](https://www.terraform.io/language/settings/backends/s3) to manage the `tfstate` file.  To initialize the backend, cd to `init-backend`, set your `env/main.tfvars`, and run `terraform apply -var-file="env/main.tfvars"`.
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 

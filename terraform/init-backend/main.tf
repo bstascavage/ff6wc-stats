@@ -1,5 +1,6 @@
+#tfsec:ignore:aws-s3-enable-bucket-logging tfsec:ignore:aws-s3-enable-versioning
 resource "aws_s3_bucket" "tfstate" {
-  bucket = "setokiaba-tfstate"
+  bucket = var.backend-bucket
 }
 
 # resource "aws_s3_bucket_versioning" "tfstate-versioning" {
@@ -22,5 +23,15 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "tfstate-encrypt" 
 }
 
 resource "aws_kms_key" "tfstate-encrypt" {
-  description = "This key is used to encrypt the tfstate backup bucket"
+  description         = "This key is used to encrypt the tfstate backup bucket"
+  enable_key_rotation = true
+}
+
+resource "aws_s3_bucket_public_access_block" "tfstate" {
+  bucket = aws_s3_bucket.tfstate.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
