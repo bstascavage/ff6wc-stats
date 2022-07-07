@@ -1,0 +1,16 @@
+# https://taskfile.dev
+
+version: "3"
+
+tasks:
+  init:
+    desc: Initializes the dev environment
+    cmds:
+      - asdf install
+      - pre-commit install
+
+  validate:
+    desc: Validate the pre-commit hooks
+    cmds:
+      - task init
+      - pre-commit run -a
