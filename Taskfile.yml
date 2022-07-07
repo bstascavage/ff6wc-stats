@@ -6,6 +6,7 @@ tasks:
   init:
     desc: Initializes the dev environment
     cmds:
+      - asdf plugin add ruby # This is temporary in till the ruby plugin is added to anvil
       - asdf install
       - pre-commit install
 
@@ -26,3 +27,10 @@ tasks:
     cmds:
       - terraform apply -var-file="env/main.tfvars"
     dir: terraform
+
+  serve:
+    desc: Runs the Jekyll
+    cmds:
+      - bundle install
+      - bundle exec jekyll serve --watch --host 0.0.0.0
+    dir: docs

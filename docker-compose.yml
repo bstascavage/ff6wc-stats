@@ -17,5 +17,7 @@ services:
       - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
       - AWS_SECURITY_TOKEN=${AWS_SECURITY_TOKEN}
       - AWS_SESSION_EXPIRATION=${AWS_SESSION_EXPIRATION}
+    ports:
+      - "4000:4000"
 volumes:
   asdf:

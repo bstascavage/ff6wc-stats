@@ -1,2 +1,2 @@
 #!/bin/bash
-docker-compose run anvil "$@"
+docker-compose run --service-ports anvil "$@"
