@@ -7,3 +7,9 @@ variable "app_name" {
   type        = string
   description = "Name of the application"
 }
+
+variable "main_branch" {
+  type        = string
+  description = "The name of the main branch"
+  default     = "main"
+}

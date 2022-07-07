@@ -14,3 +14,15 @@ tasks:
     cmds:
       - task init
       - pre-commit run -a
+
+  plan:
+    desc: Runs a Terraform Plan
+    cmds:
+      - terraform plan -var-file="env/main.tfvars"
+    dir: terraform
+
+  deploy:
+    desc: Runs a Terraform Apply
+    cmds:
+      - terraform apply -var-file="env/main.tfvars"
+    dir: terraform
