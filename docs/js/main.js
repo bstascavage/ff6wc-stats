@@ -33,7 +33,7 @@ async function parseDiscordCallback() {
 	// 	"https://discord.com/api/oauth2/authorize?client_id=994734074704957602&redirect_uri=http%3A%2F%2Flocalhost%3A4000%2Fredirect&response_type=token&scope=identify%20email";
 
 	var login_button_link =
-		"https://discord.com/api/oauth2/authorize?client_id=994734074704957602&redirect_uri=https%3A%2F%2Fsetokiaba.com%2Fredirect&response_type=code&scope=identify%20email";
+		"https://discord.com/api/oauth2/authorize?client_id=994734074704957602&redirect_uri=https%3A%2F%2Fsetokiaba.com%2Fredirect&response_type=token&scope=identify%20email";
 	if (discordAccessToken) {
 		const userdata = await getDiscordUserInfo(
 			discordAccessToken,
