@@ -1,12 +1,16 @@
 ---
 layout: post
 title: "Seto Stats"
-desc: "A statistical journey through  Worlds Collide: The Final Fantasy VI Randomizer"
+desc: "A statistical journey through Worlds Collide: The Final Fantasy VI Randomizer"
 cover: "/assets/index-cover.webp"
 main_nav: false
 ---
 
-Welcome to Seto Kiaba's Final Fantasy VI: Worlds Collide statistical dashboard. Click the things at the top to do the things.
+<script src="/js/main.js" defer></script>
+<script src="/js/index.js" defer></script>
+
+Welcome to Seto Kiaba's Final Fantasy VI: Worlds Collide statistical dashboard. Click the things at the top to do the
+things.
 
 <!--
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.

@@ -236,7 +236,16 @@ var chartsConfig = {
 	},
 };
 
-var elemToHide = ["flex-container-stats", "flex-container-wrapped"];
+var elemToHide = [
+	{
+		class: "flex-container-stats",
+		display: "flex",
+	},
+	{
+		class: "flex-container-wrapped",
+		display: "flex",
+	},
+];
 
 $(window).onload = function () {
 	initialize_everything(function () {
@@ -256,6 +265,7 @@ function initialize_everything(callback) {
 
 		// Start setting divs
 		setMetricElems(queryData);
+		loadPage(elemToHide);
 		google.charts.setOnLoadCallback(drawRunTimesLineChart(queryData));
 		google.charts.setOnLoadCallback(drawCharacterTimesColumnChart(queryData));
 		google.charts.setOnLoadCallback(drawDeadcheckTimesColumnChart(queryData));
@@ -736,38 +746,6 @@ async function setMetricElems(queryData) {
 			}
 		}
 	});
-
-	loadPage();
-}
-
-function loadPage() {
-	// Unloads the loading-image gif and loads all other elements
-	var unload_elements = document.getElementsByClassName("loading-image");
-
-	for (i = 0; i < unload_elements.length; i++) {
-		unload_elements[i].style.display = "none";
-	}
-
-	var load_elements = [];
-	for (i = 0; i < elemToHide.length; i++) {
-		if (i == 0) {
-			load_elements = Array.prototype.slice.call(
-				document.getElementsByClassName(elemToHide[i]),
-				0
-			);
-		} else {
-			load_elements = load_elements.concat(
-				Array.prototype.slice.call(
-					document.getElementsByClassName(elemToHide[i]),
-					0
-				)
-			);
-		}
-	}
-
-	for (i = 0; i < load_elements.length; i++) {
-		load_elements[i].style.display = "flex";
-	}
 }
 
 function getColumnIndex(queryData, columnLetter) {

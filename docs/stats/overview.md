@@ -8,18 +8,14 @@ main_nav: true
 ---
 
 <head>
+  <script src="/js/main.js" defer></script>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js" defer></script>
   <script src="https://unpkg.com/jquery@3.6.0/dist/jquery.slim.min.js" defer></script>
-  <script src="/stats/javascript/charts.js" defer></script>
+  <script src="/js/stats/charts.js" defer></script>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<div class="parent">
-  <div class="loading-image">
-    <img src="/assets/loading-page.gif">
-  </div>
-</div>
 <!-- Overview stats -->
 <div class="parent">
   <div class="flex-container-stats">

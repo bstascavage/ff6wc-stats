@@ -6,7 +6,7 @@ tasks:
   init:
     desc: Initializes the dev environment
     cmds:
-      - asdf plugin add ruby # This is temporary in till the ruby plugin is added to anvil
+      # - asdf plugin add ruby # This is temporary in till the ruby plugin is added to anvil.  See: https://github.com/saic-oss/anvil/pull/39
       - asdf install
       - pre-commit install
 

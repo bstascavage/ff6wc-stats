@@ -133,6 +133,7 @@ pre code.hljs {
 	right: 0;
 	background: $white;
 	z-index: 1;
+	display: none;
 
 	/*
 	*	Navigation Menu - http://refills.bourbon.io/unstyled/ (see "Navigation")
@@ -244,6 +245,7 @@ pre code.hljs {
 	// Remove this to make header scrollable again
 	margin-top: 66px;
 	background-color: #f4f4f4;
+	display: none;
 
 	.wrapper {
 		// @include outer-container;
@@ -616,6 +618,7 @@ pre code.hljs {
 	padding: 1em 1em 2em 1em;
 	background-color: $highlight-color;
 	color: $white;
+	display: none;
 
 	a {
 		color: $link-color;
