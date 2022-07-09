@@ -2,19 +2,29 @@
 
 version: "3"
 
+env:
+  NPM_PACKAGE: '{{ .PACKAGE | default "" }}'
+
 tasks:
   init:
     desc: Initializes the dev environment
     cmds:
-      # - asdf plugin add ruby # This is temporary in till the ruby plugin is added to anvil.  See: https://github.com/saic-oss/anvil/pull/39
       - asdf install
       - pre-commit install
+      - npm install -g @aws-amplify/cli
+      - task: npm-install
 
   validate:
     desc: Validate the pre-commit hooks
     cmds:
       - task init
       - pre-commit run -a
+
+  tinit:
+    desc: Runs a Terraform Init
+    cmds:
+      - terraform init -var-file="env/main.tfvars"
+    dir: terraform
 
   plan:
     desc: Runs a Terraform Plan
@@ -28,9 +38,12 @@ tasks:
       - terraform apply -var-file="env/main.tfvars"
     dir: terraform
 
-  serve:
-    desc: Runs the Jekyll
+  npm-install:
+    desc: Installs npm packages for frontend
     cmds:
-      - bundle install
-      - bundle exec jekyll serve --watch --host 0.0.0.0
-    dir: docs
+      - npm install --save $NPM_PACKAGE
+
+  serve:
+    desc: Starts the react frontend
+    cmds:
+      - npm start
