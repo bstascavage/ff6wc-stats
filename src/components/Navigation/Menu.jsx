@@ -6,7 +6,6 @@ import "../scss/main.scss";
 function Menu({ userdata, setUserData }) {
   let loginLink, statsLink, submitLink;
 
-  console.log(process.env);
   if (userdata.user_auth === true) {
     statsLink = (
       <li className="nav-link">
