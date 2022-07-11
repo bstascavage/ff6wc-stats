@@ -3,7 +3,8 @@
 input AMPLIFY {
   globalAuthRule: AuthRule = { allow: public }
 } # FOR TESTING ONLY!
-type UserData @model {
+type Todo @model {
   id: ID!
-  name: String!
+  username: String!
+  description: String
 }
