@@ -13,3 +13,9 @@ variable "main_branch" {
   description = "The name of the main branch"
   default     = "main"
 }
+
+variable "framework" {
+  type        = string
+  description = "AWS Amplify Framework"
+  default     = "React - Amplify"
+}

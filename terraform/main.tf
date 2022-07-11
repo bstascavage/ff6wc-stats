@@ -1,21 +1,32 @@
 data "aws_caller_identity" "current" {}
 
+data "aws_iam_role" "amplify_service_role" {
+  name = "amplifyconsole-backend-role"
+}
+
 ### AWS Amplify App config and branch config ###
 resource "aws_amplify_app" "setokiaba" {
-  name       = var.app_name
-  repository = var.source_repo
+  name                 = var.app_name
+  repository           = var.source_repo
+  iam_service_role_arn = data.aws_iam_role.amplify_service_role.arn
+
+  environment_variables = {
+    _LIVE_UPDATES = "[{\"name\":\"Amplify CLI\",\"pkg\":\"@aws-amplify/cli\",\"type\":\"npm\",\"version\":\"latest\"}]"
+  }
 
   custom_rule {
-    source = "/<*>"
+    source = "<*>"
     status = "404"
-    target = "/index.html"
+    target = "index.html"
   }
 }
 
 resource "aws_amplify_branch" "main" {
-  app_id      = aws_amplify_app.setokiaba.id
-  branch_name = var.main_branch
-  stage       = "PRODUCTION"
+  app_id                  = aws_amplify_app.setokiaba.id
+  branch_name             = var.main_branch
+  stage                   = "PRODUCTION"
+  framework               = var.framework
+  backend_environment_arn = aws_amplify_backend_environment.main.arn
 
   # Enable SNS notifications.
   enable_notification = true
@@ -31,15 +42,17 @@ resource "aws_amplify_domain_association" "main" {
     branch_name = aws_amplify_branch.main.branch_name
     prefix      = ""
   }
-
-  # https://www.setokiaba.com
-  sub_domain {
-    branch_name = aws_amplify_branch.main.branch_name
-    prefix      = "www"
-  }
 }
 
+resource "aws_amplify_backend_environment" "main" {
+  app_id           = aws_amplify_app.setokiaba.id
+  environment_name = "main"
+}
 
+resource "aws_amplify_backend_environment" "dev" {
+  app_id           = aws_amplify_app.setokiaba.id
+  environment_name = "dev"
+}
 
 ### Cloudwatch event bridge to send build notifications to SNS ###
 resource "aws_cloudwatch_event_rule" "amplify_app_main" {
