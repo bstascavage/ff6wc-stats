@@ -6,6 +6,7 @@ import "../scss/main.scss";
 function Menu({ userdata, setUserData }) {
   let loginLink, statsLink, submitLink;
 
+  console.log(process.env);
   if (userdata.user_auth === true) {
     statsLink = (
       <li className="nav-link">
@@ -31,10 +32,7 @@ function Menu({ userdata, setUserData }) {
   } else {
     loginLink = (
       <li className="nav-link">
-        <a
-          className="nav-link"
-          href="https://discord.com/api/oauth2/authorize?client_id=994734074704957602&redirect_uri=http%3A%2F%2Flocalhost%3A3000&response_type=token&scope=identify%20email"
-        >
+        <a className="nav-link" href={process.env.REACT_APP_DISCORD_OAUTH_LINK}>
           Login
         </a>
       </li>

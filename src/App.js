@@ -15,7 +15,6 @@ function App() {
     userdata.user_auth.length === 0 &&
     localStorage.getItem("discord_access_token")
   ) {
-    console.log("foo");
     return <div></div>;
   } else {
     return (
@@ -44,7 +43,6 @@ function parseDiscordCallback(userdata, setUserData) {
     localStorage.setItem("discord_access_token", accessToken);
     localStorage.setItem("discord_token_type", tokenType);
   }
-  console.log(localStorage.getItem("discord_access_token"));
   if (localStorage.getItem("discord_access_token")) {
     window.history.replaceState(null, null, `${window.location.origin}`);
 
@@ -65,11 +63,8 @@ function parseDiscordCallback(userdata, setUserData) {
   } else {
     useEffect(() => {
       setUserData({ user_auth: false });
-      console.log("foo");
     }, []);
   }
-
-  console.log(userdata);
 }
 
 export default App;
