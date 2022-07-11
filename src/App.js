@@ -42,6 +42,7 @@ function parseDiscordCallback(userdata, setUserData) {
   if (accessToken) {
     localStorage.setItem("discord_access_token", accessToken);
     localStorage.setItem("discord_token_type", tokenType);
+    localStorage.setItem("discord_token_state", state);
   }
   if (localStorage.getItem("discord_access_token")) {
     window.history.replaceState(null, null, `${window.location.origin}`);
