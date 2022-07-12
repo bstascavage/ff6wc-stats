@@ -1,28 +1,42 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getTodo = /* GraphQL */ `
-  query GetTodo($id: ID!) {
-    getTodo(id: $id) {
+export const getUserdata = /* GraphQL */ `
+  query GetUserdata($discordUserId: String!) {
+    getUserdata(discordUserId: $discordUserId) {
       id
-      username
-      description
+      discordUserId
+      discordUserName
+      discordDiscriminator
+      discordAvatarUrl
+      lastLogin
       createdAt
       updatedAt
     }
   }
 `;
-export const listTodos = /* GraphQL */ `
-  query ListTodos(
-    $filter: ModelTodoFilterInput
+export const listUserdata = /* GraphQL */ `
+  query ListUserdata(
+    $discordUserId: String
+    $filter: ModelUserdataFilterInput
     $limit: Int
     $nextToken: String
+    $sortDirection: ModelSortDirection
   ) {
-    listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listUserdata(
+      discordUserId: $discordUserId
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
       items {
         id
-        username
-        description
+        discordUserId
+        discordUserName
+        discordDiscriminator
+        discordAvatarUrl
+        lastLogin
         createdAt
         updatedAt
       }

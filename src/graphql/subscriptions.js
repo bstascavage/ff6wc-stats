@@ -1,34 +1,43 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateTodo = /* GraphQL */ `
-  subscription OnCreateTodo {
-    onCreateTodo {
+export const onCreateUserdata = /* GraphQL */ `
+  subscription OnCreateUserdata {
+    onCreateUserdata {
       id
-      username
-      description
+      discordUserId
+      discordUserName
+      discordDiscriminator
+      discordAvatarUrl
+      lastLogin
       createdAt
       updatedAt
     }
   }
 `;
-export const onUpdateTodo = /* GraphQL */ `
-  subscription OnUpdateTodo {
-    onUpdateTodo {
+export const onUpdateUserdata = /* GraphQL */ `
+  subscription OnUpdateUserdata {
+    onUpdateUserdata {
       id
-      username
-      description
+      discordUserId
+      discordUserName
+      discordDiscriminator
+      discordAvatarUrl
+      lastLogin
       createdAt
       updatedAt
     }
   }
 `;
-export const onDeleteTodo = /* GraphQL */ `
-  subscription OnDeleteTodo {
-    onDeleteTodo {
+export const onDeleteUserdata = /* GraphQL */ `
+  subscription OnDeleteUserdata {
+    onDeleteUserdata {
       id
-      username
-      description
+      discordUserId
+      discordUserName
+      discordDiscriminator
+      discordAvatarUrl
+      lastLogin
       createdAt
       updatedAt
     }

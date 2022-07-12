@@ -1,22 +1,26 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-function Logout({ setUserData }) {
+function Logout({ discordUserdata, setDiscordUserdata }) {
   const navigate = useNavigate();
 
   return (
-    <a href="/" onClick={(e) => handleClick(e, setUserData, navigate)}>
+    <a
+      href="/"
+      onClick={(e) =>
+        handleClick(e, discordUserdata, setDiscordUserdata, navigate)
+      }
+    >
       Logout
     </a>
   );
 }
 
-function handleClick(e, setUserData, navigate) {
+function handleClick(e, discordUserdata, setDiscordUserdata, navigate) {
   e.preventDefault();
 
-  localStorage.removeItem("discord_access_token");
-  localStorage.removeItem("discord_token_type");
-  setUserData({ user_auth: "false", user_data: "" });
+  localStorage.clear();
+  setDiscordUserdata({ ...discordUserdata, user_data: "" });
   navigate("/");
 }
 export default Logout;

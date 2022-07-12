@@ -1,9 +1,9 @@
 export type AmplifyDependentResourcesAttributes = {
-    "api": {
-        "userdata": {
-            "GraphQLAPIKeyOutput": "string",
-            "GraphQLAPIIdOutput": "string",
-            "GraphQLAPIEndpointOutput": "string"
-        }
-    }
-}
+  api: {
+    ff6wcstats: {
+      GraphQLAPIKeyOutput: "string";
+      GraphQLAPIIdOutput: "string";
+      GraphQLAPIEndpointOutput: "string";
+    };
+  };
+};

@@ -5,7 +5,7 @@ import { faDiscord, faGithub } from "@fortawesome/free-brands-svg-icons";
 import Menu from "./Navigation/Menu";
 import "./scss/main.scss";
 
-function Footer({ userdata }) {
+function Footer({ discordUserdata }) {
   return (
     <footer className="site-footer">
       <div className="wrapper">
@@ -14,7 +14,7 @@ function Footer({ userdata }) {
             <strong>Site Map</strong>
           </p>
           <ul className="pages">
-            <Menu userdata={userdata} />
+            <Menu discordUserdata={discordUserdata} />
           </ul>
         </div>
 
@@ -36,7 +36,10 @@ function Footer({ userdata }) {
               </a>
             </li>
             <li>
-              <a href="https://github.com/bstascavage/ff6wc-stats" title="Github">
+              <a
+                href="https://github.com/bstascavage/ff6wc-stats"
+                title="Github"
+              >
                 <FontAwesomeIcon icon={faGithub} />
                 <span className="username">&nbsp;&nbsp;Github</span>
               </a>

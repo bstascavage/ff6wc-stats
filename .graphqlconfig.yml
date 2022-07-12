@@ -8,10 +8,10 @@ projects:
     extensions:
       amplify:
         codeGenTarget: javascript
-        generatedFileName: ''
+        generatedFileName: ""
         docsFilePath: src/graphql
   userdata:
-    schemaPath: src/graphql/schema.json
+    schemaPath: amplify/backend/api/ff6wcstats/build/schema.graphql
     includes:
       - src/graphql/**/*.js
     excludes:
@@ -19,7 +19,7 @@ projects:
     extensions:
       amplify:
         codeGenTarget: javascript
-        generatedFileName: ''
+        generatedFileName: ""
         docsFilePath: src/graphql
 extensions:
   amplify:

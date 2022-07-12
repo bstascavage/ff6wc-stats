@@ -3,8 +3,18 @@
 input AMPLIFY {
   globalAuthRule: AuthRule = { allow: public }
 } # FOR TESTING ONLY!
-type Todo @model {
+type Userdata @model {
   id: ID!
-  username: String!
-  description: String
+  discordUserId: String! @primaryKey
+  discordUserName: String!
+  discordDiscriminator: String!
+  discordAvatarUrl: String!
+  lastLogin: AWSDateTime
 }
+
+# type DiscordId {
+#   discordUserId: String
+# }
+# type Query {
+#   getUserdataFoo(discordUserId: String!): DiscordId
+# }

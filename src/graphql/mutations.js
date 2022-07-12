@@ -1,43 +1,52 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createTodo = /* GraphQL */ `
-  mutation CreateTodo(
-    $input: CreateTodoInput!
-    $condition: ModelTodoConditionInput
+export const createUserdata = /* GraphQL */ `
+  mutation CreateUserdata(
+    $input: CreateUserdataInput!
+    $condition: ModelUserdataConditionInput
   ) {
-    createTodo(input: $input, condition: $condition) {
+    createUserdata(input: $input, condition: $condition) {
       id
-      username
-      description
+      discordUserId
+      discordUserName
+      discordDiscriminator
+      discordAvatarUrl
+      lastLogin
       createdAt
       updatedAt
     }
   }
 `;
-export const updateTodo = /* GraphQL */ `
-  mutation UpdateTodo(
-    $input: UpdateTodoInput!
-    $condition: ModelTodoConditionInput
+export const updateUserdata = /* GraphQL */ `
+  mutation UpdateUserdata(
+    $input: UpdateUserdataInput!
+    $condition: ModelUserdataConditionInput
   ) {
-    updateTodo(input: $input, condition: $condition) {
+    updateUserdata(input: $input, condition: $condition) {
       id
-      username
-      description
+      discordUserId
+      discordUserName
+      discordDiscriminator
+      discordAvatarUrl
+      lastLogin
       createdAt
       updatedAt
     }
   }
 `;
-export const deleteTodo = /* GraphQL */ `
-  mutation DeleteTodo(
-    $input: DeleteTodoInput!
-    $condition: ModelTodoConditionInput
+export const deleteUserdata = /* GraphQL */ `
+  mutation DeleteUserdata(
+    $input: DeleteUserdataInput!
+    $condition: ModelUserdataConditionInput
   ) {
-    deleteTodo(input: $input, condition: $condition) {
+    deleteUserdata(input: $input, condition: $condition) {
       id
-      username
-      description
+      discordUserId
+      discordUserName
+      discordDiscriminator
+      discordAvatarUrl
+      lastLogin
       createdAt
       updatedAt
     }

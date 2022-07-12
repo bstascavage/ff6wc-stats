@@ -46,4 +46,5 @@ tasks:
   serve:
     desc: Starts the react frontend
     cmds:
+      # - amplify mock api &
       - npm start

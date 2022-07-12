@@ -6,6 +6,8 @@ services:
     volumes:
       - .cache:/home/anvil/.cache
       - .:/home/anvil/workdir
+      - .amplify-home:/home/anvil/.amplify
+      - ~/.aws:/home/anvil/.aws
       - asdf:/home/anvil/.asdf
     working_dir: /home/anvil/workdir
     entrypoint: /home/anvil/workdir/anvil/entrypoint.sh
@@ -19,5 +21,6 @@ services:
       - AWS_SESSION_EXPIRATION=${AWS_SESSION_EXPIRATION}
     ports:
       - "3000:3000"
+      - "20002:20002"
 volumes:
   asdf:

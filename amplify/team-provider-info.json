@@ -1,14 +1,14 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-ff6wcstats-dev-32119-authRole",
-      "UnauthRoleArn": "arn:aws:iam::477150083437:role/amplify-ff6wcstats-dev-32119-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::477150083437:role/amplify-ff6wcstats-dev-32119-authRole",
+      "AuthRoleName": "amplify-ff6wcstats-dev-205410-authRole",
+      "UnauthRoleArn": "arn:aws:iam::477150083437:role/amplify-ff6wcstats-dev-205410-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::477150083437:role/amplify-ff6wcstats-dev-205410-authRole",
       "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-ff6wcstats-dev-32119-deployment",
-      "UnauthRoleName": "amplify-ff6wcstats-dev-32119-unauthRole",
-      "StackName": "amplify-ff6wcstats-dev-32119",
-      "StackId": "arn:aws:cloudformation:us-east-1:477150083437:stack/amplify-ff6wcstats-dev-32119/88c05a40-00c8-11ed-88e5-12b25f9572b3",
+      "DeploymentBucketName": "amplify-ff6wcstats-dev-205410-deployment",
+      "UnauthRoleName": "amplify-ff6wcstats-dev-205410-unauthRole",
+      "StackName": "amplify-ff6wcstats-dev-205410",
+      "StackId": "arn:aws:cloudformation:us-east-1:477150083437:stack/amplify-ff6wcstats-dev-205410/9de3ff10-015b-11ed-81ba-0e596944f2d1",
       "AmplifyAppId": "d2osh3builx2nd"
     }
   }

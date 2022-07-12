@@ -1,6 +1,6 @@
 {
   "api": {
-    "userdata": {
+    "ff6wcstats": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
