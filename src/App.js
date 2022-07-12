@@ -8,7 +8,18 @@ import { createUserdata, updateUserdata } from "./graphql/mutations";
 import awsExports from "./aws-exports";
 import { getUserDiscordId } from "./graphql/user-data-queries";
 
-Amplify.configure(awsExports);
+// Amplify auto-generates aws-exports but sets it to the host IP and not localhost if you use mock
+// This breaks in docker because docker networking is crazy.
+// This logic allows us to toggle it
+if (process.env.REACT_APP_LOCAL_BACKEND) {
+  var localAwsExports = {
+    ...awsExports,
+    aws_appsync_graphqlEndpoint: "http://localhost:20002/graphql",
+  };
+  Amplify.configure(localAwsExports);
+} else {
+  Amplify.configure(awsExports);
+}
 
 function App() {
   const [discordUserdata, setDiscordUserdata] = useState({
@@ -128,7 +139,7 @@ function validateUserDiscordId(discordUserdata, setBackendUserdata) {
         .then((responseJson) => setBackendUserdata(responseJson))
         .catch(console.error);
     } catch (err) {
-      console.log("error creating todo:", err);
+      console.log("error validating user in backend", err);
     }
   }
 }

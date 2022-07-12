@@ -45,6 +45,19 @@ tasks:
 
   serve:
     desc: Starts the react frontend
+    deps:
+      - task: npm-start
+        vars: { REACT_APP_LOCAL_BACKEND: true }
+      - task: mock-api
+    vars:
+      REACT_APP_LOCAL_BACKEND: true
+
+  npm-start:
+    desc: Starts npm dev server
     cmds:
-      # - amplify mock api &
-      - npm start
+      - REACT_APP_LOCAL_BACKEND={{.REACT_APP_LOCAL_BACKEND}} npm start
+
+  mock-api:
+    desc: Starts a local mock api server
+    cmds:
+      - amplify mock api

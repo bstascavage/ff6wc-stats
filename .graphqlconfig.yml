@@ -1,6 +1,6 @@
 projects:
   ff6wcstats:
-    schemaPath: src/graphql/schema.json
+    schemaPath: amplify/backend/api/ff6wcstats/build/schema.graphql
     includes:
       - src/graphql/**/*.js
     excludes:
