@@ -17,7 +17,7 @@
           "description": null,
           "fields": [
             {
-              "name": "getUserdata",
+              "name": "getUser",
               "description": null,
               "args": [
                 {

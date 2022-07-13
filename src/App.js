@@ -2,7 +2,7 @@ import React, { useState, useReducer, useEffect } from "react";
 import { Amplify, API, graphqlOperation } from "aws-amplify";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Navigation, Footer, Home, About, Stats, Submit } from "./components";
-import { createUserdata, updateUserdata } from "./graphql/mutations";
+import { createUser, updateUser } from "./graphql/mutations";
 
 import awsExports from "./aws-exports";
 import { getUserDiscordId } from "./graphql/user-data-queries";
@@ -113,19 +113,19 @@ function storeUserInfo(
         lastLogin: now.toISOString(),
       };
 
-      if (validateBackendUserdata.data.getUserdata === null) {
+      if (validateBackendUserdata.data.getUser === null) {
         // If user isn't found in backend, create it
         API.graphql(
-          graphqlOperation(createUserdata, {
+          graphqlOperation(createUser, {
             input: data,
           })
         ).then(setUpsertBackendUserdata(true));
       } else if (
-        validateBackendUserdata.data.getUserdata.discordUserId ===
+        validateBackendUserdata.data.getUser.discordUserId ===
         discordUserdata.userdata.id
       ) {
         API.graphql(
-          graphqlOperation(updateUserdata, {
+          graphqlOperation(updateUser, {
             input: data,
           })
         ).then(setUpsertBackendUserdata(true));

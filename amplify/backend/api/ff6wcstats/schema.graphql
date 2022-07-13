@@ -3,15 +3,23 @@
 input AMPLIFY {
   globalAuthRule: AuthRule = { allow: public }
 } # FOR TESTING ONLY!
-type Userdata @model {
+type User @model {
   id: ID!
   discordUserId: String! @primaryKey
   discordUserName: String!
   discordDiscriminator: String!
   discordAvatarUrl: String!
   lastLogin: AWSDateTime
+  runs: [Run] @hasMany(indexName: "byUser", fields: ["discordUserId"])
+  role: String @default(value: "user")
 }
 
+type Run @model {
+  id: ID!
+  user: User! @belongsTo(fields: ["userId"])
+  userId: String! @index(name: "byUser", sortKeyFields: ["runTime"])
+  runTime: String!
+}
 # type DiscordId {
 #   discordUserId: String
 # }
