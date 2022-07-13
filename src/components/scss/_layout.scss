@@ -95,6 +95,10 @@ pre code.hljs {
     background-position: 50% 50%;
     background-size: cover;
 
+    &.higher-crop {
+      background-position: 50% 30%;
+    }
+
     .title {
       font-size: modular-scale(6);
     }

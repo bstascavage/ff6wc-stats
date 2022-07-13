@@ -1,7 +1,7 @@
 import React from "react";
 import { Amplify, API, graphqlOperation } from "aws-amplify";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Navigation, Footer, Home, About, Stats } from "./components";
+import { Navigation, Footer, Home, About, Stats, Submit } from "./components";
 import { useState, useEffect } from "react";
 import { createUserdata, updateUserdata } from "./graphql/mutations";
 
@@ -30,7 +30,7 @@ function App() {
   const [upsertBackendUserdata, setUpsertBackendUserdata] = useState(false);
   var render_obj;
 
-  parseDiscordCallback(discordUserdata, setDiscordUserdata);
+  parseDiscordCallback();
 
   useEffect(() => {
     // If has stored discord token, retrieve info.  Else, show login button
@@ -159,7 +159,7 @@ function getUserInfoFromDiscord(setDiscordUserdata) {
     .catch(console.error);
 }
 
-function parseDiscordCallback(discordUserdata, setDiscordUserdata) {
+function parseDiscordCallback() {
   const fragment = new URLSearchParams(window.location.hash.slice(1));
   const [accessToken, tokenType, state] = [
     fragment.get("access_token"),

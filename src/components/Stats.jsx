@@ -8,8 +8,8 @@ function Stats() {
     <React.Fragment>
       <Page
         cover={cover}
-        banner_title="Run Stats"
-        banner_subtitle="Stats pertaining to run times"
+        bannerTitle="Run Stats"
+        bannerSubtitle="Stats pertaining to run times"
       >
         <p>Placeholder for ststs</p>
       </Page>

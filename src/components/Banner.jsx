@@ -4,7 +4,10 @@ import "./scss/main.scss";
 function Banner(props) {
   return (
     <div
-      className="post-header-container has-cover"
+      className={
+        "post-header-container has-cover" +
+        (props.higherCrop ? " higher-crop" : "")
+      }
       style={{ backgroundImage: `url(${props.cover})` }}
     >
       <div className="scrim has-cover">
