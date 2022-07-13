@@ -36,7 +36,6 @@ function App() {
     // If has stored discord token, retrieve info.  Else, show login button
     if (localStorage.getItem("discord_access_token")) {
       setDiscordUserdata({ ...discordUserdata, hide_render: true });
-      window.history.replaceState(null, null, `${window.location.origin}`);
       getUserInfoFromDiscord(setDiscordUserdata);
     } else {
       setDiscordUserdata({ ...discordUserdata, hide_render: false });
@@ -71,6 +70,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/stats" element={<Stats />} />
+          <Route path="/submit" element={<Submit />} />
         </Routes>
         <Footer discordUserdata={discordUserdata} />
       </Router>
@@ -171,6 +171,7 @@ function parseDiscordCallback(discordUserdata, setDiscordUserdata) {
     localStorage.setItem("discord_access_token", accessToken);
     localStorage.setItem("discord_token_type", tokenType);
     localStorage.setItem("discord_token_state", state);
+    window.history.replaceState(null, null, `${window.location.origin}`);
   }
 }
 
