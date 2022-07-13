@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useReducer, useEffect } from "react";
 import { Amplify, API, graphqlOperation } from "aws-amplify";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Navigation, Footer, Home, About, Stats, Submit } from "./components";
@@ -20,10 +20,23 @@ if (process.env.REACT_APP_LOCAL_BACKEND) {
   Amplify.configure(awsExports);
 }
 
+function userdataReducer(state, action) {
+  switch (action.type) {
+    case "send_discord_request":
+      return { ...state, hide_render: true };
+    case "retrieved_discord_data":
+      return { ...state, hide_render: false, userdata: action.userdata };
+    case "not_logged_in":
+      return { hide_render: false, userdata: {} };
+    default:
+      return state;
+  }
+}
+
 function App() {
-  const [discordUserdata, setDiscordUserdata] = useState({
+  const [discordUserdata, setUserdataState] = useReducer(userdataReducer, {
     hide_render: true,
-    user_data: {},
+    userdata: {},
   });
   const [validateBackendUserdata, setBackendUserdata] = useState([]);
   const [upsertBackendUserdata, setUpsertBackendUserdata] = useState(false);
@@ -33,21 +46,21 @@ function App() {
   useEffect(() => {
     // If has stored discord token, retrieve info.  Else, show login button
     if (localStorage.getItem("discord_access_token")) {
-      setDiscordUserdata({ ...discordUserdata, hide_render: true });
-      getUserInfoFromDiscord(setDiscordUserdata);
+      setUserdataState({ type: "send_discord_request" });
+      getUserInfoFromDiscord(setUserdataState);
     } else {
-      setDiscordUserdata({ ...discordUserdata, hide_render: false });
+      setUserdataState({ type: "not_logged_in" });
     }
   }, []);
   useEffect(() => {
     // Lookup user data in backend after retrieving discord data
-    if (Object.keys(discordUserdata.user_data).length !== 0) {
+    if (Object.keys(discordUserdata.userdata).length !== 0) {
       validateUserDiscordId(discordUserdata, setBackendUserdata);
     }
   }, [discordUserdata]);
   useEffect(() => {
     // Once user is looked up in backend, create/update the user
-    if (Object.keys(discordUserdata.user_data).length !== 0) {
+    if (Object.keys(discordUserdata.userdata).length !== 0) {
       storeUserInfo(
         discordUserdata,
         validateBackendUserdata,
@@ -64,7 +77,7 @@ function App() {
         <Router>
           <Navigation
             discordUserdata={discordUserdata}
-            setDiscordUserdata={setDiscordUserdata}
+            setUserdataState={setUserdataState}
           />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -86,17 +99,17 @@ function storeUserInfo(
   setUpsertBackendUserdata
 ) {
   if (
-    discordUserdata.user_data &&
+    discordUserdata.userdata &&
     validateBackendUserdata.data &&
     !upsertBackendUserdata
   ) {
     try {
       var now = new Date();
       const data = {
-        discordUserId: discordUserdata.user_data.id,
-        discordUserName: discordUserdata.user_data.username,
-        discordDiscriminator: discordUserdata.user_data.discriminator,
-        discordAvatarUrl: `https://cdn.discordapp.com/avatars/${discordUserdata.user_data.id}/${discordUserdata.user_data.avatar}.png`,
+        discordUserId: discordUserdata.userdata.id,
+        discordUserName: discordUserdata.userdata.username,
+        discordDiscriminator: discordUserdata.userdata.discriminator,
+        discordAvatarUrl: `https://cdn.discordapp.com/avatars/${discordUserdata.userdata.id}/${discordUserdata.userdata.avatar}.png`,
         lastLogin: now.toISOString(),
       };
 
@@ -109,7 +122,7 @@ function storeUserInfo(
         ).then(setUpsertBackendUserdata(true));
       } else if (
         validateBackendUserdata.data.getUserdata.discordUserId ===
-        discordUserdata.user_data.id
+        discordUserdata.userdata.id
       ) {
         API.graphql(
           graphqlOperation(updateUserdata, {
@@ -126,11 +139,11 @@ function storeUserInfo(
 }
 
 function validateUserDiscordId(discordUserdata, setBackendUserdata) {
-  if (discordUserdata.user_data.id) {
+  if (discordUserdata.userdata.id) {
     try {
       API.graphql(
         graphqlOperation(getUserDiscordId, {
-          discordUserId: discordUserdata.user_data.id,
+          discordUserId: discordUserdata.userdata.id,
         })
       )
         .then((responseJson) => setBackendUserdata(responseJson))
@@ -141,7 +154,7 @@ function validateUserDiscordId(discordUserdata, setBackendUserdata) {
   }
 }
 
-function getUserInfoFromDiscord(setDiscordUserdata) {
+function getUserInfoFromDiscord(setUserdataState) {
   fetch("https://discord.com/api/users/@me", {
     headers: {
       authorization: `${localStorage.getItem(
@@ -151,7 +164,10 @@ function getUserInfoFromDiscord(setDiscordUserdata) {
   })
     .then((result) => result.json())
     .then((responseJson) => {
-      setDiscordUserdata({ hide_render: false, user_data: responseJson });
+      setUserdataState({
+        type: "retrieved_discord_data",
+        userdata: responseJson,
+      });
     })
     .catch(console.error);
 }

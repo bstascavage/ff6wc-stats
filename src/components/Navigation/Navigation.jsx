@@ -16,7 +16,7 @@ function Navigation(props) {
             <ul id="js-navigation-menu" className="navigation-menu">
               <Menu
                 discordUserdata={props.discordUserdata}
-                setDiscordUserdata={props.setDiscordUserdata}
+                setUserdataState={props.setUserdataState}
               />
             </ul>
           </nav>

@@ -8,12 +8,7 @@ function Logout(props) {
     <a
       href="/"
       onClick={(e) =>
-        handleClick(
-          e,
-          props.discordUserdata,
-          props.setDiscordUserdata,
-          navigate
-        )
+        handleClick(e, props.discordUserdata, props.setUserdataState, navigate)
       }
     >
       Logout
@@ -21,11 +16,11 @@ function Logout(props) {
   );
 }
 
-function handleClick(e, discordUserdata, setDiscordUserdata, navigate) {
+function handleClick(e, discordUserdata, setUserdataState, navigate) {
   e.preventDefault();
 
   localStorage.clear();
-  setDiscordUserdata({ ...discordUserdata, user_data: "" });
+  setUserdataState({ type: "not_logged_in" });
   navigate("/");
 }
 export default Logout;

@@ -6,7 +6,7 @@ import "../scss/main.scss";
 function Menu(props) {
   let loginLink, statsLink, submitLink;
 
-  if (Object.keys(props.discordUserdata.user_data).length !== 0) {
+  if (Object.keys(props.discordUserdata.userdata).length !== 0) {
     statsLink = (
       <li className="nav-link">
         <NavLink className="nav-link" to="/stats">
@@ -26,7 +26,7 @@ function Menu(props) {
         <Logout
           className="nav-link"
           discordUserdata={props.discordUserdata}
-          setDiscordUserdata={props.setDiscordUserdata}
+          setUserdataState={props.setUserdataState}
         >
           Log Out
         </Logout>
