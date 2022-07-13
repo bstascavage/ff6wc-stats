@@ -3,10 +3,10 @@ import { NavLink } from "react-router-dom";
 import Logout from "../Logout";
 import "../scss/main.scss";
 
-function Menu({ discordUserdata, setDiscordUserdata }) {
+function Menu(props) {
   let loginLink, statsLink, submitLink;
 
-  if (Object.keys(discordUserdata.user_data).length !== 0) {
+  if (Object.keys(props.discordUserdata.user_data).length !== 0) {
     statsLink = (
       <li className="nav-link">
         <NavLink className="nav-link" to="/stats">
@@ -25,8 +25,8 @@ function Menu({ discordUserdata, setDiscordUserdata }) {
       <li className="nav-link">
         <Logout
           className="nav-link"
-          discordUserdata={discordUserdata}
-          setDiscordUserdata={setDiscordUserdata}
+          discordUserdata={props.discordUserdata}
+          setDiscordUserdata={props.setDiscordUserdata}
         >
           Log Out
         </Logout>

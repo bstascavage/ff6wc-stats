@@ -5,7 +5,7 @@ import { faDiscord, faGithub } from "@fortawesome/free-brands-svg-icons";
 import Menu from "./Navigation/Menu";
 import "./scss/main.scss";
 
-function Footer({ discordUserdata }) {
+function Footer(props) {
   return (
     <footer className="site-footer">
       <div className="wrapper">
@@ -14,7 +14,7 @@ function Footer({ discordUserdata }) {
             <strong>Site Map</strong>
           </p>
           <ul className="pages">
-            <Menu discordUserdata={discordUserdata} />
+            <Menu discordUserdata={props.discordUserdata} />
           </ul>
         </div>
 

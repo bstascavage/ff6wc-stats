@@ -1,14 +1,19 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-function Logout({ discordUserdata, setDiscordUserdata }) {
+function Logout(props) {
   const navigate = useNavigate();
 
   return (
     <a
       href="/"
       onClick={(e) =>
-        handleClick(e, discordUserdata, setDiscordUserdata, navigate)
+        handleClick(
+          e,
+          props.discordUserdata,
+          props.setDiscordUserdata,
+          navigate
+        )
       }
     >
       Logout

@@ -4,7 +4,7 @@ import Menu from "./Menu";
 import logo from "../../assets/magitek-icon.jpeg";
 import "../scss/main.scss";
 
-function Navigation({ discordUserdata, setDiscordUserdata }) {
+function Navigation(props) {
   return (
     <React.Fragment>
       <div className="navigation">
@@ -15,8 +15,8 @@ function Navigation({ discordUserdata, setDiscordUserdata }) {
           <nav role="navigation">
             <ul id="js-navigation-menu" className="navigation-menu">
               <Menu
-                discordUserdata={discordUserdata}
-                setDiscordUserdata={setDiscordUserdata}
+                discordUserdata={props.discordUserdata}
+                setDiscordUserdata={props.setDiscordUserdata}
               />
             </ul>
           </nav>

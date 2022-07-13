@@ -2,20 +2,20 @@ import React from "react";
 import Banner from "./Banner";
 import "./scss/main.scss";
 
-function Page({ cover, bannerTitle, bannerSubtitle, higherCrop, children }) {
+function Page(props) {
   return (
     <React.Fragment>
       <Banner
-        cover={cover}
-        title={bannerTitle}
-        subtitle={bannerSubtitle}
-        higherCrop={higherCrop}
+        cover={props.cover}
+        title={props.bannerTitle}
+        subtitle={props.bannerSubtitle}
+        higherCrop={props.higherCrop}
       />
 
       <div className="page-content" style={{ display: "inline" }}>
         <div className="post">
           <div className="wrapper">
-            <article className="post-content">{children}</article>
+            <article className="post-content">{props.children}</article>
           </div>
         </div>
       </div>
