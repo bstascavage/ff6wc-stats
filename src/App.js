@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Amplify, API, graphqlOperation } from "aws-amplify";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Navigation, Footer, Home, About, Stats, Submit } from "./components";
-import { useState, useEffect } from "react";
 import { createUserdata, updateUserdata } from "./graphql/mutations";
 
 import awsExports from "./aws-exports";
@@ -28,7 +27,6 @@ function App() {
   });
   const [validateBackendUserdata, setBackendUserdata] = useState([]);
   const [upsertBackendUserdata, setUpsertBackendUserdata] = useState(false);
-  var render_obj;
 
   parseDiscordCallback();
 
@@ -59,27 +57,26 @@ function App() {
     }
   }, [discordUserdata, validateBackendUserdata]);
 
-  if (discordUserdata.hide_render === false) {
-    render_obj = (
-      <Router>
-        <Navigation
-          discordUserdata={discordUserdata}
-          setDiscordUserdata={setDiscordUserdata}
-        />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/stats" element={<Stats />} />
-          <Route path="/submit" element={<Submit />} />
-        </Routes>
-        <Footer discordUserdata={discordUserdata} />
-      </Router>
-    );
-  } else {
-    render_obj = <div></div>;
-  }
-
-  return render_obj;
+  return (
+    <React.Fragment>
+      {discordUserdata.hide_render && <div></div>}
+      {!discordUserdata.hide_render && (
+        <Router>
+          <Navigation
+            discordUserdata={discordUserdata}
+            setDiscordUserdata={setDiscordUserdata}
+          />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/stats" element={<Stats />} />
+            <Route path="/submit" element={<Submit />} />
+          </Routes>
+          <Footer discordUserdata={discordUserdata} />
+        </Router>
+      )}
+    </React.Fragment>
+  );
 }
 
 function storeUserInfo(
