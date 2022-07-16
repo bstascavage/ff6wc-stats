@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "api": {
+      "ff6wcstats": ["Query", "Mutation", "Subscription"]
+    }
+  },
+  "lambdaLayers": []
+}

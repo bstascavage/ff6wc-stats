@@ -21,25 +21,22 @@ function Menu(props) {
         </NavLink>
       </li>
     );
-    loginLink = (
-      <li className="nav-link">
-        <Logout
-          className="nav-link"
-          discordUserdata={props.discordUserdata}
-          setUserdataState={props.setUserdataState}
-        >
-          Log Out
-        </Logout>
-      </li>
-    );
+    loginLink = loginLink = logout(props);
   } else {
-    loginLink = (
-      <li className="nav-link">
-        <a className="nav-link" href={process.env.REACT_APP_DISCORD_OAUTH_LINK}>
-          Login
-        </a>
-      </li>
-    );
+    if (!props.discordUserdata.discord_login_error) {
+      loginLink = (
+        <li className="nav-link">
+          <a
+            className="nav-link"
+            href={process.env.REACT_APP_DISCORD_OAUTH_LINK}
+          >
+            Login
+          </a>
+        </li>
+      );
+    } else {
+      loginLink = logout(props);
+    }
   }
   return (
     <div className="nav-menu">
@@ -48,11 +45,11 @@ function Menu(props) {
           About
         </NavLink>
       </li>
-      <li className="nav-link">
+      {/* <li className="nav-link">
         <NavLink className="nav-link" to="/global">
           Global Stats
         </NavLink>
-      </li>
+      </li> */}
       {statsLink}
       {submitLink}
       {loginLink}
@@ -60,4 +57,17 @@ function Menu(props) {
   );
 }
 
+function logout(props) {
+  return (
+    <li className="nav-link">
+      <Logout
+        className="nav-link"
+        discordUserdata={props.discordUserdata}
+        setUserdataState={props.setUserdataState}
+      >
+        Log Out
+      </Logout>
+    </li>
+  );
+}
 export default Menu;

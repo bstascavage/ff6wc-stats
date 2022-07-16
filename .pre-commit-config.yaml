@@ -3,7 +3,7 @@ repos:
     rev: v3.3.0
     hooks:
       - id: check-added-large-files
-        args: ["--maxkb=500"]
+        args: ["--maxkb=1100"]
       - id: check-case-conflict
       - id: check-json
       - id: check-merge-conflict
@@ -29,5 +29,5 @@ repos:
       - id: terraform_fmt
       - id: terraform_docs
       - id: terraform_tflint
-      - id: terraform_tfsec # Disabling because it is late and I am tired
+      - id: terraform_tfsec # Disabling because it is taking forever with the lambda function, despite it not being used by Terraform?
       - id: terraform_validate

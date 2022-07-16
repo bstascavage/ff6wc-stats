@@ -157,7 +157,7 @@ pre code.hljs {
 
   // Nav menu
   .navigation-wrapper {
-    @include outer-container(70em);
+    @include outer-container(85em);
     @include clearfix;
     position: relative;
   }
@@ -183,7 +183,7 @@ pre code.hljs {
 
   nav {
     float: none;
-    padding: 1.25em 0;
+    padding: 1.25em 2em;
 
     @include media($tablet) {
       float: right;
@@ -248,12 +248,12 @@ pre code.hljs {
 .page-content {
   // Remove this to make header scrollable again
   margin-top: 66px;
-  background-color: #f4f4f4;
-  // display: none;
+  // background-color: #f4f4f4;
+  // flex: 1; // display: none;
 
   .wrapper {
     // @include outer-container;
-    @include outer-container(70em);
+    @include outer-container(85em);
     padding: 1em;
   }
 

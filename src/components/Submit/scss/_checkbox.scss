@@ -1,0 +1,26 @@
+.submission-checkbox {
+  // columns: 2;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+  margin: 0;
+  padding: 0;
+  // margin-left: 20px;
+  list-style: none;
+
+  .submission-checkbox-elem {
+    border: 1px transparent solid;
+    width: 12em;
+
+    input {
+      margin-right: 0.25em;
+    }
+
+    // &:hover {
+    // background-color: white;
+    // border: 1px gray solid;
+    // width: 12em;
+    // transform: scale(1.01);
+    // box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    // }
+  }
+}

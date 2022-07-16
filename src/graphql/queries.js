@@ -1,6 +1,48 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const runsForUser = /* GraphQL */ `
+  query RunsForUser($userId: ID!, $limit: Int, $nextToken: String) {
+    runsForUser(userId: $userId, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        user {
+          id
+          discordUserId
+          discordUserName
+          discordDiscriminator
+          discordAvatarUrl
+          lastLogin
+          role
+          createdAt
+          updatedAt
+        }
+        userId
+        attempt
+        flagset
+        runTime
+        chars
+        abilities
+        numOfChars
+        numOfEspers
+        numOfDeadChecks
+        numOfBosses
+        skip
+        dragons
+        finalBattle
+        highestLevel
+        superBalls
+        egg
+        auction
+        thief
+        coliseum
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getUser = /* GraphQL */ `
   query GetUser($discordUserId: String!) {
     getUser(discordUserId: $discordUserId) {
@@ -14,7 +56,24 @@ export const getUser = /* GraphQL */ `
         items {
           id
           userId
+          attempt
+          flagset
           runTime
+          chars
+          abilities
+          numOfChars
+          numOfEspers
+          numOfDeadChecks
+          numOfBosses
+          skip
+          dragons
+          finalBattle
+          highestLevel
+          superBalls
+          egg
+          auction
+          thief
+          coliseum
           createdAt
           updatedAt
         }
@@ -78,7 +137,24 @@ export const getRun = /* GraphQL */ `
         updatedAt
       }
       userId
+      attempt
+      flagset
       runTime
+      chars
+      abilities
+      numOfChars
+      numOfEspers
+      numOfDeadChecks
+      numOfBosses
+      skip
+      dragons
+      finalBattle
+      highestLevel
+      superBalls
+      egg
+      auction
+      thief
+      coliseum
       createdAt
       updatedAt
     }
@@ -105,7 +181,136 @@ export const listRuns = /* GraphQL */ `
           updatedAt
         }
         userId
+        attempt
+        flagset
         runTime
+        chars
+        abilities
+        numOfChars
+        numOfEspers
+        numOfDeadChecks
+        numOfBosses
+        skip
+        dragons
+        finalBattle
+        highestLevel
+        superBalls
+        egg
+        auction
+        thief
+        coliseum
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const runsByTime = /* GraphQL */ `
+  query RunsByTime(
+    $userId: String!
+    $runTimeAttempt: ModelRunByUserCompositeKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelRunFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    RunsByTime(
+      userId: $userId
+      runTimeAttempt: $runTimeAttempt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        user {
+          id
+          discordUserId
+          discordUserName
+          discordDiscriminator
+          discordAvatarUrl
+          lastLogin
+          role
+          createdAt
+          updatedAt
+        }
+        userId
+        attempt
+        flagset
+        runTime
+        chars
+        abilities
+        numOfChars
+        numOfEspers
+        numOfDeadChecks
+        numOfBosses
+        skip
+        dragons
+        finalBattle
+        highestLevel
+        superBalls
+        egg
+        auction
+        thief
+        coliseum
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const runsByAttempt = /* GraphQL */ `
+  query RunsByAttempt(
+    $userId: String!
+    $attempt: ModelIntKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelRunFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    RunsByAttempt(
+      userId: $userId
+      attempt: $attempt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        user {
+          id
+          discordUserId
+          discordUserName
+          discordDiscriminator
+          discordAvatarUrl
+          lastLogin
+          role
+          createdAt
+          updatedAt
+        }
+        userId
+        attempt
+        flagset
+        runTime
+        chars
+        abilities
+        numOfChars
+        numOfEspers
+        numOfDeadChecks
+        numOfBosses
+        skip
+        dragons
+        finalBattle
+        highestLevel
+        superBalls
+        egg
+        auction
+        thief
+        coliseum
         createdAt
         updatedAt
       }

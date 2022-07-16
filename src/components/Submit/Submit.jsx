@@ -1,0 +1,311 @@
+import React, { useReducer, useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
+import cover from "../../assets/submit-cover.jpg";
+import Page from "../Page";
+import ColumnWrapper from "./ColumnWrapper";
+import Column from "./Column";
+import Card from "./Card";
+import CardItem from "./CardItem";
+import TextInput from "./TextInput";
+import Slider from "./Slider";
+import Toggle from "./Toggle";
+import Dropdown from "./Dropdown";
+import Success from "./Success";
+import CheckBox, { parseCheckboxSelected } from "./Checkbox";
+
+import { API, graphqlOperation } from "aws-amplify";
+import { submitRun } from "../../graphql/mutations";
+
+function submissionReducer(state, action) {
+  switch (action.type) {
+    case "submission_submitted":
+      return {
+        submitted: true,
+        processed: false,
+        verified: false,
+        accepted: false,
+        dataValidationResults: {},
+      };
+    case "submission_processed":
+      return {
+        submitted: true,
+        processed: true,
+        verified: action.submissionResults.validation.validationStatus,
+        accepted: action.submissionResults.creation.createStatus,
+        dataValidationResults: action.submissionResults.validation,
+      };
+    default:
+      return state;
+  }
+}
+
+function Submit(props) {
+  const [submissionState, setSubmissionState] = useReducer(submissionReducer, {
+    submitted: false,
+    processed: false,
+    verified: false,
+    accepted: false,
+    dataValidationResults: {},
+  });
+
+  let submitConfig = props.config.submit;
+
+  // `enum`: List of possible options for enumFields, pulled from GraphQL
+  // `slider`: Keeps state of the slider components
+  let fieldDataDefault = { enum: {}, slider: {} };
+
+  Object.keys(submitConfig).forEach((key, index) => {
+    if (
+      submitConfig[key].type === "checkbox" ||
+      submitConfig[key].type === "dropdown"
+    ) {
+      fieldDataDefault.enum[key] = "";
+    } else if (submitConfig[key].type === "slider") {
+      fieldDataDefault.slider[key] = submitConfig[key].startingValue;
+    }
+  });
+  const [submitFieldData, setSubmitFieldData] = useState(fieldDataDefault);
+
+  useEffect(() => {
+    // Retrieve possible character/ability/dragon selections from graphql to set as checkboxes
+    getEnumSelection(submitFieldData, submitConfig, setSubmitFieldData);
+  }, []);
+
+  useEffect(() => {
+    // Display an alert if any data doesn't pass validation or there is a backend issue
+    if (submissionState.processed) {
+      if (!submissionState.accepted) {
+        submissionState.verified
+          ? alert("Issue submitting run, please contact administrator")
+          : alert(
+              "One or more errors detected with submitted data.  Please review and try again."
+            );
+      }
+    }
+  }, [submissionState.dataValidationResults]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    // Dynamically create the submission payload based on the config
+    let submitPayload = { userId: props.discordUserdata.userdata.id };
+    Object.keys(submitConfig).forEach((key, index) => {
+      if (submitConfig[key].type === "checkbox") {
+        submitPayload[key] = parseCheckboxSelected(
+          submitFieldData.enum[key],
+          event
+        );
+      } else if (submitConfig[key].type === "toggle") {
+        submitPayload[key] = event.target[key].checked;
+      } else {
+        submitPayload[key] = event.target[key].value;
+      }
+    });
+
+    // Send data to the backend and set the response to `submissionState.dataValidationResults`
+    try {
+      setSubmissionState({ type: "submission_submitted" });
+      API.graphql(graphqlOperation(submitRun, submitPayload))
+        .then((responseJson) => {
+          setSubmissionState({
+            type: "submission_processed",
+            submissionResults: JSON.parse(responseJson.data.submitRun),
+          });
+        })
+        .catch(console.error);
+    } catch (err) {
+      console.log("error submitting to the backend: ", err);
+    }
+  };
+
+  console.log(submissionState); // Debug statement to be removed later
+
+  return (
+    <React.Fragment>
+      {submissionState.accepted && <Success />}
+      {!submissionState.accepted &&
+        Object.keys(props.discordUserdata.userdata).length === 0 && (
+          // If not authenticated, redirect to home
+          <Navigate to="/" replace={true} />
+        )}
+      {!submissionState.accepted &&
+        Object.keys(props.discordUserdata.userdata).length !== 0 && (
+          <Page
+            cover={cover}
+            bannerTitle="Submit a Run"
+            bannerSubtitle="Fill out the results of your latest run"
+            higherCrop={true}
+          >
+            <form onSubmit={handleSubmit}>
+              <ColumnWrapper>
+                {getColumn(
+                  "columnLeft",
+                  props.config,
+                  submissionState.dataValidationResults,
+                  submitFieldData,
+                  setSubmitFieldData
+                )}
+                {getColumn(
+                  "columnRight",
+                  props.config,
+                  submissionState.dataValidationResults,
+                  submitFieldData,
+                  setSubmitFieldData
+                )}
+              </ColumnWrapper>
+              <div className="section">
+                <div className="container">
+                  <div className="submit-container" id="submit-container">
+                    <button type="submit">Submit</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </Page>
+        )}
+    </React.Fragment>
+  );
+}
+
+function getEnumSelection(selectionState, config, setFunction) {
+  // Retrieve list of enum values from database based on query
+  Object.keys(selectionState.enum).forEach((key, index) => {
+    let query = `query {
+      __type(name: "${config[key].enumName}") {
+        name
+        enumValues {
+          name
+          description
+        }
+      }
+    }
+    `;
+
+    try {
+      API.graphql(graphqlOperation(query))
+        .then((responseJson) => {
+          let elems = [];
+          for (let i = 0; i < responseJson.data.__type.enumValues.length; i++) {
+            // Converting from graphql query output to simple list of elements
+            // Graphql doesn't allow special chars in its enum names besides '_'
+            // It does allow comments/descriptions but Amplify is dumb and hasn't implemented it (despite it being the standard since fucking 2018)
+            // Therefore we need to replace '_' with ' ' for the text actually displayed to the user, and '__' with ' - '
+            let elem_display_name = responseJson.data.__type.enumValues[i].name;
+            if (responseJson.data.__type.enumValues[i].name.includes("_"))
+              elem_display_name = responseJson.data.__type.enumValues[i].name
+                .replace(/__/g, " - ")
+                .replace(/_/g, " ");
+
+            elems.push({
+              name: responseJson.data.__type.enumValues[i].name,
+              display_name: elem_display_name,
+            });
+          }
+          selectionState.enum[key] = elems;
+          setFunction(selectionState);
+        })
+        .catch(console.error);
+    } catch (err) {
+      console.log("error fetching enum list from backend for query: ", query);
+    }
+  });
+}
+
+function createItem(
+  config,
+  validationResults,
+  submitFieldData,
+  setSubmitFieldData
+) {
+  // TODO: Can we refactor the opts here? And datavalidation results?
+  let body = "";
+  if (config.type === "slider") {
+    body = (
+      <Slider
+        id={config.id}
+        min={config.min}
+        max={config.max}
+        step={config.step}
+        value={submitFieldData}
+        valueSetter={setSubmitFieldData}
+      />
+    );
+  } else if (config.type === "text_input") {
+    body = <TextInput id={config.id} placeholder={config.placeholder} />;
+  } else if (config.type === "checkbox") {
+    body = (
+      <CheckBox id={config.id} renderList={submitFieldData.enum[config.id]} />
+    );
+  } else if (config.type === "dropdown") {
+    body = (
+      <Dropdown id={config.id} choices={submitFieldData.enum[config.id]} />
+    );
+  } else if (config.type === "toggle") {
+    return (
+      <Toggle
+        id={config.id}
+        title={config.title}
+        required={config.required}
+        help={config.help}
+        validationResults={validationResults}
+        key={`${config.id}-toggle`}
+      />
+    );
+  } else {
+    console.error("Incorrect type specified in config: ", config);
+  }
+
+  // TODO: Maybe pass the entire config in as a props?
+  return (
+    <CardItem
+      title={config.title}
+      helpText={config.help}
+      subtitleText={config.subtitleText}
+      id={config.id}
+      validationResults={validationResults}
+      required={config.required}
+      key={config.id}
+    >
+      {body}
+    </CardItem>
+  );
+}
+
+function getColumn(
+  columnId,
+  config,
+  validationResults,
+  submitFieldData,
+  setSubmitFieldData
+) {
+  let cardList = [];
+  Object.keys(config.submitFormat[columnId]).forEach((cardTitle, index) => {
+    let renderList = [];
+    for (
+      let i = 0;
+      i < config.submitFormat[columnId][cardTitle].children.length;
+      i++
+    ) {
+      let id = config.submitFormat[columnId][cardTitle].children[i];
+
+      let item = createItem(
+        config.submit[id],
+        validationResults,
+        submitFieldData,
+        setSubmitFieldData
+      );
+      renderList.push(item);
+    }
+    cardList.push(
+      <Card
+        key={cardTitle}
+        title={config.submitFormat[columnId][cardTitle].title}
+      >
+        {renderList}
+      </Card>
+    );
+  });
+  return <Column>{cardList}</Column>;
+}
+
+export default Submit;

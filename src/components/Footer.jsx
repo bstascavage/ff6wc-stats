@@ -14,7 +14,10 @@ function Footer(props) {
             <strong>Site Map</strong>
           </p>
           <ul className="pages">
-            <Menu discordUserdata={props.discordUserdata} />
+            <Menu
+              discordUserdata={props.discordUserdata}
+              setUserdataState={props.setUserdataState}
+            />
           </ul>
         </div>
 

@@ -1,0 +1,22 @@
+## Query.runsForUser.req.vtl **
+
+#set( $limit = $util.defaultIfNull($context.args.limit, 500) )
+{
+  "version": "2017-02-28",
+  "operation": "Query",
+  "query": {
+    "expression": "#connectionAttribute = :connectionAttribute",
+    "expressionNames": {
+        "#connectionAttribute": "userId"
+    },
+    "expressionValues": {
+        ":connectionAttribute": {
+            "S": "$context.args.userId"
+        }
+    }
+  },
+  "scanIndexForward": true,
+  "limit": $limit,
+  "nextToken": #if( $context.args.nextToken ) "$context.args.nextToken" #else null #end,
+  "index": "byUser"
+}

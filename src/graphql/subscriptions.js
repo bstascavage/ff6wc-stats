@@ -14,7 +14,24 @@ export const onCreateUser = /* GraphQL */ `
         items {
           id
           userId
+          attempt
+          flagset
           runTime
+          chars
+          abilities
+          numOfChars
+          numOfEspers
+          numOfDeadChecks
+          numOfBosses
+          skip
+          dragons
+          finalBattle
+          highestLevel
+          superBalls
+          egg
+          auction
+          thief
+          coliseum
           createdAt
           updatedAt
         }
@@ -39,7 +56,24 @@ export const onUpdateUser = /* GraphQL */ `
         items {
           id
           userId
+          attempt
+          flagset
           runTime
+          chars
+          abilities
+          numOfChars
+          numOfEspers
+          numOfDeadChecks
+          numOfBosses
+          skip
+          dragons
+          finalBattle
+          highestLevel
+          superBalls
+          egg
+          auction
+          thief
+          coliseum
           createdAt
           updatedAt
         }
@@ -64,7 +98,24 @@ export const onDeleteUser = /* GraphQL */ `
         items {
           id
           userId
+          attempt
+          flagset
           runTime
+          chars
+          abilities
+          numOfChars
+          numOfEspers
+          numOfDeadChecks
+          numOfBosses
+          skip
+          dragons
+          finalBattle
+          highestLevel
+          superBalls
+          egg
+          auction
+          thief
+          coliseum
           createdAt
           updatedAt
         }
@@ -95,7 +146,24 @@ export const onCreateRun = /* GraphQL */ `
         updatedAt
       }
       userId
+      attempt
+      flagset
       runTime
+      chars
+      abilities
+      numOfChars
+      numOfEspers
+      numOfDeadChecks
+      numOfBosses
+      skip
+      dragons
+      finalBattle
+      highestLevel
+      superBalls
+      egg
+      auction
+      thief
+      coliseum
       createdAt
       updatedAt
     }
@@ -120,7 +188,24 @@ export const onUpdateRun = /* GraphQL */ `
         updatedAt
       }
       userId
+      attempt
+      flagset
       runTime
+      chars
+      abilities
+      numOfChars
+      numOfEspers
+      numOfDeadChecks
+      numOfBosses
+      skip
+      dragons
+      finalBattle
+      highestLevel
+      superBalls
+      egg
+      auction
+      thief
+      coliseum
       createdAt
       updatedAt
     }
@@ -145,7 +230,24 @@ export const onDeleteRun = /* GraphQL */ `
         updatedAt
       }
       userId
+      attempt
+      flagset
       runTime
+      chars
+      abilities
+      numOfChars
+      numOfEspers
+      numOfDeadChecks
+      numOfBosses
+      skip
+      dragons
+      finalBattle
+      highestLevel
+      superBalls
+      egg
+      auction
+      thief
+      coliseum
       createdAt
       updatedAt
     }

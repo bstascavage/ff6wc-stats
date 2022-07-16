@@ -14,15 +14,139 @@ type User @model {
   role: String @default(value: "user")
 }
 
-type Run @model {
+type Run @model @auth(rules: [{ allow: public }]) {
   id: ID!
   user: User! @belongsTo(fields: ["userId"])
-  userId: String! @index(name: "byUser", sortKeyFields: ["runTime"])
+  userId: String!
+    @index(
+      name: "byUser"
+      queryField: "RunsByTime"
+      sortKeyFields: ["runTime", "attempt"]
+    )
+    @index(
+      name: "byAttempt"
+      queryField: "RunsByAttempt"
+      sortKeyFields: ["attempt"]
+    )
+  attempt: Int!
+  flagset: Flagset @default(value: "Standard")
   runTime: String!
+  chars: [Character]!
+  abilities: [Ability]!
+  numOfChars: Int!
+  numOfEspers: Int!
+  numOfDeadChecks: Int!
+  numOfBosses: Int!
+  skip: Boolean!
+  dragons: [Dragon]!
+  finalBattle: [FinalBattleTrait]
+  highestLevel: Int
+  superBalls: Boolean
+  egg: Boolean
+  auction: Int
+  thief: Thief
+  coliseum: Boolean
 }
-# type DiscordId {
-#   discordUserId: String
-# }
-# type Query {
-#   getUserdataFoo(discordUserId: String!): DiscordId
-# }
+
+type RunConnection {
+  items: [Run]
+  nextToken: String
+}
+
+type Query {
+  runsForUser(userId: ID!, limit: Int, nextToken: String): RunConnection
+}
+
+type Mutation {
+  submitRun(
+    runTime: String!
+    flagset: Flagset
+    ktStartTime: String
+    kefkaTime: String
+    userId: String!
+    chars: [Character]!
+    abilities: [Ability]!
+    numOfChars: String!
+    numOfEspers: String!
+    numOfDeadChecks: String!
+    numOfBosses: String!
+    numOfChests: String
+    skip: Boolean!
+    dragons: [Dragon]!
+    finalBattle: [FinalBattleTrait]
+    highestLevel: String
+    superBalls: Boolean
+    egg: Boolean
+    auction: String
+    thief: Thief
+    coliseum: Boolean
+  ): String
+}
+
+enum Character {
+  Terra
+  Locke
+  Edgar
+  Shadow
+  Sabin
+  Celes
+  Cyan
+  Gau
+  Setzer
+  Mog
+  Strago
+  Relm
+  Gogo
+  Umaro
+}
+
+enum Ability {
+  Blitz
+  Capture
+  Control
+  Dance
+  GP_Rain
+  Health
+  Jump
+  Lore
+  Morph
+  Rage
+  Runic
+  Sketch
+  Slot
+  Steal
+  SwdTech
+  Throw
+  Tools
+  X_Magic
+}
+
+enum Dragon {
+  Mt_Zozo
+  Phoenix_Cave
+  Narshe
+  Ancient_Castle
+  Fanatics_Tower
+  Opera_House
+  Kefka_Tower__Left
+  Kefka_Tower__Right
+}
+
+enum Flagset {
+  Standard
+}
+
+enum FinalBattleTrait {
+  Instant_Death
+  Mute
+  Calmness_Protection
+  Healing
+}
+
+enum Thief {
+  No_Purchase
+  WOB_Progression
+  WOR_Progression
+  WOB_Dead_Check
+  WOR_Dead_Check
+}
