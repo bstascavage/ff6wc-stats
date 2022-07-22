@@ -23,7 +23,7 @@ export const onCreateUser = /* GraphQL */ `
           numOfEspers
           numOfChecks
           numOfDeadchecks
-          numOfPeakedChecks
+          numOfPeekedChecks
           numOfBosses
           skip
           dragons
@@ -32,7 +32,8 @@ export const onCreateUser = /* GraphQL */ `
           superBalls
           egg
           auction
-          thief
+          thiefPeek
+          thiefReward
           coliseum
           race
           mood
@@ -69,7 +70,7 @@ export const onUpdateUser = /* GraphQL */ `
           numOfEspers
           numOfChecks
           numOfDeadchecks
-          numOfPeakedChecks
+          numOfPeekedChecks
           numOfBosses
           skip
           dragons
@@ -78,7 +79,8 @@ export const onUpdateUser = /* GraphQL */ `
           superBalls
           egg
           auction
-          thief
+          thiefPeek
+          thiefReward
           coliseum
           race
           mood
@@ -115,7 +117,7 @@ export const onDeleteUser = /* GraphQL */ `
           numOfEspers
           numOfChecks
           numOfDeadchecks
-          numOfPeakedChecks
+          numOfPeekedChecks
           numOfBosses
           skip
           dragons
@@ -124,7 +126,8 @@ export const onDeleteUser = /* GraphQL */ `
           superBalls
           egg
           auction
-          thief
+          thiefPeek
+          thiefReward
           coliseum
           race
           mood
@@ -167,7 +170,7 @@ export const onCreateRun = /* GraphQL */ `
       numOfEspers
       numOfChecks
       numOfDeadchecks
-      numOfPeakedChecks
+      numOfPeekedChecks
       numOfBosses
       skip
       dragons
@@ -176,7 +179,8 @@ export const onCreateRun = /* GraphQL */ `
       superBalls
       egg
       auction
-      thief
+      thiefPeek
+      thiefReward
       coliseum
       race
       mood
@@ -213,7 +217,7 @@ export const onUpdateRun = /* GraphQL */ `
       numOfEspers
       numOfChecks
       numOfDeadchecks
-      numOfPeakedChecks
+      numOfPeekedChecks
       numOfBosses
       skip
       dragons
@@ -222,7 +226,8 @@ export const onUpdateRun = /* GraphQL */ `
       superBalls
       egg
       auction
-      thief
+      thiefPeek
+      thiefReward
       coliseum
       race
       mood
@@ -259,7 +264,7 @@ export const onDeleteRun = /* GraphQL */ `
       numOfEspers
       numOfChecks
       numOfDeadchecks
-      numOfPeakedChecks
+      numOfPeekedChecks
       numOfBosses
       skip
       dragons
@@ -268,7 +273,8 @@ export const onDeleteRun = /* GraphQL */ `
       superBalls
       egg
       auction
-      thief
+      thiefPeek
+      thiefReward
       coliseum
       race
       mood

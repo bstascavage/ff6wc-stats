@@ -37,7 +37,7 @@ type Run @model @auth(rules: [{ allow: public }]) {
   numOfEspers: Int!
   numOfChecks: Int!
   numOfDeadchecks: Int!
-  numOfPeakedChecks: Int
+  numOfPeekedChecks: Int
   numOfBosses: Int!
   skip: Boolean!
   dragons: [Dragon]!
@@ -46,7 +46,8 @@ type Run @model @auth(rules: [{ allow: public }]) {
   superBalls: Superballs
   egg: Egg
   auction: Auction
-  thief: Thief
+  thiefPeek: ThiefPeek
+  thiefReward: ThiefReward
   coliseum: Coliseum
   race: Race
   mood: Mood
@@ -73,7 +74,7 @@ type Mutation {
     numOfChars: String!
     numOfEspers: String!
     numOfChecks: String!
-    numOfPeakedChecks: String
+    numOfPeekedChecks: String
     numOfBosses: String!
     numOfChests: String
     skip: Boolean!
@@ -83,7 +84,8 @@ type Mutation {
     superBalls: Superballs
     egg: Egg
     auction: Auction
-    thief: Thief
+    thiefPeek: ThiefPeek
+    thiefReward: ThiefReward
     coliseum: Coliseum
     race: Race
     mood: Mood
@@ -150,19 +152,27 @@ enum FinalBattleTrait {
   Did_not_record
 }
 
-enum Thief {
+enum ThiefPeek {
   Not_recorded
-  No_Purchase
-  WOB_Progression
-  WOR_Progression
-  WOB_Dead_Check
-  WOR_Dead_Check
+  Did_not_check
+  Checked_WOB_only
+  Checked_WOR_only
+  Checked_both
+}
+
+enum ThiefReward {
+  Not_recorded
+  Did_not_buy__Item
+  Did_not_buy__Esper
+  Did_not_buy__Unknown
+  Bought_Item
+  Bought_Esper
 }
 
 enum Coliseum {
   Not_recorded
-  Did_not_vist
-  Visted_but_did_not_fight
+  Did_not_visit
+  Visited_but_did_not_fight
   Visited_and_fought
 }
 

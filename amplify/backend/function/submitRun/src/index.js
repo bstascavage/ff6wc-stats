@@ -64,7 +64,7 @@ async function createRun(run) {
       numOfChars: parseInt(run.numOfChars),
       numOfEspers: parseInt(run.numOfEspers),
       numOfChecks: parseInt(run.numOfChecks),
-      numOfPeakedChecks: parseInt(run.numOfPeakedChecks),
+      numOfPeekedChecks: parseInt(run.numOfPeekedChecks),
       numOfBosses: parseInt(run.numOfBosses),
       numOfDeadchecks:
         parseInt(run.numOfChecks) -
@@ -79,7 +79,8 @@ async function createRun(run) {
       egg: run.egg,
       coliseum: run.coliseum,
       auction: run.auction,
-      thief: run.thief,
+      thiefPeek: run.thiefPeek,
+      thiefReward: run.thiefReward,
       race: run.race,
       mood: run.mood,
     },

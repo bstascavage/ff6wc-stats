@@ -27,7 +27,7 @@ export const runsForUser = /* GraphQL */ `
         numOfEspers
         numOfChecks
         numOfDeadchecks
-        numOfPeakedChecks
+        numOfPeekedChecks
         numOfBosses
         skip
         dragons
@@ -36,7 +36,8 @@ export const runsForUser = /* GraphQL */ `
         superBalls
         egg
         auction
-        thief
+        thiefPeek
+        thiefReward
         coliseum
         race
         mood
@@ -69,7 +70,7 @@ export const getUser = /* GraphQL */ `
           numOfEspers
           numOfChecks
           numOfDeadchecks
-          numOfPeakedChecks
+          numOfPeekedChecks
           numOfBosses
           skip
           dragons
@@ -78,7 +79,8 @@ export const getUser = /* GraphQL */ `
           superBalls
           egg
           auction
-          thief
+          thiefPeek
+          thiefReward
           coliseum
           race
           mood
@@ -154,7 +156,7 @@ export const getRun = /* GraphQL */ `
       numOfEspers
       numOfChecks
       numOfDeadchecks
-      numOfPeakedChecks
+      numOfPeekedChecks
       numOfBosses
       skip
       dragons
@@ -163,7 +165,8 @@ export const getRun = /* GraphQL */ `
       superBalls
       egg
       auction
-      thief
+      thiefPeek
+      thiefReward
       coliseum
       race
       mood
@@ -202,7 +205,7 @@ export const listRuns = /* GraphQL */ `
         numOfEspers
         numOfChecks
         numOfDeadchecks
-        numOfPeakedChecks
+        numOfPeekedChecks
         numOfBosses
         skip
         dragons
@@ -211,7 +214,8 @@ export const listRuns = /* GraphQL */ `
         superBalls
         egg
         auction
-        thief
+        thiefPeek
+        thiefReward
         coliseum
         race
         mood
@@ -262,7 +266,7 @@ export const runsByTime = /* GraphQL */ `
         numOfEspers
         numOfChecks
         numOfDeadchecks
-        numOfPeakedChecks
+        numOfPeekedChecks
         numOfBosses
         skip
         dragons
@@ -271,7 +275,8 @@ export const runsByTime = /* GraphQL */ `
         superBalls
         egg
         auction
-        thief
+        thiefPeek
+        thiefReward
         coliseum
         race
         mood
@@ -322,7 +327,7 @@ export const runsByAttempt = /* GraphQL */ `
         numOfEspers
         numOfChecks
         numOfDeadchecks
-        numOfPeakedChecks
+        numOfPeekedChecks
         numOfBosses
         skip
         dragons
@@ -331,7 +336,8 @@ export const runsByAttempt = /* GraphQL */ `
         superBalls
         egg
         auction
-        thief
+        thiefPeek
+        thiefReward
         coliseum
         race
         mood
