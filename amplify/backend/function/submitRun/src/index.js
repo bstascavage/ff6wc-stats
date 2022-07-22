@@ -64,6 +64,7 @@ async function createRun(run) {
       numOfChars: parseInt(run.numOfChars),
       numOfEspers: parseInt(run.numOfEspers),
       numOfChecks: parseInt(run.numOfChecks),
+      numOfPeakedChecks: parseInt(run.numOfPeakedChecks),
       numOfBosses: parseInt(run.numOfBosses),
       numOfDeadchecks:
         parseInt(run.numOfChecks) -
@@ -79,6 +80,8 @@ async function createRun(run) {
       coliseum: run.coliseum,
       auction: run.auction,
       thief: run.thief,
+      race: run.race,
+      mood: run.mood,
     },
   };
   const query = /* GraphQL */ `

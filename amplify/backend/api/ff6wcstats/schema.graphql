@@ -37,6 +37,7 @@ type Run @model @auth(rules: [{ allow: public }]) {
   numOfEspers: Int!
   numOfChecks: Int!
   numOfDeadchecks: Int!
+  numOfPeakedChecks: Int
   numOfBosses: Int!
   skip: Boolean!
   dragons: [Dragon]!
@@ -47,6 +48,8 @@ type Run @model @auth(rules: [{ allow: public }]) {
   auction: Auction
   thief: Thief
   coliseum: Coliseum
+  race: Race
+  mood: Mood
 }
 
 type RunConnection {
@@ -70,6 +73,7 @@ type Mutation {
     numOfChars: String!
     numOfEspers: String!
     numOfChecks: String!
+    numOfPeakedChecks: String
     numOfBosses: String!
     numOfChests: String
     skip: Boolean!
@@ -81,6 +85,8 @@ type Mutation {
     auction: Auction
     thief: Thief
     coliseum: Coliseum
+    race: Race
+    mood: Mood
   ): String
 }
 
@@ -177,4 +183,19 @@ enum Auction {
   Zero
   One
   Two
+}
+
+enum Race {
+  No_Race
+  Ultros_League_Practice
+  Ultros_League_Weekly_Race
+}
+
+enum Mood {
+  Not_recorded
+  One
+  Two
+  Three
+  Four
+  Five
 }

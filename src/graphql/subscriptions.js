@@ -23,6 +23,7 @@ export const onCreateUser = /* GraphQL */ `
           numOfEspers
           numOfChecks
           numOfDeadchecks
+          numOfPeakedChecks
           numOfBosses
           skip
           dragons
@@ -33,6 +34,8 @@ export const onCreateUser = /* GraphQL */ `
           auction
           thief
           coliseum
+          race
+          mood
           createdAt
           updatedAt
         }
@@ -66,6 +69,7 @@ export const onUpdateUser = /* GraphQL */ `
           numOfEspers
           numOfChecks
           numOfDeadchecks
+          numOfPeakedChecks
           numOfBosses
           skip
           dragons
@@ -76,6 +80,8 @@ export const onUpdateUser = /* GraphQL */ `
           auction
           thief
           coliseum
+          race
+          mood
           createdAt
           updatedAt
         }
@@ -109,6 +115,7 @@ export const onDeleteUser = /* GraphQL */ `
           numOfEspers
           numOfChecks
           numOfDeadchecks
+          numOfPeakedChecks
           numOfBosses
           skip
           dragons
@@ -119,6 +126,8 @@ export const onDeleteUser = /* GraphQL */ `
           auction
           thief
           coliseum
+          race
+          mood
           createdAt
           updatedAt
         }
@@ -158,6 +167,7 @@ export const onCreateRun = /* GraphQL */ `
       numOfEspers
       numOfChecks
       numOfDeadchecks
+      numOfPeakedChecks
       numOfBosses
       skip
       dragons
@@ -168,6 +178,8 @@ export const onCreateRun = /* GraphQL */ `
       auction
       thief
       coliseum
+      race
+      mood
       createdAt
       updatedAt
     }
@@ -201,6 +213,7 @@ export const onUpdateRun = /* GraphQL */ `
       numOfEspers
       numOfChecks
       numOfDeadchecks
+      numOfPeakedChecks
       numOfBosses
       skip
       dragons
@@ -211,6 +224,8 @@ export const onUpdateRun = /* GraphQL */ `
       auction
       thief
       coliseum
+      race
+      mood
       createdAt
       updatedAt
     }
@@ -244,6 +259,7 @@ export const onDeleteRun = /* GraphQL */ `
       numOfEspers
       numOfChecks
       numOfDeadchecks
+      numOfPeakedChecks
       numOfBosses
       skip
       dragons
@@ -254,6 +270,8 @@ export const onDeleteRun = /* GraphQL */ `
       auction
       thief
       coliseum
+      race
+      mood
       createdAt
       updatedAt
     }

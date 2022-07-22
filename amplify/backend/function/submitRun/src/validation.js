@@ -37,10 +37,14 @@ function validate_numOfChecks(runData) {
     return {
       result: false,
       reason:
-        "Total checks completed cannot be lower than characters+espers+dragons",
+        "Total checks completed cannot be lower than characters+espers+dragons.",
     };
   }
   return checkNumberRange(runData.numOfChecks, 0, 61);
+}
+
+function validate_numOfPeakedChecks(runData) {
+  return checkNumberRange(runData.numOfPeakedChecks, 0, 61);
 }
 
 function validate_runTime(runData) {
@@ -83,7 +87,7 @@ function validate_skip(runData) {
   } else {
     return {
       result: false,
-      reason: "Value must be true or false.  Please contact administrator",
+      reason: "Value must be true or false.  Please contact administrator.",
     };
   }
 }
@@ -177,13 +181,21 @@ async function validate_flagset(runData) {
   return compareToBackendEnum("Flagset", [runData.flagset]);
 }
 
+async function validate_race(runData) {
+  return compareToBackendEnum("Race", [runData.race]);
+}
+
+async function validate_mood(runData) {
+  return compareToBackendEnum("Mood", [runData.mood]);
+}
+
 function validate_numOfChars(runData) {
   let numValidation = checkNumberRange(runData.numOfChars, 1, 14);
   if (numValidation.result) {
     if (parseInt(runData.numOfChars) < runData.chars.length) {
       return {
         result: false,
-        reason: "Number cannot be less than the number of starting characters",
+        reason: "Number cannot be less than the number of starting characters.",
       };
     }
   }
@@ -196,7 +208,7 @@ function validate_numOfEspers(runData) {
 }
 
 function validate_numOfBosses(runData) {
-  return checkNumberRange(runData.numOfBosses, 0, 39);
+  return checkNumberRange(runData.numOfBosses, 1, 39);
 }
 
 function validate_highestLevel(runData) {

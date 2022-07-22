@@ -27,6 +27,7 @@ export const runsForUser = /* GraphQL */ `
         numOfEspers
         numOfChecks
         numOfDeadchecks
+        numOfPeakedChecks
         numOfBosses
         skip
         dragons
@@ -37,6 +38,8 @@ export const runsForUser = /* GraphQL */ `
         auction
         thief
         coliseum
+        race
+        mood
         createdAt
         updatedAt
       }
@@ -66,6 +69,7 @@ export const getUser = /* GraphQL */ `
           numOfEspers
           numOfChecks
           numOfDeadchecks
+          numOfPeakedChecks
           numOfBosses
           skip
           dragons
@@ -76,6 +80,8 @@ export const getUser = /* GraphQL */ `
           auction
           thief
           coliseum
+          race
+          mood
           createdAt
           updatedAt
         }
@@ -148,6 +154,7 @@ export const getRun = /* GraphQL */ `
       numOfEspers
       numOfChecks
       numOfDeadchecks
+      numOfPeakedChecks
       numOfBosses
       skip
       dragons
@@ -158,6 +165,8 @@ export const getRun = /* GraphQL */ `
       auction
       thief
       coliseum
+      race
+      mood
       createdAt
       updatedAt
     }
@@ -193,6 +202,7 @@ export const listRuns = /* GraphQL */ `
         numOfEspers
         numOfChecks
         numOfDeadchecks
+        numOfPeakedChecks
         numOfBosses
         skip
         dragons
@@ -203,6 +213,8 @@ export const listRuns = /* GraphQL */ `
         auction
         thief
         coliseum
+        race
+        mood
         createdAt
         updatedAt
       }
@@ -250,6 +262,7 @@ export const runsByTime = /* GraphQL */ `
         numOfEspers
         numOfChecks
         numOfDeadchecks
+        numOfPeakedChecks
         numOfBosses
         skip
         dragons
@@ -260,6 +273,8 @@ export const runsByTime = /* GraphQL */ `
         auction
         thief
         coliseum
+        race
+        mood
         createdAt
         updatedAt
       }
@@ -307,6 +322,7 @@ export const runsByAttempt = /* GraphQL */ `
         numOfEspers
         numOfChecks
         numOfDeadchecks
+        numOfPeakedChecks
         numOfBosses
         skip
         dragons
@@ -317,6 +333,8 @@ export const runsByAttempt = /* GraphQL */ `
         auction
         thief
         coliseum
+        race
+        mood
         createdAt
         updatedAt
       }

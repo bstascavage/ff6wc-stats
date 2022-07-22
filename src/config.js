@@ -30,6 +30,7 @@ const CONFIG = {
       id: "flagset",
       required: false,
       enumName: "Flagset",
+      help: "What flagset did you run?",
     },
     chars: {
       type: "checkbox",
@@ -77,6 +78,17 @@ const CONFIG = {
       step: "1",
       startingValue: "0",
       help: "Note that this contains non-progress checks (Fanatics Tower Chest, Lone Wolf Moogle Room, Kefka's Tower Cell Beast, Narshe Weapon Shop Mine).",
+    },
+    numOfPeakedChecks: {
+      type: "slider",
+      title: "Checks Peaked/Cancelled",
+      id: "numOfPeakedChecks",
+      required: false,
+      min: "0",
+      max: "61",
+      step: "1",
+      startingValue: "0",
+      help: "Number of checks that added to time but were not captured above.  This includes any checks that were peaked at, warped or reset out of.",
     },
     numOfBosses: {
       type: "slider",
@@ -174,6 +186,22 @@ const CONFIG = {
       enumName: "Auction",
       help: "Number of espers bought at the Auction House.",
     },
+    race: {
+      type: "dropdown",
+      title: "Race",
+      id: "race",
+      required: false,
+      enumName: "Race",
+      help: 'Whether this run was a race or not.  Note that "Practice" indicates a sync or async race, not individual practice',
+    },
+    mood: {
+      type: "dropdown",
+      title: "Run Mood",
+      id: "mood",
+      required: false,
+      enumName: "Mood",
+      help: "On a scale of 1-5, how you felt about your run.",
+    },
   },
   submitFormat: {
     // This is the format of panels on the submission page.  The children of the colums are the cards
@@ -181,7 +209,14 @@ const CONFIG = {
     columnLeft: {
       runTime: {
         title: "Run Time",
-        children: ["runTime", "ktStartTime", "kefkaTime", "flagset"],
+        children: [
+          "runTime",
+          "ktStartTime",
+          "kefkaTime",
+          "flagset",
+          "race",
+          "mood",
+        ],
       },
       startingParty: {
         title: "Starting Party",
@@ -195,6 +230,7 @@ const CONFIG = {
           "numOfChars",
           "numOfEspers",
           "numOfChecks",
+          "numOfPeakedChecks",
           "dragons",
           "skip",
         ],
