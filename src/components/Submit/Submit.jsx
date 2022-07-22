@@ -18,16 +18,27 @@ import { submitRun } from "../../graphql/mutations";
 
 function submissionReducer(state, action) {
   switch (action.type) {
-    case "submission_submitted":
+    case "data_retrieved": // Graphql queries for enum values has succeeded
       return {
+        render_page: true,
+        submitted: false,
+        processed: false,
+        verified: false,
+        accepted: false,
+        dataValidationResults: {},
+      };
+    case "submission_submitted": // Submission data sent to backend
+      return {
+        render_page: true,
         submitted: true,
         processed: false,
         verified: false,
         accepted: false,
         dataValidationResults: {},
       };
-    case "submission_processed":
+    case "submission_processed": // Submission data processed by backend
       return {
+        render_page: true,
         submitted: true,
         processed: true,
         verified: action.submissionResults.validation.validationStatus,
@@ -41,6 +52,7 @@ function submissionReducer(state, action) {
 
 function Submit(props) {
   const [submissionState, setSubmissionState] = useReducer(submissionReducer, {
+    render_page: false,
     submitted: false,
     processed: false,
     verified: false,
@@ -68,7 +80,12 @@ function Submit(props) {
 
   useEffect(() => {
     // Retrieve possible character/ability/dragon selections from graphql to set as checkboxes
-    getEnumSelection(submitFieldData, submitConfig, setSubmitFieldData);
+    getEnumSelection(
+      submitFieldData,
+      submitConfig,
+      setSubmitFieldData,
+      setSubmissionState
+    );
   }, []);
 
   useEffect(() => {
@@ -122,52 +139,76 @@ function Submit(props) {
 
   return (
     <React.Fragment>
-      {submissionState.accepted && <Success />}
-      {!submissionState.accepted &&
-        Object.keys(props.discordUserdata.userdata).length === 0 && (
-          // If not authenticated, redirect to home
-          <Navigate to="/" replace={true} />
-        )}
-      {!submissionState.accepted &&
-        Object.keys(props.discordUserdata.userdata).length !== 0 && (
-          <Page
-            cover={cover}
-            bannerTitle="Submit a Run"
-            bannerSubtitle="Fill out the results of your latest run"
-            higherCrop={true}
-          >
-            <form onSubmit={handleSubmit}>
-              <ColumnWrapper>
-                {getColumn(
-                  "columnLeft",
-                  props.config,
-                  submissionState.dataValidationResults,
-                  submitFieldData,
-                  setSubmitFieldData
-                )}
-                {getColumn(
-                  "columnRight",
-                  props.config,
-                  submissionState.dataValidationResults,
-                  submitFieldData,
-                  setSubmitFieldData
-                )}
-              </ColumnWrapper>
-              <div className="section">
-                <div className="container">
-                  <div className="submit-container" id="submit-container">
-                    <button type="submit">Submit</button>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </Page>
-        )}
+      {Object.keys(props.discordUserdata.userdata).length === 0 && (
+        // If not authenticated, redirect to home
+        <Navigate to="/" replace={true} />
+      )}
+      {renderPage(
+        submissionState,
+        props.config,
+        submitFieldData,
+        setSubmissionState,
+        handleSubmit
+      )}
     </React.Fragment>
   );
 }
 
-function getEnumSelection(selectionState, config, setFunction) {
+function renderPage(
+  submissionState,
+  config,
+  submitFieldData,
+  setSubmitFieldData,
+  handleSubmit
+) {
+  if (!submissionState.render_page) {
+    return <div></div>;
+  } else if (submissionState.accepted) {
+    return <Success />;
+  } else if (submissionState.render_page) {
+    return (
+      <Page
+        cover={cover}
+        bannerTitle="Submit a Run"
+        bannerSubtitle="Fill out the results of your latest run"
+        higherCrop={true}
+      >
+        <form onSubmit={handleSubmit}>
+          <ColumnWrapper>
+            {getColumn(
+              "columnLeft",
+              config,
+              submissionState.dataValidationResults,
+              submitFieldData,
+              setSubmitFieldData
+            )}
+            {getColumn(
+              "columnRight",
+              config,
+              submissionState.dataValidationResults,
+              submitFieldData,
+              setSubmitFieldData
+            )}
+          </ColumnWrapper>
+          <div className="section">
+            <div className="container">
+              <div className="submit-container" id="submit-container">
+                <button type="submit">Submit</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </Page>
+    );
+  }
+}
+
+function getEnumSelection(
+  selectionState,
+  config,
+  setFunction,
+  setSubmissionState
+) {
   // Retrieve list of enum values from database based on query
   Object.keys(selectionState.enum).forEach((key, index) => {
     let query = `query {
@@ -203,6 +244,11 @@ function getEnumSelection(selectionState, config, setFunction) {
           }
           selectionState.enum[key] = elems;
           setFunction(selectionState);
+        })
+        .then((responseJson) => {
+          setSubmissionState({
+            type: "data_retrieved",
+          });
         })
         .catch(console.error);
     } catch (err) {
