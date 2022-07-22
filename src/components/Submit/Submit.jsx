@@ -137,36 +137,16 @@ function Submit(props) {
 
   console.log(submissionState); // Debug statement to be removed later
 
-  return (
-    <React.Fragment>
-      {Object.keys(props.discordUserdata.userdata).length === 0 && (
-        // If not authenticated, redirect to home
-        <Navigate to="/" replace={true} />
-      )}
-      {renderPage(
-        submissionState,
-        props.config,
-        submitFieldData,
-        setSubmissionState,
-        handleSubmit
-      )}
-    </React.Fragment>
-  );
-}
-
-function renderPage(
-  submissionState,
-  config,
-  submitFieldData,
-  setSubmitFieldData,
-  handleSubmit
-) {
-  if (!submissionState.render_page) {
-    return <div></div>;
+  // Determine page rendering
+  let page;
+  if (Object.keys(props.discordUserdata.userdata).length === 0) {
+    page = <Navigate to="/" replace={true} />;
+  } else if (!submissionState.render_page) {
+    page = <div></div>;
   } else if (submissionState.accepted) {
-    return <Success />;
+    page = <Success />;
   } else if (submissionState.render_page) {
-    return (
+    page = (
       <Page
         cover={cover}
         bannerTitle="Submit a Run"
@@ -177,14 +157,14 @@ function renderPage(
           <ColumnWrapper>
             {getColumn(
               "columnLeft",
-              config,
+              props.config,
               submissionState.dataValidationResults,
               submitFieldData,
               setSubmitFieldData
             )}
             {getColumn(
               "columnRight",
-              config,
+              props.config,
               submissionState.dataValidationResults,
               submitFieldData,
               setSubmitFieldData
@@ -201,6 +181,8 @@ function renderPage(
       </Page>
     );
   }
+
+  return <React.Fragment>{page}</React.Fragment>;
 }
 
 function getEnumSelection(
