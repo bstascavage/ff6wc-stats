@@ -63,8 +63,13 @@ async function createRun(run) {
       abilities: run.abilities,
       numOfChars: parseInt(run.numOfChars),
       numOfEspers: parseInt(run.numOfEspers),
-      numOfDeadChecks: parseInt(run.numOfDeadChecks),
+      numOfChecks: parseInt(run.numOfChecks),
       numOfBosses: parseInt(run.numOfBosses),
+      numOfDeadchecks:
+        parseInt(run.numOfChecks) -
+        (parseInt(run.numOfChars) +
+          parseInt(run.numOfEspers) +
+          run.dragons.length),
       skip: run.skip,
       dragons: run.dragons,
       finalBattle: run.finalBattle,
@@ -72,7 +77,7 @@ async function createRun(run) {
       superBalls: run.superBalls,
       egg: run.egg,
       coliseum: run.coliseum,
-      auction: parseInt(run.auction),
+      auction: run.auction,
       thief: run.thief,
     },
   };

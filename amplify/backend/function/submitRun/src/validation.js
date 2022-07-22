@@ -27,12 +27,20 @@ async function validate(data) {
   return validationResults;
 }
 
-function validate_numOfDeadChecks(runData) {
-  return checkNumberRange(runData.numOfDeadChecks, 0, 11);
-}
-
-function validate_auction(runData) {
-  return checkNumberRange(runData.auction, 0, 2);
+function validate_numOfChecks(runData) {
+  if (
+    runData.numOfChecks <
+    parseInt(runData.numOfChars) +
+      parseInt(runData.numOfEspers) +
+      parseInt(runData.dragons.length)
+  ) {
+    return {
+      result: false,
+      reason:
+        "Total checks completed cannot be lower than characters+espers+dragons",
+    };
+  }
+  return checkNumberRange(runData.numOfChecks, 0, 61);
 }
 
 function validate_runTime(runData) {
@@ -65,45 +73,6 @@ function validate_numOfChests(runData) {
   return {
     result: true,
   };
-}
-
-function validate_superBalls(runData) {
-  if (typeof runData.superBalls == "boolean") {
-    return {
-      result: true,
-    };
-  } else {
-    return {
-      result: false,
-      reason: "Value must be true or false.  Please contact administrator",
-    };
-  }
-}
-
-function validate_egg(runData) {
-  if (typeof runData.egg == "boolean") {
-    return {
-      result: true,
-    };
-  } else {
-    return {
-      result: false,
-      reason: "Value must be true or false.  Please contact administrator",
-    };
-  }
-}
-
-function validate_coliseum(runData) {
-  if (typeof runData.coliseum == "boolean") {
-    return {
-      result: true,
-    };
-  } else {
-    return {
-      result: false,
-      reason: "Value must be true or false.  Please contact administrator",
-    };
-  }
 }
 
 function validate_skip(runData) {
@@ -188,6 +157,22 @@ async function validate_thief(runData) {
   return compareToBackendEnum("Thief", [runData.thief]);
 }
 
+function validate_auction(runData) {
+  return compareToBackendEnum("Auction", [runData.auction]);
+}
+
+function validate_coliseum(runData) {
+  return compareToBackendEnum("Coliseum", [runData.coliseum]);
+}
+
+function validate_superBalls(runData) {
+  return compareToBackendEnum("Superballs", [runData.superBalls]);
+}
+
+function validate_egg(runData) {
+  return compareToBackendEnum("Egg", [runData.egg]);
+}
+
 async function validate_flagset(runData) {
   return compareToBackendEnum("Flagset", [runData.flagset]);
 }
@@ -215,7 +200,7 @@ function validate_numOfBosses(runData) {
 }
 
 function validate_highestLevel(runData) {
-  return checkNumberRange(runData.highestLevel, 3, 99);
+  return checkNumberRange(runData.highestLevel, 0, 99);
 }
 
 function checkNumberRange(value, min, max) {

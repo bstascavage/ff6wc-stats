@@ -21,7 +21,8 @@ export const onCreateUser = /* GraphQL */ `
           abilities
           numOfChars
           numOfEspers
-          numOfDeadChecks
+          numOfChecks
+          numOfDeadchecks
           numOfBosses
           skip
           dragons
@@ -63,7 +64,8 @@ export const onUpdateUser = /* GraphQL */ `
           abilities
           numOfChars
           numOfEspers
-          numOfDeadChecks
+          numOfChecks
+          numOfDeadchecks
           numOfBosses
           skip
           dragons
@@ -105,7 +107,8 @@ export const onDeleteUser = /* GraphQL */ `
           abilities
           numOfChars
           numOfEspers
-          numOfDeadChecks
+          numOfChecks
+          numOfDeadchecks
           numOfBosses
           skip
           dragons
@@ -153,7 +156,8 @@ export const onCreateRun = /* GraphQL */ `
       abilities
       numOfChars
       numOfEspers
-      numOfDeadChecks
+      numOfChecks
+      numOfDeadchecks
       numOfBosses
       skip
       dragons
@@ -195,7 +199,8 @@ export const onUpdateRun = /* GraphQL */ `
       abilities
       numOfChars
       numOfEspers
-      numOfDeadChecks
+      numOfChecks
+      numOfDeadchecks
       numOfBosses
       skip
       dragons
@@ -237,7 +242,8 @@ export const onDeleteRun = /* GraphQL */ `
       abilities
       numOfChars
       numOfEspers
-      numOfDeadChecks
+      numOfChecks
+      numOfDeadchecks
       numOfBosses
       skip
       dragons

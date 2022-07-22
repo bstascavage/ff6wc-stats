@@ -12,18 +12,18 @@ export const submitRun = /* GraphQL */ `
     $abilities: [Ability]!
     $numOfChars: String!
     $numOfEspers: String!
-    $numOfDeadChecks: String!
+    $numOfChecks: String!
     $numOfBosses: String!
     $numOfChests: String
     $skip: Boolean!
     $dragons: [Dragon]!
     $finalBattle: [FinalBattleTrait]
     $highestLevel: String
-    $superBalls: Boolean
-    $egg: Boolean
-    $auction: String
+    $superBalls: Superballs
+    $egg: Egg
+    $auction: Auction
     $thief: Thief
-    $coliseum: Boolean
+    $coliseum: Coliseum
   ) {
     submitRun(
       runTime: $runTime
@@ -35,7 +35,7 @@ export const submitRun = /* GraphQL */ `
       abilities: $abilities
       numOfChars: $numOfChars
       numOfEspers: $numOfEspers
-      numOfDeadChecks: $numOfDeadChecks
+      numOfChecks: $numOfChecks
       numOfBosses: $numOfBosses
       numOfChests: $numOfChests
       skip: $skip
@@ -73,7 +73,8 @@ export const createUser = /* GraphQL */ `
           abilities
           numOfChars
           numOfEspers
-          numOfDeadChecks
+          numOfChecks
+          numOfDeadchecks
           numOfBosses
           skip
           dragons
@@ -118,7 +119,8 @@ export const updateUser = /* GraphQL */ `
           abilities
           numOfChars
           numOfEspers
-          numOfDeadChecks
+          numOfChecks
+          numOfDeadchecks
           numOfBosses
           skip
           dragons
@@ -163,7 +165,8 @@ export const deleteUser = /* GraphQL */ `
           abilities
           numOfChars
           numOfEspers
-          numOfDeadChecks
+          numOfChecks
+          numOfDeadchecks
           numOfBosses
           skip
           dragons
@@ -214,7 +217,8 @@ export const createRun = /* GraphQL */ `
       abilities
       numOfChars
       numOfEspers
-      numOfDeadChecks
+      numOfChecks
+      numOfDeadchecks
       numOfBosses
       skip
       dragons
@@ -259,7 +263,8 @@ export const updateRun = /* GraphQL */ `
       abilities
       numOfChars
       numOfEspers
-      numOfDeadChecks
+      numOfChecks
+      numOfDeadchecks
       numOfBosses
       skip
       dragons
@@ -304,7 +309,8 @@ export const deleteRun = /* GraphQL */ `
       abilities
       numOfChars
       numOfEspers
-      numOfDeadChecks
+      numOfChecks
+      numOfDeadchecks
       numOfBosses
       skip
       dragons

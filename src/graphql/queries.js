@@ -25,7 +25,8 @@ export const runsForUser = /* GraphQL */ `
         abilities
         numOfChars
         numOfEspers
-        numOfDeadChecks
+        numOfChecks
+        numOfDeadchecks
         numOfBosses
         skip
         dragons
@@ -63,7 +64,8 @@ export const getUser = /* GraphQL */ `
           abilities
           numOfChars
           numOfEspers
-          numOfDeadChecks
+          numOfChecks
+          numOfDeadchecks
           numOfBosses
           skip
           dragons
@@ -144,7 +146,8 @@ export const getRun = /* GraphQL */ `
       abilities
       numOfChars
       numOfEspers
-      numOfDeadChecks
+      numOfChecks
+      numOfDeadchecks
       numOfBosses
       skip
       dragons
@@ -188,7 +191,8 @@ export const listRuns = /* GraphQL */ `
         abilities
         numOfChars
         numOfEspers
-        numOfDeadChecks
+        numOfChecks
+        numOfDeadchecks
         numOfBosses
         skip
         dragons
@@ -244,7 +248,8 @@ export const runsByTime = /* GraphQL */ `
         abilities
         numOfChars
         numOfEspers
-        numOfDeadChecks
+        numOfChecks
+        numOfDeadchecks
         numOfBosses
         skip
         dragons
@@ -300,7 +305,8 @@ export const runsByAttempt = /* GraphQL */ `
         abilities
         numOfChars
         numOfEspers
-        numOfDeadChecks
+        numOfChecks
+        numOfDeadchecks
         numOfBosses
         skip
         dragons

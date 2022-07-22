@@ -35,17 +35,18 @@ type Run @model @auth(rules: [{ allow: public }]) {
   abilities: [Ability]!
   numOfChars: Int!
   numOfEspers: Int!
-  numOfDeadChecks: Int!
+  numOfChecks: Int!
+  numOfDeadchecks: Int!
   numOfBosses: Int!
   skip: Boolean!
   dragons: [Dragon]!
   finalBattle: [FinalBattleTrait]
   highestLevel: Int
-  superBalls: Boolean
-  egg: Boolean
-  auction: Int
+  superBalls: Superballs
+  egg: Egg
+  auction: Auction
   thief: Thief
-  coliseum: Boolean
+  coliseum: Coliseum
 }
 
 type RunConnection {
@@ -68,18 +69,18 @@ type Mutation {
     abilities: [Ability]!
     numOfChars: String!
     numOfEspers: String!
-    numOfDeadChecks: String!
+    numOfChecks: String!
     numOfBosses: String!
     numOfChests: String
     skip: Boolean!
     dragons: [Dragon]!
     finalBattle: [FinalBattleTrait]
     highestLevel: String
-    superBalls: Boolean
-    egg: Boolean
-    auction: String
+    superBalls: Superballs
+    egg: Egg
+    auction: Auction
     thief: Thief
-    coliseum: Boolean
+    coliseum: Coliseum
   ): String
 }
 
@@ -140,13 +141,40 @@ enum FinalBattleTrait {
   Instant_Death
   Mute
   Calmness_Protection
-  Healing
+  Did_not_record
 }
 
 enum Thief {
+  Not_recorded
   No_Purchase
   WOB_Progression
   WOR_Progression
   WOB_Dead_Check
   WOR_Dead_Check
+}
+
+enum Coliseum {
+  Not_recorded
+  Did_not_vist
+  Visted_but_did_not_fight
+  Visited_and_fought
+}
+
+enum Egg {
+  Not_recorded
+  No
+  Yes
+}
+
+enum Superballs {
+  Not_recorded
+  No
+  Yes
+}
+
+enum Auction {
+  Not_recorded
+  Zero
+  One
+  Two
 }
