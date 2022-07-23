@@ -38,6 +38,11 @@ tasks:
       - terraform apply -var-file="env/main.tfvars"
     dir: terraform
 
+  clean:
+    desc: Cleans up the local DB
+    cmds:
+      - rm -f amplify/mock-data/dynamodb/*
+
   npm-install:
     desc: Installs npm packages for frontend
     cmds:

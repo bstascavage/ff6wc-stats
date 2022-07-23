@@ -164,38 +164,48 @@ async function validate_thiefPeek(runData) {
 async function validate_thiefReward(runData) {
   let reward = runData.thiefReward;
   let peek = runData.thiefPeek;
-  if (peek === "Not_recorded" && reward !== "Not_recorded") {
-    return {
-      result: false,
-      reason: "Cannot select reward if thief check was not done.",
-    };
-  } else if (peek !== "Not_recorded" && reward === "Not_recorded") {
-    return {
-      result: false,
-      reason: "Must select thief reward.",
-    };
-  } else if (peek == "Did_not_check" && reward !== "Did_not_buy__Unknown") {
-    return {
-      result: false,
-      reason: "If you did not check the thief, select 'Did not buy - Unknown'",
-    };
-  } else if (
-    peek === "Checked_WOR_only" &&
-    (reward === "Did_not_buy__Esper" || reward === "Did_not_buy__Item")
-  ) {
-    return {
-      result: false,
-      reason:
-        "Cannot know the reward was an esper/item if you only checked WOR.",
-    };
-  } else if (
-    (peek === "Checked_WOB_only" || peek === "Checked_both") &&
-    reward === "Did_not_buy__Unknown"
-  ) {
-    return {
-      result: false,
-      reason: "If you checked WOB, reward cannot be Unknown",
-    };
+
+  if (peek === "Not_recorded") {
+    if (reward !== "Not_recorded") {
+      return {
+        result: false,
+        reason: "Cannot select reward if thief check was not done.",
+      };
+    }
+  }
+  if (peek == "Did_not_check") {
+    if (reward !== "Did_not_buy__Unknown") {
+      return {
+        result: false,
+        reason:
+          "If you did not check the thief, select 'Did not buy - Unknown'",
+      };
+    }
+  }
+  if (peek === "Checked_WOR_only") {
+    if (reward === "Did_not_buy__Esper" || reward === "Did_not_buy__Item") {
+      return {
+        result: false,
+        reason:
+          "Cannot know the reward was an esper/item if you only checked WOR.",
+      };
+    }
+  }
+  if (peek === "Checked_WOB_only" || peek === "Checked_both") {
+    if (reward === "Did_not_buy__Unknown") {
+      return {
+        result: false,
+        reason: "If you checked WOB, reward cannot be Unknown",
+      };
+    }
+  }
+  if (reward === "Not_recorded") {
+    if (peek != "Not_recorded") {
+      return {
+        result: false,
+        reason: "Must select thief reward.",
+      };
+    }
   }
   return compareToBackendEnum("ThiefReward", [reward]);
 }

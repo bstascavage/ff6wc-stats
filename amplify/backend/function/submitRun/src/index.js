@@ -68,7 +68,8 @@ async function createRun(run) {
       numOfBosses: parseInt(run.numOfBosses),
       numOfDeadchecks:
         parseInt(run.numOfChecks) -
-        (parseInt(run.numOfChars) +
+        (parseInt(run.numOfChars) -
+          run.chars.length +
           parseInt(run.numOfEspers) +
           run.dragons.length),
       skip: run.skip,
