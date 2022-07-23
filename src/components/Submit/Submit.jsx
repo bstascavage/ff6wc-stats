@@ -45,6 +45,15 @@ function submissionReducer(state, action) {
         accepted: action.submissionResults.creation.createStatus,
         dataValidationResults: action.submissionResults.validation,
       };
+    case "reset":
+      return {
+        render_page: false,
+        submitted: false,
+        processed: false,
+        verified: false,
+        accepted: false,
+        dataValidationResults: {},
+      };
     default:
       return state;
   }
@@ -136,6 +145,7 @@ function Submit(props) {
   // Determine page rendering
   let page;
   if (Object.keys(props.discordUserdata.userdata).length === 0) {
+    setSubmissionState({ type: "reset" });
     page = <Navigate to="/" replace={true} />;
   } else if (!submissionState.render_page) {
     page = <div></div>;

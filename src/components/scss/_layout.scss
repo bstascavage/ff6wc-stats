@@ -123,6 +123,12 @@ pre code.hljs {
   }
 }
 
+.top-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .background-blur {
   -webkit-filter: blur(8px);
   -moz-filter: blur(8px);
@@ -630,6 +636,7 @@ pre code.hljs {
   padding: 1em 1em 2em 1em;
   background-color: $highlight-color;
   color: $white;
+  margin-top: auto;
   // display: none;
 
   a {

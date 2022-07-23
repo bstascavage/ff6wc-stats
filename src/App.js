@@ -112,7 +112,11 @@ function App() {
 
   return (
     <React.Fragment>
-      <div className={discordUserdata.background_blur ? "background-blur" : ""}>
+      <div
+        className={`top-container ${
+          discordUserdata.background_blur ? "background-blur" : ""
+        }`}
+      >
         {discordUserdata.hide_render && !discordUserdata.discord_login_error && (
           // Render nothing while retrieving user info from Discord
           <div></div>
