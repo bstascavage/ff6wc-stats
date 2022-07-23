@@ -89,17 +89,13 @@ function Submit(props) {
   }, []);
 
   useEffect(() => {
-    // Display an alert if any data doesn't pass validation or there is a backend issue
-    if (submissionState.processed) {
-      if (!submissionState.accepted) {
-        submissionState.verified
-          ? alert("Issue submitting run, please contact administrator")
-          : alert(
-              "One or more errors detected with submitted data.  Please review and try again."
-            );
-      }
+    // Blur the screen while a submission is processed by the backend
+    if (submissionState.submitted && !submissionState.processed) {
+      props.setUserdataState({ type: "submitted_data" });
+    } else if (submissionState.processed) {
+      props.setUserdataState({ type: "processed_data" });
     }
-  }, [submissionState.dataValidationResults]);
+  }, [submissionState]);
 
   const handleSubmit = (event) => {
     event.preventDefault();

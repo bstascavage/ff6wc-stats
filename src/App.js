@@ -19,7 +19,6 @@ import { createUser, updateUser } from "./graphql/mutations";
 
 import awsExports from "./aws-exports";
 import { getUserDiscordId } from "./graphql/user-data-queries";
-
 import CONFIG from "./config";
 
 // Amplify auto-generates aws-exports but sets it to the host IP and not localhost if you use mock
@@ -43,13 +42,23 @@ function userdataReducer(state, action) {
     case "retrieved_discord_data":
       return { ...state, hide_render: false, userdata: action.userdata };
     case "not_logged_in":
-      return { hide_render: false, userdata: {} };
+      return { ...state, hide_render: false, userdata: {} };
     case "error_login_discord":
       return {
         ...state,
         hide_render: true,
         discord_login_error: true,
         userdata: "",
+      };
+    case "submitted_data":
+      return {
+        ...state,
+        background_blur: true,
+      };
+    case "processed_data":
+      return {
+        ...state,
+        background_blur: false,
       };
     default:
       return state;
@@ -60,6 +69,7 @@ function App() {
   const [discordUserdata, setUserdataState] = useReducer(userdataReducer, {
     hide_render: true,
     discord_login_error: false,
+    background_blur: false,
     userdata: {},
   });
   const [validateBackendUserdata, setBackendUserdata] = useState([]);
@@ -102,48 +112,54 @@ function App() {
 
   return (
     <React.Fragment>
-      {discordUserdata.hide_render && !discordUserdata.discord_login_error && (
-        // Render nothing while retrieving user info from Discord
-        <div></div>
-      )}
-      {discordUserdata.hide_render && discordUserdata.discord_login_error && (
-        // Render and redirect to error page if Discord login has issues
-        <Router>
-          <Navigation
-            discordUserdata={discordUserdata}
-            setUserdataState={setUserdataState}
-          />
-
-          <Routes>
-            <Route path="/error" element={<Error />} />
-            <Route path="*" element={<Navigate replace to="/error" />} />
-          </Routes>
-          <Footer discordUserdata={discordUserdata} />
-        </Router>
-      )}
-      {!discordUserdata.hide_render && (
-        <Router>
-          <Navigation
-            discordUserdata={discordUserdata}
-            setUserdataState={setUserdataState}
-          />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/stats" element={<Stats />} />
-            <Route
-              path="/submit"
-              element={
-                <Submit discordUserdata={discordUserdata} config={CONFIG} />
-              }
+      <div className={discordUserdata.background_blur ? "background-blur" : ""}>
+        {discordUserdata.hide_render && !discordUserdata.discord_login_error && (
+          // Render nothing while retrieving user info from Discord
+          <div></div>
+        )}
+        {discordUserdata.hide_render && discordUserdata.discord_login_error && (
+          // Render and redirect to error page if Discord login has issues
+          <Router>
+            <Navigation
+              discordUserdata={discordUserdata}
+              setUserdataState={setUserdataState}
             />
-          </Routes>
-          <Footer
-            discordUserdata={discordUserdata}
-            setUserdataState={setUserdataState}
-          />
-        </Router>
-      )}
+
+            <Routes>
+              <Route path="/error" element={<Error />} />
+              <Route path="*" element={<Navigate replace to="/error" />} />
+            </Routes>
+            <Footer discordUserdata={discordUserdata} />
+          </Router>
+        )}
+        {!discordUserdata.hide_render && (
+          <Router>
+            <Navigation
+              discordUserdata={discordUserdata}
+              setUserdataState={setUserdataState}
+            />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/stats" element={<Stats />} />
+              <Route
+                path="/submit"
+                element={
+                  <Submit
+                    discordUserdata={discordUserdata}
+                    setUserdataState={setUserdataState}
+                    config={CONFIG}
+                  />
+                }
+              />
+            </Routes>
+            <Footer
+              discordUserdata={discordUserdata}
+              setUserdataState={setUserdataState}
+            />
+          </Router>
+        )}
+      </div>
     </React.Fragment>
   );
 }
