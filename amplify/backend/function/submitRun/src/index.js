@@ -53,11 +53,20 @@ async function createRun(run) {
       createBackendError: null,
     };
 
+  Object.keys(run).forEach((key, index) => {
+    // If element isn't provided, set it to null before writing to DB
+    if (run[key].length === 0 && !Array.isArray(run[key])) {
+      run[key] = null;
+    }
+  });
+
   const variables = {
     input: {
       userId: run.userId,
       attempt: attemptNum,
       runTime: run.runTime,
+      ktStartTime: run.ktStartTime,
+      kefkaTime: run.kefkaTime,
       flagset: run.flagset,
       chars: run.chars,
       abilities: run.abilities,
@@ -83,7 +92,9 @@ async function createRun(run) {
       thiefPeek: run.thiefPeek,
       thiefReward: run.thiefReward,
       race: run.race,
+      raceId: run.raceId,
       mood: run.mood,
+      seed: run.seed,
     },
   };
   const query = /* GraphQL */ `

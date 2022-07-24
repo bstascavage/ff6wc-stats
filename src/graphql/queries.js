@@ -19,8 +19,10 @@ export const runsForUser = /* GraphQL */ `
         }
         userId
         attempt
-        flagset
         runTime
+        ktStartTime
+        kefkaTime
+        flagset
         chars
         abilities
         numOfChars
@@ -41,6 +43,8 @@ export const runsForUser = /* GraphQL */ `
         coliseum
         race
         mood
+        seed
+        raceId
         createdAt
         updatedAt
       }
@@ -62,8 +66,10 @@ export const getUser = /* GraphQL */ `
           id
           userId
           attempt
-          flagset
           runTime
+          ktStartTime
+          kefkaTime
+          flagset
           chars
           abilities
           numOfChars
@@ -84,6 +90,8 @@ export const getUser = /* GraphQL */ `
           coliseum
           race
           mood
+          seed
+          raceId
           createdAt
           updatedAt
         }
@@ -148,8 +156,10 @@ export const getRun = /* GraphQL */ `
       }
       userId
       attempt
-      flagset
       runTime
+      ktStartTime
+      kefkaTime
+      flagset
       chars
       abilities
       numOfChars
@@ -170,6 +180,8 @@ export const getRun = /* GraphQL */ `
       coliseum
       race
       mood
+      seed
+      raceId
       createdAt
       updatedAt
     }
@@ -197,8 +209,10 @@ export const listRuns = /* GraphQL */ `
         }
         userId
         attempt
-        flagset
         runTime
+        ktStartTime
+        kefkaTime
+        flagset
         chars
         abilities
         numOfChars
@@ -219,6 +233,8 @@ export const listRuns = /* GraphQL */ `
         coliseum
         race
         mood
+        seed
+        raceId
         createdAt
         updatedAt
       }
@@ -258,8 +274,10 @@ export const runsByTime = /* GraphQL */ `
         }
         userId
         attempt
-        flagset
         runTime
+        ktStartTime
+        kefkaTime
+        flagset
         chars
         abilities
         numOfChars
@@ -280,6 +298,8 @@ export const runsByTime = /* GraphQL */ `
         coliseum
         race
         mood
+        seed
+        raceId
         createdAt
         updatedAt
       }
@@ -319,8 +339,10 @@ export const runsByAttempt = /* GraphQL */ `
         }
         userId
         attempt
-        flagset
         runTime
+        ktStartTime
+        kefkaTime
+        flagset
         chars
         abilities
         numOfChars
@@ -341,6 +363,8 @@ export const runsByAttempt = /* GraphQL */ `
         coliseum
         race
         mood
+        seed
+        raceId
         createdAt
         updatedAt
       }

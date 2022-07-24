@@ -15,8 +15,10 @@ export const onCreateUser = /* GraphQL */ `
           id
           userId
           attempt
-          flagset
           runTime
+          ktStartTime
+          kefkaTime
+          flagset
           chars
           abilities
           numOfChars
@@ -37,6 +39,8 @@ export const onCreateUser = /* GraphQL */ `
           coliseum
           race
           mood
+          seed
+          raceId
           createdAt
           updatedAt
         }
@@ -62,8 +66,10 @@ export const onUpdateUser = /* GraphQL */ `
           id
           userId
           attempt
-          flagset
           runTime
+          ktStartTime
+          kefkaTime
+          flagset
           chars
           abilities
           numOfChars
@@ -84,6 +90,8 @@ export const onUpdateUser = /* GraphQL */ `
           coliseum
           race
           mood
+          seed
+          raceId
           createdAt
           updatedAt
         }
@@ -109,8 +117,10 @@ export const onDeleteUser = /* GraphQL */ `
           id
           userId
           attempt
-          flagset
           runTime
+          ktStartTime
+          kefkaTime
+          flagset
           chars
           abilities
           numOfChars
@@ -131,6 +141,8 @@ export const onDeleteUser = /* GraphQL */ `
           coliseum
           race
           mood
+          seed
+          raceId
           createdAt
           updatedAt
         }
@@ -162,8 +174,10 @@ export const onCreateRun = /* GraphQL */ `
       }
       userId
       attempt
-      flagset
       runTime
+      ktStartTime
+      kefkaTime
+      flagset
       chars
       abilities
       numOfChars
@@ -184,6 +198,8 @@ export const onCreateRun = /* GraphQL */ `
       coliseum
       race
       mood
+      seed
+      raceId
       createdAt
       updatedAt
     }
@@ -209,8 +225,10 @@ export const onUpdateRun = /* GraphQL */ `
       }
       userId
       attempt
-      flagset
       runTime
+      ktStartTime
+      kefkaTime
+      flagset
       chars
       abilities
       numOfChars
@@ -231,6 +249,8 @@ export const onUpdateRun = /* GraphQL */ `
       coliseum
       race
       mood
+      seed
+      raceId
       createdAt
       updatedAt
     }
@@ -256,8 +276,10 @@ export const onDeleteRun = /* GraphQL */ `
       }
       userId
       attempt
-      flagset
       runTime
+      ktStartTime
+      kefkaTime
+      flagset
       chars
       abilities
       numOfChars
@@ -278,6 +300,8 @@ export const onDeleteRun = /* GraphQL */ `
       coliseum
       race
       mood
+      seed
+      raceId
       createdAt
       updatedAt
     }

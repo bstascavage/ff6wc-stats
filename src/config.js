@@ -1,7 +1,7 @@
 const CONFIG = {
   submit: {
     runTime: {
-      type: "text_input",
+      type: "textInput",
       title: "Total Time",
       id: "runTime",
       required: true,
@@ -9,7 +9,7 @@ const CONFIG = {
       help: "Time when you see the flash/hear the crack after killing Kefka.",
     },
     ktStartTime: {
-      type: "text_input",
+      type: "textInput",
       title: "KT Start Time",
       id: "ktStartTime",
       required: false,
@@ -17,7 +17,7 @@ const CONFIG = {
       help: "Time after you pick your party to enter Kefka's Tower.",
     },
     kefkaTime: {
-      type: "text_input",
+      type: "textInput",
       title: "Kefka Start Time",
       id: "kefkaTime",
       required: false,
@@ -210,6 +210,22 @@ const CONFIG = {
       enumName: "Mood",
       help: "On a scale of 1-5, how you felt about your run.",
     },
+    seed: {
+      type: "textInput",
+      title: "Seed",
+      id: "seed",
+      required: false,
+      placeholder: "abcd1234ef56",
+      help: "Unique ID generated for your seed.",
+    },
+    raceId: {
+      type: "textInput",
+      title: "Race ID",
+      id: "raceId",
+      required: false,
+      placeholder: "abc123",
+      help: "Race room ID for Discord-based race.",
+    },
   },
   submitFormat: {
     // This is the format of panels on the submission page.  The children of the colums are the cards
@@ -222,7 +238,9 @@ const CONFIG = {
           "ktStartTime",
           "kefkaTime",
           "flagset",
+          "seed",
           "race",
+          "raceId",
           "mood",
         ],
       },

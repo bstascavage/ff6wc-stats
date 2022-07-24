@@ -1,4 +1,5 @@
 const graphql = require("./graphql.js");
+const config = require("./config.js").config;
 
 async function validate(data) {
   // Main validate class
@@ -58,18 +59,66 @@ function validate_runTime(runData) {
   }
 }
 
-// TODO: Placeholder in till I figure out non-required fields
 function validate_ktStartTime(runData) {
-  return {
-    result: true,
-  };
+  // Validates that the submitted time is in the format hh:mm:ss
+  if (runData.ktStartTime.length === 0) {
+    if (runData.kefkaTime.length === 0) {
+      return { result: true };
+    } else {
+      return {
+        result: false,
+        reason: 'Cannot be blank if "Kefka Start Time" is entered.',
+      };
+    }
+  } else if (checkTime(runData.ktStartTime)) {
+    let runTimeDate = new Date("1970-01-01 " + runData.runTime);
+    let ktStartTimeDate = new Date("1970-01-01 " + runData.ktStartTime);
+
+    if (ktStartTimeDate.getTime() > runTimeDate.getTime()) {
+      return {
+        result: false,
+        reason: 'Time cannot be higher than the "Total Time"',
+      };
+    } else {
+      return { result: true };
+    }
+  } else {
+    return { result: false, reason: "Time not in proper hh:mm:ss format." };
+  }
 }
 
-// TODO: Placeholder in till I figure out non-required fields
 function validate_kefkaTime(runData) {
-  return {
-    result: true,
-  };
+  // Validates that the submitted time is in the format hh:mm:ss
+  if (runData.kefkaTime.length === 0) {
+    if (runData.ktStartTime.length === 0) {
+      return { result: true };
+    } else {
+      return {
+        result: false,
+        reason: 'Cannot be blank if "KT Start Time" is entered.',
+      };
+    }
+  } else if (checkTime(runData.kefkaTime)) {
+    let runTimeDate = new Date("1970-01-01 " + runData.runTime);
+    let ktStartTimeDate = new Date("1970-01-01 " + runData.ktStartTime);
+    let kefkaTimeDate = new Date("1970-01-01 " + runData.kefkaTime);
+
+    if (kefkaTimeDate.getTime() > runTimeDate.getTime()) {
+      return {
+        result: false,
+        reason: 'Time cannot be higher than the "Total Time"',
+      };
+    } else if (kefkaTimeDate.getTime() < ktStartTimeDate.getTime()) {
+      return {
+        result: false,
+        reason: 'Time cannot be lower than the "KT Start Time"',
+      };
+    } else {
+      return { result: true };
+    }
+  } else {
+    return { result: false, reason: "Time not in proper hh:mm:ss format." };
+  }
 }
 
 // TODO: Placeholder in till I figure out non-required fields
@@ -81,6 +130,20 @@ function validate_numOfChests(runData) {
 
 function validate_skip(runData) {
   if (typeof runData.skip == "boolean") {
+    if (runData.skip) {
+      if (config.flagsetRules[runData.flagset].skip.operation === "OR") {
+        if (
+          runData.numOfChars <
+            config.flagsetRules[runData.flagset].skip.chars &&
+          runData.numOfEspers < config.flagsetRules[runData.flagset].skip.espers
+        ) {
+          return {
+            result: false,
+            reason: "Character and esper count do not allow for the skip.",
+          };
+        }
+      }
+    }
     return {
       result: true,
     };
@@ -102,6 +165,15 @@ async function validate_chars(runData) {
     return {
       result: false,
       reason: "More than 4 starting characters selected.",
+    };
+  } else if (
+    characters.length != config.flagsetRules[runData.flagset].startingChars
+  ) {
+    return {
+      result: false,
+      reason: `Must select ${
+        config.flagsetRules[runData.flagset].startingChars
+      } characters, per your flagset settings.`,
     };
   } else {
     return compareToBackendEnum("Character", characters);
@@ -246,6 +318,14 @@ function validate_numOfChars(runData) {
         result: false,
         reason: "Number cannot be less than the number of starting characters.",
       };
+    } else if (
+      runData.numOfChars < config.flagsetRules[runData.flagset].minChars
+    ) {
+      return {
+        result: false,
+        reason:
+          "Number is less than the required characters per your flagset settings.",
+      };
     }
   }
 
@@ -253,7 +333,18 @@ function validate_numOfChars(runData) {
 }
 
 function validate_numOfEspers(runData) {
-  return checkNumberRange(runData.numOfEspers, 0, 27);
+  let esperValidation = checkNumberRange(runData.numOfEspers, 0, 27);
+  if (esperValidation.result) {
+    if (runData.numOfEspers < config.flagsetRules[runData.flagset].minEspers) {
+      return {
+        result: false,
+        reason:
+          "Number is less than the required espers per your flagset settings.",
+      };
+    }
+  }
+
+  return esperValidation;
 }
 
 function validate_numOfBosses(runData) {
@@ -262,6 +353,51 @@ function validate_numOfBosses(runData) {
 
 function validate_highestLevel(runData) {
   return checkNumberRange(runData.highestLevel, 0, 99);
+}
+
+function validate_seed(runData) {
+  let seed = runData.seed;
+
+  if (seed.length != 12 && seed.length != 0) {
+    return {
+      result: false,
+      reason: "ID must be 12 characters",
+    };
+  } else if (/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(seed)) {
+    return {
+      result: false,
+      reason: "ID cannot contain special character",
+    };
+  } else {
+    return {
+      result: true,
+    };
+  }
+}
+
+function validate_raceId(runData) {
+  let raceId = runData.raceId;
+
+  if (raceId.length != 6 && raceId.length != 0) {
+    return {
+      result: false,
+      reason: "ID must be 6 characters",
+    };
+  } else if (/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(raceId)) {
+    return {
+      result: false,
+      reason: "ID cannot contain special character",
+    };
+  } else if (raceId.length > 0 && runData.race === "No_Race") {
+    return {
+      result: false,
+      reason: 'Cannot enter ID if "Race" is set to "No Race"',
+    };
+  } else {
+    return {
+      result: true,
+    };
+  }
 }
 
 function checkNumberRange(value, min, max) {
@@ -280,13 +416,11 @@ function checkNumberRange(value, min, max) {
 }
 
 function checkInt(value) {
-  let regEx = /^\+?(0|[1-9]\d*)$/;
-  return regEx.test(value);
+  return /^\+?(0|[1-9]\d*)$/.test(value);
 }
 
 function checkTime(value) {
-  let regEx = /^([01]?[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/;
-  return regEx.test(value);
+  return /^([01]?[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/.test(value);
 }
 
 async function compareToBackendEnum(enumName, submitData) {

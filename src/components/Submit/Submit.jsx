@@ -264,7 +264,7 @@ function createItem(
         valueSetter={setSubmitFieldData}
       />
     );
-  } else if (config.type === "text_input") {
+  } else if (config.type === "textInput") {
     body = <TextInput id={config.id} placeholder={config.placeholder} />;
   } else if (config.type === "checkbox") {
     body = (

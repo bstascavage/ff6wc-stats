@@ -28,6 +28,8 @@ export const submitRun = /* GraphQL */ `
     $coliseum: Coliseum
     $race: Race
     $mood: Mood
+    $seed: String
+    $raceId: String
   ) {
     submitRun(
       runTime: $runTime
@@ -55,6 +57,8 @@ export const submitRun = /* GraphQL */ `
       coliseum: $coliseum
       race: $race
       mood: $mood
+      seed: $seed
+      raceId: $raceId
     )
   }
 `;
@@ -75,8 +79,10 @@ export const createUser = /* GraphQL */ `
           id
           userId
           attempt
-          flagset
           runTime
+          ktStartTime
+          kefkaTime
+          flagset
           chars
           abilities
           numOfChars
@@ -97,6 +103,8 @@ export const createUser = /* GraphQL */ `
           coliseum
           race
           mood
+          seed
+          raceId
           createdAt
           updatedAt
         }
@@ -125,8 +133,10 @@ export const updateUser = /* GraphQL */ `
           id
           userId
           attempt
-          flagset
           runTime
+          ktStartTime
+          kefkaTime
+          flagset
           chars
           abilities
           numOfChars
@@ -147,6 +157,8 @@ export const updateUser = /* GraphQL */ `
           coliseum
           race
           mood
+          seed
+          raceId
           createdAt
           updatedAt
         }
@@ -175,8 +187,10 @@ export const deleteUser = /* GraphQL */ `
           id
           userId
           attempt
-          flagset
           runTime
+          ktStartTime
+          kefkaTime
+          flagset
           chars
           abilities
           numOfChars
@@ -197,6 +211,8 @@ export const deleteUser = /* GraphQL */ `
           coliseum
           race
           mood
+          seed
+          raceId
           createdAt
           updatedAt
         }
@@ -231,8 +247,10 @@ export const createRun = /* GraphQL */ `
       }
       userId
       attempt
-      flagset
       runTime
+      ktStartTime
+      kefkaTime
+      flagset
       chars
       abilities
       numOfChars
@@ -253,6 +271,8 @@ export const createRun = /* GraphQL */ `
       coliseum
       race
       mood
+      seed
+      raceId
       createdAt
       updatedAt
     }
@@ -281,8 +301,10 @@ export const updateRun = /* GraphQL */ `
       }
       userId
       attempt
-      flagset
       runTime
+      ktStartTime
+      kefkaTime
+      flagset
       chars
       abilities
       numOfChars
@@ -303,6 +325,8 @@ export const updateRun = /* GraphQL */ `
       coliseum
       race
       mood
+      seed
+      raceId
       createdAt
       updatedAt
     }
@@ -331,8 +355,10 @@ export const deleteRun = /* GraphQL */ `
       }
       userId
       attempt
-      flagset
       runTime
+      ktStartTime
+      kefkaTime
+      flagset
       chars
       abilities
       numOfChars
@@ -353,6 +379,8 @@ export const deleteRun = /* GraphQL */ `
       coliseum
       race
       mood
+      seed
+      raceId
       createdAt
       updatedAt
     }
