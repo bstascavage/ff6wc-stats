@@ -145,7 +145,6 @@ function Submit(props) {
   // Determine page rendering
   let page;
   if (Object.keys(props.discordUserdata.userdata).length === 0) {
-    setSubmissionState({ type: "reset" });
     page = <Navigate to="/" replace={true} />;
   } else if (!submissionState.render_page) {
     page = <div></div>;

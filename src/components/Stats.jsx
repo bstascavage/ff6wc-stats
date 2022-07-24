@@ -4,7 +4,6 @@ import cover from "../assets/stats-cover.jpg";
 
 function Stats() {
   return (
-    // </React.Fragment >
     <React.Fragment>
       <Page
         cover={cover}
