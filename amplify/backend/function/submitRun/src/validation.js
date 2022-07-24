@@ -237,6 +237,14 @@ async function validate_finalBattle(runData) {
       reason:
         "More than 4 final battle traits submitted.  Contact administrator.",
     };
+  } else if (
+    finalBattleTraits.includes("Did_not_record") &&
+    finalBattleTraits.length != 1
+  ) {
+    return {
+      result: false,
+      reason: 'Cannot select other options with "Did not record".',
+    };
   } else {
     return compareToBackendEnum("FinalBattleTrait", finalBattleTraits);
   }
@@ -433,7 +441,7 @@ function checkInt(value) {
 }
 
 function checkTime(value) {
-  return /^([01]?[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/.test(value);
+  return /^([0-9]):([0-5][0-9]):([0-5][0-9])$/.test(value);
 }
 
 async function compareToBackendEnum(enumName, submitData) {
