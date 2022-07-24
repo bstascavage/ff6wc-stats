@@ -9,6 +9,7 @@ const config = {
         espers: 12,
         operation: "OR",
       },
+      excludedAbilities: ["Possess", "Shock", "Magitek"],
     },
     Moogles_First_Tournament: {
       startingChars: 3,
@@ -19,6 +20,7 @@ const config = {
         espers: 12,
         operation: "OR",
       },
+      excludedAbilities: ["Possess"],
     },
   },
 };

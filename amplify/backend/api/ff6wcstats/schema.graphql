@@ -134,6 +134,8 @@ enum Ability {
   Throw
   Tools
   X_Magic
+  Shock
+  MagiTek
 }
 
 enum Dragon {

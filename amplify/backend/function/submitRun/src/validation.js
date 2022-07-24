@@ -211,6 +211,19 @@ async function validate_abilities(runData) {
       reason: "Number of abilities submitted does not match party composition.",
     };
   } else {
+    for (let i = 0; i < abilities.length; i++) {
+      // Check to see if an ability is in the exclude list for its flagset
+      if (
+        config.flagsetRules[runData.flagset].excludedAbilities.includes(
+          abilities[i]
+        )
+      ) {
+        return {
+          result: false,
+          reason: "Ability not valid for your flagset.",
+        };
+      }
+    }
     return compareToBackendEnum("Ability", abilities);
   }
 }
