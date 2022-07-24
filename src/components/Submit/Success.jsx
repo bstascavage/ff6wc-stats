@@ -7,9 +7,9 @@ import "./scss/main.scss";
 function Success(props) {
   const navigate = useNavigate();
 
-  function handleClick(e) {
-    e.preventDefault();
-    navigate("/stats");
+  function handleClick(event, redirect) {
+    event.preventDefault();
+    redirect === "/submit" ? navigate(0) : navigate(redirect);
   }
 
   return (
@@ -24,7 +24,12 @@ function Success(props) {
         <div className="section">
           <div className="container">
             <div className="submit-container" id="submit-container">
-              <button onClick={handleClick}>See Your Stats</button>
+              <button onClick={(event) => handleClick(event, "/stats")}>
+                See Your Stats
+              </button>
+              <button onClick={(event) => handleClick(event, "/submit")}>
+                Submit Another Run
+              </button>
             </div>
           </div>
         </div>
