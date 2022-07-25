@@ -5,6 +5,6 @@ export { default as Footer } from "./Footer";
 export { default as Home } from "./Home";
 export { default as Error } from "./Error";
 export { default as About } from "./About";
-export { default as Stats } from "./Stats";
+export { default as Stats } from "./Stats/Stats";
 export { default as Logout } from "./Logout";
 export { default as Submit } from "./Submit/Submit";

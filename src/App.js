@@ -145,7 +145,10 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
-              <Route path="/stats" element={<Stats />} />
+              <Route
+                path="/stats"
+                element={<Stats discordUserdata={discordUserdata} />}
+              />
               <Route
                 path="/submit"
                 element={
