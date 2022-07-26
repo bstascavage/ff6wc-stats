@@ -441,7 +441,12 @@ function checkInt(value) {
 }
 
 function checkTime(value) {
-  return /^([0-9]):([0-5][0-9]):([0-5][0-9])$/.test(value);
+  const date = new Date("1970-01-01 " + value);
+  return (
+    /^([0-9]):([0-5][0-9]):([0-5][0-9])$/.test(value) &&
+    date instanceof Date &&
+    !isNaN(date)
+  );
 }
 
 async function compareToBackendEnum(enumName, submitData) {

@@ -30,8 +30,11 @@ type Run @model @auth(rules: [{ allow: public }]) {
     )
   attempt: Int!
   runTime: String!
+  runTimeRaw: Int!
   ktStartTime: String
+  ktStartTimeRaw: Int
   kefkaTime: String
+  kefkaTimeRaw: Int
   flagset: Flagset!
   chars: [Character]!
   abilities: [Ability]!

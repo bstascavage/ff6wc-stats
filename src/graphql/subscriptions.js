@@ -16,8 +16,11 @@ export const onCreateUser = /* GraphQL */ `
           userId
           attempt
           runTime
+          runTimeRaw
           ktStartTime
+          ktStartTimeRaw
           kefkaTime
+          kefkaTimeRaw
           flagset
           chars
           abilities
@@ -67,8 +70,11 @@ export const onUpdateUser = /* GraphQL */ `
           userId
           attempt
           runTime
+          runTimeRaw
           ktStartTime
+          ktStartTimeRaw
           kefkaTime
+          kefkaTimeRaw
           flagset
           chars
           abilities
@@ -118,8 +124,11 @@ export const onDeleteUser = /* GraphQL */ `
           userId
           attempt
           runTime
+          runTimeRaw
           ktStartTime
+          ktStartTimeRaw
           kefkaTime
+          kefkaTimeRaw
           flagset
           chars
           abilities
@@ -175,8 +184,11 @@ export const onCreateRun = /* GraphQL */ `
       userId
       attempt
       runTime
+      runTimeRaw
       ktStartTime
+      ktStartTimeRaw
       kefkaTime
+      kefkaTimeRaw
       flagset
       chars
       abilities
@@ -226,8 +238,11 @@ export const onUpdateRun = /* GraphQL */ `
       userId
       attempt
       runTime
+      runTimeRaw
       ktStartTime
+      ktStartTimeRaw
       kefkaTime
+      kefkaTimeRaw
       flagset
       chars
       abilities
@@ -277,8 +292,11 @@ export const onDeleteRun = /* GraphQL */ `
       userId
       attempt
       runTime
+      runTimeRaw
       ktStartTime
+      ktStartTimeRaw
       kefkaTime
+      kefkaTimeRaw
       flagset
       chars
       abilities

@@ -20,8 +20,11 @@ export const runsForUser = /* GraphQL */ `
         userId
         attempt
         runTime
+        runTimeRaw
         ktStartTime
+        ktStartTimeRaw
         kefkaTime
+        kefkaTimeRaw
         flagset
         chars
         abilities
@@ -67,8 +70,11 @@ export const getUser = /* GraphQL */ `
           userId
           attempt
           runTime
+          runTimeRaw
           ktStartTime
+          ktStartTimeRaw
           kefkaTime
+          kefkaTimeRaw
           flagset
           chars
           abilities
@@ -157,8 +163,11 @@ export const getRun = /* GraphQL */ `
       userId
       attempt
       runTime
+      runTimeRaw
       ktStartTime
+      ktStartTimeRaw
       kefkaTime
+      kefkaTimeRaw
       flagset
       chars
       abilities
@@ -210,8 +219,11 @@ export const listRuns = /* GraphQL */ `
         userId
         attempt
         runTime
+        runTimeRaw
         ktStartTime
+        ktStartTimeRaw
         kefkaTime
+        kefkaTimeRaw
         flagset
         chars
         abilities
@@ -275,8 +287,11 @@ export const runsByTime = /* GraphQL */ `
         userId
         attempt
         runTime
+        runTimeRaw
         ktStartTime
+        ktStartTimeRaw
         kefkaTime
+        kefkaTimeRaw
         flagset
         chars
         abilities
@@ -340,8 +355,11 @@ export const runsByAttempt = /* GraphQL */ `
         userId
         attempt
         runTime
+        runTimeRaw
         ktStartTime
+        ktStartTimeRaw
         kefkaTime
+        kefkaTimeRaw
         flagset
         chars
         abilities
