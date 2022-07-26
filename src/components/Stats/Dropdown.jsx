@@ -1,41 +1,54 @@
 import React from "react";
-import "../Submit/scss/main.scss";
+import {
+  DropdownMenu,
+  DropdownItem,
+  UncontrolledDropdown,
+  DropdownToggle,
+} from "reactstrap";
 
 function Dropdown(props) {
-  const handleChange = (event) => {
+  const changeValue = (event) => {
+    if (props.resetOthers) {
+      // If dropdown resets all filter dropdowns
+      props.setRunDataState({
+        type: "reset_filters",
+      });
+    }
+
     props.setRunDataState({
       type: "set_filter",
       filter: {
         type: props.id,
+        name: event.currentTarget.textContent,
         value: event.target.value,
       },
     });
   };
-  let dropdown = [
-    <option value={props.id} key={`${props.id}-default-disabled`} disabled>
-      {props.title}
-    </option>,
-  ];
+
+  let dropdown = [];
   for (let i = 0; i < props.choices.length; i++) {
     dropdown.push(
-      <option value={props.choices[i].name} key={props.choices[i].name}>
-        {props.choices[i].display_name}
-      </option>
+      <DropdownItem
+        key={props.choices[i].name}
+        value={props.choices[i].name}
+        onClick={changeValue}
+      >
+        {props.choices[i].displayName}
+      </DropdownItem>
     );
   }
+
   return (
     <React.Fragment>
-      <div className="dropdown-container">
-        <select
-          className="input"
-          onChange={handleChange}
-          id={props.id}
-          name={props.name}
-          defaultValue={props.id}
-        >
+      <UncontrolledDropdown className="dropdown-filter">
+        <DropdownToggle className="dropdown-filter-menu" caret>
+          {props.runDataState.filters[props.id].name}
+        </DropdownToggle>
+        <DropdownMenu>
+          <DropdownItem header>{props.title}</DropdownItem>
           {dropdown}
-        </select>
-      </div>
+        </DropdownMenu>
+      </UncontrolledDropdown>
     </React.Fragment>
   );
 }

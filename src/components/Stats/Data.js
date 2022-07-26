@@ -1,23 +1,23 @@
 export class Data {
   constructor(runData, filters) {
-    this.globalRunData = runData;
-    this.flagsetFilter = filters.flagsetFilter;
-    this.raceFilter = filters.raceFilter;
+    this.unfilteredRunData = runData;
+    this.runData = runData;
+    this.flagsetFilter = filters.flagsetFilter.value;
+    this.raceFilter = filters.raceFilter.value;
 
     if (this.flagsetFilter === "All") {
       this.runData = runData;
     } else {
-      this.runData = runData.filter(
+      // Filter by flagset
+      this.runData = this.runData.filter(
         (data) => data.flagset === this.flagsetFilter
       );
-    }
-
-    if (this.raceFilter === "All") {
-      this.runData = this.runData;
-    } else {
-      this.runData = this.runData.filter(
-        (data) => data.race === this.raceFilter
-      );
+      if (this.raceFilter !== "All") {
+        // Then filter by race
+        this.runData = this.runData.filter(
+          (data) => data.race === this.raceFilter
+        );
+      }
     }
   }
 
@@ -43,36 +43,48 @@ export class Data {
 
   flagsets() {
     let uniqueFlagsets = Array.from(
-      new Set(this.globalRunData.map(({ flagset }) => flagset))
+      new Set(this.unfilteredRunData.map(({ flagset }) => flagset))
     );
-    let flagsets = [{ name: "All", display_name: "All" }];
+    let flagsets = [{ name: "All", displayName: "All" }];
 
     for (let i = 0; i < uniqueFlagsets.length; i++) {
-      let elem_display_name = uniqueFlagsets[i];
+      // Logic to get display name from id name
+      // IE: `foo_bar` will be translated to `foo bar`
+      let elemDisplayName = uniqueFlagsets[i];
       if (uniqueFlagsets[i].includes("_"))
-        elem_display_name = uniqueFlagsets[i]
+        elemDisplayName = uniqueFlagsets[i]
           .replace(/__/g, " - ")
           .replace(/_/g, " ");
       flagsets.push({
         name: uniqueFlagsets[i],
-        display_name: elem_display_name,
+        displayName: elemDisplayName,
       });
     }
     return flagsets;
   }
 
   races() {
-    let uniqueRaces = Array.from(new Set(this.runData.map(({ race }) => race)));
-    let races = [{ name: "All", display_name: "All" }];
+    let races = [{ name: "All", displayName: "All" }];
 
     if (this.flagsetFilter !== "All") {
+      // First we get all the flagsets from the global, unfiltered data
+      // Then we filter for our current flagset
+      const flagsetData = this.unfilteredRunData.filter(
+        (data) => data.flagset === this.flagsetFilter
+      );
+      let uniqueRaces = Array.from(
+        new Set(flagsetData.map(({ race }) => race))
+      );
+
       for (let i = 0; i < uniqueRaces.length; i++) {
-        let elem_display_name = uniqueRaces[i];
+        // Logic to get display name from id name
+        // IE: `foo_bar` will be translated to `foo bar`
+        let elemDisplayName = uniqueRaces[i];
         if (uniqueRaces[i].includes("_"))
-          elem_display_name = uniqueRaces[i]
+          elemDisplayName = uniqueRaces[i]
             .replace(/__/g, " - ")
             .replace(/_/g, " ");
-        races.push({ name: uniqueRaces[i], display_name: elem_display_name });
+        races.push({ name: uniqueRaces[i], displayName: elemDisplayName });
       }
     }
     return races;

@@ -1,5 +1,4 @@
 import React, { useReducer, useEffect } from "react";
-import { faMedal } from "@fortawesome/free-solid-svg-icons";
 import { API, graphqlOperation } from "aws-amplify";
 import Page from "../Page";
 import cover from "../../assets/stats-cover.jpg";
@@ -12,6 +11,11 @@ import StatsCard from "./StatsCard";
 import Dropdown from "./Dropdown";
 import { runsForUser } from "../../graphql/queries";
 
+const defaultFlagset = {
+  flagsetFilter: { name: "Flagset", value: "All" },
+  raceFilter: { name: "Race", value: "All" },
+};
+
 function runDataStateReducer(state, action) {
   switch (action.type) {
     case "data_retrieved":
@@ -21,13 +25,21 @@ function runDataStateReducer(state, action) {
         data: action.data,
       };
     case "set_filter":
-      const filters = state.filters;
       return {
         ...state,
         filters: {
-          ...filters,
-          [action.filter.type]: action.filter.value,
+          ...state.filters,
+          [action.filter.type]: {
+            ...state.filters[action.filter.type],
+            name: action.filter.name,
+            value: action.filter.value,
+          },
         },
+      };
+    case "reset_filters":
+      return {
+        ...state,
+        filters: defaultFlagset,
       };
     default:
       return state;
@@ -35,9 +47,10 @@ function runDataStateReducer(state, action) {
 }
 
 function Stats(props) {
+  const config = props.config.stats;
   const [runDataState, setRunDataState] = useReducer(runDataStateReducer, {
     render_page: false,
-    filters: { flagsetFilter: "All", raceFilter: "All" },
+    filters: defaultFlagset,
     data: [],
   });
 
@@ -62,30 +75,19 @@ function Stats(props) {
             title="Flagset"
             id="flagsetFilter"
             choices={data.flagsets()}
+            resetOthers={true}
+            runDataState={runDataState}
             setRunDataState={setRunDataState}
           />
-          {/* <Dropdown
-          title="Race"
-          id="raceFilter"
-          choices={data.races()}
-          setRunDataState={setRunDataState}
-        /> */}
+          <Dropdown
+            title="Race"
+            id="raceFilter"
+            choices={data.races()}
+            runDataState={runDataState}
+            setRunDataState={setRunDataState}
+          />
         </FilterWrapper>
-        <StatsWrapper title="Overview">
-          <StatsCard title="Runs" stat={data.attempt()} slim={true} />
-          <StatsCard
-            title="Best Time"
-            stat={data.bestTime()}
-            icon={faMedal}
-            icon_size="2xl"
-            icon_color="rgba(40, 167, 69)"
-          />
-          <StatsCard title="Last Time" stat={data.lastTime()} />
-          <StatsCard
-            title="Standard Deviation"
-            stat={data.standardDeviation()}
-          />
-        </StatsWrapper>
+        <StatsWrapper>{createStatCards(config, data)}</StatsWrapper>
       </Page>
     );
   }
@@ -106,4 +108,23 @@ function getRunsForUser(userId, setRunDataState) {
     console.log("Error fetching user data: ", err);
   }
 }
+
+function createStatCards(config, data) {
+  let renderList = [];
+
+  Object.keys(config.statsCards).forEach((key, index) => {
+    renderList.push(
+      <StatsCard
+        key={key}
+        title={config.statsCards[key].title}
+        stat={data[config.statsCards[key].statFunction]()}
+        icon={config.statsCards[key].icon}
+        iconColor={config.statsCards[key].iconColor}
+      />
+    );
+  });
+
+  return renderList;
+}
+
 export default Stats;

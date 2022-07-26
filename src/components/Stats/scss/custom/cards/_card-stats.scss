@@ -1,0 +1,21 @@
+//
+// Card stats
+//
+
+.card-stats {
+  .card-body {
+    padding: 1rem 1.5rem;
+  }
+
+  .card-status-bullet {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+  }
+
+  &:hover {
+    transform: scale(1.07);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  }
+}
