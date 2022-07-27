@@ -1,0 +1,17 @@
+.stats-error-container {
+  display: flex;
+  justify-content: center;
+}
+
+.stats-error-title {
+  font-size: xx-large;
+  margin-bottom: 0.5rem;
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.2;
+  color: inherit;
+}
+
+.new-line {
+  white-space: pre-line;
+}

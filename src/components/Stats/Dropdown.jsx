@@ -10,12 +10,12 @@ function Dropdown(props) {
   const changeValue = (event) => {
     if (props.resetOthers) {
       // If dropdown resets all filter dropdowns
-      props.setRunDataState({
+      props.setStatsState({
         type: "reset_filters",
       });
     }
 
-    props.setRunDataState({
+    props.setStatsState({
       type: "set_filter",
       filter: {
         type: props.id,
@@ -42,7 +42,7 @@ function Dropdown(props) {
     <React.Fragment>
       <UncontrolledDropdown className="dropdown-filter">
         <DropdownToggle className="dropdown-filter-menu" caret>
-          {props.runDataState.filters[props.id].name}
+          {props.statsState.filters[props.id].name}
         </DropdownToggle>
         <DropdownMenu>
           <DropdownItem header>{props.title}</DropdownItem>

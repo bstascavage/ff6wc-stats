@@ -38,15 +38,15 @@ function userdataReducer(state, action) {
   // Sets the userdata based on the discord login state
   switch (action.type) {
     case "send_discord_request":
-      return { ...state, hide_render: true };
+      return { ...state, hide_page: true };
     case "retrieved_discord_data":
-      return { ...state, hide_render: false, userdata: action.userdata };
+      return { ...state, hide_page: false, userdata: action.userdata };
     case "not_logged_in":
-      return { ...state, hide_render: false, userdata: {} };
+      return { ...state, hide_page: false, userdata: {} };
     case "error_login_discord":
       return {
         ...state,
-        hide_render: true,
+        hide_page: true,
         discord_login_error: true,
         userdata: "",
       };
@@ -67,7 +67,7 @@ function userdataReducer(state, action) {
 
 function App() {
   const [discordUserdata, setUserdataState] = useReducer(userdataReducer, {
-    hide_render: true,
+    hide_page: true,
     discord_login_error: false,
     background_blur: false,
     userdata: {},
@@ -110,67 +110,60 @@ function App() {
     }
   }, [discordUserdata, validateBackendUserdata]);
 
-  return (
-    <React.Fragment>
-      <div
-        className={`top-container ${
-          discordUserdata.background_blur ? "background-blur" : ""
-        }`}
-      >
-        {discordUserdata.hide_render && !discordUserdata.discord_login_error && (
-          // Render nothing while retrieving user info from Discord
-          <div></div>
-        )}
-        {discordUserdata.hide_render && discordUserdata.discord_login_error && (
-          // Render and redirect to error page if Discord login has issues
-          <Router>
-            <Navigation
-              discordUserdata={discordUserdata}
-              setUserdataState={setUserdataState}
-            />
+  let page;
+  if (discordUserdata.discord_login_error) {
+    page = (
+      // Render and redirect to error page if Discord login has issues
+      <Router>
+        <Navigation
+          discordUserdata={discordUserdata}
+          setUserdataState={setUserdataState}
+        />
 
-            <Routes>
-              <Route path="/error" element={<Error />} />
-              <Route path="*" element={<Navigate replace to="/error" />} />
-            </Routes>
-            <Footer discordUserdata={discordUserdata} />
-          </Router>
-        )}
-        {!discordUserdata.hide_render && (
-          <Router>
-            <Navigation
-              discordUserdata={discordUserdata}
-              setUserdataState={setUserdataState}
-            />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route
-                path="/stats"
-                element={
-                  <Stats discordUserdata={discordUserdata} config={CONFIG} />
-                }
+        <Routes>
+          <Route path="/error" element={<Error />} />
+          <Route path="*" element={<Navigate replace to="/error" />} />
+        </Routes>
+        <Footer discordUserdata={discordUserdata} />
+      </Router>
+    );
+  } else {
+    page = (
+      <Router>
+        <Navigation
+          discordUserdata={discordUserdata}
+          setUserdataState={setUserdataState}
+        />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route
+            path="/stats"
+            element={
+              <Stats discordUserdata={discordUserdata} config={CONFIG} />
+            }
+          />
+          <Route
+            path="/submit"
+            element={
+              <Submit
+                discordUserdata={discordUserdata}
+                setUserdataState={setUserdataState}
+                config={CONFIG}
               />
-              <Route
-                path="/submit"
-                element={
-                  <Submit
-                    discordUserdata={discordUserdata}
-                    setUserdataState={setUserdataState}
-                    config={CONFIG}
-                  />
-                }
-              />
-            </Routes>
-            <Footer
-              discordUserdata={discordUserdata}
-              setUserdataState={setUserdataState}
-            />
-          </Router>
-        )}
-      </div>
-    </React.Fragment>
-  );
+            }
+          />
+        </Routes>
+        <Footer
+          discordUserdata={discordUserdata}
+          setUserdataState={setUserdataState}
+        />
+      </Router>
+    );
+  }
+
+  page = discordUserdata.hide_page ? <div></div> : page;
+  return <React.Fragment>{page}</React.Fragment>;
 }
 
 function storeUserInfo(

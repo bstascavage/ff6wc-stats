@@ -13,7 +13,7 @@ function StatsCard(props) {
       </span>
     );
   }
-  let height = props.delta ? "auto" : "80%";
+  const height = props.delta ? "auto" : "80%";
 
   return (
     <React.Fragment>

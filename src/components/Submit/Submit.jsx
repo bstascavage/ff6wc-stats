@@ -20,7 +20,7 @@ function submissionReducer(state, action) {
   switch (action.type) {
     case "data_retrieved": // Graphql queries for enum values has succeeded
       return {
-        render_page: true,
+        hide_page: false,
         submitted: false,
         processed: false,
         verified: false,
@@ -29,7 +29,7 @@ function submissionReducer(state, action) {
       };
     case "submission_submitted": // Submission data sent to backend
       return {
-        render_page: true,
+        hide_page: false,
         submitted: true,
         processed: false,
         verified: false,
@@ -38,7 +38,7 @@ function submissionReducer(state, action) {
       };
     case "submission_processed": // Submission data processed by backend
       return {
-        render_page: true,
+        hide_page: false,
         submitted: true,
         processed: true,
         verified: action.submissionResults.validation.validationStatus,
@@ -47,7 +47,7 @@ function submissionReducer(state, action) {
       };
     case "reset":
       return {
-        render_page: false,
+        hide_page: true,
         submitted: false,
         processed: false,
         verified: false,
@@ -61,7 +61,7 @@ function submissionReducer(state, action) {
 
 function Submit(props) {
   const [submissionState, setSubmissionState] = useReducer(submissionReducer, {
-    render_page: false,
+    hide_page: true,
     submitted: false,
     processed: false,
     verified: false,
@@ -140,17 +140,13 @@ function Submit(props) {
     }
   };
 
-  console.log(submissionState); // Debug statement to be removed later
-
   // Determine page rendering
   let page;
   if (Object.keys(props.discordUserdata.userdata).length === 0) {
-    page = <Navigate to="/" replace={true} />;
-  } else if (!submissionState.render_page) {
-    page = <div></div>;
+    page = <Navigate to="/" replace={true} />; // Redirect if user isn't logged in
   } else if (submissionState.accepted) {
     page = <Success />;
-  } else if (submissionState.render_page) {
+  } else {
     page = (
       <Page
         cover={cover}
@@ -187,6 +183,7 @@ function Submit(props) {
     );
   }
 
+  page = submissionState.hide_page ? <div></div> : page;
   return <React.Fragment>{page}</React.Fragment>;
 }
 
