@@ -1,5 +1,6 @@
 import React, { useReducer, useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
+import { Button } from "reactstrap";
 import cover from "../../assets/submit-cover.jpg";
 import Page from "../Page";
 import ColumnWrapper from "./ColumnWrapper";
@@ -174,7 +175,9 @@ function Submit(props) {
           <div className="section">
             <div className="container">
               <div className="submit-container" id="submit-container">
-                <button type="submit">Submit</button>
+                <Button color="primary" type="submit">
+                  Submit
+                </Button>
               </div>
             </div>
           </div>

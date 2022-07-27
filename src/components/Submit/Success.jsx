@@ -1,16 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "reactstrap";
 import Page from "../Page";
 import sucessIcon from "../../assets/submit-success.png";
 import "./scss/main.scss";
 
 function Success(props) {
   const navigate = useNavigate();
-
-  function handleClick(event, redirect) {
-    event.preventDefault();
-    redirect === "/submit" ? navigate(0) : navigate(redirect);
-  }
 
   return (
     <React.Fragment>
@@ -24,12 +20,12 @@ function Success(props) {
         <div className="section">
           <div className="container">
             <div className="submit-container" id="submit-container">
-              <button onClick={(event) => handleClick(event, "/stats")}>
+              <Button color="primary" onClick={(event) => navigate("/stats")}>
                 See Your Stats
-              </button>
-              <button onClick={(event) => handleClick(event, "/submit")}>
+              </Button>
+              <Button color="primary" onClick={(event) => navigate(0)}>
                 Submit Another Run
-              </button>
+              </Button>
             </div>
           </div>
         </div>

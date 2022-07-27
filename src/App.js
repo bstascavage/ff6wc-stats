@@ -129,36 +129,42 @@ function App() {
     );
   } else {
     page = (
-      <Router>
-        <Navigation
-          discordUserdata={discordUserdata}
-          setUserdataState={setUserdataState}
-        />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route
-            path="/stats"
-            element={
-              <Stats discordUserdata={discordUserdata} config={CONFIG} />
-            }
+      <div
+        className={`top-container ${
+          discordUserdata.background_blur ? "background-blur" : ""
+        }`}
+      >
+        <Router>
+          <Navigation
+            discordUserdata={discordUserdata}
+            setUserdataState={setUserdataState}
           />
-          <Route
-            path="/submit"
-            element={
-              <Submit
-                discordUserdata={discordUserdata}
-                setUserdataState={setUserdataState}
-                config={CONFIG}
-              />
-            }
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route
+              path="/stats"
+              element={
+                <Stats discordUserdata={discordUserdata} config={CONFIG} />
+              }
+            />
+            <Route
+              path="/submit"
+              element={
+                <Submit
+                  discordUserdata={discordUserdata}
+                  setUserdataState={setUserdataState}
+                  config={CONFIG}
+                />
+              }
+            />
+          </Routes>
+          <Footer
+            discordUserdata={discordUserdata}
+            setUserdataState={setUserdataState}
           />
-        </Routes>
-        <Footer
-          discordUserdata={discordUserdata}
-          setUserdataState={setUserdataState}
-        />
-      </Router>
+        </Router>
+      </div>
     );
   }
 
