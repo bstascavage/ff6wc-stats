@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "reactstrap";
-import logo from "../assets/statscollideblack.png";
+import logo from "../assets/logo/statscollideblackglow.png";
 import "./scss/main.scss";
 
 function Page(props) {
