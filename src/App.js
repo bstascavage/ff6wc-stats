@@ -144,9 +144,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route
               path="/stats"
-              element={
-                <Stats discordUserdata={discordUserdata} config={CONFIG} />
-              }
+              element={<Stats discordUserdata={discordUserdata} />}
             />
             <Route
               path="/submit"

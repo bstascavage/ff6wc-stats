@@ -6,7 +6,7 @@ import {
   DropdownToggle,
 } from "reactstrap";
 
-function Dropdown(props) {
+function FilterDropdown(props) {
   const changeValue = (event) => {
     if (props.resetOthers) {
       // If dropdown resets all filter dropdowns
@@ -53,4 +53,4 @@ function Dropdown(props) {
   );
 }
 
-export default Dropdown;
+export default FilterDropdown;

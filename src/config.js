@@ -1,10 +1,3 @@
-import {
-  faMedal,
-  faBars,
-  faStopwatch,
-  faCalculator,
-} from "@fortawesome/free-solid-svg-icons";
-
 const CONFIG = {
   submit: {
     runTime: {
@@ -215,7 +208,7 @@ const CONFIG = {
       id: "mood",
       required: false,
       enumName: "Mood",
-      help: "On a scale of 1-5, how you felt about your run.",
+      help: "On a scale of 1-5, how you felt about your run (5 being the best).",
     },
     seed: {
       type: "textInput",
@@ -287,34 +280,6 @@ const CONFIG = {
           "thiefPeek",
           "thiefReward",
         ],
-      },
-    },
-  },
-  stats: {
-    statsCards: {
-      totalRuns: {
-        title: "Total Runs",
-        icon: faBars,
-        iconColor: "bg-primary",
-        statFunction: "attempt",
-      },
-      bestTime: {
-        title: "Best Time",
-        icon: faMedal,
-        iconColor: "bg-success",
-        statFunction: "bestTime",
-      },
-      lastTime: {
-        title: "Last Time",
-        icon: faStopwatch,
-        iconColor: "bg-secondary",
-        statFunction: "lastTime",
-      },
-      stdDeviation: {
-        title: "Std Deviation",
-        icon: faCalculator,
-        iconColor: "bg-info",
-        statFunction: "standardDeviation",
       },
     },
   },

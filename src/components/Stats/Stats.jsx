@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect } from "react";
-import { Button } from "reactstrap";
+import { Button, Col, Row, Container } from "reactstrap";
 import { API, graphqlOperation } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
 import Page from "../Page";
@@ -10,9 +10,18 @@ import { Data } from "./Data";
 import FilterWrapper from "./FilterWrapper";
 import StatsWrapper from "./StatsWrapper";
 import StatsCard from "./StatsCard";
-import Dropdown from "./Dropdown";
+import FilterDropdown from "./FilterDropdown";
+import StatsLineChart from "./StatsLineChart";
 import { runsForUser } from "../../graphql/queries";
-// import { Button } from "@aws-amplify/ui-react";
+
+import {
+  faBars,
+  faMedal,
+  faStopwatch,
+  faCalculator,
+  faStar,
+  faStarHalfStroke,
+} from "@fortawesome/free-solid-svg-icons";
 
 const defaultFlagset = {
   flagsetFilter: { name: "Flagset", value: "All" },
@@ -59,7 +68,6 @@ function statsStateReducer(state, action) {
 function Stats(props) {
   const navigate = useNavigate();
 
-  const config = props.config.stats;
   const [statsState, setStatsState] = useReducer(statsStateReducer, {
     hide_page: true,
     has_data: false,
@@ -75,10 +83,11 @@ function Stats(props) {
   let page, body;
 
   if (statsState.has_data) {
+    console.log(data.deltaRunTime());
     body = (
       <React.Fragment>
         <FilterWrapper title="Filters">
-          <Dropdown
+          <FilterDropdown
             title="Flagset"
             id="flagsetFilter"
             choices={data.flagsets()}
@@ -86,7 +95,7 @@ function Stats(props) {
             statsState={statsState}
             setStatsState={setStatsState}
           />
-          <Dropdown
+          <FilterDropdown
             title="Race"
             id="raceFilter"
             choices={data.races()}
@@ -94,7 +103,98 @@ function Stats(props) {
             setStatsState={setStatsState}
           />
         </FilterWrapper>
-        <StatsWrapper>{createStatCards(config, data)}</StatsWrapper>
+        <StatsWrapper>
+          <Col lg="6" xl="3">
+            <StatsCard
+              key="totalRuns"
+              title="Total Runs"
+              stat={data.attempt()}
+              icon={faBars}
+              iconColor="bg-primary"
+              height="80%"
+            />
+          </Col>
+          <Col lg="6" xl="3">
+            <StatsCard
+              key="bestTime"
+              title="Best Time"
+              stat={data.bestTime()}
+              icon={faMedal}
+              iconColor="bg-success"
+              height="80%"
+            />
+          </Col>
+          <Col lg="6" xl="3">
+            <StatsCard
+              key="lastTime"
+              title="Last Time"
+              stat={data.lastTime()}
+              icon={faStopwatch}
+              iconColor="bg-secondary"
+              height="80%"
+            />
+          </Col>
+          <Col lg="6" xl="3">
+            <StatsCard
+              key="stdDeviation"
+              title="Std Deviation"
+              stat={data.standardDeviation()}
+              icon={faCalculator}
+              iconColor="bg-info"
+              height="80%"
+            />
+          </Col>
+        </StatsWrapper>
+        <Container fluid>
+          <Row>
+            <Col
+              className="mb-5 mb-xl-0"
+              lg="6"
+              xl="8"
+              style={{ height: "400px" }}
+            >
+              <StatsLineChart
+                heading="Overview"
+                title="Run Times"
+                data={data.runTimes()}
+              />
+            </Col>
+            <Col
+              className="mb-5 mb-xl-0"
+              lg="6"
+              xl="4"
+              style={{
+                display: "flex",
+                height: "400px",
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }}
+            >
+              <StatsCard
+                key="meanTime"
+                title="Average Time"
+                stat={data.averageTime()}
+                icon={faStar}
+                iconColor="bg-success"
+                height="45%"
+                fontSize="2.5em"
+                delta={data.deltaRunTime()}
+                deltaText="since last run"
+              />
+              <StatsCard
+                key="meanLastFive"
+                title="Average - Last 5"
+                stat={data.averageTime(5)}
+                icon={faStarHalfStroke}
+                iconColor="bg-primary"
+                height="45%"
+                fontSize="2.5em"
+                delta={data.deltaRunTime(5)}
+                deltaText="since last run"
+              />
+            </Col>
+          </Row>
+        </Container>
       </React.Fragment>
     );
   } else {
@@ -142,24 +242,6 @@ function getRunsForUser(userId, setStatsState) {
   } catch (err) {
     console.log("Error fetching user data: ", err);
   }
-}
-
-function createStatCards(config, data) {
-  let renderList = [];
-
-  Object.keys(config.statsCards).forEach((key, index) => {
-    renderList.push(
-      <StatsCard
-        key={key}
-        title={config.statsCards[key].title}
-        stat={data[config.statsCards[key].statFunction]()}
-        icon={config.statsCards[key].icon}
-        iconColor={config.statsCards[key].iconColor}
-      />
-    );
-  });
-
-  return renderList;
 }
 
 export default Stats;

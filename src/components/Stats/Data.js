@@ -26,19 +26,76 @@ export class Data {
   }
 
   bestTime() {
-    return this.runData.sort(
-      (a, b) =>
-        new Date("1970-01-01 " + a.runTime).getTime() -
-        new Date("1970-01-01 " + b.runTime).getTime()
-    )[0].runTime; // sort by attempt, desc, to get latest attempt
+    return this.bestRun().runTime;
   }
 
   lastTime() {
-    return this.runData.sort((a, b) => b.attempt - a.attempt)[0].runTime; // sort by attempt, desc, to get latest attempt
+    return this.lastRun().runTime;
+  }
+
+  bestRun() {
+    return this.sortByAttempt()[0];
+  }
+
+  lastRun() {
+    return this.sortByAttempt()[this.runData.length - 1];
   }
 
   standardDeviation() {
     return "9:59:59";
+  }
+
+  runTimes() {
+    let times = [];
+    const sortedTimes = this.sortByAttempt();
+    for (let i = 0; i < sortedTimes.length; i++) {
+      times.push({
+        name: this.runData[i].attempt,
+        time: this.runData[i].runTimeRaw,
+      });
+    }
+    return times;
+  }
+
+  averageTimeRaw(numOfRuns = 0) {
+    let runs;
+    if (numOfRuns > 0) {
+      runs = this.sortByAttempt().slice(0 - numOfRuns);
+    } else {
+      runs = this.sortByAttempt();
+    }
+    const average = (array) =>
+      array.reduce((a, b) => a + b.runTimeRaw, 0) / array.length; // Average of millaseconds
+    return average(runs);
+  }
+
+  averageTime(numOfRuns = 0) {
+    return this.convertRawToTime(
+      Math.floor(Math.round(this.averageTimeRaw(numOfRuns)) / 1000) * 1000
+    ); // Convert to hh:mm:ss, while rounding to the nearest second
+  }
+
+  deltaRunTime(numOfRuns = 0) {
+    let delta =
+      this.averageTimeRaw(numOfRuns) - this.lastRun(numOfRuns).runTimeRaw;
+    let negative = false;
+
+    if (delta < 0) {
+      negative = true;
+      delta = Math.abs(delta);
+    }
+    return {
+      time: this.convertRawToTime(Math.floor(Math.round(delta) / 1000) * 1000),
+      negative: negative,
+    };
+  }
+
+  sortByTime() {
+    return this.runData.sort((a, b) => a.runTimeRaw - b.runTimeRaw);
+  }
+
+  sortByAttempt() {
+    return this.runData.sort((a, b) => a.attempt - b.attempt);
   }
 
   flagsets() {
@@ -88,5 +145,24 @@ export class Data {
       }
     }
     return races;
+  }
+
+  convertRawToTime(rawRunTime) {
+    // 1- Convert to seconds:
+    let seconds = rawRunTime / 1000;
+    // 2- Extract hours:
+    const hours = parseInt(seconds / 3600); // 3,600 seconds in 1 hour
+    seconds = seconds % 3600; // seconds remaining after extracting hours
+    // 3- Extract minutes:
+    const minutes = parseInt(seconds / 60); // 60 seconds in 1 minute
+    // 4- Keep only seconds not extracted to minutes:
+    seconds = seconds % 60;
+    return (
+      hours +
+      ":" +
+      (minutes < 10 ? `0${minutes}` : minutes) +
+      ":" +
+      (seconds < 10 ? `0${seconds}` : seconds)
+    );
   }
 }
