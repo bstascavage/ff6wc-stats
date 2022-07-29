@@ -50,16 +50,6 @@ function userdataReducer(state, action) {
         discord_login_error: true,
         userdata: "",
       };
-    case "submitted_data":
-      return {
-        ...state,
-        background_blur: true,
-      };
-    case "processed_data":
-      return {
-        ...state,
-        background_blur: false,
-      };
     default:
       return state;
   }
@@ -69,7 +59,6 @@ function App() {
   const [discordUserdata, setUserdataState] = useReducer(userdataReducer, {
     hide_page: true,
     discord_login_error: false,
-    background_blur: false,
     userdata: {},
   });
   const [validateBackendUserdata, setBackendUserdata] = useState([]);
@@ -129,16 +118,9 @@ function App() {
     );
   } else {
     page = (
-      <div
-        className={`top-container ${
-          discordUserdata.background_blur ? "background-blur" : ""
-        }`}
-      >
+      <div className="top-container">
         <Router>
-          <Navigation
-            discordUserdata={discordUserdata}
-            setUserdataState={setUserdataState}
-          />
+          <Navigation discordUserdata={discordUserdata} />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />

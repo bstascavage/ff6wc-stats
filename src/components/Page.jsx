@@ -4,7 +4,7 @@ import logo from "../assets/logo/statscollideblackglow.png";
 import "./scss/main.scss";
 
 function Page(props) {
-  let bannerTitle = props.logo ? (
+  const bannerTitle = props.logo ? (
     <img className="overlay-image" src={logo} alt="FF6WCStats logo" />
   ) : (
     <div className="scrim has-cover">
@@ -16,17 +16,20 @@ function Page(props) {
       </header>
     </div>
   );
+  const banner = props.cover ? (
+    <div
+      className={
+        "post-header-container has-cover" +
+        (props.higherCrop ? " higher-crop" : "")
+      }
+      style={{ backgroundImage: `url(${props.cover})` }}
+    >
+      {bannerTitle}
+    </div>
+  ) : null;
   return (
     <React.Fragment>
-      <div
-        className={
-          "post-header-container has-cover" +
-          (props.higherCrop ? " higher-crop" : "")
-        }
-        style={{ backgroundImage: `url(${props.cover})` }}
-      >
-        {bannerTitle}
-      </div>
+      {banner}
       <Container fluid className="pt-4 pb-5">
         {props.children}
       </Container>

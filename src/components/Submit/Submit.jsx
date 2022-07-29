@@ -1,6 +1,6 @@
 import React, { useReducer, useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
-import { Button } from "reactstrap";
+import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 import cover from "../../assets/submit-cover.jpg";
 import Page from "../Page";
 import ColumnWrapper from "./ColumnWrapper";
@@ -22,6 +22,7 @@ function submissionReducer(state, action) {
     case "data_retrieved": // Graphql queries for enum values has succeeded
       return {
         hide_page: false,
+        submit_modal: false,
         submitted: false,
         processed: false,
         verified: false,
@@ -31,6 +32,7 @@ function submissionReducer(state, action) {
     case "submission_submitted": // Submission data sent to backend
       return {
         hide_page: false,
+        submit_modal: true,
         submitted: true,
         processed: false,
         verified: false,
@@ -40,6 +42,7 @@ function submissionReducer(state, action) {
     case "submission_processed": // Submission data processed by backend
       return {
         hide_page: false,
+        submit_modal: false,
         submitted: true,
         processed: true,
         verified: action.submissionResults.validation.validationStatus,
@@ -49,6 +52,7 @@ function submissionReducer(state, action) {
     case "reset":
       return {
         hide_page: true,
+        submit_modal: false,
         submitted: false,
         processed: false,
         verified: false,
@@ -63,6 +67,7 @@ function submissionReducer(state, action) {
 function Submit(props) {
   const [submissionState, setSubmissionState] = useReducer(submissionReducer, {
     hide_page: true,
+    submit_modal: false,
     submitted: false,
     processed: false,
     verified: false,
@@ -97,15 +102,6 @@ function Submit(props) {
       setSubmissionState
     );
   }, []);
-
-  useEffect(() => {
-    // Blur the screen while a submission is processed by the backend
-    if (submissionState.submitted && !submissionState.processed) {
-      props.setUserdataState({ type: "submitted_data" });
-    } else if (submissionState.processed) {
-      props.setUserdataState({ type: "processed_data" });
-    }
-  }, [submissionState]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -143,6 +139,7 @@ function Submit(props) {
 
   // Determine page rendering
   let page;
+
   if (Object.keys(props.discordUserdata.userdata).length === 0) {
     page = <Navigate to="/" replace={true} />; // Redirect if user isn't logged in
   } else if (submissionState.accepted) {
@@ -155,6 +152,12 @@ function Submit(props) {
         bannerSubtitle="Fill out the results of your latest run"
         higherCrop={true}
       >
+        <Modal isOpen={submissionState.submit_modal}>
+          <ModalHeader cssModule={{ "modal-title": "w-100 text-center" }}>
+            Submitting Run
+          </ModalHeader>
+          <ModalBody>Please wait as we verify your data.</ModalBody>
+        </Modal>
         <form onSubmit={handleSubmit}>
           <ColumnWrapper>
             {getColumn(
