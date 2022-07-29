@@ -1,29 +1,35 @@
 import React from "react";
-import Banner from "./Banner";
+import { Container } from "reactstrap";
+import logo from "../assets/statscollideblack.png";
 import "./scss/main.scss";
 
 function Page(props) {
-  let banner;
-  if (props.bannerTitle) {
-    banner = (
-      <Banner
-        cover={props.cover}
-        title={props.bannerTitle}
-        subtitle={props.bannerSubtitle}
-        higherCrop={props.higherCrop}
-      />
-    );
-  }
+  let bannerTitle = props.logo ? (
+    <img className="overlay-image" src={logo} alt="FF6WCStats logo" />
+  ) : (
+    <div className="scrim has-cover">
+      <header className="post-header">
+        <h1 className="title">{props.bannerTitle}</h1>
+        <p className="info">
+          <strong>{props.bannerSubtitle}</strong>
+        </p>
+      </header>
+    </div>
+  );
   return (
     <React.Fragment>
-      {banner}
-      <div className="page-content" style={{ display: "inline" }}>
-        <div className="post">
-          <div className="wrapper">
-            <article className="post-content">{props.children}</article>
-          </div>
-        </div>
+      <div
+        className={
+          "post-header-container has-cover" +
+          (props.higherCrop ? " higher-crop" : "")
+        }
+        style={{ backgroundImage: `url(${props.cover})` }}
+      >
+        {bannerTitle}
       </div>
+      <Container fluid className="pt-4 pb-5">
+        {props.children}
+      </Container>
     </React.Fragment>
   );
 }

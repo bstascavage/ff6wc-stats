@@ -172,14 +172,10 @@ function Submit(props) {
               setSubmitFieldData
             )}
           </ColumnWrapper>
-          <div className="section">
-            <div className="container">
-              <div className="submit-container" id="submit-container">
-                <Button color="primary" type="submit">
-                  Submit
-                </Button>
-              </div>
-            </div>
+          <div className="submit-container" id="submit-container">
+            <Button color="primary" type="submit">
+              Submit
+            </Button>
           </div>
         </form>
       </Page>

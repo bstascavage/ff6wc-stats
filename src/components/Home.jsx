@@ -5,11 +5,7 @@ import Page from "./Page";
 function Home() {
   return (
     <React.Fragment>
-      <Page
-        cover={cover}
-        bannerTitle="Seto Stats"
-        bannerSubtitle="A statistical journey through Worlds Collide: The Final Fantasy VI Randomizer"
-      >
+      <Page cover={cover} logo={true}>
         <p>
           Welcome to Seto Kiaba’s Final Fantasy VI: Worlds Collide statistical
           dashboard. Click the things at the top to do the things.

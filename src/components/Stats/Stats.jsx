@@ -83,7 +83,6 @@ function Stats(props) {
   let page, body;
 
   if (statsState.has_data) {
-    console.log(data.deltaRunTime());
     body = (
       <React.Fragment>
         <FilterWrapper title="Filters">
