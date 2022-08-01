@@ -12,7 +12,7 @@ import {
 function StatsBarChart(props) {
   const getFriendlyTime = (tickFormat) => {
     // 1- Convert to seconds:
-    let seconds = tickFormat / 1000;
+    let seconds = Math.round(tickFormat / 1000);
     // 2- Extract hours:
     const hours = parseInt(seconds / 3600); // 3,600 seconds in 1 hour
     seconds = seconds % 3600; // seconds remaining after extracting hours
@@ -91,7 +91,6 @@ function StatsBarChart(props) {
               />
               <YAxis
                 tickFormatter={(tick) => getFriendlyTime(tick)}
-                tickLine={false}
                 type="number"
                 stroke="white"
                 domain={[

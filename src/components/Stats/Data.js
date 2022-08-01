@@ -108,11 +108,50 @@ export class Data {
     Object.keys(times).forEach((character, index) => {
       timesPerChar.push({
         name: character,
-        time: average(times[character]),
+        time: Math.round(average(times[character])),
         runs: times[character].length,
       });
     });
     return timesPerChar;
+  }
+
+  startingAbilities() {
+    let times = {};
+    for (let i = 0; i < this.runData.length; i++) {
+      for (
+        let ability = 0;
+        ability < this.runData[i].abilities.length;
+        ability++
+      ) {
+        if (!(this.runData[i].abilities[ability] in times)) {
+          times[this.runData[i].abilities[ability]] = [
+            this.runData[i].runTimeRaw,
+          ];
+        } else {
+          times[this.runData[i].abilities[ability]].push(
+            this.runData[i].runTimeRaw
+          );
+        }
+      }
+    }
+
+    let timesPerAbility = [];
+    const average = (array) => array.reduce((a, b) => a + b, 0) / array.length;
+
+    Object.keys(times).forEach((ability, index) => {
+      // Logic to get display name from id name
+      // IE: `foo_bar` will be translated to `foo bar`
+      let abilityDisplayName = ability;
+      if (ability.includes("_"))
+        abilityDisplayName = ability.replace(/__/g, " - ").replace(/_/g, " ");
+
+      timesPerAbility.push({
+        name: abilityDisplayName,
+        time: Math.round(average(times[ability])),
+        runs: times[ability].length,
+      });
+    });
+    return timesPerAbility;
   }
 
   sortByTime() {

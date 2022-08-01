@@ -203,13 +203,28 @@ function Stats(props) {
                 className="mb-5 mb-xl-0"
                 lg="6"
                 xl="6"
-                style={{ height: "500px" }}
+                style={{ height: "400px" }}
               >
                 <StatsBarChart
                   heading="Starting Stats"
                   title="Characters"
                   data={data.startingCharacters()}
-                  height={500}
+                  height={400}
+                  dy={40}
+                  xHeight={75}
+                />
+              </Col>
+              <Col
+                className="mb-5 mb-xl-0"
+                lg="6"
+                xl="6"
+                style={{ height: "400px" }}
+              >
+                <StatsBarChart
+                  heading="Starting Stats"
+                  title="Abilities"
+                  data={data.startingAbilities()}
+                  height={400}
                   dy={40}
                   xHeight={75}
                 />

@@ -12,7 +12,7 @@ import {
 function StatsLineChart(props) {
   const formatYAxis = (tickFormat) => {
     // 1- Convert to seconds:
-    let seconds = tickFormat / 1000;
+    let seconds = Math.round(tickFormat / 1000);
     // 2- Extract hours:
     const hours = parseInt(seconds / 3600); // 3,600 seconds in 1 hour
     seconds = seconds % 3600; // seconds remaining after extracting hours
@@ -59,7 +59,6 @@ function StatsLineChart(props) {
               <XAxis dataKey="name" tick={false} stroke="white" />
               <YAxis
                 tickFormatter={(tick) => formatYAxis(tick)}
-                tickLine={false}
                 stroke="white"
                 type="number"
                 domain={[
