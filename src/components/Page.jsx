@@ -30,7 +30,7 @@ function Page(props) {
   return (
     <React.Fragment>
       {banner}
-      <Container fluid className="pt-4 pb-5">
+      <Container fluid className="pt-4 pb-5" style={{ maxWidth: "90em" }}>
         {props.children}
       </Container>
     </React.Fragment>

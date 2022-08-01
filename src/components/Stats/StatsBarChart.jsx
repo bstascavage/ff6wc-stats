@@ -1,16 +1,16 @@
 import React from "react";
 import { Col, Row, Card, CardBody, CardHeader } from "reactstrap";
 import {
-  LineChart,
-  Line,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
 
-function StatsLineChart(props) {
-  const formatYAxis = (tickFormat) => {
+function StatsBarChart(props) {
+  const getFriendlyTime = (tickFormat) => {
     // 1- Convert to seconds:
     let seconds = tickFormat / 1000;
     // 2- Extract hours:
@@ -29,11 +29,34 @@ function StatsLineChart(props) {
     );
   };
 
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div
+          className="recharts-default-tooltip"
+          style={{
+            margin: "0px",
+            padding: "10px",
+            backgroundColor: "rgb(255, 255, 255)",
+            border: "1px",
+            solid: "rgb(204, 204, 204)",
+            whiteSpace: "nowrap",
+          }}
+        >
+          <p className="label">Time: {getFriendlyTime(payload[0].value)}</p>
+          <p className="desc">Runs: {payload[0].payload.runs}</p>
+        </div>
+      );
+    }
+
+    return null;
+  };
+
   return (
     <Card className="bg-gradient-default shadow" style={{ height: "100%" }}>
       <CardHeader
         className="bg-transparent"
-        style={{ border: "none", height: "30%" }}
+        style={{ border: "none", height: "24%" }}
       >
         <Row className="align-items-center">
           <Col>
@@ -47,7 +70,9 @@ function StatsLineChart(props) {
       <CardBody>
         <div style={{ fontWeight: "600" }}>
           <ResponsiveContainer width="99%" height={props.height * 0.7}>
-            <LineChart
+            <BarChart
+              name="Time"
+              dataKey="time"
               data={props.data}
               margin={{
                 top: 5,
@@ -56,31 +81,32 @@ function StatsLineChart(props) {
                 bottom: 5,
               }}
             >
-              <XAxis dataKey="name" tick={false} stroke="white" />
-              <YAxis
-                tickFormatter={(tick) => formatYAxis(tick)}
-                tickLine={false}
+              <XAxis
+                dataKey="name"
                 stroke="white"
+                tick={{ angle: 90 }}
+                dy={props.dy}
+                height={props.xHeight}
+                interval={0}
+              />
+              <YAxis
+                tickFormatter={(tick) => getFriendlyTime(tick)}
+                tickLine={false}
                 type="number"
+                stroke="white"
                 domain={[
                   (dataMin) => Math.floor(dataMin / 600000) * 600000 - 600000,
                   (dataMax) => Math.floor(dataMax / 600000) * 600000 + 600000,
                 ]}
               />
-              <Tooltip
-                formatter={(value) => formatYAxis(value)}
-                labelFormatter={(value) => `Run #${value}`}
-              />
-              <Line
-                type="linear"
+              <Tooltip content={<CustomTooltip />} />
+              <Bar
                 name="Time"
                 dataKey="time"
-                stroke="#82ca9d"
-                strokeWidth={4}
+                fill="#8884d8"
                 animationDuration={2000}
-                animationEasing="linear"
               />
-            </LineChart>
+            </BarChart>
           </ResponsiveContainer>
         </div>
       </CardBody>
@@ -88,4 +114,4 @@ function StatsLineChart(props) {
   );
 }
 
-export default StatsLineChart;
+export default StatsBarChart;

@@ -90,6 +90,31 @@ export class Data {
     };
   }
 
+  startingCharacters() {
+    let times = {};
+    for (let i = 0; i < this.runData.length; i++) {
+      for (let char = 0; char < this.runData[i].chars.length; char++) {
+        if (!(this.runData[i].chars[char] in times)) {
+          times[this.runData[i].chars[char]] = [this.runData[i].runTimeRaw];
+        } else {
+          times[this.runData[i].chars[char]].push(this.runData[i].runTimeRaw);
+        }
+      }
+    }
+
+    let timesPerChar = [];
+    const average = (array) => array.reduce((a, b) => a + b, 0) / array.length;
+
+    Object.keys(times).forEach((character, index) => {
+      timesPerChar.push({
+        name: character,
+        time: average(times[character]),
+        runs: times[character].length,
+      });
+    });
+    return timesPerChar;
+  }
+
   sortByTime() {
     return this.runData.sort((a, b) => a.runTimeRaw - b.runTimeRaw);
   }

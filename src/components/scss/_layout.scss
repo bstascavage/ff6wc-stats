@@ -179,7 +179,7 @@ pre code.hljs {
 
   // Nav menu
   .navigation-wrapper {
-    @include outer-container(85em);
+    @include outer-container(90em);
     @include clearfix;
     position: relative;
   }
