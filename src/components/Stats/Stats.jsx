@@ -15,7 +15,9 @@ import StatsLineChart from "./StatsLineChart";
 import StatsBarChart from "./StatsBarChart";
 import { runsForUser } from "../../graphql/queries";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faShareNodes,
   faBars,
   faMedal,
   faStopwatch,
@@ -29,6 +31,29 @@ const defaultFlagset = {
   raceFilter: { name: "Race", value: "All" },
 };
 
+function userIdReducer(state, action) {
+  switch (action.type) {
+    case "set_id":
+      return {
+        ...state,
+        id: action.id,
+      };
+    case "copied": {
+      return {
+        ...state,
+        copied: true,
+      };
+    }
+    case "reset_copy": {
+      return {
+        ...state,
+        copied: false,
+      };
+    }
+    default:
+      return state;
+  }
+}
 function statsStateReducer(state, action) {
   switch (action.type) {
     case "data_retrieved":
@@ -69,6 +94,14 @@ function statsStateReducer(state, action) {
 function Stats(props) {
   const navigate = useNavigate();
 
+  const [userId, setUserId] = useReducer(userIdReducer, {
+    id: "",
+    copied: false,
+  });
+  const shareURLText = userId.copied
+    ? "Copied to Clipboard!"
+    : "Share Dashboard";
+
   const [statsState, setStatsState] = useReducer(statsStateReducer, {
     hide_page: true,
     has_data: false,
@@ -77,8 +110,15 @@ function Stats(props) {
   });
 
   useEffect(() => {
-    getRunsForUser(props.discordUserdata.userdata.id, setStatsState);
+    const userIdFromUrl = getUserFromURL();
+    userIdFromUrl
+      ? setUserId({ type: "set_id", id: userIdFromUrl })
+      : setUserId({ type: "set_id", id: props.discordUserdata.userdata.id });
   }, []);
+
+  useEffect(() => {
+    if (userId.id) getRunsForUser(userId.id, setStatsState);
+  }, [userId]);
 
   const data = new Data(statsState.data, statsState.filters);
   let page, body;
@@ -89,23 +129,45 @@ function Stats(props) {
     if (statsState.has_data) {
       body = (
         <React.Fragment>
-          <FilterWrapper title="Filters">
-            <FilterDropdown
-              title="Flagset"
-              id="flagsetFilter"
-              choices={data.flagsets()}
-              resetOthers={true}
-              statsState={statsState}
-              setStatsState={setStatsState}
-            />
-            <FilterDropdown
-              title="Race"
-              id="raceFilter"
-              choices={data.races()}
-              statsState={statsState}
-              setStatsState={setStatsState}
-            />
-          </FilterWrapper>
+          <Container fluid>
+            <Row>
+              <Col className="mb-5 mb-xl-0" lg="6" xl="6">
+                <Button
+                  color="secondary"
+                  onClick={(e) => {
+                    copyURLToClipboard(e, userId, setUserId);
+                  }}
+                >
+                  <FontAwesomeIcon
+                    icon={faShareNodes}
+                    size="lg"
+                    color="bg-white"
+                    style={{ marginRight: "15px" }}
+                  />
+                  {shareURLText}
+                </Button>
+              </Col>
+              <Col className="mb-5 mb-xl-0" lg="6" xl="6">
+                <FilterWrapper title="Filters">
+                  <FilterDropdown
+                    title="Flagset"
+                    id="flagsetFilter"
+                    choices={data.flagsets()}
+                    resetOthers={true}
+                    statsState={statsState}
+                    setStatsState={setStatsState}
+                  />
+                  <FilterDropdown
+                    title="Race"
+                    id="raceFilter"
+                    choices={data.races()}
+                    statsState={statsState}
+                    setStatsState={setStatsState}
+                  />
+                </FilterWrapper>
+              </Col>
+            </Row>
+          </Container>
           <StatsWrapper>
             <Col lg="6" xl="3">
               <StatsCard
@@ -278,6 +340,25 @@ function getRunsForUser(userId, setStatsState) {
   } catch (err) {
     console.log("Error fetching user data: ", err);
   }
+}
+
+function getUserFromURL() {
+  const fragment = new URLSearchParams(window.location.hash.slice(1));
+
+  const userId = fragment.get("user");
+  return userId ? userId : null;
+}
+
+function copyURLToClipboard(e, userId, setUserId) {
+  navigator.clipboard.writeText(
+    window.location.href
+      .replace(window.location.hash, "")
+      .concat(`#user=${userId.id}`)
+  );
+  setUserId({ type: "copied" });
+  setTimeout(() => {
+    setUserId({ type: "reset_copy" });
+  }, 3000);
 }
 
 export default Stats;

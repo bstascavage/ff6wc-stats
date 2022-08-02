@@ -120,7 +120,10 @@ function App() {
     page = (
       <div className="top-container">
         <Router>
-          <Navigation discordUserdata={discordUserdata} />
+          <Navigation
+            discordUserdata={discordUserdata}
+            setUserdataState={setUserdataState}
+          />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
