@@ -150,7 +150,8 @@ function Submit(props) {
         cover={cover}
         bannerTitle="Submit a Run"
         bannerSubtitle="Fill out the results of your latest run"
-        higherCrop={true}
+        backgroundPositionX="50%"
+        backgroundPositionY="30%"
       >
         <Modal isOpen={submissionState.submit_modal}>
           <ModalHeader cssModule={{ "modal-title": "w-100 text-center" }}>
@@ -249,6 +250,7 @@ function createItem(
   submitFieldData,
   setSubmitFieldData
 ) {
+  // Creates the component based on the config info
   // TODO: Can we refactor the opts here? And datavalidation results?
   let body = "";
   if (config.type === "slider") {
@@ -310,6 +312,7 @@ function getColumn(
   submitFieldData,
   setSubmitFieldData
 ) {
+  // Creates a column made up of cards and items in the cards.
   let cardList = [];
   Object.keys(config.submitFormat[columnId]).forEach((cardTitle, index) => {
     let renderList = [];

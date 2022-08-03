@@ -16,17 +16,20 @@ function Page(props) {
       </header>
     </div>
   );
+
   const banner = props.cover ? (
     <div
-      className={
-        "post-header-container has-cover" +
-        (props.higherCrop ? " higher-crop" : "")
-      }
-      style={{ backgroundImage: `url(${props.cover})` }}
+      className={"post-header-container has-cover"}
+      style={{
+        backgroundImage: `url(${props.cover})`,
+        backgroundPositionX: props.backgroundPositionX,
+        backgroundPositionY: props.backgroundPositionY,
+      }}
     >
       {bannerTitle}
     </div>
   ) : null;
+
   return (
     <React.Fragment>
       {banner}

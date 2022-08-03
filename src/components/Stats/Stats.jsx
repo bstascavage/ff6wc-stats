@@ -318,6 +318,8 @@ function Stats(props) {
         cover={cover}
         bannerTitle="Run Stats"
         bannerSubtitle="Stats pertaining to run times"
+        backgroundPositionX="0%"
+        backgroundPositionY="5%"
       >
         {body}
       </Page>

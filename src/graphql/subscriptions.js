@@ -2,8 +2,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser {
-    onCreateUser {
+  subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
+    onCreateUser(filter: $filter) {
       id
       discordUserId
       discordUserName
@@ -56,8 +56,8 @@ export const onCreateUser = /* GraphQL */ `
   }
 `;
 export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser {
-    onUpdateUser {
+  subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
+    onUpdateUser(filter: $filter) {
       id
       discordUserId
       discordUserName
@@ -110,8 +110,8 @@ export const onUpdateUser = /* GraphQL */ `
   }
 `;
 export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser {
-    onDeleteUser {
+  subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
+    onDeleteUser(filter: $filter) {
       id
       discordUserId
       discordUserName
@@ -164,8 +164,8 @@ export const onDeleteUser = /* GraphQL */ `
   }
 `;
 export const onCreateRun = /* GraphQL */ `
-  subscription OnCreateRun {
-    onCreateRun {
+  subscription OnCreateRun($filter: ModelSubscriptionRunFilterInput) {
+    onCreateRun(filter: $filter) {
       id
       user {
         id
@@ -218,8 +218,8 @@ export const onCreateRun = /* GraphQL */ `
   }
 `;
 export const onUpdateRun = /* GraphQL */ `
-  subscription OnUpdateRun {
-    onUpdateRun {
+  subscription OnUpdateRun($filter: ModelSubscriptionRunFilterInput) {
+    onUpdateRun(filter: $filter) {
       id
       user {
         id
@@ -272,8 +272,8 @@ export const onUpdateRun = /* GraphQL */ `
   }
 `;
 export const onDeleteRun = /* GraphQL */ `
-  subscription OnDeleteRun {
-    onDeleteRun {
+  subscription OnDeleteRun($filter: ModelSubscriptionRunFilterInput) {
+    onDeleteRun(filter: $filter) {
       id
       user {
         id
