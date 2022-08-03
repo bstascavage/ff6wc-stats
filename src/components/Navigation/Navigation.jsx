@@ -10,7 +10,7 @@ function Navigation(props) {
       <div className="navigation">
         <div className="navigation-wrapper">
           <NavLink className="logo" to="/">
-            <img src={logo} alt="Seto Stats" />
+            <img src={logo} alt="Stats Collide" />
           </NavLink>
           <nav role="navigation">
             <ul id="js-navigation-menu" className="navigation-menu">
