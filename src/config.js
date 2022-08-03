@@ -99,6 +99,7 @@ const CONFIG = {
       max: "39",
       step: "1",
       startingValue: "0",
+      help: "Total amount of bosses defeated, found in the Track->Progress screen.",
     },
     numOfChests: {
       type: "slider",
