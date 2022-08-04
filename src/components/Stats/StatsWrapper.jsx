@@ -1,12 +1,12 @@
 import React from "react";
-import { Row, Container } from "reactstrap";
+import { Row } from "reactstrap";
 
 function StatsWrapper(props) {
   return (
     <React.Fragment>
-      <Container fluid className="pt-4">
+      <div className="stats-overview">
         <Row>{props.children}</Row>
-      </Container>
+      </div>
     </React.Fragment>
   );
 }

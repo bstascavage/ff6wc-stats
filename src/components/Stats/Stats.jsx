@@ -129,81 +129,82 @@ function Stats(props) {
     if (statsState.has_data) {
       body = (
         <React.Fragment>
-          <FilterWrapper title="Filters">
-            <Button
-              color="secondary"
-              className="dropdown-filter share-button"
-              onClick={(e) => {
-                copyURLToClipboard(e, userId, setUserId);
-              }}
-            >
-              <FontAwesomeIcon
-                icon={faShareNodes}
-                size="lg"
-                color="bg-white"
-                style={{ marginRight: "15px" }}
-              />
-              {shareURLText}
-            </Button>
-            <FilterDropdown
-              title="Flagset"
-              id="flagsetFilter"
-              choices={data.flagsets()}
-              resetOthers={true}
-              statsState={statsState}
-              setStatsState={setStatsState}
-            />
-            <FilterDropdown
-              title="Race"
-              id="raceFilter"
-              choices={data.races()}
-              statsState={statsState}
-              setStatsState={setStatsState}
-            />
-          </FilterWrapper>
-          <StatsWrapper>
-            <Col lg="6" xl="3">
-              <StatsCard
-                key="totalRuns"
-                title="Total Runs"
-                stat={data.attempt()}
-                icon={faBars}
-                iconColor="bg-primary"
-                height="80%"
-              />
-            </Col>
-            <Col lg="6" xl="3">
-              <StatsCard
-                key="bestTime"
-                title="Best Time"
-                stat={data.bestTime()}
-                icon={faMedal}
-                iconColor="bg-success"
-                height="80%"
-              />
-            </Col>
-            <Col lg="6" xl="3">
-              <StatsCard
-                key="lastTime"
-                title="Last Time"
-                stat={data.lastTime()}
-                icon={faStopwatch}
-                iconColor="bg-secondary"
-                height="80%"
-              />
-            </Col>
-            <Col lg="6" xl="3">
-              <StatsCard
-                key="stdDeviation"
-                title="Std Deviation"
-                stat={data.standardDeviation()}
-                icon={faCalculator}
-                iconColor="bg-info"
-                height="80%"
-              />
-            </Col>
-          </StatsWrapper>
           <Container fluid>
+            <FilterWrapper title="Filters">
+              <Button
+                color="secondary"
+                className="dropdown-filter share-button"
+                onClick={(e) => {
+                  copyURLToClipboard(e, userId, setUserId);
+                }}
+              >
+                <FontAwesomeIcon
+                  icon={faShareNodes}
+                  size="lg"
+                  color="bg-white"
+                  style={{ marginRight: "15px" }}
+                />
+                {shareURLText}
+              </Button>
+              <FilterDropdown
+                title="Flagset"
+                id="flagsetFilter"
+                choices={data.flagsets()}
+                resetOthers={true}
+                statsState={statsState}
+                setStatsState={setStatsState}
+              />
+              <FilterDropdown
+                title="Race"
+                id="raceFilter"
+                choices={data.races()}
+                statsState={statsState}
+                setStatsState={setStatsState}
+              />
+            </FilterWrapper>
+            <StatsWrapper>
+              <Col lg="6" xl="3">
+                <StatsCard
+                  key="totalRuns"
+                  title="Total Runs"
+                  stat={data.attempt()}
+                  icon={faBars}
+                  iconColor="bg-primary"
+                  height="80%"
+                />
+              </Col>
+              <Col lg="6" xl="3">
+                <StatsCard
+                  key="bestTime"
+                  title="Best Time"
+                  stat={data.bestTime()}
+                  icon={faMedal}
+                  iconColor="bg-success"
+                  height="80%"
+                />
+              </Col>
+              <Col lg="6" xl="3">
+                <StatsCard
+                  key="lastTime"
+                  title="Last Time"
+                  stat={data.lastTime()}
+                  icon={faStopwatch}
+                  iconColor="bg-secondary"
+                  height="80%"
+                />
+              </Col>
+              <Col lg="6" xl="3">
+                <StatsCard
+                  key="stdDeviation"
+                  title="Std Deviation"
+                  stat={data.standardDeviation()}
+                  icon={faCalculator}
+                  iconColor="bg-info"
+                  height="80%"
+                />
+              </Col>
+            </StatsWrapper>
+
             <Row>
               <Col
                 className="mb-5 mb-xl-0"

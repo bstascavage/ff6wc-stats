@@ -56,6 +56,10 @@
   transition: all 0.2s;
 }
 
+.stats-overview {
+  padding-top: 20px;
+}
+
 .dropdown-container {
   display: flex;
   width: 15%;
@@ -65,8 +69,9 @@
 }
 
 .dropdown-filter {
-  margin-right: 10px;
-  flex: 0 0 20%;
+  // margin-right: 10px;
+  padding-left: 10px;
+  flex: 0 0 27%;
 
   .dropdown-filter-menu {
     width: 100%;
@@ -76,6 +81,7 @@
 
 .share-button {
   width: 100%;
+  flex: 0 0 15%;
   margin-bottom: 10px;
   margin-right: auto;
 }
