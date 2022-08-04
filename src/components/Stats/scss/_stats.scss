@@ -67,11 +67,17 @@
 .dropdown-filter {
   margin-right: 10px;
   flex: 0 0 20%;
+
+  .dropdown-filter-menu {
+    width: 100%;
+    margin-bottom: 10px;
+  }
 }
 
-.dropdown-filter-menu {
+.share-button {
   width: 100%;
   margin-bottom: 10px;
+  margin-right: auto;
 }
 
 .button-container {

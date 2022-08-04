@@ -93,15 +93,6 @@ function statsStateReducer(state, action) {
 
 function Stats(props) {
   const navigate = useNavigate();
-
-  const [userId, setUserId] = useReducer(userIdReducer, {
-    id: "",
-    copied: false,
-  });
-  const shareURLText = userId.copied
-    ? "Copied to Clipboard!"
-    : "Share Dashboard";
-
   const [statsState, setStatsState] = useReducer(statsStateReducer, {
     hide_page: true,
     has_data: false,
@@ -109,6 +100,15 @@ function Stats(props) {
     data: [],
   });
 
+  // Logic for displaying another user's stats and for getting the "Share" link.
+  // If a user's ID is found in the URL, get data for that user.  Else, get data for the current user.
+  const [userId, setUserId] = useReducer(userIdReducer, {
+    id: "",
+    copied: false,
+  });
+  const shareURLText = userId.copied
+    ? "Copied to Clipboard!"
+    : "Share Dashboard";
   useEffect(() => {
     const userIdFromUrl = getUserFromURL();
     userIdFromUrl
@@ -129,45 +129,38 @@ function Stats(props) {
     if (statsState.has_data) {
       body = (
         <React.Fragment>
-          <Container fluid>
-            <Row>
-              <Col className="mb-5 mb-xl-0" lg="6" xl="6">
-                <Button
-                  color="secondary"
-                  onClick={(e) => {
-                    copyURLToClipboard(e, userId, setUserId);
-                  }}
-                >
-                  <FontAwesomeIcon
-                    icon={faShareNodes}
-                    size="lg"
-                    color="bg-white"
-                    style={{ marginRight: "15px" }}
-                  />
-                  {shareURLText}
-                </Button>
-              </Col>
-              <Col className="mb-5 mb-xl-0" lg="6" xl="6">
-                <FilterWrapper title="Filters">
-                  <FilterDropdown
-                    title="Flagset"
-                    id="flagsetFilter"
-                    choices={data.flagsets()}
-                    resetOthers={true}
-                    statsState={statsState}
-                    setStatsState={setStatsState}
-                  />
-                  <FilterDropdown
-                    title="Race"
-                    id="raceFilter"
-                    choices={data.races()}
-                    statsState={statsState}
-                    setStatsState={setStatsState}
-                  />
-                </FilterWrapper>
-              </Col>
-            </Row>
-          </Container>
+          <FilterWrapper title="Filters">
+            <Button
+              color="secondary"
+              className="dropdown-filter share-button"
+              onClick={(e) => {
+                copyURLToClipboard(e, userId, setUserId);
+              }}
+            >
+              <FontAwesomeIcon
+                icon={faShareNodes}
+                size="lg"
+                color="bg-white"
+                style={{ marginRight: "15px" }}
+              />
+              {shareURLText}
+            </Button>
+            <FilterDropdown
+              title="Flagset"
+              id="flagsetFilter"
+              choices={data.flagsets()}
+              resetOthers={true}
+              statsState={statsState}
+              setStatsState={setStatsState}
+            />
+            <FilterDropdown
+              title="Race"
+              id="raceFilter"
+              choices={data.races()}
+              statsState={statsState}
+              setStatsState={setStatsState}
+            />
+          </FilterWrapper>
           <StatsWrapper>
             <Col lg="6" xl="3">
               <StatsCard
