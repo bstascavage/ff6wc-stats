@@ -289,7 +289,7 @@ const CONFIG = {
       {
         question: "What is this thing?",
         answer:
-          "<b>Stats Collide</b> is a stats collecting tool to help Final Fantasy VI: Worlds Collide runners track their speedrunning progress.  Users can submit data for their runs and track their over times and other metrics via a dashboard.  This allows the runner to notice trends with their play-styles, identify strengths and weaknesses, and generally get a better picture of their progress across multiple runs.",
+          "<b>Stats Collide</b> is a stats collecting tool to help Final Fantasy VI: Worlds Collide runners track their speedrunning progress.  Users can submit data for their runs and track their overall times and other metrics via a dashboard.  This allows the runner to notice trends with their play-styles, identify strengths and weaknesses, and generally get a better picture of their progress across multiple runs.",
       },
       {
         //TODO: Add nested answer section, to allow a list here
@@ -337,6 +337,12 @@ const CONFIG = {
           "Not all run stats appear in my stats dashboard.  What gives?",
         answer:
           "More and more graphs and charts will be added over the coming weeks/months; a small selection of charts were identified for the initial release.  It's better to record this data now so that you have complete data when the associated charts are implemented.",
+      },
+      {
+        question:
+          "I put something in wrong/I want to delete a run.  What do I do?",
+        answer:
+          "Currently, editting of data is not supported.  If you need your data fixed, reach out to an administrator and they will do it manually.  This feature will be implemented at some point in the future.",
       },
       {
         question:
