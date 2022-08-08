@@ -10,7 +10,7 @@ import {
 } from "recharts";
 
 function StatsLineChart(props) {
-  const formatYAxis = (tickFormat) => {
+  const getFriendlyTime = (tickFormat) => {
     // 1- Convert to seconds:
     let seconds = Math.round(tickFormat / 1000);
     // 2- Extract hours:
@@ -27,6 +27,40 @@ function StatsLineChart(props) {
       ":" +
       (seconds < 10 ? `0${seconds}` : seconds)
     );
+  };
+
+  const getFriendlyRunDate = (runDate) => {
+    return new Date(runDate).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div
+          className="recharts-default-tooltip"
+          style={{
+            margin: "0px",
+            padding: "10px",
+            backgroundColor: "rgb(255, 255, 255)",
+            border: "1px",
+            solid: "rgb(204, 204, 204)",
+            whiteSpace: "nowrap",
+          }}
+        >
+          <p className="desc">Run #{payload[0].payload.name}</p>
+          <p className="label">Time: {getFriendlyTime(payload[0].value)}</p>
+          <p className="desc">
+            Date: {getFriendlyRunDate(payload[0].payload.date)}
+          </p>
+        </div>
+      );
+    }
+
+    return null;
   };
 
   return (
@@ -58,7 +92,7 @@ function StatsLineChart(props) {
             >
               <XAxis dataKey="name" tick={false} stroke="white" />
               <YAxis
-                tickFormatter={(tick) => formatYAxis(tick)}
+                tickFormatter={(tick) => getFriendlyTime(tick)}
                 stroke="white"
                 type="number"
                 domain={[
@@ -66,10 +100,11 @@ function StatsLineChart(props) {
                   (dataMax) => Math.floor(dataMax / 600000) * 600000 + 600000,
                 ]}
               />
-              <Tooltip
+              {/* <Tooltip
                 formatter={(value) => formatYAxis(value)}
                 labelFormatter={(value) => `Run #${value}`}
-              />
+              /> */}
+              <Tooltip content={<CustomTooltip />} />
               <Line
                 type="linear"
                 name="Time"

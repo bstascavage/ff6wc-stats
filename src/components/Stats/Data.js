@@ -52,6 +52,7 @@ export class Data {
       times.push({
         name: this.runData[i].attempt,
         time: this.runData[i].runTimeRaw,
+        date: this.runData[i].runDate,
       });
     }
     return times;
