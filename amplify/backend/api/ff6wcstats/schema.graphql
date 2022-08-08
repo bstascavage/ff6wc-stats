@@ -210,10 +210,8 @@ enum Auction {
 
 enum Race {
   No_Race
-  Ultros_League_Practice_Race
-  Ultros_League_Weekly_Race
-  Moogles_First_Tournament_Practice_Race
-  Moogles_First_Tournament_Race
+  Practice_Race
+  Tournament_Race
 }
 
 enum Mood {
