@@ -63,6 +63,7 @@ async function createRun(run) {
   const variables = {
     input: {
       userId: run.userId,
+      runDate: new Date().toString(),
       attempt: attemptNum,
       runTime: run.runTime,
       runTimeRaw: new Date("1970-01-01 " + run.runTime).getTime(),

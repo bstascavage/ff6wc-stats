@@ -28,6 +28,7 @@ type Run @model @auth(rules: [{ allow: public }]) {
       queryField: "RunsByAttempt"
       sortKeyFields: ["attempt"]
     )
+  runDate: String!
   attempt: Int!
   runTime: String!
   runTimeRaw: Int!

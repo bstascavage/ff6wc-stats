@@ -18,6 +18,7 @@ export const runsForUser = /* GraphQL */ `
           updatedAt
         }
         userId
+        runDate
         attempt
         runTime
         runTimeRaw
@@ -68,6 +69,7 @@ export const getUser = /* GraphQL */ `
         items {
           id
           userId
+          runDate
           attempt
           runTime
           runTimeRaw
@@ -161,6 +163,7 @@ export const getRun = /* GraphQL */ `
         updatedAt
       }
       userId
+      runDate
       attempt
       runTime
       runTimeRaw
@@ -217,6 +220,7 @@ export const listRuns = /* GraphQL */ `
           updatedAt
         }
         userId
+        runDate
         attempt
         runTime
         runTimeRaw
@@ -285,6 +289,7 @@ export const runsByTime = /* GraphQL */ `
           updatedAt
         }
         userId
+        runDate
         attempt
         runTime
         runTimeRaw
@@ -353,6 +358,7 @@ export const runsByAttempt = /* GraphQL */ `
           updatedAt
         }
         userId
+        runDate
         attempt
         runTime
         runTimeRaw

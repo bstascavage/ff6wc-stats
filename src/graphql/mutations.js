@@ -78,6 +78,7 @@ export const createUser = /* GraphQL */ `
         items {
           id
           userId
+          runDate
           attempt
           runTime
           runTimeRaw
@@ -135,6 +136,7 @@ export const updateUser = /* GraphQL */ `
         items {
           id
           userId
+          runDate
           attempt
           runTime
           runTimeRaw
@@ -192,6 +194,7 @@ export const deleteUser = /* GraphQL */ `
         items {
           id
           userId
+          runDate
           attempt
           runTime
           runTimeRaw
@@ -255,6 +258,7 @@ export const createRun = /* GraphQL */ `
         updatedAt
       }
       userId
+      runDate
       attempt
       runTime
       runTimeRaw
@@ -312,6 +316,7 @@ export const updateRun = /* GraphQL */ `
         updatedAt
       }
       userId
+      runDate
       attempt
       runTime
       runTimeRaw
@@ -369,6 +374,7 @@ export const deleteRun = /* GraphQL */ `
         updatedAt
       }
       userId
+      runDate
       attempt
       runTime
       runTimeRaw
