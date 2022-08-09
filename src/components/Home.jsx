@@ -116,7 +116,7 @@ function Home(props) {
       </Container>
       <Container fluid className="pt-4" style={{ width: "50em" }}>
         <center>
-          <h2>How Stats Collide Works</h2>
+          <h2>How To Use Stats Collide</h2>
         </center>
         <div style={{ height: "10px" }} />
       </Container>
