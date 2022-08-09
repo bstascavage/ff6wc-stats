@@ -7,7 +7,7 @@ import globalStatsIcon from "./assets/global-stats.gif";
 const CONFIG = {
   home: {
     intro:
-      "Welcome to Stats Collide, a tool for recording and tracking your Worlds Collide runs.  With this tool you can track your speedrunning progress, analyze patterns with your playstyle, and identify trends that can help improve your Worlds Collide skills.  Withs Stats Collide, you can use data to help kill that crazy clown even faster than before and save the world in record time!",
+      "Welcome to Stats Collide, a tool for recording and tracking your Worlds Collide runs.  With this tool you can track your speedrunning progress, analyze patterns with your playstyle, and identify trends that can help improve your Worlds Collide skills.  With Stats Collide, you can use data to help kill that crazy clown even faster than before and save the world in record time!",
     faq: (
       <React.Fragment>
         Need more details? Have further questions? Check out our{" "}
