@@ -153,11 +153,6 @@ enum Dragon {
   Kefka_Tower__Right
 }
 
-enum Flagset {
-  Standard
-  Moogles_First_Tournament
-}
-
 enum FinalBattleTrait {
   Instant_Death
   Mute
@@ -206,6 +201,12 @@ enum Auction {
   Zero
   One
   Two
+}
+
+enum Flagset {
+  Ultros_League
+  Moogles_First_Tournament
+  TotM__Glass_Cannon
 }
 
 enum Race {

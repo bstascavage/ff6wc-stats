@@ -131,6 +131,11 @@ function validate_numOfChests(runData) {
 function validate_skip(runData) {
   if (typeof runData.skip == "boolean") {
     if (runData.skip) {
+      if (config.flagsetRules[runData.flagset].skip.no_verify) {
+        return {
+          result: true,
+        };
+      }
       let skipChecks = [];
       Object.keys(config.flagsetRules[runData.flagset].skip.reqs).forEach(
         function (key) {

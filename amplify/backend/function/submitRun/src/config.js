@@ -1,6 +1,6 @@
 const config = {
   flagsetRules: {
-    Standard: {
+    Ultros_League: {
       startingChars: 3,
       minChars: 6,
       minEspers: 9,
@@ -33,12 +33,7 @@ const config = {
       minChars: 3,
       minEspers: 10,
       skip: {
-        reqs: {
-          bosses: 20,
-          espers: 10,
-        },
-        conditionsMet: 2,
-        operation: "OR",
+        no_verify: true,
       },
       excludedAbilities: ["Possess"],
     },

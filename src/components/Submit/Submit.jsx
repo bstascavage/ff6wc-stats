@@ -75,20 +75,18 @@ function Submit(props) {
     dataValidationResults: {},
   });
 
-  let submitConfig = props.config.submit;
-
   // `enum`: List of possible options for enumFields, pulled from GraphQL
   // `slider`: Keeps state of the slider components
   let fieldDataDefault = { enum: {}, slider: {} };
 
-  Object.keys(submitConfig).forEach((key, index) => {
+  Object.keys(props.config.submit).forEach((key, index) => {
     if (
-      submitConfig[key].type === "checkbox" ||
-      submitConfig[key].type === "dropdown"
+      props.config.submit[key].type === "checkbox" ||
+      props.config.submit[key].type === "dropdown"
     ) {
       fieldDataDefault.enum[key] = "";
-    } else if (submitConfig[key].type === "slider") {
-      fieldDataDefault.slider[key] = submitConfig[key].startingValue;
+    } else if (props.config.submit[key].type === "slider") {
+      fieldDataDefault.slider[key] = props.config.submit[key].startingValue;
     }
   });
   const [submitFieldData, setSubmitFieldData] = useState(fieldDataDefault);
@@ -97,7 +95,7 @@ function Submit(props) {
     // Retrieve possible character/ability/dragon selections from graphql to set as checkboxes
     getEnumSelection(
       submitFieldData,
-      submitConfig,
+      props.config,
       setSubmitFieldData,
       setSubmissionState
     );
@@ -108,13 +106,13 @@ function Submit(props) {
 
     // Dynamically create the submission payload based on the config
     let submitPayload = { userId: props.discordUserdata.userdata.id };
-    Object.keys(submitConfig).forEach((key, index) => {
-      if (submitConfig[key].type === "checkbox") {
+    Object.keys(props.config.submit).forEach((key, index) => {
+      if (props.config.submit[key].type === "checkbox") {
         submitPayload[key] = parseCheckboxSelected(
           submitFieldData.enum[key],
           event
         );
-      } else if (submitConfig[key].type === "toggle") {
+      } else if (props.config.submit[key].type === "toggle") {
         submitPayload[key] = event.target[key].checked;
       } else {
         submitPayload[key] = event.target[key].value;
@@ -199,7 +197,7 @@ function getEnumSelection(
   // Retrieve list of enum values from database based on query
   Object.keys(selectionState.enum).forEach((key, index) => {
     let query = `query {
-      __type(name: "${config[key].enumName}") {
+      __type(name: "${config.submit[key].enumName}") {
         name
         enumValues {
           name
@@ -224,10 +222,19 @@ function getEnumSelection(
                 .replace(/__/g, " - ")
                 .replace(/_/g, " ");
 
-            elems.push({
-              name: responseJson.data.__type.enumValues[i].name,
-              display_name: elem_display_name,
-            });
+            // Only display flagsets that are marked as "active" ie current TotM.
+            if (
+              (key === "flagset" &&
+                config.submit_misc.active_flagsets.includes(
+                  responseJson.data.__type.enumValues[i].name
+                )) ||
+              key !== "flagset"
+            ) {
+              elems.push({
+                name: responseJson.data.__type.enumValues[i].name,
+                display_name: elem_display_name,
+              });
+            }
           }
           selectionState.enum[key] = elems;
           setFunction(selectionState);

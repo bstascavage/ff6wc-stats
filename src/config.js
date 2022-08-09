@@ -326,6 +326,13 @@ const CONFIG = {
       },
     },
   },
+  submit_misc: {
+    active_flagsets: [
+      "Ultros_League",
+      "Moogles_First_Tournament",
+      "TotM__Glass_Cannon",
+    ],
+  },
   about: {
     questions: [
       {
