@@ -131,18 +131,46 @@ function validate_numOfChests(runData) {
 function validate_skip(runData) {
   if (typeof runData.skip == "boolean") {
     if (runData.skip) {
-      if (config.flagsetRules[runData.flagset].skip.operation === "OR") {
-        if (
-          runData.numOfChars <
-            config.flagsetRules[runData.flagset].skip.chars &&
-          runData.numOfEspers < config.flagsetRules[runData.flagset].skip.espers
-        ) {
-          return {
-            result: false,
-            reason: "Character and esper count do not allow for the skip.",
-          };
+      let skipChecks = [];
+      Object.keys(config.flagsetRules[runData.flagset].skip.reqs).forEach(
+        function (key) {
+          switch (key) {
+            case "bosses":
+              runData.numOfBosses >=
+              config.flagsetRules[runData.flagset].skip.reqs.bosses
+                ? skipChecks.push(true)
+                : null;
+              break;
+            case "espers":
+              runData.numOfEspers >=
+              config.flagsetRules[runData.flagset].skip.reqs.espers
+                ? skipChecks.push(true)
+                : null;
+              break;
+            case "chars":
+              runData.numOfChars >=
+              config.flagsetRules[runData.flagset].skip.reqs.chars
+                ? skipChecks.push(true)
+                : null;
+              break;
+            default:
+              skipChecks.push(false);
+              break;
+          }
         }
-      }
+      );
+
+      const skipResult =
+        skipChecks.length <
+        config.flagsetRules[runData.flagset].skip.conditionsMet
+          ? {
+              result: false,
+              reason: "Skip reqs not met.",
+            }
+          : {
+              result: true,
+            };
+      return skipResult;
     }
     return {
       result: true,
