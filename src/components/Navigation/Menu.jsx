@@ -45,11 +45,6 @@ function Menu(props) {
           About
         </NavLink>
       </li>
-      {/* <li className="nav-link">
-        <NavLink className="nav-link" to="/global">
-          Global Stats
-        </NavLink>
-      </li> */}
       {statsLink}
       {submitLink}
       {loginLink}

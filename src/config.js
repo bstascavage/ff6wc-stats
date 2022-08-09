@@ -1,4 +1,46 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import submitIcon from "./assets/submit.gif";
+import statsIcon from "./assets/stats.gif";
+import globalStatsIcon from "./assets/global-stats.gif";
+
 const CONFIG = {
+  home: {
+    intro:
+      "Welcome to Stats Collide, a tool for recording and tracking your Worlds Collide runs.  With this tool you can track your speedrunning progress, analyze patterns with your playstyle, and identify trends that can help improve your Worlds Collide skills.  Withs Stats Collide, you can use data to help kill that crazy clown even faster than before and save the world in record time!",
+    faq: (
+      <React.Fragment>
+        Need more details? Have further questions? Check out our{" "}
+        <Link to="/about" style={{ color: "blue" }}>
+          Frequently Asked Questions
+        </Link>{" "}
+        for more information.
+      </React.Fragment>
+    ),
+    columns: [
+      {
+        title: "Submit a Run",
+        content:
+          "After you finish a run, fill out a quick submission form with the details of your run.  Only a few data points are required, giving you the option to submit as much or as little as you want.",
+        linkPath: "/submit",
+        icon: submitIcon,
+      },
+      {
+        title: "See Your Stats",
+        content:
+          "Track your progress, view your times and see the details of your runs, the stats dashboard allows you to find trends in your playstyle and identify improvements",
+        linkPath: "/stats",
+        icon: statsIcon,
+      },
+      {
+        title: "View Global Stats",
+        content:
+          "See the stats of the Worlds Collide community as a whole.  Who is the fastest character?  How often is the skip used?  Does everyone actually avoid the Auction House?  Time to answer all of our burning questions.",
+        linkPath: "",
+        icon: globalStatsIcon,
+      },
+    ],
+  },
   submit: {
     runTime: {
       type: "textInput",

@@ -125,7 +125,12 @@ function App() {
             setUserdataState={setUserdataState}
           />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route
+              path="/"
+              element={
+                <Home discordUserdata={discordUserdata} config={CONFIG} />
+              }
+            />
             <Route path="/about" element={<About config={CONFIG} />} />
             <Route
               path="/stats"
