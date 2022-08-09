@@ -3,7 +3,7 @@ import { Button, Col, Row, Container } from "reactstrap";
 import { API, graphqlOperation } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
 import Page from "../Page";
-import cover from "../../assets/stats-cover.jpg";
+import cover from "../../assets/covers/stats-cover.jpg";
 import "./scss/main.scss";
 
 import { Data } from "./Data";

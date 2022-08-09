@@ -10,7 +10,7 @@ import {
   Row,
 } from "reactstrap";
 import Page from "./Page";
-import cover from "../assets/home-cover.webp";
+import cover from "../assets/covers/home-cover.webp";
 
 function Home(props) {
   let homeConfig = props.config.home;

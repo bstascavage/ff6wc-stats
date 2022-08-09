@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Menu from "./Menu";
-import logo from "../../assets/magitek-icon.jpeg";
+import logo from "../../assets/navbarlogo.png";
 import "../scss/main.scss";
 
 function Navigation(props) {

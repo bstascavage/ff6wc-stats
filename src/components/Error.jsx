@@ -1,5 +1,5 @@
 import React from "react";
-import cover from "../assets/home-cover.webp";
+import cover from "../assets/covers/home-cover.webp";
 import Page from "./Page";
 
 function Error() {

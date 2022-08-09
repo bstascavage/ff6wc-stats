@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import submitIcon from "./assets/submit.gif";
-import statsIcon from "./assets/stats.gif";
-import globalStatsIcon from "./assets/global-stats.gif";
+import submitIcon from "./assets/home/submit.gif";
+import statsIcon from "./assets/home/stats.gif";
+import globalStatsIcon from "./assets/home/global-stats.gif";
 
 const CONFIG = {
   home: {

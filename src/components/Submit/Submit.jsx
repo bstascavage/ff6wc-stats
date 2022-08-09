@@ -1,7 +1,7 @@
 import React, { useReducer, useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
-import cover from "../../assets/submit-cover.jpg";
+import cover from "../../assets/covers/submit-cover.jpg";
 import Page from "../Page";
 import ColumnWrapper from "./ColumnWrapper";
 import Column from "./Column";

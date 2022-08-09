@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "reactstrap";
 import Page from "../Page";
-import sucessIcon from "../../assets/submit-success.png";
+import sucessIcon from "../../assets/submit/success.png";
 import "./scss/main.scss";
 
 function Success(props) {

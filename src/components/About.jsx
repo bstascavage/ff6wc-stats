@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "reactstrap";
 import Page from "./Page";
-import cover from "../assets/about-cover.jpg";
+import cover from "../assets/covers/about-cover.jpg";
 
 function About(props) {
   let aboutConfig = props.config.about;
