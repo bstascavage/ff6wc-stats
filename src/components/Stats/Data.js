@@ -34,7 +34,7 @@ export class Data {
   }
 
   bestRun() {
-    return this.sortByAttempt()[0];
+    return this.sortByTime()[0];
   }
 
   lastRun() {
