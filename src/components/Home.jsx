@@ -110,11 +110,19 @@ function Home(props) {
 
   let body = (
     <React.Fragment>
-      <Container fluid className="pt-4 pb-5" style={{ width: "60em" }}>
+      <Container
+        fluid
+        className="pt-4 pb-5"
+        style={{ width: "60em", maxWidth: "100%" }}
+      >
         <center className="home-summary pb-5">{homeConfig.intro}</center>
         <center className="home-summary">{homeConfig.faq}</center>
       </Container>
-      <Container fluid className="pt-4" style={{ width: "50em" }}>
+      <Container
+        fluid
+        className="pt-4"
+        style={{ width: "50em", maxWidth: "100%" }}
+      >
         <center>
           <h2>How To Use Stats Collide</h2>
         </center>

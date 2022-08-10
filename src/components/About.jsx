@@ -8,7 +8,11 @@ function About(props) {
 
   let body = (
     <React.Fragment>
-      <Container fluid className="pt-4 pb-5" style={{ width: "50em" }}>
+      <Container
+        fluid
+        className="pt-4 pb-5"
+        style={{ width: "50em", maxWidth: "100%" }}
+      >
         <center>
           <h2>Frequently Asked Questions</h2>
         </center>
