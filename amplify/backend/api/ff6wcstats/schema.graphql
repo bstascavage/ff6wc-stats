@@ -73,6 +73,7 @@ type Query {
 type Mutation {
   submitRun(
     runTime: String!
+    runDate: String!
     flagset: Flagset
     ktStartTime: String
     kefkaTime: String

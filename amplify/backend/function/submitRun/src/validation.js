@@ -60,6 +60,14 @@ function validate_runTime(runData) {
   }
 }
 
+function validate_runDate(runData) {
+  if (!isNaN(new Date(runData.runDate).getDate())) {
+    return { result: true };
+  } else {
+    return { result: false, reason: "Run Date is not a valid date." };
+  }
+}
+
 function validate_ktStartTime(runData) {
   // Validates that the submitted time is in the format hh:mm:ss
   if (runData.ktStartTime.length === 0) {

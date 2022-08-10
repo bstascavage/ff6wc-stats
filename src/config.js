@@ -66,6 +66,13 @@ const CONFIG = {
       placeholder: "1:20:00",
       help: "Time when your final party steps on the final switch.",
     },
+    runDate: {
+      type: "datetimepicker",
+      title: "Run Date",
+      id: "runDate",
+      required: false,
+      help: "If no date is entered, current date/time will be used.",
+    },
     flagset: {
       type: "dropdown",
       title: "Flagset",
@@ -285,6 +292,7 @@ const CONFIG = {
           "race",
           "raceId",
           "mood",
+          "runDate",
         ],
       },
       startingParty: {

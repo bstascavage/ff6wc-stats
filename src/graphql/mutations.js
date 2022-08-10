@@ -4,6 +4,7 @@
 export const submitRun = /* GraphQL */ `
   mutation SubmitRun(
     $runTime: String!
+    $runDate: String!
     $flagset: Flagset
     $ktStartTime: String
     $kefkaTime: String
@@ -33,6 +34,7 @@ export const submitRun = /* GraphQL */ `
   ) {
     submitRun(
       runTime: $runTime
+      runDate: $runDate
       flagset: $flagset
       ktStartTime: $ktStartTime
       kefkaTime: $kefkaTime

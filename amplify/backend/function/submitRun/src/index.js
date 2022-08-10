@@ -63,7 +63,7 @@ async function createRun(run) {
   const variables = {
     input: {
       userId: run.userId,
-      runDate: new Date().toString(),
+      runDate: new Date(run.runDate).toString(), // Yes this is weird, converting a string to a date and then back to a string, but this is a relic of how runDate was originally set.
       attempt: attemptNum,
       runTime: run.runTime,
       runTimeRaw: new Date("1970-01-01 " + run.runTime).getTime(),

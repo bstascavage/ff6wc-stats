@@ -1,7 +1,8 @@
 import React, { useReducer, useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
-import cover from "../../assets/covers/submit-cover.jpg";
+import { API, graphqlOperation } from "aws-amplify";
+
 import Page from "../Page";
 import ColumnWrapper from "./ColumnWrapper";
 import Column from "./Column";
@@ -13,9 +14,9 @@ import Toggle from "./Toggle";
 import Dropdown from "./Dropdown";
 import Success from "./Success";
 import CheckBox, { parseCheckboxSelected } from "./Checkbox";
-
-import { API, graphqlOperation } from "aws-amplify";
+import RunDatePicker from "./RunDatePicker";
 import { submitRun } from "../../graphql/mutations";
+import cover from "../../assets/covers/submit-cover.jpg";
 
 function submissionReducer(state, action) {
   switch (action.type) {
@@ -87,6 +88,8 @@ function Submit(props) {
       fieldDataDefault.enum[key] = "";
     } else if (props.config.submit[key].type === "slider") {
       fieldDataDefault.slider[key] = props.config.submit[key].startingValue;
+    } else if (props.config.submit[key].type === "datetimepicker") {
+      fieldDataDefault.runDate = new Date();
     }
   });
   const [submitFieldData, setSubmitFieldData] = useState(fieldDataDefault);
@@ -114,6 +117,8 @@ function Submit(props) {
         );
       } else if (props.config.submit[key].type === "toggle") {
         submitPayload[key] = event.target[key].checked;
+      } else if (props.config.submit[key].type === "datetimepicker") {
+        submitPayload[key] = submitFieldData.runDate;
       } else {
         submitPayload[key] = event.target[key].value;
       }
@@ -290,6 +295,15 @@ function createItem(
         help={config.help}
         validationResults={validationResults}
         key={`${config.id}-toggle`}
+      />
+    );
+  } else if (config.type === "datetimepicker") {
+    body = (
+      <RunDatePicker
+        id={config.id}
+        value={submitFieldData}
+        valueSetter={setSubmitFieldData}
+        key={`${config.id}-datepicker`}
       />
     );
   } else {
