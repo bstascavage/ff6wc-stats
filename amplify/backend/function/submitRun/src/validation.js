@@ -31,7 +31,8 @@ async function validate(data) {
 function validate_numOfChecks(runData) {
   if (
     runData.numOfChecks <
-    parseInt(runData.numOfChars) +
+    parseInt(runData.numOfChars) -
+      config.flagsetRules[runData.flagset].startingChars +
       parseInt(runData.numOfEspers) +
       parseInt(runData.dragons.length)
   ) {
