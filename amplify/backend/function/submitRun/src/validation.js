@@ -32,7 +32,7 @@ function validate_numOfChecks(runData) {
   if (
     runData.numOfChecks <
     parseInt(runData.numOfChars) -
-      config.flagsetRules[runData.flagset].startingChars +
+      runData.chars.length +
       parseInt(runData.numOfEspers) +
       parseInt(runData.dragons.length)
   ) {
