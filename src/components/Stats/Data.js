@@ -38,12 +38,12 @@ export class Data {
   }
 
   lastRun() {
-    return this.sortByAttempt()[this.runData.length - 1];
+    return this.sortByDate()[this.runData.length - 1];
   }
 
   standardDeviation() {
-    const mean = this.averageTimeRaw();
-    let runs = this.sortByAttempt().map((a) => a.runTimeRaw);
+    const mean = this.averageTimeRaw(this.runData.length);
+    let runs = this.sortByDate().map((a) => a.runTimeRaw);
 
     runs = runs.map((k) => {
       return (k - mean) ** 2;
@@ -57,38 +57,44 @@ export class Data {
 
   runTimes() {
     let times = [];
-    const sortedTimes = this.sortByAttempt();
+    const sortedTimes = this.sortByDate();
+
     for (let i = 0; i < sortedTimes.length; i++) {
       times.push({
-        name: this.runData[i].attempt,
-        time: this.runData[i].runTimeRaw,
-        date: this.runData[i].runDate,
+        attempt: sortedTimes[i].attempt,
+        time: sortedTimes[i].runTimeRaw,
+        date: sortedTimes[i].runDate,
+        name: Date.parse(sortedTimes[i].runDate),
       });
     }
     return times;
   }
 
-  averageTimeRaw(numOfRuns = 0) {
+  averageTimeRaw(numOfRuns, offset = 0) {
     let runs;
     if (numOfRuns > 0) {
-      runs = this.sortByAttempt().slice(0 - numOfRuns);
+      runs = this.sortByDate().slice(
+        this.runData.length - numOfRuns,
+        this.runData.length - offset
+      );
     } else {
-      runs = this.sortByAttempt();
+      runs = this.sortByDate();
     }
     const average = (array) =>
       array.reduce((a, b) => a + b.runTimeRaw, 0) / array.length; // Average of millaseconds
     return average(runs);
   }
 
-  averageTime(numOfRuns = 0) {
+  averageTime(numOfRuns = this.runData.length) {
     return this.convertRawToTime(
       Math.floor(Math.round(this.averageTimeRaw(numOfRuns)) / 1000) * 1000
     ); // Convert to hh:mm:ss, while rounding to the nearest second
   }
 
-  deltaRunTime(numOfRuns = 0) {
+  deltaRunTime(numOfRuns = this.runData.length) {
     let delta =
-      this.averageTimeRaw(numOfRuns) - this.lastRun(numOfRuns).runTimeRaw;
+      this.averageTimeRaw(numOfRuns, 1) - this.averageTimeRaw(numOfRuns);
+
     let negative = false;
 
     if (delta < 0) {
@@ -171,6 +177,17 @@ export class Data {
 
   sortByAttempt() {
     return this.runData.sort((a, b) => a.attempt - b.attempt);
+  }
+
+  sortByDate() {
+    let runsWithEpoch = [];
+    for (let i = 0; i < this.runData.length; i++) {
+      runsWithEpoch.push({
+        ...this.runData[i],
+        dateEpoch: Date.parse(this.runData[i].runDate),
+      });
+    }
+    return runsWithEpoch.sort((a, b) => a.dateEpoch - b.dateEpoch);
   }
 
   flagsets() {

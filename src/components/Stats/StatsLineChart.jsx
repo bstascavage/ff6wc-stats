@@ -51,7 +51,6 @@ function StatsLineChart(props) {
             whiteSpace: "nowrap",
           }}
         >
-          <p className="desc">Run #{payload[0].payload.name}</p>
           <p className="label">Time: {getFriendlyTime(payload[0].value)}</p>
           <p className="desc">
             Date: {getFriendlyRunDate(payload[0].payload.date)}

@@ -9,11 +9,11 @@ function StatsCard(props) {
   let deltaComponent = <span className="text-success mr-2"></span>;
   if (props.delta) {
     let statusColor = "text-success";
-    let arrow = faArrowUp;
+    let arrow = faArrowDown;
 
     if (props.delta.negative) {
       statusColor = "text-danger";
-      arrow = faArrowDown;
+      arrow = faArrowUp;
     }
     deltaComponent = (
       <span className={`${statusColor} mr-2`}>
