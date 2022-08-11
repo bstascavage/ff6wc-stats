@@ -42,7 +42,17 @@ export class Data {
   }
 
   standardDeviation() {
-    return "9:59:59";
+    const mean = this.averageTimeRaw();
+    let runs = this.sortByAttempt().map((a) => a.runTimeRaw);
+
+    runs = runs.map((k) => {
+      return (k - mean) ** 2;
+    });
+    const sum = runs.reduce((acc, curr) => acc + curr, 0);
+
+    return this.convertRawToTime(
+      Math.floor(Math.round(Math.sqrt(sum / runs.length)) / 1000) * 1000
+    );
   }
 
   runTimes() {
