@@ -393,7 +393,7 @@ const CONFIG = {
         question:
           "Not all run stats appear in my stats dashboard.  What gives?",
         answer:
-          "More and more graphs and charts will be added over the coming weeks/months; a small selection of charts were identified for the initial release.  It's better to record this data now so that you have complete data when the associated charts are implemented.",
+          "More and more graphs and charts will be added over the coming weeks/months; a small selection of charts were identified for the initial release.  It's better to capture this data now so that you have complete data when the associated charts are implemented.",
       },
       {
         question:
