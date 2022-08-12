@@ -96,6 +96,9 @@ export class Data {
     let delta =
       this.averageTimeRaw(numOfRuns, 1) - this.averageTimeRaw(numOfRuns);
 
+    if (isNaN(delta)) {
+      delta = 0;
+    }
     let negative = false;
 
     if (delta < 0) {

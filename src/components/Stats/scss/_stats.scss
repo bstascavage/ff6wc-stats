@@ -99,3 +99,13 @@
 .bg-gradient-default {
   background: linear-gradient(87deg, #111e3a, #0d0d31) !important;
 }
+
+.chart-button {
+  background-color: black;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  margin: 10px 0px;
+  cursor: pointer;
+  width: 120px;
+}

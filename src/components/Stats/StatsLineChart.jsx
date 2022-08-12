@@ -1,5 +1,5 @@
-import React from "react";
-import { Col, Row, Card, CardBody, CardHeader } from "reactstrap";
+import React, { useReducer } from "react";
+import { Button, Col, Row, Card, CardBody, CardHeader } from "reactstrap";
 import {
   LineChart,
   Line,
@@ -9,7 +9,34 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+function skipStateReducer(state, action) {
+  switch (action.type) {
+    case "skip":
+      return {
+        ...state,
+        skipDotColor: "#f21e0f",
+        buttonText: "Hide Skips",
+        state: "skip",
+      };
+    case "no_skip":
+      return {
+        ...state,
+        skipDotColor: "#82ca9d",
+        buttonText: "Show Skips",
+        state: "no_skip",
+      };
+    default:
+      return state;
+  }
+}
+
 function StatsLineChart(props) {
+  const [skipStats, setSkipState] = useReducer(skipStateReducer, {
+    dotColor: "#82ca9d",
+    skipDotColor: "#82ca9d",
+    buttonText: "Show Skips",
+    state: "no_skip",
+  });
   const getFriendlyTime = (tickFormat) => {
     // 1- Convert to seconds:
     let seconds = Math.round(tickFormat / 1000);
@@ -65,9 +92,9 @@ function StatsLineChart(props) {
   const CustomDot = (props) => {
     const { cx, cy, payload } = props;
 
-    let color = "#82ca9d";
+    let color = skipStats.dotColor;
     if (payload.skip) {
-      color = "#f21e0f";
+      color = skipStats.skipDotColor;
     }
 
     return (
@@ -87,6 +114,12 @@ function StatsLineChart(props) {
     );
   };
 
+  function filterSkip(event) {
+    skipStats.state === "skip"
+      ? setSkipState({ type: "no_skip" })
+      : setSkipState({ type: "skip" });
+  }
+
   return (
     <Card className="bg-gradient-default shadow" style={{ height: "100%" }}>
       <CardHeader
@@ -101,6 +134,15 @@ function StatsLineChart(props) {
             <h2 className="text-light mb-0">{props.title}</h2>
           </Col>
         </Row>
+        <Button
+          style={{ marginLeft: "auto" }}
+          className="chart-button"
+          onClick={(e) => {
+            filterSkip(e);
+          }}
+        >
+          {skipStats.buttonText}
+        </Button>
       </CardHeader>
       <CardBody>
         <div style={{ fontWeight: "600" }}>
