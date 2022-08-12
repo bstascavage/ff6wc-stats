@@ -64,6 +64,7 @@ export class Data {
         attempt: sortedTimes[i].attempt,
         time: sortedTimes[i].runTimeRaw,
         date: sortedTimes[i].runDate,
+        skip: sortedTimes[i].skip,
         name: Date.parse(sortedTimes[i].runDate),
       });
     }

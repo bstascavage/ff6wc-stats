@@ -62,6 +62,31 @@ function StatsLineChart(props) {
     return null;
   };
 
+  const CustomDot = (props) => {
+    const { cx, cy, payload } = props;
+
+    let color = "#82ca9d";
+    if (payload.skip) {
+      color = "#f21e0f";
+    }
+
+    return (
+      <circle
+        r="3"
+        type="linear"
+        name="Time"
+        stroke={color}
+        strokeWidth="4"
+        fill={color}
+        width="615"
+        height="240"
+        cx={cx}
+        cy={cy}
+        className="recharts-dot recharts-line-dot"
+      ></circle>
+    );
+  };
+
   return (
     <Card className="bg-gradient-default shadow" style={{ height: "100%" }}>
       <CardHeader
@@ -99,10 +124,6 @@ function StatsLineChart(props) {
                   (dataMax) => Math.floor(dataMax / 600000) * 600000 + 600000,
                 ]}
               />
-              {/* <Tooltip
-                formatter={(value) => formatYAxis(value)}
-                labelFormatter={(value) => `Run #${value}`}
-              /> */}
               <Tooltip content={<CustomTooltip />} />
               <Line
                 type="linear"
@@ -112,6 +133,7 @@ function StatsLineChart(props) {
                 strokeWidth={4}
                 animationDuration={2000}
                 animationEasing="linear"
+                dot={<CustomDot />}
               />
             </LineChart>
           </ResponsiveContainer>
