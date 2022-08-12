@@ -339,6 +339,7 @@ const CONFIG = {
       "Ultros_League",
       "Moogles_First_Tournament",
       "TotM__Glass_Cannon",
+      "Other",
     ],
   },
   about: {

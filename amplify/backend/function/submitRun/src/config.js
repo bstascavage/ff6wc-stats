@@ -37,6 +37,15 @@ const config = {
       },
       excludedAbilities: ["Possess"],
     },
+    Other: {
+      startingChars: 0,
+      minChars: 0,
+      minEspers: 0,
+      skip: {
+        no_verify: true,
+      },
+      excludedAbilities: [],
+    },
   },
 };
 

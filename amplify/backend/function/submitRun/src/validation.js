@@ -208,6 +208,10 @@ async function validate_chars(runData) {
       result: false,
       reason: "More than 4 starting characters selected.",
     };
+  } else if (config.flagsetRules[runData.flagset].startingChars === 0) {
+    return {
+      result: true,
+    };
   } else if (
     characters.length != config.flagsetRules[runData.flagset].startingChars
   ) {
