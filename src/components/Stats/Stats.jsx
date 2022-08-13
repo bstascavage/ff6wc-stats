@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useReducer, useEffect, useState } from "react";
 import { Button, Col, Row, Container } from "reactstrap";
 import { API, graphqlOperation } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
@@ -99,6 +99,8 @@ function Stats(props) {
     filters: defaultFlagset,
     data: [],
   });
+  const [charList, setCharList] = useState([]);
+  const [abilityList, setAbilityList] = useState([]);
 
   // Logic for displaying another user's stats and for getting the "Share" link.
   // If a user's ID is found in the URL, get data for that user.  Else, get data for the current user.
@@ -118,9 +120,16 @@ function Stats(props) {
 
   useEffect(() => {
     if (userId.id) getRunsForUser(userId.id, setStatsState);
+    getEnum("Character", setCharList);
+    getEnum("Ability", setAbilityList);
   }, [userId]);
 
-  const data = new Data(statsState.data, statsState.filters);
+  const data = new Data(
+    statsState.data,
+    statsState.filters,
+    charList,
+    abilityList
+  );
   let page, body;
 
   if (statsState.hide_page) {
@@ -355,6 +364,31 @@ function copyURLToClipboard(e, userId, setUserId) {
   setTimeout(() => {
     setUserId({ type: "reset_copy" });
   }, 3000);
+}
+
+function getEnum(enumName, setEnum) {
+  let query = `query {
+    __type(name: "${enumName}") {
+      name
+      enumValues {
+        name
+        description
+      }
+    }
+  }
+  `;
+
+  try {
+    API.graphql(graphqlOperation(query)).then((responseJson) => {
+      let charList = [];
+      for (let i = 0; i < responseJson.data.__type.enumValues.length; i++) {
+        charList.push(responseJson.data.__type.enumValues[i].name);
+      }
+      setEnum(charList);
+    });
+  } catch (err) {
+    console.log("error fetching enum list from backend for query: ", query);
+  }
 }
 
 export default Stats;

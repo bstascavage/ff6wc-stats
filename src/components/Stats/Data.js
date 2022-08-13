@@ -1,9 +1,11 @@
 export class Data {
-  constructor(runData, filters) {
+  constructor(runData, filters, charList, abilityList) {
     this.unfilteredRunData = runData;
     this.runData = runData;
     this.flagsetFilter = filters.flagsetFilter.value;
     this.raceFilter = filters.raceFilter.value;
+    this.charList = charList;
+    this.abilityList = abilityList;
 
     if (this.flagsetFilter === "All") {
       this.runData = runData;
@@ -126,13 +128,17 @@ export class Data {
     let timesPerChar = [];
     const average = (array) => array.reduce((a, b) => a + b, 0) / array.length;
 
-    Object.keys(times).forEach((character, index) => {
-      timesPerChar.push({
-        name: character,
-        time: Math.round(average(times[character])),
-        runs: times[character].length,
-      });
-    });
+    //Sort chars based on enum order
+    for (let i = 0; i < this.charList.length; i++) {
+      if (this.charList[i] in times) {
+        timesPerChar.push({
+          name: this.charList[i],
+          time: Math.round(average(times[this.charList[i]])),
+          runs: times[this.charList[i]].length,
+        });
+      }
+    }
+
     return timesPerChar;
   }
 
@@ -159,19 +165,24 @@ export class Data {
     let timesPerAbility = [];
     const average = (array) => array.reduce((a, b) => a + b, 0) / array.length;
 
-    Object.keys(times).forEach((ability, index) => {
-      // Logic to get display name from id name
-      // IE: `foo_bar` will be translated to `foo bar`
-      let abilityDisplayName = ability;
-      if (ability.includes("_"))
-        abilityDisplayName = ability.replace(/__/g, " - ").replace(/_/g, " ");
+    //Sort ability based on enum order
+    for (let i = 0; i < this.abilityList.length; i++) {
+      if (this.abilityList[i] in times) {
+        // Logic to get display name from id name
+        // IE: `foo_bar` will be translated to `foo bar`
+        let abilityDisplayName = this.abilityList[i];
+        if (this.abilityList[i].includes("_"))
+          abilityDisplayName = this.abilityList[i]
+            .replace(/__/g, " - ")
+            .replace(/_/g, " ");
 
-      timesPerAbility.push({
-        name: abilityDisplayName,
-        time: Math.round(average(times[ability])),
-        runs: times[ability].length,
-      });
-    });
+        timesPerAbility.push({
+          name: abilityDisplayName,
+          time: Math.round(average(times[this.abilityList[i]])),
+          runs: times[this.abilityList[i]].length,
+        });
+      }
+    }
     return timesPerAbility;
   }
 
