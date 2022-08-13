@@ -11,6 +11,7 @@ import {
 } from "reactstrap";
 import Page from "./Page";
 import cover from "../assets/covers/home-cover.webp";
+import preview from "../assets/chart-preview.png";
 
 function Home(props) {
   let homeConfig = props.config.home;
@@ -112,11 +113,33 @@ function Home(props) {
     <React.Fragment>
       <Container
         fluid
-        className="pt-4 pb-5"
+        className="pt-4 pb-6"
         style={{ width: "60em", maxWidth: "100%" }}
       >
         <center className="home-summary pb-5">{homeConfig.intro}</center>
-        <center className="home-summary">{homeConfig.faq}</center>
+      </Container>
+      <Container
+        fluid
+        className="pb-4"
+        style={{ width: "60em", maxWidth: "100%" }}
+      >
+        <Row style={{ justifyContent: "center" }}>
+          <Button
+            color="dark"
+            size="lg"
+            className="demo-button"
+            onClick={() => handleClick(homeConfig.demoPath)}
+          >
+            Live Demo
+          </Button>
+        </Row>
+      </Container>
+      <Container
+        fluid
+        className="pt-4 pb-5"
+        style={{ width: "80em", maxWidth: "100%" }}
+      >
+        <img className="preview-image" src={preview} alt="FF6WCStats logo" />
       </Container>
       <Container
         fluid
@@ -130,6 +153,13 @@ function Home(props) {
       </Container>
       <Container fluid className="pt-4 pb-5" style={{ maxWidth: "80em" }}>
         <Row>{getColumnsFromConfig(homeConfig)}</Row>
+      </Container>
+      <Container
+        fluid
+        className="pt-4 pb-5"
+        style={{ width: "60em", maxWidth: "100%" }}
+      >
+        <center className="home-summary">{homeConfig.faq}</center>
       </Container>
     </React.Fragment>
   );

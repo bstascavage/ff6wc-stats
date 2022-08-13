@@ -40,6 +40,7 @@ const CONFIG = {
         icon: globalStatsIcon,
       },
     ],
+    demoPath: "/stats#user=158730578454118401",
   },
   submit: {
     runTime: {
