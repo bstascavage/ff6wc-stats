@@ -3,7 +3,6 @@ import { Button, Col, Row, Container } from "reactstrap";
 import { API, graphqlOperation } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
 import Page from "../Page";
-import cover from "../../assets/covers/stats-cover.jpg";
 import "./scss/main.scss";
 
 import { Data } from "./Data";
@@ -316,17 +315,7 @@ function Stats(props) {
       );
     }
 
-    page = (
-      <Page
-        cover={cover}
-        bannerTitle="Run Stats"
-        bannerSubtitle="Stats pertaining to run times"
-        backgroundPositionX="0%"
-        backgroundPositionY="5%"
-      >
-        {body}
-      </Page>
-    );
+    page = <Page>{body}</Page>;
   }
 
   return <React.Fragment>{page}</React.Fragment>;
