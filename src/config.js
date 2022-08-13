@@ -81,6 +81,14 @@ const CONFIG = {
       enumName: "Flagset",
       help: "What flagset did you run?",
     },
+    otherFlagset: {
+      type: "textInput",
+      title: "Flagset Name",
+      id: "otherFlagset",
+      required: false,
+      placeholder: "Custom Flagset",
+      help: 'If you selected "Other" for the flagset, enter the name of the flagset.',
+    },
     chars: {
       type: "checkbox",
       title: "Characters",
@@ -288,6 +296,7 @@ const CONFIG = {
           "ktStartTime",
           "kefkaTime",
           "flagset",
+          "otherFlagset",
           "seed",
           "race",
           "raceId",

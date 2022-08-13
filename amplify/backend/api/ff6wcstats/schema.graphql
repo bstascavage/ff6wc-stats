@@ -37,6 +37,7 @@ type Run @model @auth(rules: [{ allow: public }]) {
   kefkaTime: String
   kefkaTimeRaw: Int
   flagset: Flagset!
+  otherFlagset: String
   chars: [Character]!
   abilities: [Ability]!
   numOfChars: Int!
@@ -75,6 +76,7 @@ type Mutation {
     runTime: String!
     runDate: String!
     flagset: Flagset
+    otherFlagset: String
     ktStartTime: String
     kefkaTime: String
     userId: String!

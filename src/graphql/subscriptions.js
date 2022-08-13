@@ -23,6 +23,7 @@ export const onCreateUser = /* GraphQL */ `
           kefkaTime
           kefkaTimeRaw
           flagset
+          otherFlagset
           chars
           abilities
           numOfChars
@@ -78,6 +79,7 @@ export const onUpdateUser = /* GraphQL */ `
           kefkaTime
           kefkaTimeRaw
           flagset
+          otherFlagset
           chars
           abilities
           numOfChars
@@ -133,6 +135,7 @@ export const onDeleteUser = /* GraphQL */ `
           kefkaTime
           kefkaTimeRaw
           flagset
+          otherFlagset
           chars
           abilities
           numOfChars
@@ -194,6 +197,7 @@ export const onCreateRun = /* GraphQL */ `
       kefkaTime
       kefkaTimeRaw
       flagset
+      otherFlagset
       chars
       abilities
       numOfChars
@@ -249,6 +253,7 @@ export const onUpdateRun = /* GraphQL */ `
       kefkaTime
       kefkaTimeRaw
       flagset
+      otherFlagset
       chars
       abilities
       numOfChars
@@ -304,6 +309,7 @@ export const onDeleteRun = /* GraphQL */ `
       kefkaTime
       kefkaTimeRaw
       flagset
+      otherFlagset
       chars
       abilities
       numOfChars

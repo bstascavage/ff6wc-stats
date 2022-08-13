@@ -6,6 +6,7 @@ export const submitRun = /* GraphQL */ `
     $runTime: String!
     $runDate: String!
     $flagset: Flagset
+    $otherFlagset: String
     $ktStartTime: String
     $kefkaTime: String
     $userId: String!
@@ -36,6 +37,7 @@ export const submitRun = /* GraphQL */ `
       runTime: $runTime
       runDate: $runDate
       flagset: $flagset
+      otherFlagset: $otherFlagset
       ktStartTime: $ktStartTime
       kefkaTime: $kefkaTime
       userId: $userId
@@ -89,6 +91,7 @@ export const createUser = /* GraphQL */ `
           kefkaTime
           kefkaTimeRaw
           flagset
+          otherFlagset
           chars
           abilities
           numOfChars
@@ -147,6 +150,7 @@ export const updateUser = /* GraphQL */ `
           kefkaTime
           kefkaTimeRaw
           flagset
+          otherFlagset
           chars
           abilities
           numOfChars
@@ -205,6 +209,7 @@ export const deleteUser = /* GraphQL */ `
           kefkaTime
           kefkaTimeRaw
           flagset
+          otherFlagset
           chars
           abilities
           numOfChars
@@ -269,6 +274,7 @@ export const createRun = /* GraphQL */ `
       kefkaTime
       kefkaTimeRaw
       flagset
+      otherFlagset
       chars
       abilities
       numOfChars
@@ -327,6 +333,7 @@ export const updateRun = /* GraphQL */ `
       kefkaTime
       kefkaTimeRaw
       flagset
+      otherFlagset
       chars
       abilities
       numOfChars
@@ -385,6 +392,7 @@ export const deleteRun = /* GraphQL */ `
       kefkaTime
       kefkaTimeRaw
       flagset
+      otherFlagset
       chars
       abilities
       numOfChars

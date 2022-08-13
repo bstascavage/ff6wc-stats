@@ -377,6 +377,27 @@ async function validate_mood(runData) {
   return compareToBackendEnum("Mood", [runData.mood]);
 }
 
+function validate_otherFlagset(runData) {
+  if (runData.otherFlagset.length !== 0 && runData.flagset !== "Other") {
+    return {
+      result: false,
+      reason: 'Cannot set name unless "Other" is selected for "Flagset".',
+    };
+  } else if (runData.otherFlagset.length === 0 && runData.flagset === "Other") {
+    return {
+      result: false,
+      reason: 'Must provide a flagset name is "Other" is selected.',
+    };
+  } else if (typeof runData.otherFlagset !== "string") {
+    return {
+      result: false,
+      reason: "Flagset name is not a valid string.",
+    };
+  } else {
+    return { result: true };
+  }
+}
+
 function validate_numOfChars(runData) {
   let numValidation = checkNumberRange(runData.numOfChars, 1, 14);
   if (numValidation.result) {

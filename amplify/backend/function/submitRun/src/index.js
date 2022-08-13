@@ -72,6 +72,7 @@ async function createRun(run) {
       kefkaTime: run.kefkaTime,
       kefkaTimeRaw: new Date("1970-01-01 " + run.kefkaTime).getTime(),
       flagset: run.flagset,
+      otherFlagset: run.otherFlagset,
       chars: run.chars,
       abilities: run.abilities,
       numOfChars: parseInt(run.numOfChars),

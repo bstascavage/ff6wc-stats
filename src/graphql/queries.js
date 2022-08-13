@@ -27,6 +27,7 @@ export const runsForUser = /* GraphQL */ `
         kefkaTime
         kefkaTimeRaw
         flagset
+        otherFlagset
         chars
         abilities
         numOfChars
@@ -78,6 +79,7 @@ export const getUser = /* GraphQL */ `
           kefkaTime
           kefkaTimeRaw
           flagset
+          otherFlagset
           chars
           abilities
           numOfChars
@@ -172,6 +174,7 @@ export const getRun = /* GraphQL */ `
       kefkaTime
       kefkaTimeRaw
       flagset
+      otherFlagset
       chars
       abilities
       numOfChars
@@ -229,6 +232,7 @@ export const listRuns = /* GraphQL */ `
         kefkaTime
         kefkaTimeRaw
         flagset
+        otherFlagset
         chars
         abilities
         numOfChars
@@ -298,6 +302,7 @@ export const runsByTime = /* GraphQL */ `
         kefkaTime
         kefkaTimeRaw
         flagset
+        otherFlagset
         chars
         abilities
         numOfChars
@@ -367,6 +372,7 @@ export const runsByAttempt = /* GraphQL */ `
         kefkaTime
         kefkaTimeRaw
         flagset
+        otherFlagset
         chars
         abilities
         numOfChars
