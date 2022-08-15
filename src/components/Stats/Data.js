@@ -27,6 +27,23 @@ export class Data {
     return this.runData.length;
   }
 
+  skipData(skip = true) {
+    return this.runData.filter((data) => data.skip === skip);
+  }
+
+  skipAttempt() {
+    return this.skipData().length;
+  }
+
+  skipPercent() {
+    return `${Math.floor((this.skipAttempt() / this.attempt()) * 100)}%`;
+  }
+
+  averageSkip(skip = true) {
+    const data = this.skipData(skip);
+    return this.averageTime(data.length, data);
+  }
+
   bestTime() {
     return this.bestRun().runTime;
   }
@@ -43,8 +60,27 @@ export class Data {
     return this.sortByDate()[this.runData.length - 1];
   }
 
+  deltaBestTime() {
+    return this.convertDeltaTime(
+      this.averageTimeRaw() - this.bestRun().runTimeRaw
+    );
+  }
+
+  deltaLastTime() {
+    return this.convertDeltaTime(
+      this.averageTimeRaw() - this.lastRun().runTimeRaw
+    );
+  }
+
+  deltaSkipTime(skip = true) {
+    const data = this.skipData(skip);
+    return this.convertDeltaTime(
+      this.averageTimeRaw() - this.averageTimeRaw(data.length, data)
+    );
+  }
+
   standardDeviation() {
-    const mean = this.averageTimeRaw(this.runData.length);
+    const mean = this.averageTimeRaw();
     let runs = this.sortByDate().map((a) => a.runTimeRaw);
 
     runs = runs.map((k) => {
@@ -73,12 +109,16 @@ export class Data {
     return times;
   }
 
-  averageTimeRaw(numOfRuns, offset = 0) {
+  averageTimeRaw(
+    numOfRuns = this.runData.length,
+    data = this.runData,
+    offset = 0
+  ) {
     let runs;
     if (numOfRuns > 0) {
       runs = this.sortByDate().slice(
-        this.runData.length - numOfRuns,
-        this.runData.length - offset
+        data.length - numOfRuns,
+        data.length - offset
       );
     } else {
       runs = this.sortByDate();
@@ -88,16 +128,22 @@ export class Data {
     return average(runs);
   }
 
-  averageTime(numOfRuns = this.runData.length) {
+  averageTime(numOfRuns = this.runData.length, data = this.runData) {
     return this.convertRawToTime(
-      Math.floor(Math.round(this.averageTimeRaw(numOfRuns)) / 1000) * 1000
+      Math.floor(Math.round(this.averageTimeRaw(numOfRuns, data)) / 1000) * 1000
     ); // Convert to hh:mm:ss, while rounding to the nearest second
   }
 
-  deltaRunTime(numOfRuns = this.runData.length) {
+  deltaRunTime(numOfRuns = this.runData.length, data = this.runData) {
     let delta =
-      this.averageTimeRaw(numOfRuns, 1) - this.averageTimeRaw(numOfRuns);
+      this.averageTimeRaw(numOfRuns, data, 1) -
+      this.averageTimeRaw(numOfRuns, data);
 
+    return this.convertDeltaTime(delta);
+  }
+
+  convertDeltaTime(delta) {
+    // Converts a positive or negative millisecond value to hh:mm:ss
     if (isNaN(delta)) {
       delta = 0;
     }

@@ -18,6 +18,11 @@
   font-size: 14px;
 }
 
+.col-padding {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 .shadow {
   display: flex;
   /* or inline-flex */
@@ -27,6 +32,11 @@
   border-radius: 2%;
   overflow: hidden;
   position: relative;
+}
+
+.stats-row {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .charts {

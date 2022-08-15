@@ -9,11 +9,11 @@ function StatsCard(props) {
   let deltaComponent = <span className="text-success mr-2"></span>;
   if (props.delta) {
     let statusColor = "text-success";
-    let arrow = faArrowDown;
+    let arrow = faArrowUp;
 
     if (props.delta.negative) {
       statusColor = "text-danger";
-      arrow = faArrowUp;
+      arrow = faArrowDown;
     }
     deltaComponent = (
       <React.Fragment>
@@ -32,12 +32,13 @@ function StatsCard(props) {
       </React.Fragment>
     );
   }
+  let height = props.height ? props.height : "136px";
 
   return (
     <React.Fragment>
       <Card
-        className="card-stats mb-4 mb-xl-0"
-        style={{ height: props.height, width: "100%" }}
+        className="card-stats hover mb-4 mb-xl-0"
+        style={{ height: height, width: "100%" }}
         id={props.id}
       >
         <CardBody>

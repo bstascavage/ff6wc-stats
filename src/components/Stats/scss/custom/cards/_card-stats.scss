@@ -7,6 +7,11 @@
     padding: 1rem 1.5rem;
   }
 
+  .header {
+    font-size: 20px;
+    justify-content: center;
+  }
+
   .card-status-bullet {
     position: absolute;
     top: 0;
@@ -14,8 +19,14 @@
     transform: translate(50%, -50%);
   }
 
-  &:hover {
-    transform: scale(1.07);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  .hover {
+    &:hover {
+      transform: scale(1.07);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
   }
+}
+
+.card-section {
+  background-color: #fbfbfb !important;
 }

@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect, useState } from "react";
-import { Button, Col, Row, Container } from "reactstrap";
+import { Button, Card, CardHeader, Col, Row, Container } from "reactstrap";
 import { API, graphqlOperation } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
 import Page from "../Page";
@@ -7,7 +7,6 @@ import "./scss/main.scss";
 
 import { Data } from "./Data";
 import FilterWrapper from "./FilterWrapper";
-import StatsWrapper from "./StatsWrapper";
 import StatsCard from "./StatsCard";
 import FilterDropdown from "./FilterDropdown";
 import StatsLineChart from "./StatsLineChart";
@@ -27,6 +26,10 @@ import {
   faFlagCheckered,
   faBook,
   faGauge,
+  faSignal,
+  faPercent,
+  faPlaneDeparture,
+  faPlaneArrival,
 } from "@fortawesome/free-solid-svg-icons";
 
 const defaultFlagset = {
@@ -174,202 +177,273 @@ function Stats(props) {
                 setStatsState={setStatsState}
               />
             </FilterWrapper>
-            <StatsWrapper>
-              <Col lg="6" xl="3">
-                <StatsCard
-                  key="totalRuns"
-                  title="Total Runs"
-                  stat={data.attempt()}
-                  icon={faBars}
-                  iconColor="bg-primary"
-                  height="80%"
-                />
-              </Col>
-              <Col lg="6" xl="3">
-                <StatsCard
-                  key="bestTime"
-                  title="Best Time"
-                  stat={data.bestTime()}
-                  icon={faMedal}
-                  iconColor="bg-success"
-                  height="80%"
-                />
-              </Col>
-              <Col lg="6" xl="3">
-                <StatsCard
-                  key="lastTime"
-                  title="Last Time"
-                  stat={data.lastTime()}
-                  icon={faStopwatch}
-                  iconColor="bg-secondary"
-                  height="80%"
-                />
-              </Col>
-              <Col lg="6" xl="3">
-                <StatsCard
-                  key="stdDeviation"
-                  title="Std Deviation"
-                  stat={data.standardDeviation()}
-                  icon={faCalculator}
-                  iconColor="bg-info"
-                  height="80%"
-                />
-              </Col>
-            </StatsWrapper>
+            <Card
+              className="card-stats card-section mt-4 mb-4 mb-xl-0"
+              style={{ height: props.height, width: "100%" }}
+            >
+              <CardHeader
+                tag="h5"
+                className="header has-text-align-center has-text-color"
+              >
+                Time Overview
+              </CardHeader>
+              <Row className="pt-4 pb-4 stats-row">
+                <Col lg="6" xl="3" className="col-padding">
+                  <StatsCard
+                    key="totalRuns"
+                    title="Total Runs"
+                    stat={data.attempt()}
+                    icon={faBars}
+                    iconColor="bg-primary"
+                    fontSize="3.5rem"
+                  />
+                </Col>
+                <Col lg="6" xl="3" className="col-padding">
+                  <StatsCard
+                    key="bestTime"
+                    title="Best Time"
+                    stat={data.bestTime()}
+                    icon={faMedal}
+                    iconColor="bg-success"
+                    delta={data.deltaBestTime()}
+                    subText="compared to mean"
+                  />
+                </Col>
+                <Col lg="6" xl="3" className="col-padding">
+                  <StatsCard
+                    key="lastTime"
+                    title="Last Time"
+                    stat={data.lastTime()}
+                    icon={faStopwatch}
+                    iconColor="bg-secondary"
+                    delta={data.deltaLastTime()}
+                    subText="compared to mean"
+                  />
+                </Col>
+                <Col lg="6" xl="3" className="col-padding">
+                  <StatsCard
+                    key="stdDeviation"
+                    title="Std Deviation"
+                    stat={data.standardDeviation()}
+                    icon={faCalculator}
+                    iconColor="bg-info"
+                  />
+                </Col>
+              </Row>
 
-            <Row>
-              <Col
-                className="mb-5 mb-xl-0"
-                lg="6"
-                xl="8"
-                style={{ height: "400px" }}
+              <Row className="stats-row">
+                <Col
+                  className="mb-5 mb-xl-0 col-padding"
+                  lg="6"
+                  xl="8"
+                  style={{ height: "400px" }}
+                >
+                  <StatsLineChart
+                    heading="Overview"
+                    title="Run Times"
+                    data={data.runTimes()}
+                    height={400}
+                  />
+                </Col>
+                <Col
+                  className="mb-5 mb-xl-0 col-padding"
+                  lg="6"
+                  xl="4"
+                  style={{
+                    display: "flex",
+                    height: "400px",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <StatsCard
+                    key="meanTime"
+                    title="Average Time"
+                    stat={data.averageTime()}
+                    icon={faStar}
+                    iconColor="bg-success"
+                    height="47%"
+                    fontSize="3rem"
+                    delta={data.deltaRunTime()}
+                    subText="since last run"
+                  />
+                  <StatsCard
+                    key="meanLastFive"
+                    title="Average - Last 5"
+                    stat={data.averageTime(5)}
+                    icon={faStarHalfStroke}
+                    iconColor="bg-primary"
+                    height="47%"
+                    fontSize="3em"
+                    delta={data.deltaRunTime(5)}
+                    subText="since last run"
+                  />
+                </Col>
+              </Row>
+              <Row className="pt-4 pb-4 stats-row">
+                <Col lg="6" xl="3" className="col-padding">
+                  <StatsCard
+                    key="totalSkips"
+                    title="Total Skips"
+                    stat={data.skipAttempt()}
+                    icon={faSignal}
+                    iconColor="bg-primary"
+                    fontSize="4rem"
+                    height="160px"
+                  />
+                </Col>
+                <Col lg="6" xl="3" className="col-padding">
+                  <StatsCard
+                    key="skipPercent"
+                    title="Skip Percentage"
+                    stat={data.skipPercent()}
+                    icon={faPercent}
+                    iconColor="bg-secondary"
+                    fontSize="3rem"
+                    height="160px"
+                  />
+                </Col>
+                <Col lg="6" xl="3" className="col-padding">
+                  <StatsCard
+                    key="averageSkip"
+                    title="Average Time - Skip"
+                    stat={data.averageSkip()}
+                    icon={faPlaneDeparture}
+                    iconColor="bg-success"
+                    delta={data.deltaSkipTime()}
+                    subText="compared to mean"
+                    height="160px"
+                  />
+                </Col>
+                <Col lg="6" xl="3" className="col-padding">
+                  <StatsCard
+                    key="averageNoSkip"
+                    title="Average Time - No Skip"
+                    stat={data.averageSkip(false)}
+                    icon={faPlaneArrival}
+                    iconColor="bg-danger"
+                    delta={data.deltaSkipTime(false)}
+                    subText="compared to mean"
+                    height="160px"
+                  />
+                </Col>
+              </Row>
+            </Card>
+            <Card
+              className="card-stats card-section mt-4 mb-4 mb-xl-0"
+              style={{ height: props.height, width: "100%" }}
+            >
+              <CardHeader
+                tag="h5"
+                className="header has-text-align-center has-text-color"
               >
-                <StatsLineChart
-                  heading="Overview"
-                  title="Run Times"
-                  data={data.runTimes()}
-                  height={400}
-                />
-              </Col>
-              <Col
-                className="mb-5 mb-xl-0"
-                lg="6"
-                xl="4"
-                style={{
-                  display: "flex",
-                  height: "400px",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                }}
-              >
-                <StatsCard
-                  key="meanTime"
-                  title="Average Time"
-                  stat={data.averageTime()}
-                  icon={faStar}
-                  iconColor="bg-success"
-                  height="45%"
-                  fontSize="2.5em"
-                  delta={data.deltaRunTime()}
-                  subText="since last run"
-                />
-                <StatsCard
-                  key="meanLastFive"
-                  title="Average - Last 5"
-                  stat={data.averageTime(5)}
-                  icon={faStarHalfStroke}
-                  iconColor="bg-primary"
-                  height="45%"
-                  fontSize="2.5em"
-                  delta={data.deltaRunTime(5)}
-                  subText="since last run"
-                />
-              </Col>
-            </Row>
-            <Row className="pt-4">
-              <Col
-                className="mb-5 mb-xl-0"
-                lg="6"
-                xl="4"
-                style={{
-                  display: "flex",
-                  height: "400px",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                }}
-              >
-                <StatsCard
-                  key="mostUsedChar"
-                  title="Most Used Starting Character"
-                  stat={data.mostUsedCharacter().name}
-                  icon={faPerson}
-                  iconColor="bg-secondary"
-                  height="45%"
-                  fontSize="2.5em"
-                  subText="Total Runs:"
-                  subStat={data.mostUsedCharacter().runs}
-                />
-                <StatsCard
-                  key="fastestChar"
-                  title="Fastest Starting Character"
-                  stat={data.fastestCharacter().name}
-                  icon={faFlagCheckered}
-                  iconColor="bg-success"
-                  height="45%"
-                  fontSize="2.5em"
-                  subText="Average Time:"
-                  subStat={data.fastestCharacter().time}
-                />
-              </Col>
-              <Col
-                className="mb-5 mb-xl-0"
-                lg="6"
-                xl="8"
-                style={{ height: "400px" }}
-              >
-                <StatsBarChart
-                  heading="Starting Stats"
-                  title="Characters"
-                  data={data.startingCharacters()}
-                  dark={true}
-                  height={400}
-                  dy={40}
-                  xHeight={75}
-                />
-              </Col>
-            </Row>
-            <Row className="pt-4">
-              <Col
-                className="mb-5 mb-xl-0"
-                lg="6"
-                xl="8"
-                style={{ height: "400px" }}
-              >
-                <StatsBarChart
-                  heading="Starting Stats"
-                  title="Abilities"
-                  data={data.startingAbilities()}
-                  dark={true}
-                  height={400}
-                  dy={40}
-                  xHeight={75}
-                />
-              </Col>
-              <Col
-                className="mb-5 mb-xl-0"
-                lg="6"
-                xl="4"
-                style={{
-                  display: "flex",
-                  height: "400px",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                }}
-              >
-                <StatsCard
-                  key="mostUsedAbility"
-                  title="Most Used Starting Ability"
-                  stat={data.mostUsedAbility().name}
-                  icon={faBook}
-                  iconColor="bg-secondary"
-                  height="45%"
-                  fontSize="2.5em"
-                  subText="Total Runs:"
-                  subStat={data.mostUsedAbility().runs}
-                />
-                <StatsCard
-                  key="fastestAbility"
-                  title="Fastest Starting Ability"
-                  stat={data.fastestAbility().name}
-                  icon={faGauge}
-                  iconColor="bg-success"
-                  height="45%"
-                  fontSize="2.5em"
-                  subText="Average Time:"
-                  subStat={data.fastestAbility().time}
-                />
-              </Col>
-            </Row>
+                Party Breakdown
+              </CardHeader>
+              <Row className="pt-4 stats-row">
+                <Col
+                  className="mb-5 mb-xl-0 col-padding"
+                  lg="6"
+                  xl="4"
+                  style={{
+                    display: "flex",
+                    height: "400px",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <StatsCard
+                    key="mostUsedChar"
+                    title="Most Used Starting Character"
+                    stat={data.mostUsedCharacter().name}
+                    icon={faPerson}
+                    iconColor="bg-secondary"
+                    height="47%"
+                    fontSize="2.5em"
+                    subText="Total Runs:"
+                    subStat={data.mostUsedCharacter().runs}
+                  />
+                  <StatsCard
+                    key="fastestChar"
+                    title="Fastest Starting Character"
+                    stat={data.fastestCharacter().name}
+                    icon={faFlagCheckered}
+                    iconColor="bg-success"
+                    height="47%"
+                    fontSize="2.5em"
+                    subText="Average Time:"
+                    subStat={data.fastestCharacter().time}
+                  />
+                </Col>
+                <Col
+                  className="mb-5 mb-xl-0 col-padding"
+                  lg="6"
+                  xl="8"
+                  style={{ height: "400px" }}
+                >
+                  <StatsBarChart
+                    heading="Starting Stats"
+                    title="Characters"
+                    data={data.startingCharacters()}
+                    dark={true}
+                    height={400}
+                    dy={40}
+                    xHeight={75}
+                  />
+                </Col>
+              </Row>
+              <Row className="pt-4 pb-3 stats-row">
+                <Col
+                  className="mb-5 mb-xl-0 col-padding"
+                  lg="6"
+                  xl="8"
+                  style={{ height: "400px" }}
+                >
+                  <StatsBarChart
+                    heading="Starting Stats"
+                    title="Abilities"
+                    data={data.startingAbilities()}
+                    dark={true}
+                    height={400}
+                    dy={40}
+                    xHeight={75}
+                  />
+                </Col>
+                <Col
+                  className="mb-5 mb-xl-0 col-padding"
+                  lg="6"
+                  xl="4"
+                  style={{
+                    display: "flex",
+                    height: "400px",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <StatsCard
+                    key="mostUsedAbility"
+                    title="Most Used Starting Ability"
+                    stat={data.mostUsedAbility().name}
+                    icon={faBook}
+                    iconColor="bg-secondary"
+                    height="47%"
+                    fontSize="2.5em"
+                    subText="Total Runs:"
+                    subStat={data.mostUsedAbility().runs}
+                  />
+                  <StatsCard
+                    key="fastestAbility"
+                    title="Fastest Starting Ability"
+                    stat={data.fastestAbility().name}
+                    icon={faGauge}
+                    iconColor="bg-success"
+                    height="47%"
+                    fontSize="2.5em"
+                    subText="Average Time:"
+                    subStat={data.fastestAbility().time}
+                  />
+                </Col>
+              </Row>
+            </Card>
           </Container>
         </React.Fragment>
       );
