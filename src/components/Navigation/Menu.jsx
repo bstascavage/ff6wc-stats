@@ -9,7 +9,7 @@ function Menu(props) {
   if (Object.keys(props.discordUserdata.userdata).length !== 0) {
     statsLink = (
       <li className="nav-link">
-        <NavLink className="nav-link" to="/stats">
+        <NavLink reloadDocument className="nav-link" to="/stats">
           My Stats
         </NavLink>
       </li>
