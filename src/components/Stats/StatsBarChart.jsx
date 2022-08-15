@@ -10,6 +10,16 @@ import {
 } from "recharts";
 
 function StatsBarChart(props) {
+  let text = "text-dark";
+  let stroke = "#444444";
+  let background = "bg-gradient-light";
+
+  if (props.dark) {
+    text = "text-light";
+    stroke = "white";
+    background = "bg-gradient-default";
+  }
+
   const getFriendlyTime = (tickFormat) => {
     // 1- Convert to seconds:
     let seconds = Math.round(tickFormat / 1000);
@@ -53,17 +63,17 @@ function StatsBarChart(props) {
   };
 
   return (
-    <Card className="bg-gradient-default shadow" style={{ height: "100%" }}>
+    <Card className={`${background} shadow`} style={{ height: "100%" }}>
       <CardHeader
-        className="bg-transparent"
+        className={background}
         style={{ border: "none", height: "24%" }}
       >
         <Row className="align-items-center">
           <Col>
-            <h6 className="text-uppercase text-light ls-1 mb-1">
+            <h6 className={`text-uppercase ${text} ls-1 mb-1`}>
               {props.heading}
             </h6>
-            <h2 className="text-light mb-0">{props.title}</h2>
+            <h2 className={`${text} mb-0`}>{props.title}</h2>
           </Col>
         </Row>
       </CardHeader>
@@ -83,7 +93,7 @@ function StatsBarChart(props) {
             >
               <XAxis
                 dataKey="name"
-                stroke="white"
+                stroke={stroke}
                 tick={{ angle: 90 }}
                 dy={props.dy}
                 height={props.xHeight}
@@ -92,7 +102,7 @@ function StatsBarChart(props) {
               <YAxis
                 tickFormatter={(tick) => getFriendlyTime(tick)}
                 type="number"
-                stroke="white"
+                stroke={stroke}
                 domain={[
                   (dataMin) => Math.floor(dataMin / 600000) * 600000 - 600000,
                   (dataMax) => Math.floor(dataMax / 600000) * 600000 + 600000,
@@ -102,7 +112,7 @@ function StatsBarChart(props) {
               <Bar
                 name="Time"
                 dataKey="time"
-                fill="#8884d8"
+                fill="#504bc4"
                 animationDuration={2000}
               />
             </BarChart>
