@@ -16,10 +16,20 @@ function StatsCard(props) {
       arrow = faArrowUp;
     }
     deltaComponent = (
-      <span className={`${statusColor} mr-2`}>
-        <FontAwesomeIcon icon={arrow} size="lg" color="bg-white" />{" "}
-        {props.delta.time}
-      </span>
+      <React.Fragment>
+        <span className={`${statusColor} mr-2`}>
+          <FontAwesomeIcon icon={arrow} size="lg" color="bg-white" />{" "}
+          {props.delta.time}
+        </span>
+        <span className="text-nowrap">{props.subText}</span>
+      </React.Fragment>
+    );
+  } else if (props.subStat) {
+    deltaComponent = (
+      <React.Fragment>
+        <span className="text-nowrap">{props.subText}</span>
+        <span className={`mr-2`}> {props.subStat}</span>
+      </React.Fragment>
     );
   }
 
@@ -56,10 +66,7 @@ function StatsCard(props) {
               </div>
             </Col>
           </Row>
-          <p className="mt-3 mb-0 text-muted text-sm">
-            {deltaComponent}{" "}
-            <span className="text-nowrap">{props.deltaText}</span>
-          </p>
+          <p className="mt-3 mb-0 text-muted text-sm">{deltaComponent}</p>
         </CardBody>
       </Card>
     </React.Fragment>

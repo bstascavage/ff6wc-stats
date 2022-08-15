@@ -23,6 +23,10 @@ import {
   faCalculator,
   faStar,
   faStarHalfStroke,
+  faPerson,
+  faFlagCheckered,
+  faBook,
+  faGauge,
 } from "@fortawesome/free-solid-svg-icons";
 
 const defaultFlagset = {
@@ -247,7 +251,7 @@ function Stats(props) {
                   height="45%"
                   fontSize="2.5em"
                   delta={data.deltaRunTime()}
-                  deltaText="since last run"
+                  subText="since last run"
                 />
                 <StatsCard
                   key="meanLastFive"
@@ -258,7 +262,7 @@ function Stats(props) {
                   height="45%"
                   fontSize="2.5em"
                   delta={data.deltaRunTime(5)}
-                  deltaText="since last run"
+                  subText="since last run"
                 />
               </Col>
             </Row>
@@ -266,13 +270,66 @@ function Stats(props) {
               <Col
                 className="mb-5 mb-xl-0"
                 lg="6"
-                xl="6"
+                xl="4"
+                style={{
+                  display: "flex",
+                  height: "400px",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
+                <StatsCard
+                  key="mostUsedChar"
+                  title="Most Used Starting Character"
+                  stat={data.mostUsedCharacter().name}
+                  icon={faPerson}
+                  iconColor="bg-secondary"
+                  height="45%"
+                  fontSize="2.5em"
+                  subText="Total Runs:"
+                  subStat={data.mostUsedCharacter().runs}
+                />
+                <StatsCard
+                  key="fastestChar"
+                  title="Fastest Starting Character"
+                  stat={data.fastestCharacter().name}
+                  icon={faFlagCheckered}
+                  iconColor="bg-success"
+                  height="45%"
+                  fontSize="2.5em"
+                  subText="Average Time:"
+                  subStat={data.fastestCharacter().time}
+                />
+              </Col>
+              <Col
+                className="mb-5 mb-xl-0"
+                lg="6"
+                xl="8"
                 style={{ height: "400px" }}
               >
                 <StatsBarChart
                   heading="Starting Stats"
                   title="Characters"
                   data={data.startingCharacters()}
+                  dark={true}
+                  height={400}
+                  dy={40}
+                  xHeight={75}
+                />
+              </Col>
+            </Row>
+            <Row className="pt-4">
+              <Col
+                className="mb-5 mb-xl-0"
+                lg="6"
+                xl="8"
+                style={{ height: "400px" }}
+              >
+                <StatsBarChart
+                  heading="Starting Stats"
+                  title="Abilities"
+                  data={data.startingAbilities()}
+                  dark={true}
                   height={400}
                   dy={40}
                   xHeight={75}
@@ -281,16 +338,35 @@ function Stats(props) {
               <Col
                 className="mb-5 mb-xl-0"
                 lg="6"
-                xl="6"
-                style={{ height: "400px" }}
+                xl="4"
+                style={{
+                  display: "flex",
+                  height: "400px",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
               >
-                <StatsBarChart
-                  heading="Starting Stats"
-                  title="Abilities"
-                  data={data.startingAbilities()}
-                  height={400}
-                  dy={40}
-                  xHeight={75}
+                <StatsCard
+                  key="mostUsedAbility"
+                  title="Most Used Starting Ability"
+                  stat={data.mostUsedAbility().name}
+                  icon={faBook}
+                  iconColor="bg-secondary"
+                  height="45%"
+                  fontSize="2.5em"
+                  subText="Total Runs:"
+                  subStat={data.mostUsedAbility().runs}
+                />
+                <StatsCard
+                  key="fastestAbility"
+                  title="Fastest Starting Ability"
+                  stat={data.fastestAbility().name}
+                  icon={faGauge}
+                  iconColor="bg-success"
+                  height="45%"
+                  fontSize="2.5em"
+                  subText="Average Time:"
+                  subStat={data.fastestAbility().time}
                 />
               </Col>
             </Row>

@@ -13,11 +13,13 @@ function StatsBarChart(props) {
   let text = "text-dark";
   let stroke = "#444444";
   let background = "bg-gradient-light";
+  let fill = "#504bc4";
 
   if (props.dark) {
     text = "text-light";
     stroke = "white";
     background = "bg-gradient-default";
+    fill = "#8884d8";
   }
 
   const getFriendlyTime = (tickFormat) => {
@@ -112,7 +114,7 @@ function StatsBarChart(props) {
               <Bar
                 name="Time"
                 dataKey="time"
-                fill="#504bc4"
+                fill={fill}
                 animationDuration={2000}
               />
             </BarChart>

@@ -142,6 +142,28 @@ export class Data {
     return timesPerChar;
   }
 
+  mostUsedCharacter() {
+    return this.startingCharacters().sort((a, b) => b.runs - a.runs)[0];
+  }
+
+  fastestCharacter() {
+    let char = this.startingCharacters().sort((a, b) => a.time - b.time)[0];
+    char.time = this.convertRawToTime(char.time);
+
+    return char;
+  }
+
+  mostUsedAbility() {
+    return this.startingAbilities().sort((a, b) => b.runs - a.runs)[0];
+  }
+
+  fastestAbility() {
+    let ability = this.startingAbilities().sort((a, b) => a.time - b.time)[0];
+    ability.time = this.convertRawToTime(ability.time);
+
+    return ability;
+  }
+
   startingAbilities() {
     let times = {};
     for (let i = 0; i < this.runData.length; i++) {
@@ -263,7 +285,7 @@ export class Data {
     // 3- Extract minutes:
     const minutes = parseInt(seconds / 60); // 60 seconds in 1 minute
     // 4- Keep only seconds not extracted to minutes:
-    seconds = seconds % 60;
+    seconds = Math.round(seconds % 60);
     return (
       hours +
       ":" +
