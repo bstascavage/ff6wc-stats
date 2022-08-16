@@ -40,8 +40,10 @@ export class Data {
   }
 
   averageSkip(skip = true) {
-    const data = this.skipData(skip);
-    return this.averageTime(data.length, data);
+    return this.convertRawToTime(
+      Math.floor(Math.round(this.averageTimeRaw(this.skipData(skip))) / 1000) *
+        1000
+    );
   }
 
   bestTime() {
@@ -75,7 +77,7 @@ export class Data {
   deltaSkipTime(skip = true) {
     const data = this.skipData(skip);
     return this.convertDeltaTime(
-      this.averageTimeRaw() - this.averageTimeRaw(data.length, data)
+      this.averageTimeRaw() - this.averageTimeRaw(data)
     );
   }
 
@@ -109,35 +111,32 @@ export class Data {
     return times;
   }
 
-  averageTimeRaw(
-    numOfRuns = this.runData.length,
-    data = this.runData,
-    offset = 0
-  ) {
-    let runs;
-    if (numOfRuns > 0) {
-      runs = this.sortByDate().slice(
-        data.length - numOfRuns,
-        data.length - offset
-      );
-    } else {
-      runs = this.sortByDate();
-    }
+  averageTimeRaw(data = this.runData) {
     const average = (array) =>
       array.reduce((a, b) => a + b.runTimeRaw, 0) / array.length; // Average of millaseconds
-    return average(runs);
+    return average(data);
   }
 
-  averageTime(numOfRuns = this.runData.length, data = this.runData) {
+  averageTime(numOfRuns = 0) {
+    // Average time of the last `numOfRuns` runs.  If not set, average time of all runs
+    let runs =
+      numOfRuns > 0
+        ? this.sortByDate().slice(0 - numOfRuns)
+        : this.sortByDate();
+
     return this.convertRawToTime(
-      Math.floor(Math.round(this.averageTimeRaw(numOfRuns, data)) / 1000) * 1000
+      Math.floor(Math.round(this.averageTimeRaw(runs)) / 1000) * 1000
     ); // Convert to hh:mm:ss, while rounding to the nearest second
   }
 
-  deltaRunTime(numOfRuns = this.runData.length, data = this.runData) {
+  deltaRunTime(numOfRuns = 0) {
+    // Delta of the mean the last run did for the ladt `numOfRuns` runs
+    let runs = this.sortByDate();
     let delta =
-      this.averageTimeRaw(numOfRuns, data, 1) -
-      this.averageTimeRaw(numOfRuns, data);
+      numOfRuns === 0
+        ? this.averageTimeRaw(runs.slice(0, -1)) - this.averageTimeRaw(runs)
+        : this.averageTimeRaw(runs.slice(runs.length - numOfRuns - 1, -1)) -
+          this.averageTimeRaw(runs.slice(0 - numOfRuns));
 
     return this.convertDeltaTime(delta);
   }
