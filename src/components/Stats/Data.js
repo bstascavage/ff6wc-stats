@@ -40,10 +40,15 @@ export class Data {
   }
 
   averageSkip(skip = true) {
-    return this.convertRawToTime(
-      Math.floor(Math.round(this.averageTimeRaw(this.skipData(skip))) / 1000) *
-        1000
-    );
+    const skipTime = this.averageTimeRaw(this.skipData(skip));
+
+    if (isNaN(skipTime)) {
+      return "00:00:00";
+    } else {
+      return this.convertRawToTime(
+        Math.floor(Math.round(skipTime) / 1000) * 1000
+      );
+    }
   }
 
   bestTime() {
