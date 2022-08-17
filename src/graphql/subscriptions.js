@@ -170,8 +170,8 @@ export const onDeleteUser = /* GraphQL */ `
   }
 `;
 export const onCreateRun = /* GraphQL */ `
-  subscription OnCreateRun($filter: ModelSubscriptionRunFilterInput) {
-    onCreateRun(filter: $filter) {
+  subscription OnCreateRun {
+    onCreateRun {
       id
       user {
         id
@@ -226,8 +226,8 @@ export const onCreateRun = /* GraphQL */ `
   }
 `;
 export const onUpdateRun = /* GraphQL */ `
-  subscription OnUpdateRun($filter: ModelSubscriptionRunFilterInput) {
-    onUpdateRun(filter: $filter) {
+  subscription OnUpdateRun {
+    onUpdateRun {
       id
       user {
         id
@@ -282,8 +282,8 @@ export const onUpdateRun = /* GraphQL */ `
   }
 `;
 export const onDeleteRun = /* GraphQL */ `
-  subscription OnDeleteRun($filter: ModelSubscriptionRunFilterInput) {
-    onDeleteRun(filter: $filter) {
+  subscription OnDeleteRun {
+    onDeleteRun {
       id
       user {
         id

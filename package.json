@@ -17,6 +17,7 @@
     "node-sass": "npm:sass@^1.49.9",
     "plausible-tracker": "^0.3.8",
     "react": "^18.2.0",
+    "react-burger-menu": "^3.0.8",
     "react-datetime-picker": "^3.5.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",

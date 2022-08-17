@@ -124,6 +124,12 @@ pre code.hljs {
     max-height: 50%;
     margin-top: 5px;
   }
+
+  @media screen and (max-width: 768px) {
+    .overlay-image {
+      max-width: 80%;
+    }
+  }
 }
 
 .top-container {
@@ -402,7 +408,7 @@ pre code.hljs {
   }
 
   /* Mobile view */
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 768px) {
     .flex-container {
       flex-direction: column;
     }
@@ -604,9 +610,6 @@ pre code.hljs {
 
   .wrapper {
     @include outer-container(70em);
-  }
-
-  .footer-heading {
   }
 
   /*

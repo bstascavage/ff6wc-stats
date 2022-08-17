@@ -8,15 +8,24 @@ function Menu(props) {
 
   if (Object.keys(props.discordUserdata.userdata).length !== 0) {
     statsLink = (
-      <li className="nav-link">
-        <NavLink reloadDocument className="nav-link" to="/stats">
+      <li className="nav-link nav-link-li">
+        <NavLink
+          reloadDocument
+          className="nav-link"
+          to="/stats"
+          onClick={() => props.setUserdataState({ type: "close_menu" })}
+        >
           My Stats
         </NavLink>
       </li>
     );
     submitLink = (
-      <li className="nav-link">
-        <NavLink className="nav-link" to="/submit">
+      <li className="nav-link nav-link-li">
+        <NavLink
+          className="nav-link"
+          to="/submit"
+          onClick={() => props.setUserdataState({ type: "close_menu" })}
+        >
           Submit Run
         </NavLink>
       </li>
@@ -25,7 +34,7 @@ function Menu(props) {
   } else {
     if (!props.discordUserdata.discord_login_error) {
       loginLink = (
-        <li className="nav-link">
+        <li className="nav-link nav-link-li">
           <a
             className="nav-link"
             href={process.env.REACT_APP_DISCORD_OAUTH_LINK}
@@ -40,8 +49,12 @@ function Menu(props) {
   }
   return (
     <div className="nav-menu">
-      <li className="nav-link">
-        <NavLink className="nav-link" to="/about">
+      <li className="nav-link nav-link-li">
+        <NavLink
+          className="nav-link"
+          to="/about"
+          onClick={() => props.setUserdataState({ type: "close_menu" })}
+        >
           About
         </NavLink>
       </li>
@@ -54,7 +67,7 @@ function Menu(props) {
 
 function logout(props) {
   return (
-    <li className="nav-link">
+    <li className="nav-link nav-link-li">
       <Logout
         className="nav-link"
         discordUserdata={props.discordUserdata}

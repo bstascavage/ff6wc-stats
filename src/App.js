@@ -50,6 +50,18 @@ function userdataReducer(state, action) {
         discord_login_error: true,
         userdata: "",
       };
+    case "open_menu":
+      console.log("foo");
+      return {
+        ...state,
+        open_menu: true,
+      };
+    case "close_menu":
+      console.log("bar");
+      return {
+        ...state,
+        open_menu: false,
+      };
     default:
       return state;
   }
@@ -60,6 +72,7 @@ function App() {
     hide_page: true,
     discord_login_error: false,
     userdata: {},
+    open_menu: false,
   });
   const [validateBackendUserdata, setBackendUserdata] = useState([]);
   const [upsertBackendUserdata, setUpsertBackendUserdata] = useState(false);
