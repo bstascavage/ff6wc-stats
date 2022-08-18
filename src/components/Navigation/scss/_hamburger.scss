@@ -30,6 +30,10 @@
 
   .nav-link-li {
     list-style-type: none; /* Remove bullets */
+
+    a {
+      color: #f8f9fa;
+    }
   }
 
   .bm-burger-button {
@@ -61,6 +65,7 @@
 /* Color/shape of close button cross */
 .bm-cross {
   background: #bdc3c7;
+  height: 36px !important;
 }
 
 /*
@@ -69,16 +74,14 @@
   */
 .bm-menu-wrap {
   position: fixed;
-  height: 30%;
-  width: 100%;
-  top: 64px;
+  width: 80% !important;
+  top: 0px;
 }
 
 /* General sidebar styles */
 .bm-menu {
-  background: #f9f9f9;
-  height: 50% !important;
-  padding: 2.5em 1.5em 0;
+  background: #3b444b;
+  padding: 2.5em 1em 0;
   font-size: 1.15em;
 }
 
@@ -100,5 +103,5 @@
 
 /* Styling of overlay */
 .bm-overlay {
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0) !important;
 }

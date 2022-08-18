@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Logout from "../Logout";
-import "../scss/main.scss";
 
 function Menu(props) {
   let loginLink, statsLink, submitLink;
@@ -42,6 +41,15 @@ function Menu(props) {
   }
   return (
     <div className="nav-menu">
+      <li className="nav-link nav-link-li">
+        <NavLink
+          className="nav-link"
+          to="/"
+          onClick={() => props.setUserdataState({ type: "close_menu" })}
+        >
+          Home
+        </NavLink>
+      </li>
       <li className="nav-link nav-link-li">
         <NavLink
           className="nav-link"
