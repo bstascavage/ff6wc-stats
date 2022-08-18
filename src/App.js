@@ -6,15 +6,7 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-import {
-  Navigation,
-  Footer,
-  Home,
-  About,
-  Stats,
-  Submit,
-  Error,
-} from "./components";
+import { Navigation, Footer, Home, About, Stats, Submit } from "./components";
 import { createUser, updateUser } from "./graphql/mutations";
 
 import awsExports from "./aws-exports";
@@ -46,18 +38,16 @@ function userdataReducer(state, action) {
     case "error_login_discord":
       return {
         ...state,
-        hide_page: true,
+        hide_page: false,
         discord_login_error: true,
-        userdata: "",
+        userdata: {},
       };
     case "open_menu":
-      console.log("foo");
       return {
         ...state,
         open_menu: true,
       };
     case "close_menu":
-      console.log("bar");
       return {
         ...state,
         open_menu: false,
@@ -123,8 +113,11 @@ function App() {
         />
 
         <Routes>
-          <Route path="/error" element={<Error />} />
-          <Route path="*" element={<Navigate replace to="/error" />} />
+          <Route
+            path="/"
+            element={<Home discordUserdata={discordUserdata} config={CONFIG} />}
+          />
+          <Route path="*" element={<Navigate replace to="/" />} />
         </Routes>
         <Footer discordUserdata={discordUserdata} />
       </Router>
@@ -251,6 +244,9 @@ function getUserInfoFromDiscord(setUserdataState, accessToken) {
   })
     .then((result) => {
       if (!result.ok) {
+        if (result.status === 401) {
+          localStorage.clear();
+        }
         setUserdataState({
           type: "error_login_discord",
         });

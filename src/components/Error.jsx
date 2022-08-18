@@ -5,12 +5,11 @@ import Page from "./Page";
 function Error() {
   return (
     <React.Fragment>
-      <Page
-        cover={cover}
-        bannerTitle="Error"
-        bannerSubtitle="There was an issue.  If you think you are seeing this page in error, please contact an administrator."
-      >
-        <p>Error authenticating with Discord. Please log out and try again.</p>
+      <Page cover={cover}>
+        <p>
+          Error authenticating with Discord. Please refresh the page and login
+          again.
+        </p>
       </Page>
     </React.Fragment>
   );

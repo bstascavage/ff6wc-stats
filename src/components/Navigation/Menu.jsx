@@ -30,22 +30,15 @@ function Menu(props) {
         </NavLink>
       </li>
     );
-    loginLink = loginLink = logout(props);
+    loginLink = logout(props);
   } else {
-    if (!props.discordUserdata.discord_login_error) {
-      loginLink = (
-        <li className="nav-link nav-link-li">
-          <a
-            className="nav-link"
-            href={process.env.REACT_APP_DISCORD_OAUTH_LINK}
-          >
-            Login
-          </a>
-        </li>
-      );
-    } else {
-      loginLink = logout(props);
-    }
+    loginLink = (
+      <li className="nav-link nav-link-li">
+        <a className="nav-link" href={process.env.REACT_APP_DISCORD_OAUTH_LINK}>
+          Login
+        </a>
+      </li>
+    );
   }
   return (
     <div className="nav-menu">
