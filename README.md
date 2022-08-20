@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+# StatsCollide
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Introduction
 
-## Available Scripts
+Welcome to [Stats Collide](https://statscollide.com/), a tool for recording and tracking your [Final Fantasy VI: Worlds Collide](https://ff6wc.com/) runs. Here you can monitor your speedrunning progress, analyze patterns with your playstyle, and identify trends that can help improve your Worlds Collide skills. We know how much you love data, so why not use it to kill that crazy clown even faster than before and save the world in record time?
 
-In the project directory, you can run:
+## Architecture
 
-### `npm start`
+Stats Collide is a fully serverless, full-stack application built with the React framework. It utilizes the following technologies:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [React](https://reactjs.org/) - framework for the frontend application.
+- [AWS Amplify](https://aws.amazon.com/amplify/) - Hosting platform for frontend and backend, making the deployment and infrastructure much simplier.
+- [AWS Lambda](https://aws.amazon.com/lambda/) - Backend code for submitting runs and data validation.
+- [Dynamodb](https://aws.amazon.com/dynamodb/) - Backend database for user and run data.
+- [Graphql](https://aws.amazon.com/graphql/) - Query language API in front of the dynamodb database.
+- [Terraform](https://www.terraform.io/) - Deployment code for non-amplify resources (NOTE: currently outdated).
+- [Docker](https://www.docker.com/) - Local development containerization.
+- [Discord Development Application](https://discord.com/developers/docs/intro) - For user authentication.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Development
 
-### `npm test`
+### Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+In order to run the application locally, the following technologies needs to be pre-installed:
 
-### `npm run build`
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) - The development environment runs in [Anvil](https://github.com/saic-oss/anvil), a DevSecOps tools container. This container has all development tools installed and configured for this application, reducing onboarding time for new developers.
+- WINDOWS ONLY - [Linux on Windows](https://docs.microsoft.com/en-us/windows/wsl/install) - Needed to run the bash commands for setting up the container. Make sure you follow the configuration instructions for [getting Docker to work with WSL 2 distros](https://docs.docker.com/desktop/windows/wsl/).
+- An AWS account and your AWS credentials [configured as Enviornment variables](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html). Note that while you do not need to actually deploy to the cloud to develop locally, Amplify is kind of dumb and requires it to be set to start up a local database.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+> NOTE: Anvil is not opinionated on how you manage your AWS credentials but it is encouraged that you manage them in a safer way then the default `/.aws/credentials` file. One recommendation is [AWS Vault](https://github.com/99designs/aws-vault) but ultimately management is up to each developer.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Running a local instance
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Once the prerequisites are installed locally, follow these steps:
 
-### `npm run eject`
+1. WINDOWS ONLY - Ensure that `anvilw`, `docker-compose.yml` and `entrypoint.sh` is set for Windows line endings. For instructions on how to do this with VSCode, refer to [here](https://ztirom.at/2016/01/resolving-binbashm-bad-interpreter-when-writing-a-shellscript-on-windows-with-vs-code-and-run-it-on-linux/).
+1. `./anvilw task init` (NOTE: You only need to run this command once, when first configuring your development environment). Near the end you will be prompted for some input from the Amplify CLI.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. To enter the container to run development commands, run `./anvilw bash`. Once inside the container, you can start the development server via `task serve`.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Available development commands
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+In addition to regular `npm` commands, a handful of macros have been set up for common development commands. These commands can be run via `task <command>` when in the container via `./anvilw bash`. The following macros have been configured:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+#### `task init`
 
-## Learn More
+Installs the required development software and configured [pre-commit](https://pre-commit.com/).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### `task validate`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Runs the [pre-commit](https://pre-commit.com/) hooks. If you do not run your `git` cli inside the container, make sure you this command before making a commit.
 
-### Code Splitting
+#### `task serve`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Starts the local Graphql database and React frontend app. You can reach the local database via http://localhost:20002 and the frontvia via http://localhost:3000
 
-### Analyzing the Bundle Size
+#### `task mock-api`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Starts only the GraphQL backend database.
 
-### Making a Progressive Web App
+#### `task npm-start`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Starts only the front-end dev server with no backend database.
 
-### Advanced Configuration
+#### `task clean`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Deletes the local database.
 
-### Deployment
+#### `task npm-install <package>`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Installs the given NPM package locally.

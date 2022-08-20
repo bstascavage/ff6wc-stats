@@ -13,6 +13,7 @@ tasks:
       - pre-commit install
       - npm install -g @aws-amplify/cli
       - task: npm-install
+      - amplify init
 
   validate:
     desc: Validate the pre-commit hooks
