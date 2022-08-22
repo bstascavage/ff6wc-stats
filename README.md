@@ -27,7 +27,7 @@ In order to run the application locally, the following technologies needs to be 
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) - The development environment runs in [Anvil](https://github.com/saic-oss/anvil), a DevSecOps tools container. This container has all development tools installed and configured for this application, reducing onboarding time for new developers.
 - WINDOWS ONLY - [Linux on Windows](https://docs.microsoft.com/en-us/windows/wsl/install) - Needed to run the bash commands for setting up the container. Make sure you follow the configuration instructions for [getting Docker to work with WSL 2 distros](https://docs.docker.com/desktop/windows/wsl/).
-- An AWS account and your AWS credentials [configured as Enviornment variables](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html). Note that while you do not need to actually deploy to the cloud to develop locally, Amplify is kind of dumb and requires it to be set to start up a local database.
+- An AWS account and your AWS credentials [configured as Enviornment variables](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html). Note that while you do not need to actually deploy to the cloud to develop locally, Amplify is kind of dumb and requires it to be set to start up a local database. I hate it.
 
 > NOTE: Anvil is not opinionated on how you manage your AWS credentials but it is encouraged that you manage them in a safer way then the default `/.aws/credentials` file. One recommendation is [AWS Vault](https://github.com/99designs/aws-vault) but ultimately management is up to each developer.
 
