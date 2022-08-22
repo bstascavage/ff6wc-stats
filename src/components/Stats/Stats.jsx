@@ -30,6 +30,11 @@ import {
   faPercent,
   faPlaneDeparture,
   faPlaneArrival,
+  faBoltLightning,
+  faPaw,
+  faSkull,
+  faPeopleGroup,
+  faBolt,
 } from "@fortawesome/free-solid-svg-icons";
 
 const defaultFlagset = {
@@ -440,6 +445,106 @@ function Stats(props) {
                     fontSize="2.5em"
                     subText="Average Time:"
                     subStat={data.fastestAbility().time}
+                  />
+                </Col>
+              </Row>
+            </Card>
+            <Card
+              className="card-stats card-section mt-4 mb-4 mb-xl-0"
+              style={{ height: props.height, width: "100%" }}
+            >
+              <CardHeader
+                tag="h5"
+                className="header has-text-align-center has-text-color"
+              >
+                Progress
+              </CardHeader>
+              <Row className="pt-4 pb-4 stats-row">
+                <Col lg="6" xl="3" className="col-padding">
+                  <StatsCard
+                    key="averageChars"
+                    title="Average Number of Characters"
+                    stat={data.averageChars()}
+                    icon={faPerson}
+                    iconColor="bg-primary"
+                    fontSize="3rem"
+                    height="160px"
+                  />
+                </Col>
+                <Col lg="6" xl="3" className="col-padding">
+                  <StatsCard
+                    key="averageEspers"
+                    title="Average Number of Espers"
+                    stat={data.averageEspers()}
+                    icon={faBoltLightning}
+                    iconColor="bg-success"
+                    fontSize="3rem"
+                    height="160px"
+                  />
+                </Col>
+                <Col lg="6" xl="3" className="col-padding">
+                  <StatsCard
+                    key="averageBosses"
+                    title="Average Number of Bosses"
+                    stat={data.averageBosses()}
+                    icon={faPaw}
+                    iconColor="bg-secondary"
+                    fontSize="3rem"
+                    height="160px"
+                  />
+                </Col>
+                <Col lg="6" xl="3" className="col-padding">
+                  <StatsCard
+                    key="averageDeadChecks"
+                    title="Average Number of Dead Checks"
+                    stat={data.averageDeadChecks()}
+                    icon={faSkull}
+                    iconColor="bg-danger"
+                    fontSize="3rem"
+                    height="160px"
+                  />
+                </Col>
+              </Row>
+              <Row className="stats-row">
+                <Col lg="6" xl="8" className="col-padding">
+                  <StatsBarChart
+                    heading="Progress"
+                    title="Dead Checks"
+                    data={data.deadChecks()}
+                    dark={true}
+                    height={400}
+                    dy={40}
+                    xHeight={75}
+                  />
+                </Col>
+                <Col
+                  className="mb-5 mb-xl-0 col-padding"
+                  lg="6"
+                  xl="4"
+                  style={{
+                    display: "flex",
+                    height: "400px",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <StatsCard
+                    key="averageCharsSkip"
+                    title="Avergage Number of Characters - Skip"
+                    stat={data.averageCharsSkip()}
+                    icon={faPeopleGroup}
+                    iconColor="bg-secondary"
+                    height="47%"
+                    fontSize="3.5em"
+                  />
+                  <StatsCard
+                    key="averageEspersSkip"
+                    title="Avergage Number of Espers - Skip"
+                    stat={data.averageEspersSkip()}
+                    icon={faBolt}
+                    iconColor="bg-success"
+                    height="47%"
+                    fontSize="3.5em"
                   />
                 </Col>
               </Row>

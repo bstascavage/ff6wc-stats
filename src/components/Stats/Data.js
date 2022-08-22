@@ -163,6 +163,33 @@ export class Data {
     };
   }
 
+  deadChecks() {
+    let times = {};
+    for (let i = 0; i < this.runData.length; i++) {
+      if (!(this.runData[i].numOfDeadchecks in times)) {
+        times[this.runData[i].numOfDeadchecks] = [this.runData[i].runTimeRaw];
+      } else {
+        times[this.runData[i].numOfDeadchecks].push(this.runData[i].runTimeRaw);
+      }
+    }
+
+    let timesPerDeadcheck = [];
+    const average = (array) => array.reduce((a, b) => a + b, 0) / array.length;
+
+    //Sort chars based on enum order
+    for (let i = 0; i < 12; i++) {
+      if (i in times) {
+        timesPerDeadcheck.push({
+          name: i,
+          time: Math.round(average(times[i])),
+          runs: times[i].length,
+        });
+      }
+    }
+
+    return timesPerDeadcheck;
+  }
+
   startingCharacters() {
     let times = {};
     for (let i = 0; i < this.runData.length; i++) {
@@ -343,5 +370,49 @@ export class Data {
       ":" +
       (seconds < 10 ? `0${seconds}` : seconds)
     );
+  }
+
+  averageChars(data = this.runData) {
+    const average = (array) =>
+      Math.floor(
+        (array.reduce((a, b) => a + b.numOfChars, 0) / array.length) * 100
+      ) / 100;
+    return average(data);
+  }
+
+  averageEspers(data = this.runData) {
+    const average = (array) =>
+      Math.floor(
+        (array.reduce((a, b) => a + b.numOfEspers, 0) / array.length) * 100
+      ) / 100;
+    return average(data);
+  }
+
+  averageBosses(data = this.runData) {
+    const average = (array) =>
+      Math.floor(
+        (array.reduce((a, b) => a + b.numOfBosses, 0) / array.length) * 100
+      ) / 100;
+    return average(data);
+  }
+
+  averageDeadChecks(data = this.runData) {
+    const average = (array) =>
+      Math.floor(
+        (array.reduce((a, b) => a + b.numOfDeadchecks, 0) / array.length) * 100
+      ) / 100;
+    return average(data);
+  }
+
+  averageCharsSkip() {
+    const skipChars = this.averageChars(this.skipData());
+
+    return isNaN(skipChars) ? "-" : skipChars;
+  }
+
+  averageEspersSkip() {
+    const skipEspers = this.averageEspers(this.skipData());
+
+    return isNaN(skipEspers) ? "-" : skipEspers;
   }
 }

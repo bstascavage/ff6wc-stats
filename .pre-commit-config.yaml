@@ -29,5 +29,5 @@ repos:
       - id: terraform_fmt
       - id: terraform_docs
       - id: terraform_tflint
-      - id: terraform_tfsec # Disabling because it is taking forever with the lambda function, despite it not being used by Terraform?
+      # - id: terraform_tfsec # Disabling because it is taking forever with the lambda function, despite it not being used by Terraform?
       - id: terraform_validate
