@@ -173,21 +173,53 @@ export class Data {
       }
     }
 
+    return times;
+  }
+
+  deadChecksByTime() {
+    const times = this.deadChecks();
+
     let timesPerDeadcheck = [];
     const average = (array) => array.reduce((a, b) => a + b, 0) / array.length;
 
-    //Sort chars based on enum order
+    //Sort based on deadcheck order
     for (let i = 0; i < 12; i++) {
       if (i in times) {
+        const averageTime = Math.round(average(times[i]));
         timesPerDeadcheck.push({
           name: i,
-          time: Math.round(average(times[i])),
+          data: averageTime,
+          time: averageTime,
           runs: times[i].length,
         });
       }
     }
 
     return timesPerDeadcheck;
+  }
+
+  deadChecksByFreq() {
+    const times = this.deadChecks();
+
+    let freqOfDeadcheck = [];
+    const average = (array) => array.reduce((a, b) => a + b, 0) / array.length;
+
+    for (let i = 0; i < 12; i++) {
+      i in times
+        ? freqOfDeadcheck.push({
+            name: i,
+            data: times[i].length,
+            time: Math.round(average(times[i])),
+            runs: times[i].length,
+          })
+        : freqOfDeadcheck.push({
+            name: i,
+            time: 0,
+            runs: 0,
+          });
+    }
+
+    return freqOfDeadcheck;
   }
 
   startingCharacters() {
@@ -208,9 +240,12 @@ export class Data {
     //Sort chars based on enum order
     for (let i = 0; i < this.charList.length; i++) {
       if (this.charList[i] in times) {
+        const averageTime = Math.round(average(times[this.charList[i]]));
+
         timesPerChar.push({
           name: this.charList[i],
-          time: Math.round(average(times[this.charList[i]])),
+          data: averageTime,
+          time: averageTime,
           runs: times[this.charList[i]].length,
         });
       }
@@ -224,8 +259,8 @@ export class Data {
   }
 
   fastestCharacter() {
-    let char = this.startingCharacters().sort((a, b) => a.time - b.time)[0];
-    char.time = this.convertRawToTime(char.time);
+    let char = this.startingCharacters().sort((a, b) => a.data - b.data)[0];
+    char.time = this.convertRawToTime(char.data);
 
     return char;
   }
@@ -235,8 +270,8 @@ export class Data {
   }
 
   fastestAbility() {
-    let ability = this.startingAbilities().sort((a, b) => a.time - b.time)[0];
-    ability.time = this.convertRawToTime(ability.time);
+    let ability = this.startingAbilities().sort((a, b) => a.data - b.data)[0];
+    ability.time = this.convertRawToTime(ability.data);
 
     return ability;
   }
@@ -275,9 +310,11 @@ export class Data {
             .replace(/__/g, " - ")
             .replace(/_/g, " ");
 
+        const averageTime = Math.round(average(times[this.abilityList[i]]));
         timesPerAbility.push({
           name: abilityDisplayName,
-          time: Math.round(average(times[this.abilityList[i]])),
+          data: averageTime,
+          time: averageTime,
           runs: times[this.abilityList[i]].length,
         });
       }
