@@ -33,8 +33,6 @@ import {
   faBoltLightning,
   faPaw,
   faSkull,
-  faPeopleGroup,
-  faBolt,
 } from "@fortawesome/free-solid-svg-icons";
 
 const defaultFlagset = {
@@ -459,7 +457,7 @@ function Stats(props) {
               >
                 Progress
               </CardHeader>
-              <Row className="pt-4 pb-4 stats-row">
+              <Row className="pt-4 stats-row">
                 <Col lg="6" xl="3" className="col-padding">
                   <StatsCard
                     key="averageChars"
@@ -505,46 +503,28 @@ function Stats(props) {
                   />
                 </Col>
               </Row>
-              <Row className="stats-row">
-                <Col lg="6" xl="8" className="col-padding">
+              <Row className="pt-4 pb-3 stats-row">
+                <Col lg="6" xl="6" className="col-padding">
                   <StatsBarChart
                     heading="Progress"
-                    title="Dead Checks"
-                    data={data.deadChecks()}
+                    title="Dead Checks - Average times"
+                    data={data.deadChecksByTime()}
                     dark={true}
                     height={400}
                     dy={40}
                     xHeight={75}
                   />
                 </Col>
-                <Col
-                  className="mb-5 mb-xl-0 col-padding"
-                  lg="6"
-                  xl="4"
-                  style={{
-                    display: "flex",
-                    height: "400px",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <StatsCard
-                    key="averageCharsSkip"
-                    title="Avergage Number of Characters - Skip"
-                    stat={data.averageCharsSkip()}
-                    icon={faPeopleGroup}
-                    iconColor="bg-secondary"
-                    height="47%"
-                    fontSize="3.5em"
-                  />
-                  <StatsCard
-                    key="averageEspersSkip"
-                    title="Avergage Number of Espers - Skip"
-                    stat={data.averageEspersSkip()}
-                    icon={faBolt}
-                    iconColor="bg-success"
-                    height="47%"
-                    fontSize="3.5em"
+                <Col lg="6" xl="6" className="col-padding">
+                  <StatsBarChart
+                    heading="Progress"
+                    title="Dead Checks - Number of Runs"
+                    data={data.deadChecksByFreq()}
+                    yAxisType="interval"
+                    dark={true}
+                    height={400}
+                    dy={40}
+                    xHeight={75}
                   />
                 </Col>
               </Row>
