@@ -1,23 +1,24 @@
 export class Data {
-  constructor(runData, filters, charList, abilityList) {
+  constructor(runData, filters, charList, abilityList, dragonList) {
     this.unfilteredRunData = runData;
     this.runData = runData;
     this.flagsetFilter = filters.flagsetFilter.value;
     this.raceFilter = filters.raceFilter.value;
     this.charList = charList;
     this.abilityList = abilityList;
+    this.dragonList = dragonList;
 
     if (this.flagsetFilter === "All") {
       this.runData = runData;
     } else {
       // Filter by flagset
       this.runData = this.runData.filter(
-        (data) => data.flagset === this.flagsetFilter,
+        (data) => data.flagset === this.flagsetFilter
       );
       if (this.raceFilter !== "All") {
         // Then filter by race
         this.runData = this.runData.filter(
-          (data) => data.race === this.raceFilter,
+          (data) => data.race === this.raceFilter
         );
       }
     }
@@ -46,7 +47,7 @@ export class Data {
       return "00:00:00";
     } else {
       return this.convertRawToTime(
-        Math.floor(Math.round(skipTime) / 1000) * 1000,
+        Math.floor(Math.round(skipTime) / 1000) * 1000
       );
     }
   }
@@ -69,20 +70,20 @@ export class Data {
 
   deltaBestTime() {
     return this.convertDeltaTime(
-      this.averageTimeRaw() - this.bestRun().runTimeRaw,
+      this.averageTimeRaw() - this.bestRun().runTimeRaw
     );
   }
 
   deltaLastTime() {
     return this.convertDeltaTime(
-      this.averageTimeRaw() - this.lastRun().runTimeRaw,
+      this.averageTimeRaw() - this.lastRun().runTimeRaw
     );
   }
 
   deltaSkipTime(skip = true) {
     const data = this.skipData(skip);
     return this.convertDeltaTime(
-      this.averageTimeRaw() - this.averageTimeRaw(data),
+      this.averageTimeRaw() - this.averageTimeRaw(data)
     );
   }
 
@@ -96,7 +97,7 @@ export class Data {
     const sum = runs.reduce((acc, curr) => acc + curr, 0);
 
     return this.convertRawToTime(
-      Math.floor(Math.round(Math.sqrt(sum / runs.length)) / 1000) * 1000,
+      Math.floor(Math.round(Math.sqrt(sum / runs.length)) / 1000) * 1000
     );
   }
 
@@ -130,7 +131,7 @@ export class Data {
         : this.sortByDate();
 
     return this.convertRawToTime(
-      Math.floor(Math.round(this.averageTimeRaw(runs)) / 1000) * 1000,
+      Math.floor(Math.round(this.averageTimeRaw(runs)) / 1000) * 1000
     ); // Convert to hh:mm:ss, while rounding to the nearest second
   }
 
@@ -205,18 +206,14 @@ export class Data {
     const average = (array) => array.reduce((a, b) => a + b, 0) / array.length;
 
     for (let i = 0; i < 12; i++) {
-      i in times
-        ? freqOfDeadcheck.push({
-            name: i,
-            data: times[i].length,
-            time: Math.round(average(times[i])),
-            runs: times[i].length,
-          })
-        : freqOfDeadcheck.push({
-            name: i,
-            time: 0,
-            runs: 0,
-          });
+      if (i in times) {
+        freqOfDeadcheck.push({
+          name: i,
+          data: times[i].length,
+          time: Math.round(average(times[i])),
+          runs: times[i].length,
+        });
+      }
     }
 
     return freqOfDeadcheck;
@@ -276,54 +273,96 @@ export class Data {
     return ability;
   }
 
+  favoriteDragon(reverse = false) {
+    /**
+     * Returns the dragon that appears in the most amount of runs.
+     * @param {Boolean} reverse If set to `true`, the least-used dragon will be returned instead.
+     * @return {Object} The average time, number of runs and times per run for the most fought dragon.
+     */
+    return reverse
+      ? this.getStatsBarChartData("dragons", this.dragonList).sort(
+          (a, b) => a.runs - b.runs
+        )[0]
+      : this.getStatsBarChartData("dragons", this.dragonList).sort(
+          (a, b) => b.runs - a.runs
+        )[0];
+  }
+
+  numOfDragons(dataType = "time") {
+    /**
+     * Find average time and total runs for each possible amount of dragons that can be fought in a run.
+     * @param {String} dataType Set the data field to be the primary `data` field;
+     *    this is what will be displayed on the y-Axis in StatsBarChart.
+     * @return {Array} Array of the total runs and average time for each amount of dragons, formatted
+     *    to be used with StatsBarChart.
+     */
+    let numOfDragons = [];
+    const average = (array) => array.reduce((a, b) => a + b, 0) / array.length;
+
+    for (let i = 0; i < this.runData.length; i++) {
+      let runTimes =
+        this.runData[i].dragons.length in numOfDragons
+          ? numOfDragons[this.runData[i].dragons.length].runTimes
+          : [];
+      runTimes.push(this.runData[i].runTimeRaw);
+
+      const time = Math.round(average(runTimes));
+
+      numOfDragons[this.runData[i].dragons.length] = {
+        name: this.runData[i].dragons.length,
+        data: dataType === "runs" ? runTimes.length : time,
+        time: time,
+        runs: runTimes.length,
+        runTimes: runTimes,
+      };
+    }
+
+    return numOfDragons;
+  }
+
   startingAbilities() {
-    let times = {};
+    /**
+     * Find average time and total runs for each starting ability.
+     * @return {Array} Array of the total runs and average time for each starting ability, formatted
+     *    to be used with StatsBarChart.
+     */
+    let timesPerAbility = [];
+    const average = (array) => array.reduce((a, b) => a + b, 0) / array.length;
+
     for (let i = 0; i < this.runData.length; i++) {
       for (
         let ability = 0;
         ability < this.runData[i].abilities.length;
         ability++
       ) {
-        if (!(this.runData[i].abilities[ability] in times)) {
-          times[this.runData[i].abilities[ability]] = [
-            this.runData[i].runTimeRaw,
-          ];
+        const name = this.removeSpaces(this.runData[i].abilities[ability]);
+        const index = timesPerAbility.findIndex((object) => {
+          return object.name === name;
+        });
+
+        // If index < 0 then it hasn't been added yet, so default runTimes to an empty array
+        let runTimes = index >= 0 ? timesPerAbility[index].runTimes : [];
+
+        runTimes.push(this.runData[i].runTimeRaw);
+
+        const time = Math.round(average(runTimes));
+        const abilityPayload = {
+          name: name,
+          data: time,
+          time: time,
+          runs: runTimes.length,
+          runTimes: runTimes,
+        };
+
+        // If ability is already added, update it.  Otherwise, push it as a new element
+        if (index >= 0) {
+          timesPerAbility[index] = abilityPayload;
         } else {
-          times[this.runData[i].abilities[ability]].push(
-            this.runData[i].runTimeRaw,
-          );
+          timesPerAbility.push(abilityPayload);
         }
       }
     }
 
-    let timesPerAbility = [];
-    const average = (array) => array.reduce((a, b) => a + b, 0) / array.length;
-
-    //Sort ability based on enum order
-    for (let i = 0; i < this.abilityList.length; i++) {
-      if (this.abilityList[i] in times) {
-        // Logic to get display name from id name
-        // IE: `foo_bar` will be translated to `foo bar`
-        let abilityDisplayName = this.abilityList[i];
-        if (this.abilityList[i].includes("_"))
-          abilityDisplayName = this.abilityList[i]
-            .replace(/__/g, " - ")
-            .replace(/_/g, " ");
-
-        const averageTime = Math.round(average(times[this.abilityList[i]]));
-        timesPerAbility.push({
-          name: abilityDisplayName,
-          data: averageTime,
-          time: averageTime,
-          runs: times[this.abilityList[i]].length,
-        });
-      }
-    }
-    timesPerAbility =
-      timesPerAbility.length === 0
-        ? [{ name: "N/A", time: 0, runs: 0 }]
-        : timesPerAbility;
-    console.log(timesPerAbility);
     return timesPerAbility;
   }
 
@@ -348,21 +387,14 @@ export class Data {
 
   flagsets() {
     let uniqueFlagsets = Array.from(
-      new Set(this.unfilteredRunData.map(({ flagset }) => flagset)),
+      new Set(this.unfilteredRunData.map(({ flagset }) => flagset))
     );
     let flagsets = [{ name: "All", displayName: "All" }];
 
     for (let i = 0; i < uniqueFlagsets.length; i++) {
-      // Logic to get display name from id name
-      // IE: `foo_bar` will be translated to `foo bar`
-      let elemDisplayName = uniqueFlagsets[i];
-      if (uniqueFlagsets[i].includes("_"))
-        elemDisplayName = uniqueFlagsets[i]
-          .replace(/__/g, " - ")
-          .replace(/_/g, " ");
       flagsets.push({
         name: uniqueFlagsets[i],
-        displayName: elemDisplayName,
+        displayName: this.removeSpaces(uniqueFlagsets[i]),
       });
     }
     return flagsets;
@@ -375,21 +407,17 @@ export class Data {
       // First we get all the flagsets from the global, unfiltered data
       // Then we filter for our current flagset
       const flagsetData = this.unfilteredRunData.filter(
-        (data) => data.flagset === this.flagsetFilter,
+        (data) => data.flagset === this.flagsetFilter
       );
       let uniqueRaces = Array.from(
-        new Set(flagsetData.map(({ race }) => race)),
+        new Set(flagsetData.map(({ race }) => race))
       );
 
       for (let i = 0; i < uniqueRaces.length; i++) {
-        // Logic to get display name from id name
-        // IE: `foo_bar` will be translated to `foo bar`
-        let elemDisplayName = uniqueRaces[i];
-        if (uniqueRaces[i].includes("_"))
-          elemDisplayName = uniqueRaces[i]
-            .replace(/__/g, " - ")
-            .replace(/_/g, " ");
-        races.push({ name: uniqueRaces[i], displayName: elemDisplayName });
+        races.push({
+          name: uniqueRaces[i],
+          displayName: this.removeSpaces(uniqueRaces[i]),
+        });
       }
     }
     return races;
@@ -412,6 +440,75 @@ export class Data {
       ":" +
       (seconds < 10 ? `0${seconds}` : seconds)
     );
+  }
+
+  getStatsBarChartData(field, enumList = null) {
+    /**
+     * For a given array in `runData`, calculate the average time and runs in a format to be used by StatsBarChart.
+     * @param {String} field The run field to generate a chart for, ie `dragons`.
+     * @param {Array} enumList (Optional) An array of Enums from graphql for the given field.  If provided, any missing Enums
+     *    will be added to the result, but with zeroed out data.
+     * @return {Array} Array of datapoints to work with StatsBarChart.  Each point contains a `name`, `time`, the number of runs and the times per run.
+     */
+    let data = [];
+    const average = (array) => array.reduce((a, b) => a + b, 0) / array.length;
+
+    for (let run = 0; run < this.runData.length; run++) {
+      for (let i = 0; i < this.runData[run][field].length; i++) {
+        const name = this.removeSpaces(this.runData[run][field][i]);
+        const index = data.findIndex((object) => {
+          return object.name === name;
+        });
+
+        // If index < 0 then it hasn't been added yet, so default runTimes to an empty array
+        let runTimes = index >= 0 ? data[index].runTimes : [];
+
+        runTimes.push(this.runData[run].runTimeRaw);
+
+        const time = Math.round(average(runTimes));
+        const payload = {
+          name: name,
+          data: time,
+          time: time,
+          runs: runTimes.length,
+          runTimes: runTimes,
+        };
+
+        // If data point is already added, update it.  Otherwise, push it as a new element
+        if (index >= 0) {
+          data[index] = payload;
+        } else {
+          data.push(payload);
+        }
+      }
+    }
+
+    // If a list of Enums is presented, add each element to the dataset if it doesn't already exist,
+    // filling it out with 0ed out data.
+    if (enumList) {
+      for (let i = 0; i < enumList.length; i++) {
+        const name = this.removeSpaces(enumList[i]);
+        const index = data.findIndex((object) => {
+          return object.name === name;
+        });
+
+        if (index < 0) {
+          const time = 0;
+          const runTimes = [];
+          const payload = {
+            name: name,
+            data: time,
+            time: time,
+            runs: runTimes.length,
+            runTimes: runTimes,
+          };
+
+          data.push(payload);
+        }
+      }
+    }
+
+    return data;
   }
 
   averageChars(data = this.runData) {
@@ -446,6 +543,15 @@ export class Data {
     return average(data);
   }
 
+  averageDragons(data = this.runData) {
+    const average = (array) =>
+      Math.floor(
+        (array.reduce((a, b) => a + b.dragons.length, 0) / array.length) * 100
+      ) / 100;
+
+    return average(data);
+  }
+
   averageCharsSkip() {
     const skipChars = this.averageChars(this.skipData());
 
@@ -456,5 +562,14 @@ export class Data {
     const skipEspers = this.averageEspers(this.skipData());
 
     return isNaN(skipEspers) ? "-" : skipEspers;
+  }
+
+  removeSpaces(name) {
+    // Logic to get display name from id name
+    // IE: `foo_bar` will be translated to `foo bar`
+    let displayName = name;
+    if (name.includes("_"))
+      displayName = name.replace(/__/g, " - ").replace(/_/g, " ");
+    return displayName;
   }
 }

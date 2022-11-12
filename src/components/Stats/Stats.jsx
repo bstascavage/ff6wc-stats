@@ -110,6 +110,7 @@ function Stats(props) {
   });
   const [charList, setCharList] = useState([]);
   const [abilityList, setAbilityList] = useState([]);
+  const [dragonList, setDragonList] = useState([]);
 
   // Logic for displaying another user's stats and for getting the "Share" link.
   // If a user's ID is found in the URL, get data for that user.  Else, get data for the current user.
@@ -131,6 +132,7 @@ function Stats(props) {
     if (userId.id) getRunsForUser(userId.id, setStatsState);
     getEnum("Character", setCharList);
     getEnum("Ability", setAbilityList);
+    getEnum("Dragon", setDragonList);
   }, [userId]);
 
   const data = new Data(
@@ -138,6 +140,7 @@ function Stats(props) {
     statsState.filters,
     charList,
     abilityList,
+    dragonList
   );
   let page, body;
 
@@ -507,7 +510,7 @@ function Stats(props) {
                 <Col lg="6" xl="6" className="col-padding">
                   <StatsBarChart
                     heading="Progress"
-                    title="Dead Checks - Average times"
+                    title="Dead Checks - Average Time"
                     data={data.deadChecksByTime()}
                     dark={true}
                     height={400}
@@ -522,6 +525,89 @@ function Stats(props) {
                     data={data.deadChecksByFreq()}
                     yAxisType="interval"
                     dark={true}
+                    height={400}
+                    dy={40}
+                    xHeight={75}
+                  />
+                </Col>
+              </Row>
+            </Card>
+            <Card
+              className="card-stats card-section mt-4 mb-4 mb-xl-0"
+              style={{ height: props.height, width: "100%" }}
+            >
+              <CardHeader
+                tag="h5"
+                className="header has-text-align-center has-text-color"
+              >
+                Dragons
+              </CardHeader>{" "}
+              <Row className="pt-4 stats-row justify-content-md-center">
+                <Col lg="6" xl="4" className="col-padding">
+                  <StatsCard
+                    key="averageDragons"
+                    title="Average Number of Dragons"
+                    stat={data.averageDragons()}
+                    icon={faPerson}
+                    iconColor="bg-primary"
+                    fontSize="3rem"
+                    height="160px"
+                  />
+                </Col>
+                <Col lg="6" xl="4" className="col-padding">
+                  <StatsCard
+                    key="favoriteDragons"
+                    title="Most Fought Dragon"
+                    stat={data.favoriteDragon().name}
+                    icon={faPerson}
+                    iconColor="bg-primary"
+                    height="160px"
+                    subText="Total Runs:"
+                    subStat={data.favoriteDragon().runs.toString()}
+                  />
+                </Col>
+                <Col lg="6" xl="4" className="col-padding">
+                  <StatsCard
+                    key="favoriteDragons"
+                    title="Least Fought Dragon"
+                    stat={data.favoriteDragon(true).name}
+                    icon={faPerson}
+                    iconColor="bg-primary"
+                    height="160px"
+                    subText="Total Runs:"
+                    subStat={data.favoriteDragon(true).runs.toString()}
+                  />
+                </Col>
+              </Row>
+              <Row className="pt-4 pb-3 stats-row">
+                <Col
+                  className="mb-5 mb-xl-0 col-padding"
+                  lg="6"
+                  xl="6"
+                  style={{ height: "400px" }}
+                >
+                  <StatsBarChart
+                    heading="Dragons"
+                    title="Number of Dragons - Average Time"
+                    data={data.numOfDragons()}
+                    dark={true}
+                    height={400}
+                    dy={40}
+                    xHeight={75}
+                  />
+                </Col>
+                <Col
+                  className="mb-5 mb-xl-0 col-padding"
+                  lg="6"
+                  xl="6"
+                  style={{ height: "400px" }}
+                >
+                  <StatsBarChart
+                    heading="Dragons"
+                    title="Number of Dragons - By Run"
+                    data={data.numOfDragons("runs")}
+                    dark={true}
+                    yAxisType="interval"
                     height={400}
                     dy={40}
                     xHeight={75}
@@ -582,7 +668,7 @@ function copyURLToClipboard(e, userId, setUserId) {
   navigator.clipboard.writeText(
     window.location.href
       .replace(window.location.hash, "")
-      .concat(`#user=${userId.id}`),
+      .concat(`#user=${userId.id}`)
   );
   setUserId({ type: "copied" });
   setTimeout(() => {

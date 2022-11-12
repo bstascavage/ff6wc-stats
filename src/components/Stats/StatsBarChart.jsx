@@ -73,7 +73,8 @@ function StatsBarChart(props) {
       type="number"
       stroke={stroke}
       domain={[
-        (dataMin) => Math.floor(dataMin / 600000) * 600000 - 600000,
+        (dataMin) =>
+          Math.max(0, Math.floor(dataMin / 600000) * 600000 - 600000),
         (dataMax) => Math.floor(dataMax / 600000) * 600000 + 600000,
       ]}
     />
