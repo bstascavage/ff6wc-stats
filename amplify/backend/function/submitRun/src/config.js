@@ -14,28 +14,194 @@ const config = {
       },
       excludedAbilities: ["Possess", "Shock", "Magitek"],
     },
-    Moogles_First_Tournament: {
+    Coliseum__Terra: {
       startingChars: 3,
       minChars: 6,
       minEspers: 9,
       skip: {
         reqs: {
-          chars: 9,
-          espers: 12,
+          bosses: 12,
+        },
+        conditionsMet: 1,
+        operation: "OR",
+      },
+      excludedAbilities: ["Possess", "Shock"],
+    },
+    Coliseum__Locke: {
+      startingChars: 3,
+      minChars: 6,
+      minEspers: 9,
+      skip: {
+        reqs: {
+          bosses: 12,
+        },
+        conditionsMet: 1,
+        operation: "OR",
+      },
+      excludedAbilities: ["Possess", "Shock", "Magitek"],
+    },
+    Coliseum__Edgar: {
+      startingChars: 3,
+      minChars: 6,
+      minEspers: 9,
+      skip: {
+        reqs: {
+          bosses: 12,
+        },
+        conditionsMet: 1,
+        operation: "OR",
+      },
+      excludedAbilities: ["Possess", "Shock", "Magitek"],
+    },
+    Coliseum__Sabin: {
+      startingChars: 3,
+      minChars: 6,
+      minEspers: 9,
+      skip: {
+        reqs: {
+          bosses: 12,
+        },
+        conditionsMet: 1,
+        operation: "OR",
+      },
+      excludedAbilities: ["Possess", "Shock", "Magitek"],
+    },
+    Coliseum__Cyan: {
+      startingChars: 3,
+      minChars: 6,
+      minEspers: 9,
+      skip: {
+        reqs: {
+          bosses: 12,
+        },
+        conditionsMet: 1,
+        operation: "OR",
+      },
+      excludedAbilities: ["Possess", "Shock", "Magitek", "Tools"],
+    },
+    Coliseum__Gau: {
+      startingChars: 3,
+      minChars: 6,
+      minEspers: 9,
+      skip: {
+        reqs: {
+          bosses: 12,
+        },
+        conditionsMet: 1,
+        operation: "OR",
+      },
+      excludedAbilities: ["Possess", "Shock", "Magitek"],
+    },
+    Coliseum__Celes: {
+      startingChars: 3,
+      minChars: 6,
+      minEspers: 9,
+      skip: {
+        reqs: {
+          bosses: 12,
+        },
+        conditionsMet: 1,
+        operation: "OR",
+      },
+      excludedAbilities: ["Possess", "Magitek"],
+    },
+    Coliseum__Setzer: {
+      startingChars: 3,
+      minChars: 6,
+      minEspers: 9,
+      skip: {
+        reqs: {
+          bosses: 12,
         },
         conditionsMet: 1,
         operation: "OR",
       },
       excludedAbilities: ["Possess"],
     },
-    TotM__Glass_Cannon: {
+    Coliseum__Strago: {
       startingChars: 3,
-      minChars: 3,
-      minEspers: 10,
+      minChars: 6,
+      minEspers: 9,
       skip: {
-        no_verify: true,
+        reqs: {
+          bosses: 12,
+        },
+        conditionsMet: 1,
+        operation: "OR",
       },
-      excludedAbilities: ["Possess"],
+      excludedAbilities: ["Possess", "X_Magic", "Magitek"],
+    },
+    Coliseum__Relm: {
+      startingChars: 3,
+      minChars: 6,
+      minEspers: 9,
+      skip: {
+        reqs: {
+          bosses: 12,
+        },
+        conditionsMet: 1,
+        operation: "OR",
+      },
+      excludedAbilities: ["Possess", "Shock", "Magitek"],
+    },
+    Coliseum__Shadow: {
+      startingChars: 3,
+      minChars: 6,
+      minEspers: 9,
+      skip: {
+        reqs: {
+          bosses: 12,
+        },
+        conditionsMet: 1,
+        operation: "OR",
+      },
+      excludedAbilities: ["Possess", "Shock", "Magitek"],
+    },
+    Coliseum__Mog: {
+      startingChars: 3,
+      minChars: 6,
+      minEspers: 9,
+      skip: {
+        reqs: {
+          bosses: 12,
+        },
+        conditionsMet: 1,
+        operation: "OR",
+      },
+      excludedAbilities: ["Possess", "Shock", "Magitek"],
+    },
+    Coliseum__Gogo: {
+      startingChars: 3,
+      minChars: 6,
+      minEspers: 9,
+      skip: {
+        reqs: {
+          bosses: 12,
+        },
+        conditionsMet: 1,
+        operation: "OR",
+      },
+      excludedAbilities: [],
+    },
+    Coliseum__Umaro: {
+      startingChars: 3,
+      minChars: 6,
+      minEspers: 9,
+      skip: {
+        reqs: {
+          bosses: 12,
+        },
+        conditionsMet: 1,
+        operation: "OR",
+      },
+      excludedAbilities: [
+        "Possess",
+        "Capture",
+        "Runic",
+        "X_Magic",
+        "Sketch",
+        "Control",
+      ],
     },
     Other: {
       startingChars: 0,
