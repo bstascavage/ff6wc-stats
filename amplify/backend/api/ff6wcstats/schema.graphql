@@ -210,6 +210,20 @@ enum Flagset {
   Ultros_League
   Moogles_First_Tournament
   TotM__Glass_Cannon
+  Coliseum__Terra
+  Coliseum__Locke
+  Coliseum__Edgar
+  Coliseum__Sabin
+  Coliseum__Cyan
+  Coliseum__Gau
+  Coliseum__Celes
+  Coliseum__Setzer
+  Coliseum__Strago
+  Coliseum__Relm
+  Coliseum__Shadow
+  Coliseum__Mog
+  Coliseum__Gogo
+  Coliseum__Umaro
   Other
 }
 
