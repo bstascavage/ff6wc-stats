@@ -29,20 +29,17 @@ async function validate(data) {
 }
 
 function validate_numOfChecks(runData) {
-  if (
-    runData.numOfChecks <
+  return runData.numOfChecks <
     parseInt(runData.numOfChars) -
       runData.chars.length +
       parseInt(runData.numOfEspers) +
       parseInt(runData.dragons.length)
-  ) {
-    return {
-      result: false,
-      reason:
-        "Total checks completed cannot be lower than characters+espers+dragons.",
-    };
-  }
-  return checkNumberRange(runData.numOfChecks, 0, 61);
+    ? {
+        result: false,
+        reason:
+          "Total checks completed cannot be lower than characters+espers+dragons.",
+      }
+    : checkNumberRange(runData.numOfChecks, 0, 61);
 }
 
 function validate_numOfPeekedChecks(runData) {
@@ -61,36 +58,30 @@ function validate_runTime(runData) {
 }
 
 function validate_runDate(runData) {
-  if (!isNaN(new Date(runData.runDate).getDate())) {
-    return { result: true };
-  } else {
-    return { result: false, reason: "Run Date is not a valid date." };
-  }
+  return !isNaN(new Date(runData.runDate).getDate())
+    ? { result: true }
+    : { result: false, reason: "Run Date is not a valid date." };
 }
 
 function validate_ktStartTime(runData) {
   // Validates that the submitted time is in the format hh:mm:ss
   if (runData.ktStartTime.length === 0) {
-    if (runData.kefkaTime.length === 0) {
-      return { result: true };
-    } else {
-      return {
-        result: false,
-        reason: 'Cannot be blank if "Kefka Start Time" is entered.',
-      };
-    }
+    return runData.kefkaTime.length === 0
+      ? { result: true }
+      : {
+          result: false,
+          reason: 'Cannot be blank if "Kefka Start Time" is entered.',
+        };
   } else if (checkTime(runData.ktStartTime)) {
     let runTimeDate = new Date("1970-01-01 " + runData.runTime);
     let ktStartTimeDate = new Date("1970-01-01 " + runData.ktStartTime);
 
-    if (ktStartTimeDate.getTime() > runTimeDate.getTime()) {
-      return {
-        result: false,
-        reason: 'Time cannot be higher than the "Total Time"',
-      };
-    } else {
-      return { result: true };
-    }
+    return ktStartTimeDate.getTime() > runTimeDate.getTime()
+      ? {
+          result: false,
+          reason: 'Time cannot be higher than the "Total Time"',
+        }
+      : { result: true };
   } else {
     return { result: false, reason: "Time not in proper hh:mm:ss format." };
   }
@@ -99,14 +90,12 @@ function validate_ktStartTime(runData) {
 function validate_kefkaTime(runData) {
   // Validates that the submitted time is in the format hh:mm:ss
   if (runData.kefkaTime.length === 0) {
-    if (runData.ktStartTime.length === 0) {
-      return { result: true };
-    } else {
-      return {
-        result: false,
-        reason: 'Cannot be blank if "KT Start Time" is entered.',
-      };
-    }
+    return runData.ktStartTime.length === 0
+      ? { result: true }
+      : {
+          result: false,
+          reason: 'Cannot be blank if "KT Start Time" is entered.',
+        };
   } else if (checkTime(runData.kefkaTime)) {
     let runTimeDate = new Date("1970-01-01 " + runData.runTime);
     let ktStartTimeDate = new Date("1970-01-01 " + runData.ktStartTime);
@@ -229,14 +218,12 @@ async function validate_chars(runData) {
 async function validate_dragons(runData) {
   let dragons = runData.dragons;
 
-  if (dragons.length > 8) {
-    return {
-      result: false,
-      reason: "More than 8 dragons submitted.  Contact administrator.",
-    };
-  } else {
-    return compareToBackendEnum("Dragon", dragons);
-  }
+  return dragons.length > 8
+    ? {
+        result: false,
+        reason: "More than 8 dragons submitted.  Contact administrator.",
+      }
+    : compareToBackendEnum("Dragon", dragons);
 }
 
 async function validate_abilities(runData) {
