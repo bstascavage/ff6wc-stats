@@ -143,6 +143,7 @@ enum Ability {
   X_Magic
   Shock
   MagiTek
+  Possess
 }
 
 enum Dragon {
