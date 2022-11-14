@@ -243,6 +243,20 @@ async function validate_abilities(runData) {
   let abilities = runData.abilities;
   let numOfAbilities = runData.chars.length;
 
+  // If the flagset has `permitAbilityCheckOverride1 enabled,
+  // Check to see the value of `disableAbilitCheck`
+  if (runData.disableAbilityCheck === true) {
+    return config.flagsetRules[runData.flagset].permitAbilityCheckOverride ===
+      true
+      ? {
+          result: true,
+        }
+      : {
+          result: false,
+          reason: "Flagset not elgible to disable ability verification.",
+        };
+  }
+
   // To determine the number of abilities to check for:
   // numOfAbilities = runData.chars.length
   // If Gau, numOfAbilities+1
@@ -272,6 +286,18 @@ async function validate_abilities(runData) {
     }
     return compareToBackendEnum("Ability", abilities);
   }
+}
+
+async function validate_disableAbilityCheck(runData) {
+  return typeof runData.disableAbilityCheck == "boolean"
+    ? {
+        result: true,
+      }
+    : {
+        result: false,
+        reason: "Value must be true or false.  Please contact administrator.",
+      };
+  s;
 }
 
 async function validate_finalBattle(runData) {

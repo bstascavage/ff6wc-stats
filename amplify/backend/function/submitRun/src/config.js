@@ -91,6 +91,7 @@ const config = {
         operation: "OR",
       },
       excludedAbilities: ["Possess", "Shock", "Magitek"],
+      permitAbilityCheckOverride: true,
     },
     Coliseum__Celes: {
       startingChars: 3,
@@ -117,6 +118,7 @@ const config = {
         operation: "OR",
       },
       excludedAbilities: ["Possess"],
+      permitAbilityCheckOverride: true,
     },
     Coliseum__Strago: {
       startingChars: 3,
@@ -182,6 +184,7 @@ const config = {
         operation: "OR",
       },
       excludedAbilities: [],
+      permitAbilityCheckOverride: true,
     },
     Coliseum__Umaro: {
       startingChars: 3,
@@ -202,6 +205,7 @@ const config = {
         "Sketch",
         "Control",
       ],
+      permitAbilityCheckOverride: true,
     },
     Other: {
       startingChars: 0,
@@ -211,6 +215,7 @@ const config = {
         no_verify: true,
       },
       excludedAbilities: [],
+      permitAbilityCheckOverride: true,
     },
   },
 };

@@ -12,6 +12,7 @@ export const submitRun = /* GraphQL */ `
     $userId: String!
     $chars: [Character]!
     $abilities: [Ability]!
+    $disableAbilityCheck: Boolean!
     $numOfChars: String!
     $numOfEspers: String!
     $numOfChecks: String!
@@ -43,6 +44,7 @@ export const submitRun = /* GraphQL */ `
       userId: $userId
       chars: $chars
       abilities: $abilities
+      disableAbilityCheck: $disableAbilityCheck
       numOfChars: $numOfChars
       numOfEspers: $numOfEspers
       numOfChecks: $numOfChecks
