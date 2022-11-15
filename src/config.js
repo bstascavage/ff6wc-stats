@@ -104,6 +104,13 @@ const CONFIG = {
       required: true,
       enumName: "Ability",
     },
+    disableAbilityCheck: {
+      type: "toggle",
+      title: "Disable Ability Check",
+      id: "disableAbilityCheck",
+      required: false,
+      help: "Enable this if either one or more characters started with fewer than normal commands, or one or more characters started with the same command.  Only available for certain flagsets.",
+    },
     numOfChars: {
       type: "slider",
       title: "Characters Found",
@@ -307,7 +314,7 @@ const CONFIG = {
       },
       startingParty: {
         title: "Starting Party",
-        children: ["chars", "abilities"],
+        children: ["chars", "abilities", "disableAbilityCheck"],
       },
     },
     columnRight: {

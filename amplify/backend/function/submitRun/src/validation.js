@@ -29,20 +29,17 @@ async function validate(data) {
 }
 
 function validate_numOfChecks(runData) {
-  if (
-    runData.numOfChecks <
+  return runData.numOfChecks <
     parseInt(runData.numOfChars) -
       runData.chars.length +
       parseInt(runData.numOfEspers) +
       parseInt(runData.dragons.length)
-  ) {
-    return {
-      result: false,
-      reason:
-        "Total checks completed cannot be lower than characters+espers+dragons.",
-    };
-  }
-  return checkNumberRange(runData.numOfChecks, 0, 61);
+    ? {
+        result: false,
+        reason:
+          "Total checks completed cannot be lower than characters+espers+dragons.",
+      }
+    : checkNumberRange(runData.numOfChecks, 0, 61);
 }
 
 function validate_numOfPeekedChecks(runData) {
@@ -61,36 +58,30 @@ function validate_runTime(runData) {
 }
 
 function validate_runDate(runData) {
-  if (!isNaN(new Date(runData.runDate).getDate())) {
-    return { result: true };
-  } else {
-    return { result: false, reason: "Run Date is not a valid date." };
-  }
+  return !isNaN(new Date(runData.runDate).getDate())
+    ? { result: true }
+    : { result: false, reason: "Run Date is not a valid date." };
 }
 
 function validate_ktStartTime(runData) {
   // Validates that the submitted time is in the format hh:mm:ss
   if (runData.ktStartTime.length === 0) {
-    if (runData.kefkaTime.length === 0) {
-      return { result: true };
-    } else {
-      return {
-        result: false,
-        reason: 'Cannot be blank if "Kefka Start Time" is entered.',
-      };
-    }
+    return runData.kefkaTime.length === 0
+      ? { result: true }
+      : {
+          result: false,
+          reason: 'Cannot be blank if "Kefka Start Time" is entered.',
+        };
   } else if (checkTime(runData.ktStartTime)) {
     let runTimeDate = new Date("1970-01-01 " + runData.runTime);
     let ktStartTimeDate = new Date("1970-01-01 " + runData.ktStartTime);
 
-    if (ktStartTimeDate.getTime() > runTimeDate.getTime()) {
-      return {
-        result: false,
-        reason: 'Time cannot be higher than the "Total Time"',
-      };
-    } else {
-      return { result: true };
-    }
+    return ktStartTimeDate.getTime() > runTimeDate.getTime()
+      ? {
+          result: false,
+          reason: 'Time cannot be higher than the "Total Time"',
+        }
+      : { result: true };
   } else {
     return { result: false, reason: "Time not in proper hh:mm:ss format." };
   }
@@ -99,14 +90,12 @@ function validate_ktStartTime(runData) {
 function validate_kefkaTime(runData) {
   // Validates that the submitted time is in the format hh:mm:ss
   if (runData.kefkaTime.length === 0) {
-    if (runData.ktStartTime.length === 0) {
-      return { result: true };
-    } else {
-      return {
-        result: false,
-        reason: 'Cannot be blank if "KT Start Time" is entered.',
-      };
-    }
+    return runData.ktStartTime.length === 0
+      ? { result: true }
+      : {
+          result: false,
+          reason: 'Cannot be blank if "KT Start Time" is entered.',
+        };
   } else if (checkTime(runData.kefkaTime)) {
     let runTimeDate = new Date("1970-01-01 " + runData.runTime);
     let ktStartTimeDate = new Date("1970-01-01 " + runData.ktStartTime);
@@ -200,6 +189,9 @@ function validate_skip(runData) {
 async function validate_chars(runData) {
   // Validates that 1-4 characters were submitted and that all characters are valid
   let characters = runData.chars;
+  const requiredChars = config.flagsetRules[runData.flagset].requiredChars
+    ? config.flagsetRules[runData.flagset].requiredChars
+    : [];
 
   if (characters.length === 0) {
     return { result: false, reason: "No starting characters selected." };
@@ -221,6 +213,16 @@ async function validate_chars(runData) {
         config.flagsetRules[runData.flagset].startingChars
       } characters, per your flagset settings.`,
     };
+  } else if (!requiredChars.every((char) => characters.includes(char))) {
+    // Check to see if all of the `requiredChars` are included, if `requiredChars` is set.
+    const reason =
+      requiredChars.length === 1
+        ? `Missing required character: ${requiredChars}`
+        : `Missing required one of the required characters for the flagset: ${requiredChars}`;
+    return {
+      result: false,
+      reason: reason,
+    };
   } else {
     return compareToBackendEnum("Character", characters);
   }
@@ -229,19 +231,31 @@ async function validate_chars(runData) {
 async function validate_dragons(runData) {
   let dragons = runData.dragons;
 
-  if (dragons.length > 8) {
-    return {
-      result: false,
-      reason: "More than 8 dragons submitted.  Contact administrator.",
-    };
-  } else {
-    return compareToBackendEnum("Dragon", dragons);
-  }
+  return dragons.length > 8
+    ? {
+        result: false,
+        reason: "More than 8 dragons submitted.  Contact administrator.",
+      }
+    : compareToBackendEnum("Dragon", dragons);
 }
 
 async function validate_abilities(runData) {
   let abilities = runData.abilities;
   let numOfAbilities = runData.chars.length;
+
+  // If the flagset has `permitAbilityCheckOverride1 enabled,
+  // Check to see the value of `disableAbilitCheck`
+  if (runData.disableAbilityCheck === true) {
+    return config.flagsetRules[runData.flagset].permitAbilityCheckOverride ===
+      true
+      ? {
+          result: true,
+        }
+      : {
+          result: false,
+          reason: "Flagset not elgible to disable ability verification.",
+        };
+  }
 
   // To determine the number of abilities to check for:
   // numOfAbilities = runData.chars.length
@@ -272,6 +286,18 @@ async function validate_abilities(runData) {
     }
     return compareToBackendEnum("Ability", abilities);
   }
+}
+
+async function validate_disableAbilityCheck(runData) {
+  return typeof runData.disableAbilityCheck == "boolean"
+    ? {
+        result: true,
+      }
+    : {
+        result: false,
+        reason: "Value must be true or false.  Please contact administrator.",
+      };
+  s;
 }
 
 async function validate_finalBattle(runData) {
