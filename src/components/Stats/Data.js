@@ -219,56 +219,58 @@ export class Data {
     return freqOfDeadcheck;
   }
 
-  startingCharacters() {
-    let times = {};
-    for (let i = 0; i < this.runData.length; i++) {
-      for (let char = 0; char < this.runData[i].chars.length; char++) {
-        if (!(this.runData[i].chars[char] in times)) {
-          times[this.runData[i].chars[char]] = [this.runData[i].runTimeRaw];
-        } else {
-          times[this.runData[i].chars[char]].push(this.runData[i].runTimeRaw);
-        }
-      }
-    }
-
-    let timesPerChar = [];
-    const average = (array) => array.reduce((a, b) => a + b, 0) / array.length;
-
-    //Sort chars based on enum order
-    for (let i = 0; i < this.charList.length; i++) {
-      if (this.charList[i] in times) {
-        const averageTime = Math.round(average(times[this.charList[i]]));
-
-        timesPerChar.push({
-          name: this.charList[i],
-          data: averageTime,
-          time: averageTime,
-          runs: times[this.charList[i]].length,
-        });
-      }
-    }
-
-    return timesPerChar;
-  }
-
-  mostUsedCharacter() {
-    return this.startingCharacters().sort((a, b) => b.runs - a.runs)[0];
+  mostUsedCharacter(reverse = false) {
+    /**
+     * Returns the starting character that appears in the most amount of runs.
+     * @param {Boolean} reverse If set to `true`, the least-used character will be returned instead.
+     * @return {Object} The average time, number of runs and times per run for the most used character.
+     */
+    return reverse
+      ? this.getStatsBarChartData("chars", this.charList).sort(
+          (a, b) => a.runs - b.runs
+        )[0]
+      : this.getStatsBarChartData("chars", this.charList).sort(
+          (a, b) => b.runs - a.runs
+        )[0];
   }
 
   fastestCharacter() {
-    let char = this.startingCharacters().sort((a, b) => a.data - b.data)[0];
-    char.time = this.convertRawToTime(char.data);
+    /**
+     * Returns the starting character with the lowest average run time.
+     * @return {Object} The average time, number of runs and times per run for the fastest character.
+     */
+    let char = this.getStatsBarChartData("chars").sort(
+      (a, b) => a.time - b.time
+    )[0];
+    char.time = this.convertRawToTime(char.time);
 
     return char;
   }
 
-  mostUsedAbility() {
-    return this.startingAbilities().sort((a, b) => b.runs - a.runs)[0];
+  mostUsedAbility(reverse = false) {
+    /**
+     * Returns the starting ability that appears in the most amount of runs.
+     * @param {Boolean} reverse If set to `true`, the least-used ability will be returned instead.
+     * @return {Object} The average time, number of runs and times per run for the most used ability.
+     */
+    return reverse
+      ? this.getStatsBarChartData("abilities").sort(
+          (a, b) => a.runs - b.runs
+        )[0]
+      : this.getStatsBarChartData("abilities").sort(
+          (a, b) => b.runs - a.runs
+        )[0];
   }
 
   fastestAbility() {
-    let ability = this.startingAbilities().sort((a, b) => a.data - b.data)[0];
-    ability.time = this.convertRawToTime(ability.data);
+    /**
+     * Returns the starting ability with the lowest average run time.
+     * @return {Object} The average time, number of runs and times per run for the fastest ability.
+     */
+    let ability = this.getStatsBarChartData("abilities").sort(
+      (a, b) => a.time - b.time
+    )[0];
+    ability.time = this.convertRawToTime(ability.time);
 
     return ability;
   }
@@ -291,79 +293,23 @@ export class Data {
   numOfDragons(dataType = "time") {
     /**
      * Find average time and total runs for each possible amount of dragons that can be fought in a run.
-     * @param {String} dataType Set the data field to be the primary `data` field;
+     * @param {String} dataType The data field to be the primary `data` field;
      *    this is what will be displayed on the y-Axis in StatsBarChart.
      * @return {Array} Array of the total runs and average time for each amount of dragons, formatted
      *    to be used with StatsBarChart.
      */
-    let numOfDragons = [];
-    const average = (array) => array.reduce((a, b) => a + b, 0) / array.length;
+    let data = [];
 
-    for (let i = 0; i < this.runData.length; i++) {
-      let runTimes =
-        this.runData[i].dragons.length in numOfDragons
-          ? numOfDragons[this.runData[i].dragons.length].runTimes
-          : [];
-      runTimes.push(this.runData[i].runTimeRaw);
-
-      const time = Math.round(average(runTimes));
-
-      numOfDragons[this.runData[i].dragons.length] = {
-        name: this.runData[i].dragons.length,
-        data: dataType === "runs" ? runTimes.length : time,
-        time: time,
-        runs: runTimes.length,
-        runTimes: runTimes,
-      };
+    for (let run = 0; run < this.runData.length; run++) {
+      data = this.generateStatsBarChartDataPoint(
+        this.runData[run].dragons.length.toString(),
+        this.runData[run],
+        data,
+        dataType
+      );
     }
 
-    return numOfDragons;
-  }
-
-  startingAbilities() {
-    /**
-     * Find average time and total runs for each starting ability.
-     * @return {Array} Array of the total runs and average time for each starting ability, formatted
-     *    to be used with StatsBarChart.
-     */
-    let timesPerAbility = [];
-    const average = (array) => array.reduce((a, b) => a + b, 0) / array.length;
-
-    for (let i = 0; i < this.runData.length; i++) {
-      for (
-        let ability = 0;
-        ability < this.runData[i].abilities.length;
-        ability++
-      ) {
-        const name = this.removeSpaces(this.runData[i].abilities[ability]);
-        const index = timesPerAbility.findIndex((object) => {
-          return object.name === name;
-        });
-
-        // If index < 0 then it hasn't been added yet, so default runTimes to an empty array
-        let runTimes = index >= 0 ? timesPerAbility[index].runTimes : [];
-
-        runTimes.push(this.runData[i].runTimeRaw);
-
-        const time = Math.round(average(runTimes));
-        const abilityPayload = {
-          name: name,
-          data: time,
-          time: time,
-          runs: runTimes.length,
-          runTimes: runTimes,
-        };
-
-        // If ability is already added, update it.  Otherwise, push it as a new element
-        if (index >= 0) {
-          timesPerAbility[index] = abilityPayload;
-        } else {
-          timesPerAbility.push(abilityPayload);
-        }
-      }
-    }
-
-    return timesPerAbility;
+    return data.sort((a, b) => a.name - b.name);
   }
 
   sortByTime() {
@@ -442,44 +388,25 @@ export class Data {
     );
   }
 
-  getStatsBarChartData(field, enumList = null) {
+  getStatsBarChartData(field, enumList = null, dataType = "time") {
     /**
      * For a given array in `runData`, calculate the average time and runs in a format to be used by StatsBarChart.
      * @param {String} field The run field to generate a chart for, ie `dragons`.
      * @param {Array} enumList (Optional) An array of Enums from graphql for the given field.  If provided, any missing Enums
      *    will be added to the result, but with zeroed out data.
+     * @param {String} dataType Set the data field to be the primary `data` field;
+     *    this is what will be displayed on the y-Axis in StatsBarChart.
      * @return {Array} Array of datapoints to work with StatsBarChart.  Each point contains a `name`, `time`, the number of runs and the times per run.
      */
     let data = [];
-    const average = (array) => array.reduce((a, b) => a + b, 0) / array.length;
 
     for (let run = 0; run < this.runData.length; run++) {
       for (let i = 0; i < this.runData[run][field].length; i++) {
-        const name = this.removeSpaces(this.runData[run][field][i]);
-        const index = data.findIndex((object) => {
-          return object.name === name;
-        });
-
-        // If index < 0 then it hasn't been added yet, so default runTimes to an empty array
-        let runTimes = index >= 0 ? data[index].runTimes : [];
-
-        runTimes.push(this.runData[run].runTimeRaw);
-
-        const time = Math.round(average(runTimes));
-        const payload = {
-          name: name,
-          data: time,
-          time: time,
-          runs: runTimes.length,
-          runTimes: runTimes,
-        };
-
-        // If data point is already added, update it.  Otherwise, push it as a new element
-        if (index >= 0) {
-          data[index] = payload;
-        } else {
-          data.push(payload);
-        }
+        data = this.generateStatsBarChartDataPoint(
+          this.removeSpaces(this.runData[run][field][i]),
+          this.runData[run],
+          data
+        );
       }
     }
 
@@ -497,7 +424,7 @@ export class Data {
           const runTimes = [];
           const payload = {
             name: name,
-            data: time,
+            data: dataType === "runs" ? runTimes.length : time,
             time: time,
             runs: runTimes.length,
             runTimes: runTimes,
@@ -508,48 +435,48 @@ export class Data {
       }
     }
 
-    return data;
+    // In the event that no data is found, set some defaults.
+    data =
+      data.length === 0 ? [{ name: "N/A", data: 0, time: 0, runs: 0 }] : data;
+    return data.sort((a, b) => a.name - b.name);
   }
 
-  averageChars(data = this.runData) {
-    const average = (array) =>
-      Math.floor(
-        (array.reduce((a, b) => a + b.numOfChars, 0) / array.length) * 100
-      ) / 100;
-    return average(data);
-  }
+  generateStatsBarChartDataPoint(name, run, currentData, dataType = "time") {
+    /**
+     * Creates or updates a StatsBarChart data point with new run data.  If data already exists for a given name, it will be updated with the run's time.
+     * @param {String} name The value of the `name` field in the current data you want to add or update.
+     * @param {Object} run A `run` object.
+     * @param {Array} currentData The StatsBarChart data to update.
+     * @param {String} dataType The data field to be the primary `data` field;
+     *    this is what will be displayed on the y-Axis in StatsBarChart.
+     * @return {Array} An updated StatsBarChart data set.
+     */
+    const index = currentData.findIndex((object) => {
+      return object.name === name;
+    });
 
-  averageEspers(data = this.runData) {
-    const average = (array) =>
-      Math.floor(
-        (array.reduce((a, b) => a + b.numOfEspers, 0) / array.length) * 100
-      ) / 100;
-    return average(data);
-  }
+    // If index < 0 then it hasn't been added yet, so default runTimes to an empty array
+    let runTimes = index >= 0 ? currentData[index].runTimes : [];
+    runTimes.push(run.runTimeRaw);
 
-  averageBosses(data = this.runData) {
-    const average = (array) =>
-      Math.floor(
-        (array.reduce((a, b) => a + b.numOfBosses, 0) / array.length) * 100
-      ) / 100;
-    return average(data);
-  }
+    const average = (array) => array.reduce((a, b) => a + b, 0) / array.length;
+    const time = Math.round(average(runTimes));
 
-  averageDeadChecks(data = this.runData) {
-    const average = (array) =>
-      Math.floor(
-        (array.reduce((a, b) => a + b.numOfDeadchecks, 0) / array.length) * 100
-      ) / 100;
-    return average(data);
-  }
+    const payload = {
+      name: name,
+      data: dataType === "runs" ? runTimes.length : time,
+      time: time,
+      runs: runTimes.length,
+      runTimes: runTimes,
+    };
 
-  averageDragons(data = this.runData) {
-    const average = (array) =>
-      Math.floor(
-        (array.reduce((a, b) => a + b.dragons.length, 0) / array.length) * 100
-      ) / 100;
-
-    return average(data);
+    // If data point is already added, update it.  Otherwise, push it as a new element
+    if (index >= 0) {
+      currentData[index] = payload;
+    } else {
+      currentData.push(payload);
+    }
+    return currentData;
   }
 
   averageCharsSkip() {
@@ -562,6 +489,29 @@ export class Data {
     const skipEspers = this.averageEspers(this.skipData());
 
     return isNaN(skipEspers) ? "-" : skipEspers;
+  }
+
+  averageNum(field, data = this.runData) {
+    /**
+     * Finds the average of a field across all runs.  Field must be an `int`.
+     * @param {String} field Field to average.
+     * @param {Array} data Opional: Data to average.  Defaults to all runs.
+     * @returns {Int} Average result.
+     */
+    const average = (array) =>
+      Math.floor(
+        (array.reduce((a, b) => a + b[field], 0) / array.length) * 100
+      ) / 100;
+    return average(data);
+  }
+
+  averageDragons(data = this.runData) {
+    const average = (array) =>
+      Math.floor(
+        (array.reduce((a, b) => a + b.dragons.length, 0) / array.length) * 100
+      ) / 100;
+
+    return average(data);
   }
 
   removeSpaces(name) {

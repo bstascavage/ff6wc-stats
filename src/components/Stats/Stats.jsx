@@ -389,7 +389,7 @@ function Stats(props) {
                   <StatsBarChart
                     heading="Starting Stats"
                     title="Characters"
-                    data={data.startingCharacters()}
+                    data={data.getStatsBarChartData("chars")}
                     dark={true}
                     height={400}
                     dy={40}
@@ -407,7 +407,7 @@ function Stats(props) {
                   <StatsBarChart
                     heading="Starting Stats"
                     title="Abilities"
-                    data={data.startingAbilities()}
+                    data={data.getStatsBarChartData("abilities")}
                     dark={true}
                     height={400}
                     dy={40}
@@ -465,7 +465,7 @@ function Stats(props) {
                   <StatsCard
                     key="averageChars"
                     title="Average Number of Characters"
-                    stat={data.averageChars()}
+                    stat={data.averageNum("numOfChars")}
                     icon={faPerson}
                     iconColor="bg-primary"
                     fontSize="3rem"
@@ -476,7 +476,7 @@ function Stats(props) {
                   <StatsCard
                     key="averageEspers"
                     title="Average Number of Espers"
-                    stat={data.averageEspers()}
+                    stat={data.averageNum("numOfEspers")}
                     icon={faBoltLightning}
                     iconColor="bg-success"
                     fontSize="3rem"
@@ -487,7 +487,7 @@ function Stats(props) {
                   <StatsCard
                     key="averageBosses"
                     title="Average Number of Bosses"
-                    stat={data.averageBosses()}
+                    stat={data.averageNum("numOfBosses")}
                     icon={faPaw}
                     iconColor="bg-secondary"
                     fontSize="3rem"
@@ -498,7 +498,7 @@ function Stats(props) {
                   <StatsCard
                     key="averageDeadChecks"
                     title="Average Number of Dead Checks"
-                    stat={data.averageDeadChecks()}
+                    stat={data.averageNum("numOfDeadchecks")}
                     icon={faSkull}
                     iconColor="bg-danger"
                     fontSize="3rem"
@@ -604,7 +604,7 @@ function Stats(props) {
                 >
                   <StatsBarChart
                     heading="Dragons"
-                    title="Number of Dragons - By Run"
+                    title="Number of Dragons - By Runs"
                     data={data.numOfDragons("runs")}
                     dark={true}
                     yAxisType="interval"
