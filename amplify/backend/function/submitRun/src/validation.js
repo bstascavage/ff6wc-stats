@@ -189,6 +189,9 @@ function validate_skip(runData) {
 async function validate_chars(runData) {
   // Validates that 1-4 characters were submitted and that all characters are valid
   let characters = runData.chars;
+  const requiredChars = config.flagsetRules[runData.flagset].requiredChars
+    ? config.flagsetRules[runData.flagset].requiredChars
+    : [];
 
   if (characters.length === 0) {
     return { result: false, reason: "No starting characters selected." };
@@ -209,6 +212,16 @@ async function validate_chars(runData) {
       reason: `Must select ${
         config.flagsetRules[runData.flagset].startingChars
       } characters, per your flagset settings.`,
+    };
+  } else if (!requiredChars.every((char) => characters.includes(char))) {
+    // Check to see if all of the `requiredChars` are included, if `requiredChars` is set.
+    const reason =
+      requiredChars.length === 1
+        ? `Missing required character: ${requiredChars}`
+        : `Missing required one of the required characters for the flagset: ${requiredChars}`;
+    return {
+      result: false,
+      reason: reason,
     };
   } else {
     return compareToBackendEnum("Character", characters);
