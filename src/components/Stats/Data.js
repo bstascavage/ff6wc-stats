@@ -255,6 +255,11 @@ export class Data {
         });
       }
     }
+    timesPerAbility =
+      timesPerAbility.length === 0
+        ? [{ name: "N/A", time: 0, runs: 0 }]
+        : timesPerAbility;
+    console.log(timesPerAbility);
     return timesPerAbility;
   }
 
