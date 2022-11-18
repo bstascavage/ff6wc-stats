@@ -21,6 +21,19 @@ Stats Collide is a fully serverless, full-stack application built with the React
 
 ### Prerequisites
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 In order to run the application locally, the following technologies needs to be pre-installed:
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) - The development environment runs in [Anvil](https://github.com/saic-oss/anvil), a DevSecOps tools container. This container has all development tools installed and configured for this application, reducing onboarding time for new developers.
