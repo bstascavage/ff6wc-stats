@@ -1,5 +1,5 @@
 name: Pull request CI
-run-name: Running CI for PR to `${{ github.base_ref }}` from `${{ github.head_ref	}}`
+run-name: Running CI for PR to "${{ github.base_ref }}" from "${{ github.head_ref	}}"
 on:
   - pull_request
 jobs:
