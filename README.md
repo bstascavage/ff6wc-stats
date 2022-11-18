@@ -1,5 +1,7 @@
 # StatsCollide
 
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/bstascavage/ff6wc-stats/main.svg)](https://results.pre-commit.ci/latest/github/bstascavage/ff6wc-stats/main)
+
 ## Introduction
 
 Welcome to [Stats Collide](https://statscollide.com/), a tool for recording and tracking your [Final Fantasy VI: Worlds Collide](https://ff6wc.com/) runs. Here you can monitor your speedrunning progress, analyze patterns with your playstyle, and identify trends that can help improve your Worlds Collide skills. We know how much you love data, so why not use it to kill that crazy clown even faster than before and save the world in record time?

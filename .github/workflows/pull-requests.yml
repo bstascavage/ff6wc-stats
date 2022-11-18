@@ -1,0 +1,28 @@
+name: Pull request CI
+run-name: Running CI for PR to "${{ github.base_ref }}" from "${{ github.head_ref	}}"
+on:
+  - pull_request
+jobs:
+  pre-commit-ci-lite:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: creyD/prettier_action@v4.2
+      - uses: pre-commit/action@v3.0.0
+      - uses: pre-commit-ci/lite-action@v1.0.0
+        if: always()
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - run: npm ci
+      - run: cat src/aws-exports-dummy-secrets > ./src/aws-exports.js
+      - run: npm run build --if-present
