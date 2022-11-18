@@ -20,6 +20,7 @@ jobs:
   pre-commit-ci-lite:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - uses: pre-commit/action@v3.0.0
       - uses: pre-commit-ci/lite-action@v1.0.0
         if: always()
