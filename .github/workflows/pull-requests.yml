@@ -1,5 +1,5 @@
 name: Pull request CI
-run-name: Running CI for PR to ${{ github.base_ref }} from ${{ github.head_ref	}}
+run-name: Running CI for PR to `${{ github.base_ref }}` from `${{ github.head_ref	}}`
 on:
   - pull_request
 jobs:
@@ -24,5 +24,5 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
       - run: npm ci
-      - run: echo src/aws-exports-dummy-secrets > ./src/aws-exports.js
+      - run: cat src/aws-exports-dummy-secrets > ./src/aws-exports.js
       - run: npm run build --if-present
