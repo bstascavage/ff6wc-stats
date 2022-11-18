@@ -23,11 +23,11 @@ repos:
     rev: v2.3.2
     hooks:
       - id: prettier
-  - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.73.0 # Get the latest from: https://github.com/antonbabenko/pre-commit-terraform/releases
-    hooks:
-      - id: terraform_fmt
-      - id: terraform_docs
-      - id: terraform_tflint
-      # - id: terraform_tfsec # Disabling because it is taking forever with the lambda function, despite it not being used by Terraform?
-      - id: terraform_validate
+  # - repo: https://github.com/antonbabenko/pre-commit-terraform
+  #   rev: v1.73.0 # Get the latest from: https://github.com/antonbabenko/pre-commit-terraform/releases
+  #   hooks:
+  #     - id: terraform_fmt
+  #     - id: terraform_docs
+  #     - id: terraform_tflint
+  #     # - id: terraform_tfsec # Disabling because it is taking forever with the lambda function, despite it not being used by Terraform?
+  #     - id: terraform_validate
