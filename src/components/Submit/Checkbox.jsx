@@ -19,7 +19,7 @@ function renderCheckbox(elems) {
       <div className="submission-checkbox-elem" key={elems[i].name}>
         <input type="checkbox" id={elems[i].name} name={elems[i].name}></input>
         <label htmlFor={elems[i].name}>{elems[i].display_name}</label>
-      </div>
+      </div>,
     );
   }
   return renderList;

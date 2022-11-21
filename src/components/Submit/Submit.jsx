@@ -100,7 +100,7 @@ function Submit(props) {
       submitFieldData,
       props.config,
       setSubmitFieldData,
-      setSubmissionState
+      setSubmissionState,
     );
   }, []);
 
@@ -113,7 +113,7 @@ function Submit(props) {
       if (props.config.submit[key].type === "checkbox") {
         submitPayload[key] = parseCheckboxSelected(
           submitFieldData.enum[key],
-          event
+          event,
         );
       } else if (props.config.submit[key].type === "toggle") {
         submitPayload[key] = event.target[key].checked;
@@ -169,14 +169,14 @@ function Submit(props) {
               props.config,
               submissionState.dataValidationResults,
               submitFieldData,
-              setSubmitFieldData
+              setSubmitFieldData,
             )}
             {getColumn(
               "columnRight",
               props.config,
               submissionState.dataValidationResults,
               submitFieldData,
-              setSubmitFieldData
+              setSubmitFieldData,
             )}
           </ColumnWrapper>
           <div className="submit-container" id="submit-container">
@@ -197,7 +197,7 @@ function getEnumSelection(
   selectionState,
   config,
   setFunction,
-  setSubmissionState
+  setSubmissionState,
 ) {
   // Retrieve list of enum values from database based on query
   Object.keys(selectionState.enum).forEach((key, index) => {
@@ -231,7 +231,7 @@ function getEnumSelection(
             if (
               (key === "flagset" &&
                 config.submit_misc.active_flagsets.includes(
-                  responseJson.data.__type.enumValues[i].name
+                  responseJson.data.__type.enumValues[i].name,
                 )) ||
               key !== "flagset"
             ) {
@@ -260,7 +260,7 @@ function createItem(
   config,
   validationResults,
   submitFieldData,
-  setSubmitFieldData
+  setSubmitFieldData,
 ) {
   // Creates the component based on the config info
   // TODO: Can we refactor the opts here? And datavalidation results?
@@ -331,7 +331,7 @@ function getColumn(
   config,
   validationResults,
   submitFieldData,
-  setSubmitFieldData
+  setSubmitFieldData,
 ) {
   // Creates a column made up of cards and items in the cards.
   let cardList = [];
@@ -348,7 +348,7 @@ function getColumn(
         config.submit[id],
         validationResults,
         submitFieldData,
-        setSubmitFieldData
+        setSubmitFieldData,
       );
       renderList.push(item);
     }
@@ -358,7 +358,7 @@ function getColumn(
         title={config.submitFormat[columnId][cardTitle].title}
       >
         {renderList}
-      </Card>
+      </Card>,
     );
   });
   return <Column>{cardList}</Column>;
