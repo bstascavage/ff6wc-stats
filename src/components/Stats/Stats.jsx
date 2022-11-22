@@ -134,7 +134,7 @@ function Stats(props) {
     statsState.data,
     statsState.filters,
     charList,
-    abilityList
+    abilityList,
   );
   let page, body;
 
@@ -497,7 +497,7 @@ function copyURLToClipboard(e, userId, setUserId) {
   navigator.clipboard.writeText(
     window.location.href
       .replace(window.location.hash, "")
-      .concat(`#user=${userId.id}`)
+      .concat(`#user=${userId.id}`),
   );
   setUserId({ type: "copied" });
   setTimeout(() => {

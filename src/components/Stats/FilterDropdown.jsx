@@ -34,7 +34,7 @@ function FilterDropdown(props) {
         onClick={changeValue}
       >
         {props.choices[i].displayName}
-      </DropdownItem>
+      </DropdownItem>,
     );
   }
 

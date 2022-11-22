@@ -12,12 +12,12 @@ export class Data {
     } else {
       // Filter by flagset
       this.runData = this.runData.filter(
-        (data) => data.flagset === this.flagsetFilter
+        (data) => data.flagset === this.flagsetFilter,
       );
       if (this.raceFilter !== "All") {
         // Then filter by race
         this.runData = this.runData.filter(
-          (data) => data.race === this.raceFilter
+          (data) => data.race === this.raceFilter,
         );
       }
     }
@@ -46,7 +46,7 @@ export class Data {
       return "00:00:00";
     } else {
       return this.convertRawToTime(
-        Math.floor(Math.round(skipTime) / 1000) * 1000
+        Math.floor(Math.round(skipTime) / 1000) * 1000,
       );
     }
   }
@@ -69,20 +69,20 @@ export class Data {
 
   deltaBestTime() {
     return this.convertDeltaTime(
-      this.averageTimeRaw() - this.bestRun().runTimeRaw
+      this.averageTimeRaw() - this.bestRun().runTimeRaw,
     );
   }
 
   deltaLastTime() {
     return this.convertDeltaTime(
-      this.averageTimeRaw() - this.lastRun().runTimeRaw
+      this.averageTimeRaw() - this.lastRun().runTimeRaw,
     );
   }
 
   deltaSkipTime(skip = true) {
     const data = this.skipData(skip);
     return this.convertDeltaTime(
-      this.averageTimeRaw() - this.averageTimeRaw(data)
+      this.averageTimeRaw() - this.averageTimeRaw(data),
     );
   }
 
@@ -96,7 +96,7 @@ export class Data {
     const sum = runs.reduce((acc, curr) => acc + curr, 0);
 
     return this.convertRawToTime(
-      Math.floor(Math.round(Math.sqrt(sum / runs.length)) / 1000) * 1000
+      Math.floor(Math.round(Math.sqrt(sum / runs.length)) / 1000) * 1000,
     );
   }
 
@@ -130,7 +130,7 @@ export class Data {
         : this.sortByDate();
 
     return this.convertRawToTime(
-      Math.floor(Math.round(this.averageTimeRaw(runs)) / 1000) * 1000
+      Math.floor(Math.round(this.averageTimeRaw(runs)) / 1000) * 1000,
     ); // Convert to hh:mm:ss, while rounding to the nearest second
   }
 
@@ -228,7 +228,7 @@ export class Data {
           ];
         } else {
           times[this.runData[i].abilities[ability]].push(
-            this.runData[i].runTimeRaw
+            this.runData[i].runTimeRaw,
           );
         }
       }
@@ -284,7 +284,7 @@ export class Data {
 
   flagsets() {
     let uniqueFlagsets = Array.from(
-      new Set(this.unfilteredRunData.map(({ flagset }) => flagset))
+      new Set(this.unfilteredRunData.map(({ flagset }) => flagset)),
     );
     let flagsets = [{ name: "All", displayName: "All" }];
 
@@ -311,10 +311,10 @@ export class Data {
       // First we get all the flagsets from the global, unfiltered data
       // Then we filter for our current flagset
       const flagsetData = this.unfilteredRunData.filter(
-        (data) => data.flagset === this.flagsetFilter
+        (data) => data.flagset === this.flagsetFilter,
       );
       let uniqueRaces = Array.from(
-        new Set(flagsetData.map(({ race }) => race))
+        new Set(flagsetData.map(({ race }) => race)),
       );
 
       for (let i = 0; i < uniqueRaces.length; i++) {

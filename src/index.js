@@ -13,5 +13,5 @@ const header = ReactDOM.createRoot(document.getElementById("root"));
 header.render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>
+  </React.StrictMode>,
 );
