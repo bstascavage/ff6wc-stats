@@ -21,7 +21,7 @@ async function validate(data) {
   validationResults = {
     ...validationResults,
     validationStatus: Object.values(validationResults.validationDetails).every(
-      (item) => item.result,
+      (item) => item.result
     ),
   };
 
@@ -160,7 +160,7 @@ function validate_skip(runData) {
               skipChecks.push(false);
               break;
           }
-        },
+        }
       );
 
       const skipResult =
@@ -275,7 +275,7 @@ async function validate_abilities(runData) {
       // Check to see if an ability is in the exclude list for its flagset
       if (
         config.flagsetRules[runData.flagset].excludedAbilities.includes(
-          abilities[i],
+          abilities[i]
         )
       ) {
         return {

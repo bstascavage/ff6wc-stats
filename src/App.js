@@ -76,7 +76,7 @@ function App() {
       setUserdataState({ type: "send_discord_request" });
       getUserInfoFromDiscord(
         setUserdataState,
-        localStorage.getItem("discord_access_token"),
+        localStorage.getItem("discord_access_token")
       );
     } else {
       setUserdataState({ type: "not_logged_in" });
@@ -97,7 +97,7 @@ function App() {
         discordUserdata,
         validateBackendUserdata,
         upsertBackendUserdata,
-        setUpsertBackendUserdata,
+        setUpsertBackendUserdata
       );
     }
   }, [discordUserdata, validateBackendUserdata]);
@@ -170,7 +170,7 @@ function storeUserInfo(
   discordUserdata,
   validateBackendUserdata,
   upsertBackendUserdata,
-  setUpsertBackendUserdata,
+  setUpsertBackendUserdata
 ) {
   // Creates the user in the database if they exists, else updates the user.
   // TODO: Clean this up to possibly eliminate the backendUserdata state hook
@@ -194,7 +194,7 @@ function storeUserInfo(
         API.graphql(
           graphqlOperation(createUser, {
             input: data,
-          }),
+          })
         ).then(setUpsertBackendUserdata(true));
       } else if (
         validateBackendUserdata.data.getUser.discordUserId ===
@@ -203,7 +203,7 @@ function storeUserInfo(
         API.graphql(
           graphqlOperation(updateUser, {
             input: data,
-          }),
+          })
         ).then(setUpsertBackendUserdata(true));
       } else {
         console.error("Discord id somehow does not match store id");
@@ -222,7 +222,7 @@ function validateUserDiscordId(discordUserdata, setBackendUserdata) {
       API.graphql(
         graphqlOperation(getUserDiscordId, {
           discordUserId: discordUserdata.userdata.id,
-        }),
+        })
       )
         .then((responseJson) => setBackendUserdata(responseJson))
         .catch(console.error);
@@ -238,7 +238,7 @@ function getUserInfoFromDiscord(setUserdataState, accessToken) {
   fetch("https://discord.com/api/users/@me", {
     headers: {
       authorization: `${localStorage.getItem(
-        "discord_token_type",
+        "discord_token_type"
       )} ${accessToken} `,
     },
   })
