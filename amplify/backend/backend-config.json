@@ -26,11 +26,7 @@
         {
           "category": "api",
           "resourceName": "ff6wcstats",
-          "attributes": [
-            "GraphQLAPIIdOutput",
-            "GraphQLAPIEndpointOutput",
-            "GraphQLAPIKeyOutput"
-          ]
+          "attributes": ["GraphQLAPIIdOutput", "GraphQLAPIEndpointOutput"]
         }
       ]
     }

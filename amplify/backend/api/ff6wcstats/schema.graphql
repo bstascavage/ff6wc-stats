@@ -210,6 +210,7 @@ enum Auction {
 
 enum Flagset {
   Ultros_League
+  Ultros_League__Season_3
   Moogles_First_Tournament
   TotM__Glass_Cannon
   Coliseum__Terra
