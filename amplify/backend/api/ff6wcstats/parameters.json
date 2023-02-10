@@ -1,6 +1,5 @@
 {
   "AppSyncApiName": "ff6wcstats",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false,
-  "CreateAPIKey": 0
+  "DynamoDBEnableServerSideEncryption": false
 }
