@@ -462,7 +462,7 @@ function validate_numOfEspers(runData) {
 }
 
 function validate_numOfBosses(runData) {
-  return checkNumberRange(runData.numOfBosses, 1, 39);
+  return checkNumberRange(runData.numOfBosses, 1, 40);
 }
 
 function validate_highestLevel(runData) {

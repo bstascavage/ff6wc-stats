@@ -19,5 +19,12 @@
         }
       }
     }
+  },
+  "main": {
+    "categories": {
+      "function": {
+        "submitRun": {}
+      }
+    }
   }
 }
