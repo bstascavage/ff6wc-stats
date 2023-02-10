@@ -161,7 +161,7 @@ const CONFIG = {
       id: "numOfBosses",
       required: true,
       min: "0",
-      max: "39",
+      max: "40",
       step: "1",
       startingValue: "0",
       help: "Total amount of bosses defeated, found in the Track->Progress screen.",
@@ -353,7 +353,7 @@ const CONFIG = {
   },
   submit_misc: {
     active_flagsets: [
-      "Ultros_League",
+      "Ultros_League__Season_3",
       "Coliseum__Terra",
       "Coliseum__Locke",
       "Coliseum__Edgar",
