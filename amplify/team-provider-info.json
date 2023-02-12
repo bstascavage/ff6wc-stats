@@ -1,4 +1,25 @@
 {
+  "main": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-ff6wcstats-main-215331-authRole",
+      "UnauthRoleArn": "arn:aws:iam::477150083437:role/amplify-ff6wcstats-main-215331-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::477150083437:role/amplify-ff6wcstats-main-215331-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-ff6wcstats-main-215331-deployment",
+      "UnauthRoleName": "amplify-ff6wcstats-main-215331-unauthRole",
+      "StackName": "amplify-ff6wcstats-main-215331",
+      "StackId": "arn:aws:cloudformation:us-east-1:477150083437:stack/amplify-ff6wcstats-main-215331/8b1a79d0-1764-11ed-be02-0a6cfd7ddac1",
+      "AmplifyAppId": "d2osh3builx2nd"
+    },
+    "categories": {
+      "function": {
+        "submitRun": {
+          "deploymentBucketName": "amplify-ff6wcstats-main-215331-deployment",
+          "s3Key": "amplify-builds/submitRun-76324d6738566e5a7448-build.zip"
+        }
+      }
+    }
+  },
   "dev": {
     "awscloudformation": {
       "AuthRoleName": "amplify-ff6wcstats-dev-44729-authRole",
@@ -17,13 +38,6 @@
           "deploymentBucketName": "amplify-ff6wcstats-dev-44729-deployment",
           "s3Key": "amplify-builds/submitRun-5048367963456f726d4f-build.zip"
         }
-      }
-    }
-  },
-  "main": {
-    "categories": {
-      "function": {
-        "submitRun": {}
       }
     }
   }
