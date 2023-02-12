@@ -1,17 +1,18 @@
 export type AmplifyDependentResourcesAttributes = {
   api: {
     ff6wcstats: {
-      GraphQLAPIKeyOutput: "string";
-      GraphQLAPIIdOutput: "string";
       GraphQLAPIEndpointOutput: "string";
+      GraphQLAPIIdOutput: "string";
+      GraphQLAPIKeyOutput: "string";
     };
   };
   function: {
     submitRun: {
-      Name: "string";
       Arn: "string";
-      Region: "string";
       LambdaExecutionRole: "string";
+      LambdaExecutionRoleArn: "string";
+      Name: "string";
+      Region: "string";
     };
   };
 };
