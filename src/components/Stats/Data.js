@@ -302,6 +302,81 @@ export class Data {
     return data.sort((a, b) => a.name - b.name);
   }
 
+  getFriendlyDragonList() {
+    /**
+     * Returns a list of all dragons, in human-readable form,
+     * replacing `_` with ` ` and `__` with `-`
+     * @return {Array} An array with human-readable dragon names
+     */
+
+    return this.getFriendlyEnumList(this.dragonList);
+  }
+
+  getFriendlyEnumList(enumList) {
+    /**
+     * Helper function that takes an enum list and returns a human-readable version,
+     * replacing `_` with ` ` and `__` with `-`
+     * @param {Array} enumList The enumList to parse
+     * @return {Array} An array with human-readable names
+     */
+
+    let parsedList = [];
+    for (let i = 0; i < enumList.length; i++) {
+      parsedList.push(this.removeSpaces(enumList[i]));
+    }
+
+    return parsedList;
+  }
+
+  dragonHeatMap() {
+    /**
+     * Creates a frequency map of each dragon vs the total number of dragons in a run
+     * @return {Object} A frequency map of every dragon+numOfDragons combinations.
+     *  Each entry contains `dragonName` (an INT referencing the dragon's location in `dragonList`),
+     *  `numOfDragons (an INT for the number of dragons fought in a run),
+     *  and `numOfRuns` (an INT for the number of runs with this combination of `dragonName` and `numOfDragons`)
+     */
+    let data = { dragons: [] };
+
+    // Populate the initial list of 64 combinations
+    for (
+      let dragonName = 0;
+      dragonName <= this.dragonList.length;
+      dragonName++
+    ) {
+      for (
+        let numOfDragons = 0;
+        numOfDragons < this.dragonList.length;
+        numOfDragons++
+      ) {
+        data.dragons.push({
+          dragon: dragonName,
+          dragonName: this.getFriendlyDragonList()[dragonName],
+          numOfDragons: numOfDragons + 1,
+          numOfRuns: 0,
+        });
+      }
+    }
+
+    // Iterate over every run and every dragon in the run,
+    // incrementing `numOfRuns` for a given combination of dragon + `numOfDragons`
+    for (let run = 0; run < this.runData.length; run++) {
+      for (
+        let dragon = 0;
+        dragon < this.runData[run].dragons.length;
+        dragon++
+      ) {
+        let dragonIndex = this.dragonList.indexOf(
+          this.runData[run].dragons[dragon],
+        );
+
+        let numOfDragons = this.runData[run].dragons.length;
+        data.dragons[dragonIndex * 8 + (numOfDragons - 1)].numOfRuns++;
+      }
+    }
+    return data;
+  }
+
   sortByTime() {
     return this.runData.sort((a, b) => a.runTimeRaw - b.runTimeRaw);
   }

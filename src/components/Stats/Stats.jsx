@@ -11,6 +11,7 @@ import StatsCard from "./StatsCard";
 import FilterDropdown from "./FilterDropdown";
 import StatsLineChart from "./StatsLineChart";
 import StatsBarChart from "./StatsBarChart";
+import HeatMap from "./StatsHeatMap";
 import { runsForUser } from "../../graphql/queries";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -33,7 +34,11 @@ import {
   faBoltLightning,
   faPaw,
   faSkull,
+  faSkullCrossbones,
+  faDragon,
 } from "@fortawesome/free-solid-svg-icons";
+
+import { faDAndD } from "@fortawesome/free-brands-svg-icons";
 
 const defaultFlagset = {
   flagsetFilter: { name: "Flagset", value: "All" },
@@ -548,7 +553,7 @@ function Stats(props) {
                     key="averageDragons"
                     title="Average Number of Dragons"
                     stat={data.averageDragons()}
-                    icon={faPerson}
+                    icon={faDragon}
                     iconColor="bg-primary"
                     fontSize="3rem"
                     height="160px"
@@ -559,8 +564,8 @@ function Stats(props) {
                     key="favoriteDragons"
                     title="Most Fought Dragon"
                     stat={data.favoriteDragon().name}
-                    icon={faPerson}
-                    iconColor="bg-primary"
+                    icon={faDAndD}
+                    iconColor="bg-success"
                     height="160px"
                     subText="Total Runs:"
                     subStat={data.favoriteDragon().runs.toString()}
@@ -571,15 +576,15 @@ function Stats(props) {
                     key="favoriteDragons"
                     title="Least Fought Dragon"
                     stat={data.favoriteDragon(true).name}
-                    icon={faPerson}
-                    iconColor="bg-primary"
+                    icon={faSkullCrossbones}
+                    iconColor="bg-danger"
                     height="160px"
                     subText="Total Runs:"
                     subStat={data.favoriteDragon(true).runs.toString()}
                   />
                 </Col>
               </Row>
-              <Row className="pt-4 pb-3 stats-row">
+              <Row className="pt-4 stats-row">
                 <Col
                   className="mb-5 mb-xl-0 col-padding"
                   lg="6"
@@ -611,6 +616,26 @@ function Stats(props) {
                     height={400}
                     dy={40}
                     xHeight={75}
+                  />
+                </Col>
+              </Row>
+              <Row className="pt-4 pb-3 stats-row">
+                <Col
+                  className="mb-5 mb-xl-0 col-padding"
+                  lg="12"
+                  xl="12"
+                  style={{ height: "550px" }}
+                >
+                  <HeatMap
+                    heading="Dragons"
+                    title="Frequency of Specific Dragon vs Total Dragons Fought"
+                    height={550}
+                    dy={40}
+                    xHeight={75}
+                    data={data.dragonHeatMap()}
+                    yAxisMap={data.getFriendlyDragonList()}
+                    threshold={data.runData.length}
+                    numOfIntervals={8}
                   />
                 </Col>
               </Row>
