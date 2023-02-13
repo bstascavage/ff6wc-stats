@@ -140,7 +140,7 @@ function Stats(props) {
     statsState.filters,
     charList,
     abilityList,
-    dragonList
+    dragonList,
   );
   let page, body;
 
@@ -511,7 +511,7 @@ function Stats(props) {
                   <StatsBarChart
                     heading="Progress"
                     title="Dead Checks - Average Time"
-                    data={data.deadChecksByTime()}
+                    data={data.numOfDeadchecks()}
                     dark={true}
                     height={400}
                     dy={40}
@@ -522,7 +522,7 @@ function Stats(props) {
                   <StatsBarChart
                     heading="Progress"
                     title="Dead Checks - Number of Runs"
-                    data={data.deadChecksByFreq()}
+                    data={data.numOfDeadchecks("runs")}
                     yAxisType="interval"
                     dark={true}
                     height={400}
@@ -668,7 +668,7 @@ function copyURLToClipboard(e, userId, setUserId) {
   navigator.clipboard.writeText(
     window.location.href
       .replace(window.location.hash, "")
-      .concat(`#user=${userId.id}`)
+      .concat(`#user=${userId.id}`),
   );
   setUserId({ type: "copied" });
   setTimeout(() => {

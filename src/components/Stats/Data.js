@@ -13,12 +13,12 @@ export class Data {
     } else {
       // Filter by flagset
       this.runData = this.runData.filter(
-        (data) => data.flagset === this.flagsetFilter
+        (data) => data.flagset === this.flagsetFilter,
       );
       if (this.raceFilter !== "All") {
         // Then filter by race
         this.runData = this.runData.filter(
-          (data) => data.race === this.raceFilter
+          (data) => data.race === this.raceFilter,
         );
       }
     }
@@ -47,7 +47,7 @@ export class Data {
       return "00:00:00";
     } else {
       return this.convertRawToTime(
-        Math.floor(Math.round(skipTime) / 1000) * 1000
+        Math.floor(Math.round(skipTime) / 1000) * 1000,
       );
     }
   }
@@ -70,20 +70,20 @@ export class Data {
 
   deltaBestTime() {
     return this.convertDeltaTime(
-      this.averageTimeRaw() - this.bestRun().runTimeRaw
+      this.averageTimeRaw() - this.bestRun().runTimeRaw,
     );
   }
 
   deltaLastTime() {
     return this.convertDeltaTime(
-      this.averageTimeRaw() - this.lastRun().runTimeRaw
+      this.averageTimeRaw() - this.lastRun().runTimeRaw,
     );
   }
 
   deltaSkipTime(skip = true) {
     const data = this.skipData(skip);
     return this.convertDeltaTime(
-      this.averageTimeRaw() - this.averageTimeRaw(data)
+      this.averageTimeRaw() - this.averageTimeRaw(data),
     );
   }
 
@@ -97,7 +97,7 @@ export class Data {
     const sum = runs.reduce((acc, curr) => acc + curr, 0);
 
     return this.convertRawToTime(
-      Math.floor(Math.round(Math.sqrt(sum / runs.length)) / 1000) * 1000
+      Math.floor(Math.round(Math.sqrt(sum / runs.length)) / 1000) * 1000,
     );
   }
 
@@ -131,7 +131,7 @@ export class Data {
         : this.sortByDate();
 
     return this.convertRawToTime(
-      Math.floor(Math.round(this.averageTimeRaw(runs)) / 1000) * 1000
+      Math.floor(Math.round(this.averageTimeRaw(runs)) / 1000) * 1000,
     ); // Convert to hh:mm:ss, while rounding to the nearest second
   }
 
@@ -177,46 +177,26 @@ export class Data {
     return times;
   }
 
-  deadChecksByTime() {
-    const times = this.deadChecks();
+  numOfDeadchecks(dataType = "time") {
+    /**
+     * Find average time and total runs for each possible amount of dead checks that can be found in a run.
+     * @param {String} dataType The data field to be the primary `data` field;
+     *    this is what will be displayed on the y-Axis in StatsBarChart.
+     * @return {Array} Array of the total runs and average time for each amount of dragons, formatted
+     *    to be used with StatsBarChart.
+     */
+    let data = [];
 
-    let timesPerDeadcheck = [];
-    const average = (array) => array.reduce((a, b) => a + b, 0) / array.length;
-
-    //Sort based on deadcheck order
-    for (let i = 0; i < 12; i++) {
-      if (i in times) {
-        const averageTime = Math.round(average(times[i]));
-        timesPerDeadcheck.push({
-          name: i,
-          data: averageTime,
-          time: averageTime,
-          runs: times[i].length,
-        });
-      }
+    for (let run = 0; run < this.runData.length; run++) {
+      data = this.generateStatsBarChartDataPoint(
+        this.runData[run].numOfDeadchecks,
+        this.runData[run],
+        data,
+        dataType,
+      );
     }
 
-    return timesPerDeadcheck;
-  }
-
-  deadChecksByFreq() {
-    const times = this.deadChecks();
-
-    let freqOfDeadcheck = [];
-    const average = (array) => array.reduce((a, b) => a + b, 0) / array.length;
-
-    for (let i = 0; i < 12; i++) {
-      if (i in times) {
-        freqOfDeadcheck.push({
-          name: i,
-          data: times[i].length,
-          time: Math.round(average(times[i])),
-          runs: times[i].length,
-        });
-      }
-    }
-
-    return freqOfDeadcheck;
+    return data.sort((a, b) => a.name - b.name);
   }
 
   mostUsedCharacter(reverse = false) {
@@ -227,10 +207,10 @@ export class Data {
      */
     return reverse
       ? this.getStatsBarChartData("chars", this.charList).sort(
-          (a, b) => a.runs - b.runs
+          (a, b) => a.runs - b.runs,
         )[0]
       : this.getStatsBarChartData("chars", this.charList).sort(
-          (a, b) => b.runs - a.runs
+          (a, b) => b.runs - a.runs,
         )[0];
   }
 
@@ -240,7 +220,7 @@ export class Data {
      * @return {Object} The average time, number of runs and times per run for the fastest character.
      */
     let char = this.getStatsBarChartData("chars").sort(
-      (a, b) => a.time - b.time
+      (a, b) => a.time - b.time,
     )[0];
     char.time = this.convertRawToTime(char.time);
 
@@ -255,10 +235,10 @@ export class Data {
      */
     return reverse
       ? this.getStatsBarChartData("abilities").sort(
-          (a, b) => a.runs - b.runs
+          (a, b) => a.runs - b.runs,
         )[0]
       : this.getStatsBarChartData("abilities").sort(
-          (a, b) => b.runs - a.runs
+          (a, b) => b.runs - a.runs,
         )[0];
   }
 
@@ -268,7 +248,7 @@ export class Data {
      * @return {Object} The average time, number of runs and times per run for the fastest ability.
      */
     let ability = this.getStatsBarChartData("abilities").sort(
-      (a, b) => a.time - b.time
+      (a, b) => a.time - b.time,
     )[0];
     ability.time = this.convertRawToTime(ability.time);
 
@@ -283,10 +263,10 @@ export class Data {
      */
     return reverse
       ? this.getStatsBarChartData("dragons", this.dragonList).sort(
-          (a, b) => a.runs - b.runs
+          (a, b) => a.runs - b.runs,
         )[0]
       : this.getStatsBarChartData("dragons", this.dragonList).sort(
-          (a, b) => b.runs - a.runs
+          (a, b) => b.runs - a.runs,
         )[0];
   }
 
@@ -305,7 +285,7 @@ export class Data {
         this.runData[run].dragons.length.toString(),
         this.runData[run],
         data,
-        dataType
+        dataType,
       );
     }
 
@@ -333,7 +313,7 @@ export class Data {
 
   flagsets() {
     let uniqueFlagsets = Array.from(
-      new Set(this.unfilteredRunData.map(({ flagset }) => flagset))
+      new Set(this.unfilteredRunData.map(({ flagset }) => flagset)),
     );
     let flagsets = [{ name: "All", displayName: "All" }];
 
@@ -353,10 +333,10 @@ export class Data {
       // First we get all the flagsets from the global, unfiltered data
       // Then we filter for our current flagset
       const flagsetData = this.unfilteredRunData.filter(
-        (data) => data.flagset === this.flagsetFilter
+        (data) => data.flagset === this.flagsetFilter,
       );
       let uniqueRaces = Array.from(
-        new Set(flagsetData.map(({ race }) => race))
+        new Set(flagsetData.map(({ race }) => race)),
       );
 
       for (let i = 0; i < uniqueRaces.length; i++) {
@@ -405,7 +385,7 @@ export class Data {
         data = this.generateStatsBarChartDataPoint(
           this.removeSpaces(this.runData[run][field][i]),
           this.runData[run],
-          data
+          data,
         );
       }
     }
@@ -500,7 +480,7 @@ export class Data {
      */
     const average = (array) =>
       Math.floor(
-        (array.reduce((a, b) => a + b[field], 0) / array.length) * 100
+        (array.reduce((a, b) => a + b[field], 0) / array.length) * 100,
       ) / 100;
     return average(data);
   }
@@ -508,7 +488,7 @@ export class Data {
   averageDragons(data = this.runData) {
     const average = (array) =>
       Math.floor(
-        (array.reduce((a, b) => a + b.dragons.length, 0) / array.length) * 100
+        (array.reduce((a, b) => a + b.dragons.length, 0) / array.length) * 100,
       ) / 100;
 
     return average(data);
