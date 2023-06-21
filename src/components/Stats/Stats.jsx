@@ -389,7 +389,7 @@ function Stats(props) {
                   <StatsBarChart
                     heading="Starting Stats"
                     title="Characters"
-                    data={data.getStatsBarChartData("chars")}
+                    data={data.getStatsBarChartData("chars", charList)}
                     dark={true}
                     height={400}
                     dy={40}
@@ -407,7 +407,7 @@ function Stats(props) {
                   <StatsBarChart
                     heading="Starting Stats"
                     title="Abilities"
-                    data={data.getStatsBarChartData("abilities")}
+                    data={data.getStatsBarChartData("abilities", abilityList)}
                     dark={true}
                     height={400}
                     dy={40}

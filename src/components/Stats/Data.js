@@ -196,6 +196,11 @@ export class Data {
       );
     }
 
+    // If dead check is not in the data, add it with default vaules
+    for (let i = 0; i < 12; i++) {
+      const name = i;
+      data = this.createDefaultDataPoint(name, data);
+    }
     return data.sort((a, b) => a.name - b.name);
   }
 
@@ -282,11 +287,16 @@ export class Data {
 
     for (let run = 0; run < this.runData.length; run++) {
       data = this.generateStatsBarChartDataPoint(
-        this.runData[run].dragons.length.toString(),
+        this.runData[run].dragons.length,
         this.runData[run],
         data,
         dataType,
       );
+    }
+
+    for (let i = 0; i < 9; i++) {
+      const name = i;
+      data = this.createDefaultDataPoint(name, data);
     }
 
     return data.sort((a, b) => a.name - b.name);
@@ -390,35 +400,26 @@ export class Data {
       }
     }
 
-    // If a list of Enums is presented, add each element to the dataset if it doesn't already exist,
-    // filling it out with 0ed out data.
+    // If a list of Enums is presented, add each element to the dataset
+    // with default values, if it doesn't already exist
     if (enumList) {
       for (let i = 0; i < enumList.length; i++) {
         const name = this.removeSpaces(enumList[i]);
-        const index = data.findIndex((object) => {
-          return object.name === name;
-        });
-
-        if (index < 0) {
-          const time = 0;
-          const runTimes = [];
-          const payload = {
-            name: name,
-            data: dataType === "runs" ? runTimes.length : time,
-            time: time,
-            runs: runTimes.length,
-            runTimes: runTimes,
-          };
-
-          data.push(payload);
-        }
+        data = this.createDefaultDataPoint(name, data);
       }
     }
 
     // In the event that no data is found, set some defaults.
     data =
       data.length === 0 ? [{ name: "N/A", data: 0, time: 0, runs: 0 }] : data;
-    return data.sort((a, b) => a.name - b.name);
+
+    // If enumList was provided, sort data by enumList order
+    if (enumList != null) {
+      data = enumList.map((i) =>
+        data.find((j) => j.name === this.removeSpaces(i)),
+      );
+    }
+    return data;
   }
 
   generateStatsBarChartDataPoint(name, run, currentData, dataType = "time") {
@@ -501,5 +502,34 @@ export class Data {
     if (name.includes("_"))
       displayName = name.replace(/__/g, " - ").replace(/_/g, " ");
     return displayName;
+  }
+
+  createDefaultDataPoint(name, data, dataType) {
+    /**
+     * Populates a default data point.  Used to fill in missing data in static lists.
+     * If datapoint already exists in data, nothing happens.
+     * @param {String} name The name of the datapoint to generate
+     * @param {Array} data The collection of data points
+     * @return {Array} The collection of data points with new default data point added
+     */
+
+    const index = data.findIndex((object) => {
+      return object.name === name;
+    });
+
+    if (index < 0) {
+      const runTimes = [];
+      const payload = {
+        name: name,
+        data: null,
+        time: null,
+        runs: runTimes.length,
+        runTimes: runTimes,
+      };
+
+      data.push(payload);
+    }
+
+    return data;
   }
 }

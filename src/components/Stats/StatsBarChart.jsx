@@ -23,6 +23,10 @@ function StatsBarChart(props) {
   }
 
   const getFriendlyTime = (tickFormat) => {
+    if (tickFormat == null) {
+      return "N/A";
+    }
+
     // 1- Convert to seconds:
     let seconds = Math.round(tickFormat / 1000);
     // 2- Extract hours:
@@ -58,7 +62,6 @@ function StatsBarChart(props) {
           <p className="la bel">
             Time: {getFriendlyTime(payload[0].payload.time)}
           </p>
-
           <p className="desc">Runs: {payload[0].payload.runs}</p>
         </div>
       );
@@ -124,7 +127,7 @@ function StatsBarChart(props) {
                 interval={0}
               />
               {yAxis}
-              <Tooltip content={<CustomTooltip />} />
+              <Tooltip filterNull={false} content={<CustomTooltip />} />
               <Bar
                 name="Time"
                 dataKey="data"
