@@ -88,6 +88,10 @@ function Submit(props) {
       fieldDataDefault.enum[key] = "";
     } else if (props.config.submit[key].type === "slider") {
       fieldDataDefault.slider[key] = props.config.submit[key].startingValue;
+    } else if (props.config.submit[key].type === "textInput") {
+      fieldDataDefault.textInput[key] = "";
+    } else if (props.config.submit[key].type === "toggle") {
+      fieldDataDefault.toggle[key] = false;
     } else if (props.config.submit[key].type === "datetimepicker") {
       fieldDataDefault.runDate = new Date();
     }
@@ -277,7 +281,14 @@ function createItem(
       />
     );
   } else if (config.type === "textInput") {
-    body = <TextInput id={config.id} placeholder={config.placeholder} />;
+    body = (
+      <TextInput
+        id={config.id}
+        placeholder={config.placeholder}
+        value={submitFieldData}
+        valueSetter={setSubmitFieldData}
+      />
+    );
   } else if (config.type === "checkbox") {
     body = (
       <CheckBox
