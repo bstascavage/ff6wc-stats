@@ -288,7 +288,11 @@ function createItem(
     );
   } else if (config.type === "dropdown") {
     body = (
-      <Dropdown id={config.id} choices={submitFieldData.enum[config.id]} />
+      <Dropdown
+        id={config.id}
+        value={submitFieldData}
+        valueSetter={setSubmitFieldData}
+      />
     );
   } else if (config.type === "toggle") {
     return (
