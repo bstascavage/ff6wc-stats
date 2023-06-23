@@ -280,7 +280,11 @@ function createItem(
     body = <TextInput id={config.id} placeholder={config.placeholder} />;
   } else if (config.type === "checkbox") {
     body = (
-      <CheckBox id={config.id} renderList={submitFieldData.enum[config.id]} />
+      <CheckBox
+        id={config.id}
+        value={submitFieldData}
+        valueSetter={setSubmitFieldData}
+      />
     );
   } else if (config.type === "dropdown") {
     body = (
