@@ -417,7 +417,7 @@ export class Data {
   averageChars(data = this.runData) {
     const average = (array) =>
       Math.floor(
-        (array.reduce((a, b) => a + b.numOfChars, 0) / array.length) * 100
+        (array.reduce((a, b) => a + b.numOfChars, 0) / array.length) * 100,
       ) / 100;
     return average(data);
   }
@@ -425,7 +425,7 @@ export class Data {
   averageEspers(data = this.runData) {
     const average = (array) =>
       Math.floor(
-        (array.reduce((a, b) => a + b.numOfEspers, 0) / array.length) * 100
+        (array.reduce((a, b) => a + b.numOfEspers, 0) / array.length) * 100,
       ) / 100;
     return average(data);
   }
@@ -433,7 +433,7 @@ export class Data {
   averageBosses(data = this.runData) {
     const average = (array) =>
       Math.floor(
-        (array.reduce((a, b) => a + b.numOfBosses, 0) / array.length) * 100
+        (array.reduce((a, b) => a + b.numOfBosses, 0) / array.length) * 100,
       ) / 100;
     return average(data);
   }
@@ -441,7 +441,7 @@ export class Data {
   averageDeadChecks(data = this.runData) {
     const average = (array) =>
       Math.floor(
-        (array.reduce((a, b) => a + b.numOfDeadchecks, 0) / array.length) * 100
+        (array.reduce((a, b) => a + b.numOfDeadchecks, 0) / array.length) * 100,
       ) / 100;
     return average(data);
   }
