@@ -11,6 +11,7 @@ import StatsCard from "./StatsCard";
 import FilterDropdown from "./FilterDropdown";
 import StatsLineChart from "./StatsLineChart";
 import StatsBarChart from "./StatsBarChart";
+import HeatMap from "./StatsHeatMap";
 import { runsForUser } from "../../graphql/queries";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -30,7 +31,14 @@ import {
   faPercent,
   faPlaneDeparture,
   faPlaneArrival,
+  faBoltLightning,
+  faPaw,
+  faSkull,
+  faSkullCrossbones,
+  faDragon,
 } from "@fortawesome/free-solid-svg-icons";
+
+import { faDAndD } from "@fortawesome/free-brands-svg-icons";
 
 const defaultFlagset = {
   flagsetFilter: { name: "Flagset", value: "All" },
@@ -107,6 +115,7 @@ function Stats(props) {
   });
   const [charList, setCharList] = useState([]);
   const [abilityList, setAbilityList] = useState([]);
+  const [dragonList, setDragonList] = useState([]);
 
   // Logic for displaying another user's stats and for getting the "Share" link.
   // If a user's ID is found in the URL, get data for that user.  Else, get data for the current user.
@@ -128,6 +137,7 @@ function Stats(props) {
     if (userId.id) getRunsForUser(userId.id, setStatsState);
     getEnum("Character", setCharList);
     getEnum("Ability", setAbilityList);
+    getEnum("Dragon", setDragonList);
   }, [userId]);
 
   const data = new Data(
@@ -135,6 +145,7 @@ function Stats(props) {
     statsState.filters,
     charList,
     abilityList,
+    dragonList,
   );
   let page, body;
 
@@ -383,7 +394,7 @@ function Stats(props) {
                   <StatsBarChart
                     heading="Starting Stats"
                     title="Characters"
-                    data={data.startingCharacters()}
+                    data={data.getStatsBarChartData("chars", charList)}
                     dark={true}
                     height={400}
                     dy={40}
@@ -401,7 +412,7 @@ function Stats(props) {
                   <StatsBarChart
                     heading="Starting Stats"
                     title="Abilities"
-                    data={data.startingAbilities()}
+                    data={data.getStatsBarChartData("abilities", abilityList)}
                     dark={true}
                     height={400}
                     dy={40}
@@ -440,6 +451,191 @@ function Stats(props) {
                     fontSize="2.5em"
                     subText="Average Time:"
                     subStat={data.fastestAbility().time}
+                  />
+                </Col>
+              </Row>
+            </Card>
+            <Card
+              className="card-stats card-section mt-4 mb-4 mb-xl-0"
+              style={{ height: props.height, width: "100%" }}
+            >
+              <CardHeader
+                tag="h5"
+                className="header has-text-align-center has-text-color"
+              >
+                Progress
+              </CardHeader>
+              <Row className="pt-4 stats-row">
+                <Col lg="6" xl="3" className="col-padding">
+                  <StatsCard
+                    key="averageChars"
+                    title="Average Number of Characters"
+                    stat={data.averageNum("numOfChars")}
+                    icon={faPerson}
+                    iconColor="bg-primary"
+                    fontSize="3rem"
+                    height="160px"
+                  />
+                </Col>
+                <Col lg="6" xl="3" className="col-padding">
+                  <StatsCard
+                    key="averageEspers"
+                    title="Average Number of Espers"
+                    stat={data.averageNum("numOfEspers")}
+                    icon={faBoltLightning}
+                    iconColor="bg-success"
+                    fontSize="3rem"
+                    height="160px"
+                  />
+                </Col>
+                <Col lg="6" xl="3" className="col-padding">
+                  <StatsCard
+                    key="averageBosses"
+                    title="Average Number of Bosses"
+                    stat={data.averageNum("numOfBosses")}
+                    icon={faPaw}
+                    iconColor="bg-secondary"
+                    fontSize="3rem"
+                    height="160px"
+                  />
+                </Col>
+                <Col lg="6" xl="3" className="col-padding">
+                  <StatsCard
+                    key="averageDeadChecks"
+                    title="Average Number of Dead Checks"
+                    stat={data.averageNum("numOfDeadchecks")}
+                    icon={faSkull}
+                    iconColor="bg-danger"
+                    fontSize="3rem"
+                    height="160px"
+                  />
+                </Col>
+              </Row>
+              <Row className="pt-4 pb-3 stats-row">
+                <Col lg="6" xl="6" className="col-padding">
+                  <StatsBarChart
+                    heading="Progress"
+                    title="Dead Checks - Average Time"
+                    data={data.numOfDeadchecks()}
+                    dark={true}
+                    height={400}
+                    dy={40}
+                    xHeight={75}
+                  />
+                </Col>
+                <Col lg="6" xl="6" className="col-padding">
+                  <StatsBarChart
+                    heading="Progress"
+                    title="Dead Checks - Number of Runs"
+                    data={data.numOfDeadchecks("runs")}
+                    yAxisType="interval"
+                    dark={true}
+                    height={400}
+                    dy={40}
+                    xHeight={75}
+                  />
+                </Col>
+              </Row>
+            </Card>
+            <Card
+              className="card-stats card-section mt-4 mb-4 mb-xl-0"
+              style={{ height: props.height, width: "100%" }}
+            >
+              <CardHeader
+                tag="h5"
+                className="header has-text-align-center has-text-color"
+              >
+                Dragons
+              </CardHeader>{" "}
+              <Row className="pt-4 stats-row justify-content-md-center">
+                <Col lg="6" xl="4" className="col-padding">
+                  <StatsCard
+                    key="averageDragons"
+                    title="Average Number of Dragons"
+                    stat={data.averageDragons()}
+                    icon={faDragon}
+                    iconColor="bg-primary"
+                    fontSize="3rem"
+                    height="160px"
+                  />
+                </Col>
+                <Col lg="6" xl="4" className="col-padding">
+                  <StatsCard
+                    key="favoriteDragons"
+                    title="Most Fought Dragon"
+                    stat={data.favoriteDragon().name}
+                    icon={faDAndD}
+                    iconColor="bg-success"
+                    height="160px"
+                    subText="Total Runs:"
+                    subStat={data.favoriteDragon().runs.toString()}
+                  />
+                </Col>
+                <Col lg="6" xl="4" className="col-padding">
+                  <StatsCard
+                    key="favoriteDragons"
+                    title="Least Fought Dragon"
+                    stat={data.favoriteDragon(true).name}
+                    icon={faSkullCrossbones}
+                    iconColor="bg-danger"
+                    height="160px"
+                    subText="Total Runs:"
+                    subStat={data.favoriteDragon(true).runs.toString()}
+                  />
+                </Col>
+              </Row>
+              <Row className="pt-4 stats-row">
+                <Col
+                  className="mb-5 mb-xl-0 col-padding"
+                  lg="6"
+                  xl="6"
+                  style={{ height: "400px" }}
+                >
+                  <StatsBarChart
+                    heading="Dragons"
+                    title="Number of Dragons - Average Time"
+                    data={data.numOfDragons()}
+                    dark={true}
+                    height={400}
+                    dy={40}
+                    xHeight={75}
+                  />
+                </Col>
+                <Col
+                  className="mb-5 mb-xl-0 col-padding"
+                  lg="6"
+                  xl="6"
+                  style={{ height: "400px" }}
+                >
+                  <StatsBarChart
+                    heading="Dragons"
+                    title="Number of Dragons - By Runs"
+                    data={data.numOfDragons("runs")}
+                    dark={true}
+                    yAxisType="interval"
+                    height={400}
+                    dy={40}
+                    xHeight={75}
+                  />
+                </Col>
+              </Row>
+              <Row className="pt-4 pb-3 stats-row">
+                <Col
+                  className="mb-5 mb-xl-0 col-padding"
+                  lg="12"
+                  xl="12"
+                  style={{ height: "550px" }}
+                >
+                  <HeatMap
+                    heading="Dragons"
+                    title="Frequency of Specific Dragon vs Total Dragons Fought"
+                    height={550}
+                    dy={40}
+                    xHeight={75}
+                    data={data.dragonHeatMap()}
+                    yAxisMap={data.getFriendlyDragonList()}
+                    threshold={data.runData.length}
+                    numOfIntervals={8}
                   />
                 </Col>
               </Row>
