@@ -25,7 +25,7 @@ function Home(props) {
             config.columns[i].title,
             config.columns[i].content,
             config.columns[i].linkPath,
-            config.columns[i].icon
+            config.columns[i].icon,
           )}
         </React.Fragment>
       );

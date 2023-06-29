@@ -11,11 +11,15 @@ vendor
 .cache
 .amplify-home
 
+
+amplify/mock-api-resources
+
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
 amplify/.config/local-*
 amplify/logs
 amplify/mock-data
+amplify/mock-api-resources
 amplify/backend/amplify-meta.json
 amplify/backend/.temp
 build/

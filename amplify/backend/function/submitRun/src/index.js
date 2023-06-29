@@ -28,7 +28,7 @@ exports.handler = async (event) => {
   } else {
     console.log(
       "Run submission data validation failed.  Validation results: ",
-      validationResults.validation.validationDetails
+      validationResults.validation.validationDetails,
     );
     validationResults = {
       ...validationResults,
@@ -111,7 +111,7 @@ async function createRun(run) {
   `;
 
   let submitResults = await graphql.queryGraphql(
-    JSON.stringify({ query, variables })
+    JSON.stringify({ query, variables }),
   );
 
   if (submitResults.errors) {
@@ -124,7 +124,7 @@ async function createRun(run) {
     };
   } else {
     console.log(
-      `Successfully created new run. id: ${submitResults.data.createRun.id}`
+      `Successfully created new run. id: ${submitResults.data.createRun.id}`,
     );
     return { createStatus: true };
   }

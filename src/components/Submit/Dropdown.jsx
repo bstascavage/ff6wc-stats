@@ -7,7 +7,7 @@ function Dropdown(props) {
     dropdown.push(
       <option value={props.choices[i].name} key={props.choices[i].name}>
         {props.choices[i].display_name}
-      </option>
+      </option>,
     );
   }
   return (

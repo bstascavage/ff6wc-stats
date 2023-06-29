@@ -12,7 +12,21 @@ const config = {
         conditionsMet: 1,
         operation: "OR",
       },
-      excludedAbilities: ["Possess", "Shock", "Magitek"],
+      excludedAbilities: ["Possess", "Shock", "MagiTek"],
+    },
+    Ultros_League__Season_3: {
+      startingChars: 3,
+      minChars: 6,
+      minEspers: 9,
+      skip: {
+        reqs: {
+          chars: 9,
+          espers: 12,
+        },
+        conditionsMet: 1,
+        operation: "OR",
+      },
+      excludedAbilities: ["Possess", "Shock"],
     },
     Coliseum__Terra: {
       startingChars: 3,
@@ -39,7 +53,7 @@ const config = {
         conditionsMet: 1,
         operation: "OR",
       },
-      excludedAbilities: ["Possess", "Shock", "Magitek"],
+      excludedAbilities: ["Possess", "Shock", "MagiTek"],
       requiredChars: ["Locke"],
     },
     Coliseum__Edgar: {
@@ -53,7 +67,7 @@ const config = {
         conditionsMet: 1,
         operation: "OR",
       },
-      excludedAbilities: ["Possess", "Shock", "Magitek"],
+      excludedAbilities: ["Possess", "Shock", "MagiTek"],
       requiredChars: ["Edgar"],
     },
     Coliseum__Sabin: {
@@ -67,7 +81,7 @@ const config = {
         conditionsMet: 1,
         operation: "OR",
       },
-      excludedAbilities: ["Possess", "Shock", "Magitek"],
+      excludedAbilities: ["Possess", "Shock", "MagiTek"],
       requiredChars: ["Sabin"],
     },
     Coliseum__Cyan: {
@@ -81,7 +95,7 @@ const config = {
         conditionsMet: 1,
         operation: "OR",
       },
-      excludedAbilities: ["Possess", "Shock", "Magitek", "Tools"],
+      excludedAbilities: ["Possess", "Shock", "MagiTek", "Tools"],
       requiredChars: ["Cyan"],
     },
     Coliseum__Gau: {
@@ -95,7 +109,7 @@ const config = {
         conditionsMet: 1,
         operation: "OR",
       },
-      excludedAbilities: ["Possess", "Shock", "Magitek"],
+      excludedAbilities: ["Possess", "Shock", "MagiTek"],
       permitAbilityCheckOverride: true,
       requiredChars: ["Gau"],
     },
@@ -110,7 +124,7 @@ const config = {
         conditionsMet: 1,
         operation: "OR",
       },
-      excludedAbilities: ["Possess", "Magitek"],
+      excludedAbilities: ["Possess", "MagiTek"],
       requiredChars: ["Celes"],
     },
     Coliseum__Setzer: {
@@ -139,7 +153,7 @@ const config = {
         conditionsMet: 1,
         operation: "OR",
       },
-      excludedAbilities: ["Possess", "X_Magic", "Magitek"],
+      excludedAbilities: ["Possess", "X_Magic", "MagiTek"],
       requiredChars: ["Strago"],
     },
     Coliseum__Relm: {
@@ -153,7 +167,7 @@ const config = {
         conditionsMet: 1,
         operation: "OR",
       },
-      excludedAbilities: ["Possess", "Shock", "Magitek"],
+      excludedAbilities: ["Possess", "Shock", "MagiTek"],
       requiredChars: ["Relm"],
     },
     Coliseum__Shadow: {
@@ -167,7 +181,7 @@ const config = {
         conditionsMet: 1,
         operation: "OR",
       },
-      excludedAbilities: ["Possess", "Shock", "Magitek"],
+      excludedAbilities: ["Possess", "Shock", "MagiTek"],
       requiredChars: ["Shadow"],
     },
     Coliseum__Mog: {
@@ -181,7 +195,7 @@ const config = {
         conditionsMet: 1,
         operation: "OR",
       },
-      excludedAbilities: ["Possess", "Shock", "Magitek"],
+      excludedAbilities: ["Possess", "Shock", "MagiTek"],
       requiredChars: ["Mog"],
     },
     Coliseum__Gogo: {

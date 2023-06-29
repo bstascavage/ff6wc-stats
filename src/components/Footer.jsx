@@ -31,7 +31,10 @@ function Footer(props) {
           </p>
           <ul className="social-media-list">
             <li>
-              <a href="https://ff6wc.com" title="FFVI Worlds Collide">
+              <a
+                href="https://ff6worldscollide.com/"
+                title="FFVI Worlds Collide"
+              >
                 <FontAwesomeIcon icon={faLink} />
                 <span className="username">&nbsp;FF6WC Home</span>
               </a>
