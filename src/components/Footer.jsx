@@ -1,7 +1,11 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLink } from "@fortawesome/free-solid-svg-icons";
-import { faDiscord, faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faLink, faFile } from "@fortawesome/free-solid-svg-icons";
+import {
+  faDiscord,
+  faGithub,
+  faTwitter,
+} from "@fortawesome/free-brands-svg-icons";
 import Menu from "./Navigation/Menu";
 import "./scss/main.scss";
 
@@ -42,12 +46,24 @@ function Footer(props) {
               </a>
             </li>
             <li>
+              <a href="https://twitter.com/FF6_WC" title="Twitter">
+                <FontAwesomeIcon icon={faTwitter} />
+                <span className="username">&nbsp;Twitter</span>
+              </a>
+            </li>
+            <li>
               <a
                 href="https://github.com/bstascavage/ff6wc-stats"
                 title="Github"
               >
                 <FontAwesomeIcon icon={faGithub} />
-                <span className="username">&nbsp;&nbsp;Github</span>
+                <span className="username">&nbsp;Github</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://linktr.ee/ff6wc" title="Misc Links">
+                <FontAwesomeIcon icon={faFile} />
+                <span className="username">&nbsp;&nbsp;Additional Links</span>
               </a>
             </li>
           </ul>

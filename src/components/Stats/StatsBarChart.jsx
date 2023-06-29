@@ -23,6 +23,10 @@ function StatsBarChart(props) {
   }
 
   const getFriendlyTime = (tickFormat) => {
+    if (tickFormat == null) {
+      return "N/A";
+    }
+
     // 1- Convert to seconds:
     let seconds = Math.round(tickFormat / 1000);
     // 2- Extract hours:
@@ -41,7 +45,7 @@ function StatsBarChart(props) {
     );
   };
 
-  const CustomTooltip = ({ active, payload, label }) => {
+  let CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
         <div
@@ -55,7 +59,9 @@ function StatsBarChart(props) {
             whiteSpace: "nowrap",
           }}
         >
-          <p className="label">Time: {getFriendlyTime(payload[0].value)}</p>
+          <p className="la bel">
+            Time: {getFriendlyTime(payload[0].payload.time)}
+          </p>
           <p className="desc">Runs: {payload[0].payload.runs}</p>
         </div>
       );
@@ -63,6 +69,25 @@ function StatsBarChart(props) {
 
     return null;
   };
+
+  let yAxis = (
+    <YAxis
+      tickFormatter={(tick) => getFriendlyTime(tick)}
+      type="number"
+      stroke={stroke}
+      domain={[
+        (dataMin) =>
+          Math.max(0, Math.floor(dataMin / 600000) * 600000 - 600000),
+        (dataMax) => Math.floor(dataMax / 600000) * 600000 + 600000,
+      ]}
+    />
+  );
+
+  // By default the yAxis is configured for HH:MM:SS.
+  // This lets us set other yAxis formats
+  if (props.yAxisType === "interval") {
+    yAxis = <YAxis type="number" stroke={stroke} />;
+  }
 
   return (
     <Card className={`${background} shadow`} style={{ height: "100%" }}>
@@ -84,7 +109,7 @@ function StatsBarChart(props) {
           <ResponsiveContainer width="99%" height={props.height * 0.7}>
             <BarChart
               name="Time"
-              dataKey="time"
+              dataKey="data"
               data={props.data}
               margin={{
                 top: 5,
@@ -101,19 +126,11 @@ function StatsBarChart(props) {
                 height={props.xHeight}
                 interval={0}
               />
-              <YAxis
-                tickFormatter={(tick) => getFriendlyTime(tick)}
-                type="number"
-                stroke={stroke}
-                domain={[
-                  (dataMin) => Math.floor(dataMin / 600000) * 600000 - 600000,
-                  (dataMax) => Math.floor(dataMax / 600000) * 600000 + 600000,
-                ]}
-              />
-              <Tooltip content={<CustomTooltip />} />
+              {yAxis}
+              <Tooltip filterNull={false} content={<CustomTooltip />} />
               <Bar
                 name="Time"
-                dataKey="time"
+                dataKey="data"
                 fill={fill}
                 animationDuration={2000}
               />
