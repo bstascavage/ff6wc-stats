@@ -1,7 +1,7 @@
 ## Submission Checklist
 
 - [ ] Have you run and tested the application locally?
-- [ ] If tested locally, did you test with an adaquete amount of sample data?
+- [ ] If tested locally, did you test with an adaquate amount of sample data?
 - [ ] Did you run `pre-commit` or `task validate`?
 
 ## Changes
