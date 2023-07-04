@@ -98,6 +98,7 @@ async function createRun(run) {
       thiefReward: run.thiefReward,
       race: run.race,
       raceId: run.raceId,
+      statsCompanionUpload: run.statsCompanionUpload,
       mood: run.mood,
       seed: run.seed,
     },
