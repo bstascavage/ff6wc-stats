@@ -2,6 +2,11 @@ import React from "react";
 import "./scss/main.scss";
 
 function Toggle(props) {
+  const handleChange = (value) => {
+    props.value.toggle[props.id] = value.target.checked;
+    props.valueSetter({ ...props.value });
+  };
+
   return (
     <div className="field">
       <ConditionalWrapper
@@ -15,6 +20,9 @@ function Toggle(props) {
           id={props.id}
           name={props.id}
           type="checkbox"
+          onChange={handleChange}
+          value={props.value}
+          checked={props.value.toggle[props.id]}
         />
         <label htmlFor={props.id}>{props.title}</label>
       </ConditionalWrapper>
