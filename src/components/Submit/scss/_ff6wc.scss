@@ -142,6 +142,15 @@ select {
   margin: 0;
 }
 
+input[type="file"] {
+  display: none;
+}
+
+.label-no-bottom-margin {
+  margin-left: 0.5rem;
+  margin-bottom: 0rem;
+}
+
 *,
 ::after,
 ::before {
