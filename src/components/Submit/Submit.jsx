@@ -76,9 +76,9 @@ function submissionReducer(state, action) {
       return {
         hide_page: false,
         submit_modal: true,
-        file_upload: false,
-        file_upload_confirm_modal: false,
-        file_upload_error: false,
+        file_upload: state.file_upload,
+        file_upload_confirm_modal: state.file_upload_confirm_modal,
+        file_upload_error: state.file_upload_error,
         submitted: true,
         processed: false,
         verified: false,
@@ -89,9 +89,9 @@ function submissionReducer(state, action) {
       return {
         hide_page: false,
         submit_modal: false,
-        file_upload: false,
-        file_upload_confirm_modal: false,
-        file_upload_error: false,
+        file_upload: state.file_upload,
+        file_upload_confirm_modal: state.file_upload_confirm_modal,
+        file_upload_error: state.file_upload_error,
         submitted: true,
         processed: true,
         verified: action.submissionResults.validation.validationStatus,
@@ -179,6 +179,9 @@ function Submit(props) {
         submitPayload[key] = event.target[key].value;
       }
     });
+
+    // Set a flag that indicates whether the submission was manual or from StatsCompanion
+    submitPayload["statsCompanionUpload"] = submissionState.file_upload;
 
     // Send data to the backend and set the response to `submissionState.dataValidationResults`
     try {

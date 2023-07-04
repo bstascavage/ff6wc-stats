@@ -60,6 +60,7 @@ type Run @model @auth(rules: [{ allow: public }]) {
   mood: Mood
   seed: String
   raceId: String
+  statsCompanionUpload: Boolean
 }
 
 type RunConnection {
@@ -103,6 +104,7 @@ type Mutation {
     mood: Mood
     seed: String
     raceId: String
+    statsCompanionUpload: Boolean
   ): String
 }
 
