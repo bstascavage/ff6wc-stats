@@ -514,6 +514,20 @@ function validate_raceId(runData) {
   }
 }
 
+async function validate_statsCompanionUpload(runData) {
+  // Validates that statsCompanionUpload is a boolean
+  return typeof runData.statsCompanionUpload == "boolean"
+    ? {
+        result: true,
+      }
+    : {
+        result: false,
+        reason:
+          "Value must be true or false.  Users should never see this message. Please contact administrator.",
+      };
+  s;
+}
+
 function checkNumberRange(value, min, max) {
   if (value.length === 0) {
     return { result: false, reason: "No number submitted." };
