@@ -52,6 +52,7 @@ export const runsForUser = /* GraphQL */ `
         seed
         raceId
         statsCompanionUpload
+        statsCompanionRaw
         createdAt
         updatedAt
         __typename
@@ -107,6 +108,7 @@ export const getUser = /* GraphQL */ `
           seed
           raceId
           statsCompanionUpload
+          statsCompanionRaw
           createdAt
           updatedAt
           __typename
@@ -211,6 +213,7 @@ export const getRun = /* GraphQL */ `
       seed
       raceId
       statsCompanionUpload
+      statsCompanionRaw
       createdAt
       updatedAt
       __typename
@@ -272,6 +275,7 @@ export const listRuns = /* GraphQL */ `
         seed
         raceId
         statsCompanionUpload
+        statsCompanionRaw
         createdAt
         updatedAt
         __typename
@@ -346,6 +350,7 @@ export const RunsByTime = /* GraphQL */ `
         seed
         raceId
         statsCompanionUpload
+        statsCompanionRaw
         createdAt
         updatedAt
         __typename
@@ -420,6 +425,7 @@ export const RunsByAttempt = /* GraphQL */ `
         seed
         raceId
         statsCompanionUpload
+        statsCompanionRaw
         createdAt
         updatedAt
         __typename

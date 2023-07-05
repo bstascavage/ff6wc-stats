@@ -99,6 +99,7 @@ async function createRun(run) {
       race: run.race,
       raceId: run.raceId,
       statsCompanionUpload: run.statsCompanionUpload,
+      statsCompanionRaw: JSON.stringify(run.statsCompanionRaw),
       mood: run.mood,
       seed: run.seed,
     },

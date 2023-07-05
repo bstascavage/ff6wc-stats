@@ -47,6 +47,7 @@ export const onCreateUser = /* GraphQL */ `
           seed
           raceId
           statsCompanionUpload
+          statsCompanionRaw
           createdAt
           updatedAt
           __typename
@@ -107,6 +108,7 @@ export const onUpdateUser = /* GraphQL */ `
           seed
           raceId
           statsCompanionUpload
+          statsCompanionRaw
           createdAt
           updatedAt
           __typename
@@ -167,6 +169,7 @@ export const onDeleteUser = /* GraphQL */ `
           seed
           raceId
           statsCompanionUpload
+          statsCompanionRaw
           createdAt
           updatedAt
           __typename
@@ -235,6 +238,7 @@ export const onCreateRun = /* GraphQL */ `
       seed
       raceId
       statsCompanionUpload
+      statsCompanionRaw
       createdAt
       updatedAt
       __typename
@@ -295,6 +299,7 @@ export const onUpdateRun = /* GraphQL */ `
       seed
       raceId
       statsCompanionUpload
+      statsCompanionRaw
       createdAt
       updatedAt
       __typename
@@ -355,6 +360,7 @@ export const onDeleteRun = /* GraphQL */ `
       seed
       raceId
       statsCompanionUpload
+      statsCompanionRaw
       createdAt
       updatedAt
       __typename

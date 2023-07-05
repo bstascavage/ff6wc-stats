@@ -528,6 +528,32 @@ async function validate_statsCompanionUpload(runData) {
   s;
 }
 
+async function validate_statsCompanionRaw(runData) {
+  // Validates that statsCompanionRaw is a valid JSON
+  try {
+    var parsedJSON = JSON.parse(JSON.stringify(runData.statsCompanionRaw));
+
+    // Handle non-exception-throwing cases:
+    // Neither JSON.parse(false) or JSON.parse(1234) throw errors, hence the type-checking,
+    // but... JSON.parse(null) returns null, and typeof null === "object",
+    // so we must check for that, too. Thankfully, null is falsey, so this suffices:
+    if (parsedJSON && typeof parsedJSON === "object") {
+      return { result: true };
+    } else {
+      return {
+        result: false,
+        reason: "StatsCompanion file is not a valid JSON.",
+      };
+    }
+  } catch (e) {
+    console.error(e);
+    return {
+      result: false,
+      reason: e,
+    };
+  }
+}
+
 function checkNumberRange(value, min, max) {
   if (value.length === 0) {
     return { result: false, reason: "No number submitted." };
