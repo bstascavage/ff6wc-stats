@@ -16,6 +16,7 @@ export const runsForUser = /* GraphQL */ `
           role
           createdAt
           updatedAt
+          __typename
         }
         userId
         runDate
@@ -50,10 +51,13 @@ export const runsForUser = /* GraphQL */ `
         mood
         seed
         raceId
+        statsCompanionUpload
         createdAt
         updatedAt
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
@@ -102,14 +106,18 @@ export const getUser = /* GraphQL */ `
           mood
           seed
           raceId
+          statsCompanionUpload
           createdAt
           updatedAt
+          __typename
         }
         nextToken
+        __typename
       }
       role
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -137,12 +145,15 @@ export const listUsers = /* GraphQL */ `
         lastLogin
         runs {
           nextToken
+          __typename
         }
         role
         createdAt
         updatedAt
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
@@ -159,10 +170,12 @@ export const getRun = /* GraphQL */ `
         lastLogin
         runs {
           nextToken
+          __typename
         }
         role
         createdAt
         updatedAt
+        __typename
       }
       userId
       runDate
@@ -197,8 +210,10 @@ export const getRun = /* GraphQL */ `
       mood
       seed
       raceId
+      statsCompanionUpload
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -221,6 +236,7 @@ export const listRuns = /* GraphQL */ `
           role
           createdAt
           updatedAt
+          __typename
         }
         userId
         runDate
@@ -255,14 +271,17 @@ export const listRuns = /* GraphQL */ `
         mood
         seed
         raceId
+        statsCompanionUpload
         createdAt
         updatedAt
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
-export const runsByTime = /* GraphQL */ `
+export const RunsByTime = /* GraphQL */ `
   query RunsByTime(
     $userId: String!
     $runTimeAttempt: ModelRunByUserCompositeKeyConditionInput
@@ -291,6 +310,7 @@ export const runsByTime = /* GraphQL */ `
           role
           createdAt
           updatedAt
+          __typename
         }
         userId
         runDate
@@ -325,14 +345,17 @@ export const runsByTime = /* GraphQL */ `
         mood
         seed
         raceId
+        statsCompanionUpload
         createdAt
         updatedAt
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
-export const runsByAttempt = /* GraphQL */ `
+export const RunsByAttempt = /* GraphQL */ `
   query RunsByAttempt(
     $userId: String!
     $attempt: ModelIntKeyConditionInput
@@ -361,6 +384,7 @@ export const runsByAttempt = /* GraphQL */ `
           role
           createdAt
           updatedAt
+          __typename
         }
         userId
         runDate
@@ -395,10 +419,13 @@ export const runsByAttempt = /* GraphQL */ `
         mood
         seed
         raceId
+        statsCompanionUpload
         createdAt
         updatedAt
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
