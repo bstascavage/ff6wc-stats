@@ -162,7 +162,6 @@ function Submit(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    console.log(props.config.submit);
     // Dynamically create the submission payload based on the config
     let submitPayload = { userId: props.discordUserdata.userdata.id };
     Object.keys(props.config.submit).forEach((key, index) => {
@@ -182,6 +181,11 @@ function Submit(props) {
 
     // Set a flag that indicates whether the submission was manual or from StatsCompanion
     submitPayload["statsCompanionUpload"] = submissionState.file_upload;
+
+    // If a StatsCompanion file was uploaded, save the file contents as `statsCompanionRaw`
+    submitPayload["statsCompanionRaw"] = JSON.stringify(
+      submitFieldData.statsCompanionRaw,
+    );
 
     // Send data to the backend and set the response to `submissionState.dataValidationResults`
     try {
@@ -212,6 +216,7 @@ function Submit(props) {
           props.config.submit,
           submitFieldData,
           setSubmissionState,
+          setSubmitFieldData,
         );
       } catch (err) {
         console.log("Error uploading StatsCompanion file");
@@ -530,6 +535,7 @@ function populateFieldsFromFile(
   config,
   submitFieldData,
   setSubmissionState,
+  setSubmitFieldData,
 ) {
   /**
    * Given a JSON file of submission data, re-render the form fields with
@@ -538,6 +544,7 @@ function populateFieldsFromFile(
    * @param {Object} config The config file for `submit` section of the statscollide config
    * @param {Object} submitFieldData The state for each submission field
    * @param {Function} setSubmissionState The mutator function for the submission page state
+   * @param {Function} setSubmitFieldData The mutator function for the submission field data
    */
 
   const submissionJSON = JSON.parse(fileContents);
@@ -565,6 +572,7 @@ function populateFieldsFromFile(
     }
   }
 
+  setSubmitFieldData({ ...submitFieldData, statsCompanionRaw: submissionJSON });
   setSubmissionState({ type: "file_upload" });
 }
 
