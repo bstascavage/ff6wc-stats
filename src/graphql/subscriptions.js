@@ -46,14 +46,18 @@ export const onCreateUser = /* GraphQL */ `
           mood
           seed
           raceId
+          statsCompanionUpload
           createdAt
           updatedAt
+          __typename
         }
         nextToken
+        __typename
       }
       role
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -102,14 +106,18 @@ export const onUpdateUser = /* GraphQL */ `
           mood
           seed
           raceId
+          statsCompanionUpload
           createdAt
           updatedAt
+          __typename
         }
         nextToken
+        __typename
       }
       role
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -158,14 +166,18 @@ export const onDeleteUser = /* GraphQL */ `
           mood
           seed
           raceId
+          statsCompanionUpload
           createdAt
           updatedAt
+          __typename
         }
         nextToken
+        __typename
       }
       role
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -182,10 +194,12 @@ export const onCreateRun = /* GraphQL */ `
         lastLogin
         runs {
           nextToken
+          __typename
         }
         role
         createdAt
         updatedAt
+        __typename
       }
       userId
       runDate
@@ -220,8 +234,10 @@ export const onCreateRun = /* GraphQL */ `
       mood
       seed
       raceId
+      statsCompanionUpload
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -238,10 +254,12 @@ export const onUpdateRun = /* GraphQL */ `
         lastLogin
         runs {
           nextToken
+          __typename
         }
         role
         createdAt
         updatedAt
+        __typename
       }
       userId
       runDate
@@ -276,8 +294,10 @@ export const onUpdateRun = /* GraphQL */ `
       mood
       seed
       raceId
+      statsCompanionUpload
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -294,10 +314,12 @@ export const onDeleteRun = /* GraphQL */ `
         lastLogin
         runs {
           nextToken
+          __typename
         }
         role
         createdAt
         updatedAt
+        __typename
       }
       userId
       runDate
@@ -332,8 +354,10 @@ export const onDeleteRun = /* GraphQL */ `
       mood
       seed
       raceId
+      statsCompanionUpload
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
