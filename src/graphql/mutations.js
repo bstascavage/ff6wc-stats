@@ -33,6 +33,7 @@ export const submitRun = /* GraphQL */ `
     $mood: Mood
     $seed: String
     $raceId: String
+    $statsCompanionUpload: Boolean
   ) {
     submitRun(
       runTime: $runTime
@@ -65,6 +66,7 @@ export const submitRun = /* GraphQL */ `
       mood: $mood
       seed: $seed
       raceId: $raceId
+      statsCompanionUpload: $statsCompanionUpload
     )
   }
 `;
@@ -116,14 +118,18 @@ export const createUser = /* GraphQL */ `
           mood
           seed
           raceId
+          statsCompanionUpload
           createdAt
           updatedAt
+          __typename
         }
         nextToken
+        __typename
       }
       role
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -175,14 +181,18 @@ export const updateUser = /* GraphQL */ `
           mood
           seed
           raceId
+          statsCompanionUpload
           createdAt
           updatedAt
+          __typename
         }
         nextToken
+        __typename
       }
       role
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -234,14 +244,18 @@ export const deleteUser = /* GraphQL */ `
           mood
           seed
           raceId
+          statsCompanionUpload
           createdAt
           updatedAt
+          __typename
         }
         nextToken
+        __typename
       }
       role
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -261,10 +275,12 @@ export const createRun = /* GraphQL */ `
         lastLogin
         runs {
           nextToken
+          __typename
         }
         role
         createdAt
         updatedAt
+        __typename
       }
       userId
       runDate
@@ -299,8 +315,10 @@ export const createRun = /* GraphQL */ `
       mood
       seed
       raceId
+      statsCompanionUpload
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -320,10 +338,12 @@ export const updateRun = /* GraphQL */ `
         lastLogin
         runs {
           nextToken
+          __typename
         }
         role
         createdAt
         updatedAt
+        __typename
       }
       userId
       runDate
@@ -358,8 +378,10 @@ export const updateRun = /* GraphQL */ `
       mood
       seed
       raceId
+      statsCompanionUpload
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -379,10 +401,12 @@ export const deleteRun = /* GraphQL */ `
         lastLogin
         runs {
           nextToken
+          __typename
         }
         role
         createdAt
         updatedAt
+        __typename
       }
       userId
       runDate
@@ -417,8 +441,10 @@ export const deleteRun = /* GraphQL */ `
       mood
       seed
       raceId
+      statsCompanionUpload
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
