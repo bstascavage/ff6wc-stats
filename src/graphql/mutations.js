@@ -34,6 +34,7 @@ export const submitRun = /* GraphQL */ `
     $seed: String
     $raceId: String
     $statsCompanionUpload: Boolean
+    $statsCompanionRaw: AWSJSON
   ) {
     submitRun(
       runTime: $runTime
@@ -67,6 +68,7 @@ export const submitRun = /* GraphQL */ `
       seed: $seed
       raceId: $raceId
       statsCompanionUpload: $statsCompanionUpload
+      statsCompanionRaw: $statsCompanionRaw
     )
   }
 `;
@@ -119,6 +121,7 @@ export const createUser = /* GraphQL */ `
           seed
           raceId
           statsCompanionUpload
+          statsCompanionRaw
           createdAt
           updatedAt
           __typename
@@ -182,6 +185,7 @@ export const updateUser = /* GraphQL */ `
           seed
           raceId
           statsCompanionUpload
+          statsCompanionRaw
           createdAt
           updatedAt
           __typename
@@ -245,6 +249,7 @@ export const deleteUser = /* GraphQL */ `
           seed
           raceId
           statsCompanionUpload
+          statsCompanionRaw
           createdAt
           updatedAt
           __typename
@@ -316,6 +321,7 @@ export const createRun = /* GraphQL */ `
       seed
       raceId
       statsCompanionUpload
+      statsCompanionRaw
       createdAt
       updatedAt
       __typename
@@ -379,6 +385,7 @@ export const updateRun = /* GraphQL */ `
       seed
       raceId
       statsCompanionUpload
+      statsCompanionRaw
       createdAt
       updatedAt
       __typename
@@ -442,6 +449,7 @@ export const deleteRun = /* GraphQL */ `
       seed
       raceId
       statsCompanionUpload
+      statsCompanionRaw
       createdAt
       updatedAt
       __typename
