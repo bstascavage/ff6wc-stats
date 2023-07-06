@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLink, faFile } from "@fortawesome/free-solid-svg-icons";
+import { faLink } from "@fortawesome/free-solid-svg-icons";
 import {
   faDiscord,
   faGithub,
@@ -61,9 +61,12 @@ function Footer(props) {
               </a>
             </li>
             <li>
-              <a href="https://linktr.ee/ff6wc" title="Misc Links">
-                <FontAwesomeIcon icon={faFile} />
-                <span className="username">&nbsp;&nbsp;Additional Links</span>
+              <a
+                href="https://github.com/peroquenariz/StatsCompanion"
+                title="StatsCompanion"
+              >
+                <FontAwesomeIcon icon={faLink} />
+                <span className="username">&nbsp;StatsCompanion</span>
               </a>
             </li>
           </ul>
