@@ -20,8 +20,18 @@ const CONFIG = {
     columns: [
       {
         title: "Submit a Run",
-        content:
-          "After completing a run, fill out the submission form with the data points for how it went.  Only a few fields are required, giving you the option to submit as much or as little as you want.",
+        content: (
+          <React.Fragment>
+            After completing a run, fill out the submission form with the data
+            points for how it went. Only a few fields are required, giving you
+            the option to submit as much or as little as you want. Or you can
+            use{" "}
+            <a href="https://github.com/peroquenariz/StatsCompanion">
+              StatsCompanion
+            </a>{" "}
+            to automatically gather your data, for easy upload!
+          </React.Fragment>
+        ),
         linkPath: "/submit",
         icon: submitIcon,
       },
@@ -403,16 +413,21 @@ const CONFIG = {
           "It is difficult to account for every type of data that may or may not be submitted without making too many be mandatory.  Therefore it is up to each runner to be consistent with the data they submit or to understand that some charts might not be reflective of every run submitted.",
       },
       {
-        question:
-          "How do I find the 'Number of Chests' stat?  I don't see it in the in-game menu.",
+        question: "Manually entering data is tedious.  Is there a better way?",
         answer:
-          'Currently this can only be found via third-party tools.  I highly suggest checking out <a href="https://tracker.kielbasiago.com/?characterTag=true&font=DEFAULT&mode=AUTO&background=TRANSPARENT&themeMode=dark&showHeader=true&layoutType=3x2">Kielbasiago\'s Autotracker</a>, which compliments this tool nicely. Setup instructions can be found <a href="https://github.com/kielbasiago/guides/blob/master/ff6wc/gated-tracker.md">here</a>.',
+          'There is!  The tool <a href="https://github.com/peroquenariz/StatsCompanion">StatsCompanion</a> by peroquenariz is a companion app that collects a wide range of data during your run.  After your run is over, you can upload StatCompanion\'s JSON file on the <a href="submit/">submission page</a> with one click.  StatsCompanion makes gathering and uploading run data very easy!',
       },
+      // {
+      //   question:
+      //     "How do I find the 'Number of Chests' stat?  I don't see it in the in-game menu.",
+      //   answer:
+      //     'Currently this can only be found via third-party tools.  I highly suggest checking out <a href="https://tracker.kielbasiago.com/?characterTag=true&font=DEFAULT&mode=AUTO&background=TRANSPARENT&themeMode=dark&showHeader=true&layoutType=3x2">Kielbasiago\'s Autotracker</a>, which compliments this tool nicely. Setup instructions can be found <a href="https://github.com/kielbasiago/guides/blob/master/ff6wc/gated-tracker.md">here</a>.',
+      // },
       {
         question:
           "How do I determine the 'KT Start Time' and 'Kefka Start Time' times?",
         answer:
-          "These numbers are not captured by the in-game tracker nor external trackers.  It is recommended to use Livesplit or some other timer to capture this information.",
+          'These numbers are not captured by the in-game tracker nor external trackers.  It is recommended to use <a href="https://github.com/peroquenariz/StatsCompanion">StatsCompanion</a> or Livesplit to capture this information.',
       },
       {
         question: "What does 'Run Mood' mean?",
@@ -423,7 +438,7 @@ const CONFIG = {
         question:
           "Not all run stats appear in my stats dashboard.  What gives?",
         answer:
-          "More and more graphs and charts will be added over the coming weeks/months; a small selection of charts were identified for the initial release.  It's better to capture this data now so that you have complete data when the associated charts are implemented.",
+          'More and more graphs and charts will be added over the coming weeks/months; a small selection of charts were identified for the initial release.  It\'s better to capture this data now so that you have complete data when the associated charts are implemented.  If you are using <a href="https://github.com/peroquenariz/StatsCompanion">StatsCompanion</a>, all of your data is being saved for every run; stats regarding StatsCompanion will be available in future updates.',
       },
       {
         question:
