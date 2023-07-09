@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Page from "../Page";
 import "./scss/main.scss";
 
-import { Data } from "./Data";
+import { Data } from "../shared/Data";
 import FilterWrapper from "./FilterWrapper";
 import StatsCard from "./StatsCard";
 import FilterDropdown from "./FilterDropdown";

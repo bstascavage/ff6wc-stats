@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import Logout from "../Logout";
 
 function Menu(props) {
-  let loginLink, statsLink, submitLink;
+  let loginLink, statsLink, runsLink, submitLink;
 
   if (Object.keys(props.discordUserdata.userdata).length !== 0) {
     statsLink = (
@@ -15,6 +15,18 @@ function Menu(props) {
           onClick={() => props.setUserdataState({ type: "close_menu" })}
         >
           My Stats
+        </NavLink>
+      </li>
+    );
+    runsLink = (
+      <li className="nav-link nav-link-li">
+        <NavLink
+          reloadDocument
+          className="nav-link"
+          to="/runs"
+          onClick={() => props.setUserdataState({ type: "close_menu" })}
+        >
+          Runs
         </NavLink>
       </li>
     );
@@ -60,6 +72,7 @@ function Menu(props) {
         </NavLink>
       </li>
       {statsLink}
+      {runsLink}
       {submitLink}
       {loginLink}
     </div>

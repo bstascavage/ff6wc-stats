@@ -1,5 +1,11 @@
 export class Data {
-  constructor(runData, filters, charList, abilityList, dragonList) {
+  constructor(
+    runData,
+    filters,
+    charList = [],
+    abilityList = [],
+    dragonList = [],
+  ) {
     this.unfilteredRunData = runData;
     this.runData = runData;
     this.flagsetFilter = filters.flagsetFilter.value;

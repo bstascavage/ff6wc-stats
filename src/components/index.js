@@ -7,3 +7,4 @@ export { default as About } from "./About";
 export { default as Stats } from "./Stats/Stats";
 export { default as Logout } from "./Logout";
 export { default as Submit } from "./Submit/Submit";
+export { default as Runs } from "./Runs/Runs";

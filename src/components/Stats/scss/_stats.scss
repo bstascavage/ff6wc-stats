@@ -39,6 +39,24 @@
   padding-right: 20px;
 }
 
+.runs-row {
+  padding-left: 30px;
+  margin-right: 0px;
+}
+
+td.no-border {
+  border-style: hidden;
+  position: relative;
+  align-items: "center";
+}
+
+button.centered-element {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .charts {
   flex-grow: 1;
   text-align: center;

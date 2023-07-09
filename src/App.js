@@ -6,7 +6,15 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-import { Navigation, Footer, Home, About, Stats, Submit } from "./components";
+import {
+  Navigation,
+  Footer,
+  Home,
+  About,
+  Stats,
+  Runs,
+  Submit,
+} from "./components";
 import { createUser, updateUser } from "./graphql/mutations";
 
 import awsExports from "./aws-exports";
@@ -141,6 +149,10 @@ function App() {
             <Route
               path="/stats"
               element={<Stats discordUserdata={discordUserdata} />}
+            />
+            <Route
+              path="/runs"
+              element={<Runs discordUserdata={discordUserdata} />}
             />
             <Route
               path="/submit"
