@@ -17,6 +17,12 @@
       "service": "AppSync"
     }
   },
+  "custom": {
+    "backups": {
+      "providerPlugin": "awscloudformation",
+      "service": "customCDK"
+    }
+  },
   "function": {
     "submitRun": {
       "build": true,
