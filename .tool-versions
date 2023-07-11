@@ -1,6 +1,2 @@
-terraform 1.2.4
-tfsec 1.26.2
-terraform-docs 0.16.0
-tflint 0.38.1
 ruby 2.6.8
 nodejs 16.13.0
