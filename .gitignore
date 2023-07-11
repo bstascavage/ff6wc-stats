@@ -4,10 +4,6 @@ _site
 .jekyll-metadata
 vendor
 
-.terraform*
-!.terraform.lock.hcl
-*.tfstate*
-
 .cache
 .amplify-home
 

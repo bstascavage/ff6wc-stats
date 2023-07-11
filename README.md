@@ -15,7 +15,6 @@ Stats Collide is a fully serverless, full-stack application built with the React
 - [AWS Lambda](https://aws.amazon.com/lambda/) - Backend code for submitting runs and data validation.
 - [Dynamodb](https://aws.amazon.com/dynamodb/) - Backend database for user and run data.
 - [Graphql](https://aws.amazon.com/graphql/) - Query language API in front of the dynamodb database.
-- [Terraform](https://www.terraform.io/) - Deployment code for non-amplify resources (NOTE: currently outdated).
 - [Docker](https://www.docker.com/) - Local development containerization.
 - [Discord Development Application](https://discord.com/developers/docs/intro) - For user authentication.
 

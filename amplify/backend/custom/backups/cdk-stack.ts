@@ -1,101 +1,70 @@
-import * as cdk from "@aws-cdk/core";
-import * as AmplifyHelpers from "@aws-amplify/cli-extensibility-helper";
-import { AmplifyDependentResourcesAttributes } from "../../types/amplify-dependent-resources-ref";
-import * as backup from "@aws-cdk/aws-backup";
-import * as kms from "@aws-cdk/aws-kms";
-import * as iam from "@aws-cdk/aws-iam";
-import { RemovalPolicy } from "@aws-cdk/core";
+import {
+  Stack,
+  App,
+  StackProps,
+  CfnParameter,
+  Fn,
+  Duration,
+  aws_iam as iam,
+  aws_backup as backup,
+  aws_events as events,
+} from "aws-cdk-lib";
 
-export class cdkStack extends cdk.Stack {
+import * as AmplifyHelpers from "@aws-amplify/cli-extensibility-helper";
+
+const app = new App();
+export class cdkStack extends Stack {
   constructor(
-    scope: cdk.Construct,
+    scope: App,
     id: string,
-    props?: cdk.StackProps,
+    props?: StackProps,
     amplifyResourceProps?: AmplifyHelpers.AmplifyResourceProps,
   ) {
     super(scope, id, props);
-    /* Do not remove - Amplify CLI automatically injects the current deployment environment in this input parameter */
-    new cdk.CfnParameter(this, "env", {
+
+    new CfnParameter(this, "env", {
       type: "String",
       description: "Current Amplify CLI env name",
     });
 
-    // update with your username before running amplify push. This must be the same principal that is setup for your amplify profile
-    // if you are using a federated role, change the code to load that role by name instead of loading a user
-    const keyAdmin = iam.User.fromUserName(this, "keyAdmin", "amplify-backup");
-    // The BackupAdminRole can below assumed principals in your account for which you give the right to assume them
-    // via STS assume role. You'll need to adjust the assumedBy principals to reference roles or users in your account
-    // and this role can then administer restore points
+    // Set up IAM account for AWS Backups
     const backupAdmin = new iam.Role(this, "BackupAdminRole", {
-      assumedBy: new iam.AccountPrincipal(cdk.Stack.of(this).account),
+      assumedBy: new iam.AccountPrincipal(Stack.of(this).account),
     });
     backupAdmin.addManagedPolicy(
       iam.ManagedPolicy.fromAwsManagedPolicyName("AWSBackupFullAccess"),
     );
-
-    const key = new kms.Key(
-      this,
-      `amplify-appsync-${AmplifyHelpers.getProjectInfo().envName}-key`,
-      {
-        removalPolicy: cdk.RemovalPolicy.RETAIN,
-        alias: `alias/amplify-appsync-${
-          AmplifyHelpers.getProjectInfo().envName
-        }-key`,
-        description:
-          "KMS key for encrypting the objects in your AWS Backup Vault",
-        enableKeyRotation: false,
-        admins: [backupAdmin, keyAdmin],
-        policy: new iam.PolicyDocument({
-          statements: [
-            new iam.PolicyStatement({
-              actions: [
-                "kms:Create*",
-                "kms:Describe*",
-                "kms:Enable*",
-                "kms:List*",
-                "kms:Put*",
-                "kms:Update*",
-                "kms:Revoke*",
-                "kms:Disable*",
-                "kms:Get*",
-                "kms:Delete*",
-                "kms:ImportKeyMaterial",
-                "kms:TagResource",
-                "kms:UntagResource",
-                "kms:ScheduleKeyDeletion",
-                "kms:CancelKeyDeletion",
-              ],
-              principals: [keyAdmin],
-              resources: ["*"],
-            }),
-            new iam.PolicyStatement({
-              actions: [
-                "kms:Encrypt",
-                "kms:Decrypt",
-                "kms:ReEncrypt*",
-                "kms:GenerateDataKey*",
-                "kms:DescribeKey",
-              ],
-              principals: [backupAdmin],
-              resources: ["*"],
-            }),
-          ],
-        }),
-      },
+    backupAdmin.addManagedPolicy(
+      iam.ManagedPolicy.fromAwsManagedPolicyName(
+        "AWSBackupServiceRolePolicyForS3Backup",
+      ),
     );
 
+    // Create backup vault rules
+    const dailyPlanRule = new backup.BackupPlanRule({
+      deleteAfter: Duration.days(14),
+      ruleName: "Daily",
+    });
+    const weeklyPlanRule = new backup.BackupPlanRule({
+      deleteAfter: Duration.days(28),
+      scheduleExpression: events.Schedule.expression("cron(0 5 ? * MON *)"),
+      ruleName: "Weekly",
+    });
+    const monthlyPlanRule = new backup.BackupPlanRule({
+      deleteAfter: Duration.days(90),
+      scheduleExpression: events.Schedule.expression("cron(0 5 1 * ? *)"),
+      ruleName: "Monthly",
+    });
+
     const plan = new backup.BackupPlan(this, "amplify-appsync-dyanmodb-plan", {
-      backupPlanName: `amplify-appsync-dyanmodb-plan-${cdk.Fn.ref("env")}`,
-      backupPlanRules: [
-        backup.BackupPlanRule.daily(),
-        backup.BackupPlanRule.weekly(),
-        backup.BackupPlanRule.monthly1Year(),
-      ],
+      backupPlanName: `statscollide-plan-${
+        AmplifyHelpers.getProjectInfo().envName
+      }`,
+      backupPlanRules: [dailyPlanRule, weeklyPlanRule, monthlyPlanRule],
       backupVault: new backup.BackupVault(this, "Vault", {
-        backupVaultName: `amplify-appsync-dyanmodb-valut${
+        backupVaultName: `statscollide-vault-${
           AmplifyHelpers.getProjectInfo().envName
         }`,
-        encryptionKey: key,
         accessPolicy: new iam.PolicyDocument({
           statements: [
             new iam.PolicyStatement({
@@ -116,7 +85,10 @@ export class cdkStack extends cdk.Stack {
 
     plan.addSelection(`UserStackSelectionByTag`, {
       resources: [
-        backup.BackupResource.fromTag("user:Stack", cdk.Fn.ref("env")),
+        backup.BackupResource.fromTag(
+          "user:Stack",
+          AmplifyHelpers.getProjectInfo().envName,
+        ),
       ],
     });
   }

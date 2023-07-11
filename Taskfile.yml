@@ -21,24 +21,6 @@ tasks:
       - task init
       - pre-commit run -a
 
-  tinit:
-    desc: Runs a Terraform Init
-    cmds:
-      - terraform init -var-file="env/main.tfvars"
-    dir: terraform
-
-  plan:
-    desc: Runs a Terraform Plan
-    cmds:
-      - terraform plan -var-file="env/main.tfvars"
-    dir: terraform
-
-  deploy:
-    desc: Runs a Terraform Apply
-    cmds:
-      - terraform apply -var-file="env/main.tfvars"
-    dir: terraform
-
   clean:
     desc: Cleans up the local DB
     cmds:

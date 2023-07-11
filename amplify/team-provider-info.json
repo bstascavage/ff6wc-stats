@@ -17,6 +17,12 @@
           "deploymentBucketName": "amplify-ff6wcstats-develop-151305-deployment",
           "s3Key": "amplify-builds/submitRun-64345950667675542f54-build.zip"
         }
+      },
+      "api": {
+        "ff6wcstats": {}
+      },
+      "custom": {
+        "backups": {}
       }
     }
   },

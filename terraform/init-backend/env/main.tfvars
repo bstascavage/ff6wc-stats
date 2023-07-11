@@ -1,1 +1,0 @@
-backend-bucket = "setokiaba-tfstate"
