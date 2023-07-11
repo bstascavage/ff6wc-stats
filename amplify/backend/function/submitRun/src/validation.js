@@ -139,22 +139,25 @@ function validate_skip(runData) {
         function (key) {
           switch (key) {
             case "bosses":
-              runData.numOfBosses >=
-              config.flagsetRules[runData.flagset].skip.reqs.bosses
-                ? skipChecks.push(true)
-                : null;
+              if (
+                runData.numOfBosses >=
+                config.flagsetRules[runData.flagset].skip.reqs.bosses
+              )
+                skipChecks.push(true);
               break;
             case "espers":
-              runData.numOfEspers >=
-              config.flagsetRules[runData.flagset].skip.reqs.espers
-                ? skipChecks.push(true)
-                : null;
+              if (
+                runData.numOfEspers >=
+                config.flagsetRules[runData.flagset].skip.reqs.espers
+              )
+                skipChecks.push(true);
               break;
             case "chars":
-              runData.numOfChars >=
-              config.flagsetRules[runData.flagset].skip.reqs.chars
-                ? skipChecks.push(true)
-                : null;
+              if (
+                runData.numOfChars >=
+                config.flagsetRules[runData.flagset].skip.reqs.chars
+              )
+                skipChecks.push(true);
               break;
             default:
               skipChecks.push(false);
@@ -297,7 +300,6 @@ async function validate_disableAbilityCheck(runData) {
         result: false,
         reason: "Value must be true or false.  Please contact administrator.",
       };
-  s;
 }
 
 async function validate_finalBattle(runData) {
@@ -525,7 +527,6 @@ async function validate_statsCompanionUpload(runData) {
         reason:
           "Value must be true or false.  Users should never see this message. Please contact administrator.",
       };
-  s;
 }
 
 async function validate_statsCompanionRaw(runData) {

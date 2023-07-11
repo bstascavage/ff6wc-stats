@@ -3,7 +3,6 @@ import {
   App,
   StackProps,
   CfnParameter,
-  Fn,
   Duration,
   aws_iam as iam,
   aws_backup as backup,
@@ -12,7 +11,6 @@ import {
 
 import * as AmplifyHelpers from "@aws-amplify/cli-extensibility-helper";
 
-const app = new App();
 export class cdkStack extends Stack {
   constructor(
     scope: App,
