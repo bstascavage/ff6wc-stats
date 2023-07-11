@@ -118,7 +118,7 @@ async function createRun(run) {
 
   if (submitResults.errors) {
     console.log("Issue submitting run to graphql");
-    console.log(queryResults.error);
+    console.log(submitResults.errors);
     return {
       createStatus: false,
       createError: "Error saving run data.  Please contact the administrator",

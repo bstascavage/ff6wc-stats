@@ -12,6 +12,7 @@ async function validate(data) {
         ...validationResults,
         validationDetails: {
           ...validationResults.validationDetails,
+          // eslint-disable-next-line no-eval
           [`validate_${key}`]: await eval("validate_" + key)(data),
         },
       };
@@ -28,6 +29,7 @@ async function validate(data) {
   return validationResults;
 }
 
+// eslint-disable-next-line no-unused-vars
 function validate_numOfChecks(runData) {
   return runData.numOfChecks <
     parseInt(runData.numOfChars) -
@@ -42,10 +44,12 @@ function validate_numOfChecks(runData) {
     : checkNumberRange(runData.numOfChecks, 0, 61);
 }
 
+// eslint-disable-next-line no-unused-vars
 function validate_numOfPeekedChecks(runData) {
   return checkNumberRange(runData.numOfPeekedChecks, 0, 61);
 }
 
+// eslint-disable-next-line no-unused-vars
 function validate_runTime(runData) {
   // Validates that the submitted time is in the format hh:mm:ss
   if (runData.runTime.length === 0) {
@@ -57,12 +61,14 @@ function validate_runTime(runData) {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 function validate_runDate(runData) {
   return !isNaN(new Date(runData.runDate).getDate())
     ? { result: true }
     : { result: false, reason: "Run Date is not a valid date." };
 }
 
+// eslint-disable-next-line no-unused-vars
 function validate_ktStartTime(runData) {
   // Validates that the submitted time is in the format hh:mm:ss
   if (runData.ktStartTime.length === 0) {
@@ -87,6 +93,7 @@ function validate_ktStartTime(runData) {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 function validate_kefkaTime(runData) {
   // Validates that the submitted time is in the format hh:mm:ss
   if (runData.kefkaTime.length === 0) {
@@ -120,12 +127,14 @@ function validate_kefkaTime(runData) {
 }
 
 // TODO: Placeholder in till I figure out non-required fields
+// eslint-disable-next-line no-unused-vars
 function validate_numOfChests(runData) {
   return {
     result: true,
   };
 }
 
+// eslint-disable-next-line no-unused-vars
 function validate_skip(runData) {
   if (typeof runData.skip == "boolean") {
     if (runData.skip) {
@@ -139,22 +148,25 @@ function validate_skip(runData) {
         function (key) {
           switch (key) {
             case "bosses":
-              runData.numOfBosses >=
-              config.flagsetRules[runData.flagset].skip.reqs.bosses
-                ? skipChecks.push(true)
-                : null;
+              if (
+                runData.numOfBosses >=
+                config.flagsetRules[runData.flagset].skip.reqs.bosses
+              )
+                skipChecks.push(true);
               break;
             case "espers":
-              runData.numOfEspers >=
-              config.flagsetRules[runData.flagset].skip.reqs.espers
-                ? skipChecks.push(true)
-                : null;
+              if (
+                runData.numOfEspers >=
+                config.flagsetRules[runData.flagset].skip.reqs.espers
+              )
+                skipChecks.push(true);
               break;
             case "chars":
-              runData.numOfChars >=
-              config.flagsetRules[runData.flagset].skip.reqs.chars
-                ? skipChecks.push(true)
-                : null;
+              if (
+                runData.numOfChars >=
+                config.flagsetRules[runData.flagset].skip.reqs.chars
+              )
+                skipChecks.push(true);
               break;
             default:
               skipChecks.push(false);
@@ -186,6 +198,7 @@ function validate_skip(runData) {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 async function validate_chars(runData) {
   // Validates that 1-4 characters were submitted and that all characters are valid
   let characters = runData.chars;
@@ -205,7 +218,7 @@ async function validate_chars(runData) {
       result: true,
     };
   } else if (
-    characters.length != config.flagsetRules[runData.flagset].startingChars
+    characters.length !== config.flagsetRules[runData.flagset].startingChars
   ) {
     return {
       result: false,
@@ -228,6 +241,7 @@ async function validate_chars(runData) {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 async function validate_dragons(runData) {
   let dragons = runData.dragons;
 
@@ -239,6 +253,7 @@ async function validate_dragons(runData) {
     : compareToBackendEnum("Dragon", dragons);
 }
 
+// eslint-disable-next-line no-unused-vars
 async function validate_abilities(runData) {
   let abilities = runData.abilities;
   let numOfAbilities = runData.chars.length;
@@ -288,6 +303,7 @@ async function validate_abilities(runData) {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 async function validate_disableAbilityCheck(runData) {
   return typeof runData.disableAbilityCheck == "boolean"
     ? {
@@ -297,9 +313,9 @@ async function validate_disableAbilityCheck(runData) {
         result: false,
         reason: "Value must be true or false.  Please contact administrator.",
       };
-  s;
 }
 
+// eslint-disable-next-line no-unused-vars
 async function validate_finalBattle(runData) {
   let finalBattleTraits = runData.finalBattle;
 
@@ -311,7 +327,7 @@ async function validate_finalBattle(runData) {
     };
   } else if (
     finalBattleTraits.includes("Did_not_record") &&
-    finalBattleTraits.length != 1
+    finalBattleTraits.length !== 1
   ) {
     return {
       result: false,
@@ -322,10 +338,12 @@ async function validate_finalBattle(runData) {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 async function validate_thiefPeek(runData) {
   return compareToBackendEnum("ThiefPeek", [runData.thiefPeek]);
 }
 
+// eslint-disable-next-line no-unused-vars
 async function validate_thiefReward(runData) {
   let reward = runData.thiefReward;
   let peek = runData.thiefPeek;
@@ -338,7 +356,7 @@ async function validate_thiefReward(runData) {
       };
     }
   }
-  if (peek == "Did_not_check") {
+  if (peek === "Did_not_check") {
     if (reward !== "Did_not_buy__Unknown") {
       return {
         result: false,
@@ -365,7 +383,7 @@ async function validate_thiefReward(runData) {
     }
   }
   if (reward === "Not_recorded") {
-    if (peek != "Not_recorded") {
+    if (peek !== "Not_recorded") {
       return {
         result: false,
         reason: "Must select thief reward.",
@@ -375,34 +393,42 @@ async function validate_thiefReward(runData) {
   return compareToBackendEnum("ThiefReward", [reward]);
 }
 
+// eslint-disable-next-line no-unused-vars
 function validate_auction(runData) {
   return compareToBackendEnum("Auction", [runData.auction]);
 }
 
+// eslint-disable-next-line no-unused-vars
 function validate_coliseum(runData) {
   return compareToBackendEnum("Coliseum", [runData.coliseum]);
 }
 
+// eslint-disable-next-line no-unused-vars
 function validate_superBalls(runData) {
   return compareToBackendEnum("Superballs", [runData.superBalls]);
 }
 
+// eslint-disable-next-line no-unused-vars
 function validate_egg(runData) {
   return compareToBackendEnum("Egg", [runData.egg]);
 }
 
+// eslint-disable-next-line no-unused-vars
 async function validate_flagset(runData) {
   return compareToBackendEnum("Flagset", [runData.flagset]);
 }
 
+// eslint-disable-next-line no-unused-vars
 async function validate_race(runData) {
   return compareToBackendEnum("Race", [runData.race]);
 }
 
+// eslint-disable-next-line no-unused-vars
 async function validate_mood(runData) {
   return compareToBackendEnum("Mood", [runData.mood]);
 }
 
+// eslint-disable-next-line no-unused-vars
 function validate_otherFlagset(runData) {
   if (runData.otherFlagset.length !== 0 && runData.flagset !== "Other") {
     return {
@@ -424,6 +450,7 @@ function validate_otherFlagset(runData) {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 function validate_numOfChars(runData) {
   let numValidation = checkNumberRange(runData.numOfChars, 1, 14);
   if (numValidation.result) {
@@ -446,6 +473,7 @@ function validate_numOfChars(runData) {
   return numValidation;
 }
 
+// eslint-disable-next-line no-unused-vars
 function validate_numOfEspers(runData) {
   let esperValidation = checkNumberRange(runData.numOfEspers, 0, 27);
   if (esperValidation.result) {
@@ -461,23 +489,26 @@ function validate_numOfEspers(runData) {
   return esperValidation;
 }
 
+// eslint-disable-next-line no-unused-vars
 function validate_numOfBosses(runData) {
   return checkNumberRange(runData.numOfBosses, 1, 40);
 }
 
+// eslint-disable-next-line no-unused-vars
 function validate_highestLevel(runData) {
   return checkNumberRange(runData.highestLevel, 0, 99);
 }
 
+// eslint-disable-next-line no-unused-vars
 function validate_seed(runData) {
   let seed = runData.seed;
 
-  if (seed.length != 12 && seed.length != 0) {
+  if (seed.length !== 12 && seed.length !== 0) {
     return {
       result: false,
       reason: "ID must be 12 characters",
     };
-  } else if (/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(seed)) {
+  } else if (/[~`!#$%^&*+=\-[\]\\';,/{}|\\":<>?]/g.test(seed)) {
     return {
       result: false,
       reason: "ID cannot contain special character",
@@ -489,15 +520,16 @@ function validate_seed(runData) {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 function validate_raceId(runData) {
   let raceId = runData.raceId;
 
-  if (raceId.length != 6 && raceId.length != 0) {
+  if (raceId.length !== 6 && raceId.length !== 0) {
     return {
       result: false,
       reason: "ID must be 6 characters",
     };
-  } else if (/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(raceId)) {
+  } else if (/[~`!#$%^&*+=\-[\]\\';,/{}|\\":<>?]/g.test(raceId)) {
     return {
       result: false,
       reason: "ID cannot contain special character",
@@ -514,6 +546,7 @@ function validate_raceId(runData) {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 async function validate_statsCompanionUpload(runData) {
   // Validates that statsCompanionUpload is a boolean
   return typeof runData.statsCompanionUpload == "boolean"
@@ -525,9 +558,9 @@ async function validate_statsCompanionUpload(runData) {
         reason:
           "Value must be true or false.  Users should never see this message. Please contact administrator.",
       };
-  s;
 }
 
+// eslint-disable-next-line no-unused-vars
 async function validate_statsCompanionRaw(runData) {
   // Validates that statsCompanionRaw is a valid JSON
   try {
