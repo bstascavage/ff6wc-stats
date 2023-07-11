@@ -27,10 +27,12 @@ export class cdkStack extends Stack {
 
     // Set up IAM account for AWS Backups
     const backupAdmin = new iam.Role(this, "BackupAdminRole", {
-      assumedBy: new iam.AccountPrincipal(Stack.of(this).account),
+      assumedBy: new iam.ServicePrincipal("backup.amazonaws.com"),
     });
     backupAdmin.addManagedPolicy(
-      iam.ManagedPolicy.fromAwsManagedPolicyName("AWSBackupFullAccess"),
+      iam.ManagedPolicy.fromAwsManagedPolicyName(
+        "service-role/AWSBackupServiceRolePolicyForBackup",
+      ),
     );
     backupAdmin.addManagedPolicy(
       iam.ManagedPolicy.fromAwsManagedPolicyName(
@@ -88,6 +90,8 @@ export class cdkStack extends Stack {
           AmplifyHelpers.getProjectInfo().envName,
         ),
       ],
+      backupSelectionName: "cloudformation-resources",
+      role: backupAdmin,
     });
   }
 }
