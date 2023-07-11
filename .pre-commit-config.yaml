@@ -27,3 +27,6 @@ repos:
     rev: v8.44.0
     hooks:
       - id: eslint
+        additional_dependencies:
+          - eslint@8.44.0
+          - react-scripts
