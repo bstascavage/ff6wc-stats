@@ -2,5 +2,6 @@
   "AppSyncApiName": "ff6wcstats",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false,
+  "DynamoDBEnablePointInTimeRecovery": true,
   "AuthModeLastUpdated": "2023-07-12T19:17:39.910Z"
 }
