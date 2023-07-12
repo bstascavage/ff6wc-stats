@@ -15,7 +15,7 @@
       "function": {
         "submitRun": {
           "deploymentBucketName": "amplify-ff6wcstats-develop-151305-deployment",
-          "s3Key": "amplify-builds/submitRun-64345950667675542f54-build.zip"
+          "s3Key": "amplify-builds/submitRun-76767a626c3546503973-build.zip"
         }
       },
       "api": {
