@@ -42,16 +42,19 @@ export class cdkStack extends Stack {
 
     // Create backup vault rules
     const dailyPlanRule = new backup.BackupPlanRule({
-      deleteAfter: Duration.days(14),
+      enableContinuousBackup: true,
+      deleteAfter: Duration.days(21),
       ruleName: "Daily",
     });
     const weeklyPlanRule = new backup.BackupPlanRule({
-      deleteAfter: Duration.days(28),
+      deleteAfter: Duration.days(98),
+      moveToColdStorageAfter: Duration.days(8),
       scheduleExpression: events.Schedule.expression("cron(0 5 ? * MON *)"),
       ruleName: "Weekly",
     });
     const monthlyPlanRule = new backup.BackupPlanRule({
-      deleteAfter: Duration.days(90),
+      deleteAfter: Duration.days(91),
+      moveToColdStorageAfter: Duration.days(1),
       scheduleExpression: events.Schedule.expression("cron(0 5 1 * ? *)"),
       ruleName: "Monthly",
     });
