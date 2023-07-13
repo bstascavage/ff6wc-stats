@@ -41,29 +41,18 @@ export class cdkStack extends Stack {
     );
 
     // Create backup vault rules
-    const dailyPlanRule = new backup.BackupPlanRule({
-      enableContinuousBackup: true,
-      deleteAfter: Duration.days(21),
-      ruleName: "Daily",
-    });
     const weeklyPlanRule = new backup.BackupPlanRule({
-      deleteAfter: Duration.days(98),
-      moveToColdStorageAfter: Duration.days(8),
+      deleteAfter: Duration.days(42),
+      moveToColdStorageAfter: Duration.days(132),
       scheduleExpression: events.Schedule.expression("cron(0 5 ? * MON *)"),
       ruleName: "Weekly",
-    });
-    const monthlyPlanRule = new backup.BackupPlanRule({
-      deleteAfter: Duration.days(91),
-      moveToColdStorageAfter: Duration.days(1),
-      scheduleExpression: events.Schedule.expression("cron(0 5 1 * ? *)"),
-      ruleName: "Monthly",
     });
 
     const plan = new backup.BackupPlan(this, "amplify-appsync-dyanmodb-plan", {
       backupPlanName: `statscollide-plan-${
         AmplifyHelpers.getProjectInfo().envName
       }`,
-      backupPlanRules: [dailyPlanRule, weeklyPlanRule, monthlyPlanRule],
+      backupPlanRules: [weeklyPlanRule],
       backupVault: new backup.BackupVault(this, "Vault", {
         backupVaultName: `statscollide-vault-${
           AmplifyHelpers.getProjectInfo().envName
