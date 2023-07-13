@@ -48,6 +48,7 @@ export class cdkStack extends Stack {
     });
     const weeklyPlanRule = new backup.BackupPlanRule({
       deleteAfter: Duration.days(182),
+      moveToColdStorageAfter: Duration.days(8),
       scheduleExpression: events.Schedule.expression("cron(0 5 ? * MON *)"),
       ruleName: "Weekly",
     });
