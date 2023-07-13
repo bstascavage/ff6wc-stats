@@ -14,6 +14,7 @@
     "@testing-library/user-event": "^13.5.0",
     "aws-amplify": "^4.3.27",
     "dotenv": "^16.0.1",
+    "node-pre-gyp": "^0.17.0",
     "node-sass": "npm:sass@^1.49.9",
     "plausible-tracker": "^0.3.8",
     "react": "^18.2.0",
