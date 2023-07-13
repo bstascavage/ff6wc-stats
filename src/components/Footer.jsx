@@ -35,19 +35,19 @@ function Footer(props) {
                 href="https://ff6worldscollide.com/"
                 title="FFVI Worlds Collide"
               >
-                <FontAwesomeIcon icon={faLink} />
+                <FontAwesomeIcon icon={faLink} fixedWidth />
                 <span className="username">&nbsp;FF6WC Home</span>
               </a>
             </li>
             <li>
               <a href="https://discord.gg/5MPeng5" title="FF6WC Discord">
-                <FontAwesomeIcon icon={faDiscord} />
+                <FontAwesomeIcon icon={faDiscord} fixedWidth />
                 <span className="username">&nbsp;Discord</span>
               </a>
             </li>
             <li>
               <a href="https://twitter.com/FF6_WC" title="Twitter">
-                <FontAwesomeIcon icon={faTwitter} />
+                <FontAwesomeIcon icon={faTwitter} fixedWidth />
                 <span className="username">&nbsp;Twitter</span>
               </a>
             </li>
@@ -56,7 +56,7 @@ function Footer(props) {
                 href="https://github.com/bstascavage/ff6wc-stats"
                 title="Github"
               >
-                <FontAwesomeIcon icon={faGithub} />
+                <FontAwesomeIcon icon={faGithub} fixedWidth />
                 <span className="username">&nbsp;Github</span>
               </a>
             </li>
@@ -65,7 +65,7 @@ function Footer(props) {
                 href="https://github.com/peroquenariz/StatsCompanion"
                 title="StatsCompanion"
               >
-                <FontAwesomeIcon icon={faLink} />
+                <FontAwesomeIcon icon={faLink} fixedWidth />
                 <span className="username">&nbsp;StatsCompanion</span>
               </a>
             </li>
