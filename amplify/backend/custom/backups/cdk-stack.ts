@@ -41,9 +41,13 @@ export class cdkStack extends Stack {
     );
 
     // Create backup vault rules
-    const weeklyPlanRule = new backup.BackupPlanRule({
-      deleteAfter: Duration.days(187),
+    const dailyPlanRule = new backup.BackupPlanRule({
+      deleteAfter: Duration.days(97),
       moveToColdStorageAfter: Duration.days(7),
+      ruleName: "Daily",
+    });
+    const weeklyPlanRule = new backup.BackupPlanRule({
+      deleteAfter: Duration.days(182),
       scheduleExpression: events.Schedule.expression("cron(0 5 ? * MON *)"),
       ruleName: "Weekly",
     });
@@ -52,7 +56,7 @@ export class cdkStack extends Stack {
       backupPlanName: `statscollide-plan-${
         AmplifyHelpers.getProjectInfo().envName
       }`,
-      backupPlanRules: [weeklyPlanRule],
+      backupPlanRules: [dailyPlanRule, weeklyPlanRule],
       backupVault: new backup.BackupVault(this, "Vault", {
         backupVaultName: `statscollide-vault-${
           AmplifyHelpers.getProjectInfo().envName
