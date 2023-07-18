@@ -44,6 +44,8 @@ tasks:
     desc: Starts npm dev server
     cmds:
       - REACT_APP_LOCAL_BACKEND={{.REACT_APP_LOCAL_BACKEND}} npm start
+    vars:
+      REACT_APP_LOCAL_BACKEND: '{{ coalesce .REACT_APP_LOCAL_BACKEND "true"}}'
 
   mock-api:
     desc: Starts a local mock api server
