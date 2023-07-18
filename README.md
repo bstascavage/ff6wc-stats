@@ -39,6 +39,14 @@ Once the prerequisites are installed locally, follow these steps:
 
 1. To enter the container to run development commands, run `./anvilw bash`. Once inside the container, you can start the development server via `task serve`.
 
+#### Running locally against a cloud backend
+
+> NOTE: This assumes you have access to the AWS account with the StatsCollide database
+
+1. Make sure you pull the AWS Amplify environment you want (either `main` or `develop`) via the command: `amplify pull --envName develop`. When asked `Do you plan on modifying this backend?`, select **Yes**. (NOTE: This will update a bunch of files locally. Do not commit these changes in git unless you know what you are doing)
+
+1. Run `task npm-start REACT_APP_LOCAL_BACKEND=false`. Instead of deploying the front-end app locally with a local mock DB, this will deploy your front-end app locally but connect it to the Graphql endpoint in AWS for your given environment. **Make sure this is for read-only operations, as to not overwrite data in the production database**
+
 ### Available development commands
 
 In addition to regular `npm` commands, a handful of macros have been set up for common development commands. These commands can be run via `task <command>` when in the container via `./anvilw bash`. The following macros have been configured:
