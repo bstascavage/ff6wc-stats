@@ -16,7 +16,7 @@ import CONFIG from "./config";
 // Amplify auto-generates aws-exports but sets it to the host IP and not localhost if you use mock
 // This breaks in docker because docker networking is crazy.
 // This logic allows us to toggle it
-if (process.env.REACT_APP_LOCAL_BACKEND === true) {
+if (process.env.REACT_APP_LOCAL_BACKEND === "true") {
   var localAwsExports = {
     ...awsExports,
     aws_appsync_graphqlEndpoint: "http://localhost:20002/graphql",
