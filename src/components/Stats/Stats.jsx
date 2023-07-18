@@ -634,8 +634,6 @@ function Stats(props) {
                     xHeight={75}
                     data={data.dragonHeatMap()}
                     yAxisMap={data.getFriendlyDragonList()}
-                    threshold={data.runData.length}
-                    numOfIntervals={8}
                   />
                 </Col>
               </Row>

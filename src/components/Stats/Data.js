@@ -336,7 +336,7 @@ export class Data {
      *  `numOfDragons (an INT for the number of dragons fought in a run),
      *  and `numOfRuns` (an INT for the number of runs with this combination of `dragonName` and `numOfDragons`)
      */
-    let data = { dragons: [] };
+    let data = { dragons: [], interval: 0 };
 
     // Populate the initial list of 64 combinations
     for (
@@ -372,8 +372,18 @@ export class Data {
 
         let numOfDragons = this.runData[run].dragons.length;
         data.dragons[dragonIndex * 8 + (numOfDragons - 1)].numOfRuns++;
+
+        // Setting the heatmap interval to the highest runs per dragon
+        if (
+          data.dragons[dragonIndex * 8 + (numOfDragons - 1)].numOfRuns >
+          data.interval
+        ) {
+          data.interval =
+            data.dragons[dragonIndex * 8 + (numOfDragons - 1)].numOfRuns;
+        }
       }
     }
+
     return data;
   }
 
