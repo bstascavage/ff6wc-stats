@@ -156,6 +156,7 @@ function App() {
           <Footer
             discordUserdata={discordUserdata}
             setUserdataState={setUserdataState}
+            config={CONFIG}
           />
         </Router>
       </div>
