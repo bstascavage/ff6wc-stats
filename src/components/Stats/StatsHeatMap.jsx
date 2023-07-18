@@ -10,17 +10,19 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const getHeatGroups = (dataset, threshold, numOfIntervals) => {
+const getHeatGroups = (dataset, numOfIntervals) => {
   let breakpoints = [];
 
   // Dynamically set the number of breakpoints based on the `numOfIntervals`
-  // `threshold` is the threshold for the max color, ie. total runs
   for (let i = 0; i <= numOfIntervals; i++) {
+    const colorInterval = 185 / numOfIntervals;
     i === 0
       ? breakpoints.push({ temp: 0, color: "none" })
       : breakpoints.push({
-          temp: threshold * (i / numOfIntervals),
-          color: `rgb(${194 / i}, ${219 / i}, 255)`,
+          temp: i,
+          color: `rgb(${192 - colorInterval * i}, ${
+            219 - colorInterval * i
+          }, 255)`,
         });
   }
 
@@ -128,6 +130,7 @@ function HeatMap(props) {
       ? ""
       : props.yAxisMap[dragonName];
   };
+
   return (
     <div id="heat-map" style={{ height: "100%" }}>
       <Card className={`${background} shadow`} style={{ height: "100%" }}>
@@ -182,11 +185,7 @@ function HeatMap(props) {
                 />
 
                 <Tooltip content={<CustomTooltip />} />
-                {getHeatGroups(
-                  dataset,
-                  props.threshold,
-                  props.numOfIntervals,
-                ).map((group) => (
+                {getHeatGroups(dataset, props.data.interval).map((group) => (
                   <Scatter
                     key={group.label}
                     name={group.label}
