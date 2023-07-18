@@ -52,6 +52,30 @@ const CONFIG = {
     ],
     demoPath: "/stats#user=158730578454118401",
   },
+  footer: {
+    github: {
+      owner: "bstascavage",
+      repo: "ff6wc-stats",
+      url: "https://github.com/bstascavage/ff6wc-stats",
+      title: "Github",
+    },
+    ff6wc: {
+      url: "https://ff6worldscollide.com/",
+      title: "FFVI Worlds Collide",
+    },
+    discord: {
+      url: "https://discord.gg/5MPeng5",
+      title: "FF6WC Discord",
+    },
+    twitter: {
+      url: "https://twitter.com/FF6_WC",
+      title: "Twitter",
+    },
+    statscompanion: {
+      url: "https://github.com/peroquenariz/StatsCompanion",
+      title: "StatsCompanion",
+    },
+  },
   submit: {
     runTime: {
       type: "textInput",
