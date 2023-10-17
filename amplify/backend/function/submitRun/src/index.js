@@ -55,7 +55,11 @@ async function createRun(run) {
 
   Object.keys(run).forEach((key, index) => {
     // If element isn't provided, set it to null before writing to DB
-    if (run[key].length === 0 && !Array.isArray(run[key])) {
+    if (
+      run[key] !== null &&
+      run[key].length === 0 &&
+      !Array.isArray(run[key])
+    ) {
       run[key] = null;
     }
   });
