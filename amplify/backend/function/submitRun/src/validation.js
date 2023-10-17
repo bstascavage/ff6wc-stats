@@ -562,6 +562,11 @@ async function validate_statsCompanionUpload(runData) {
 
 // eslint-disable-next-line no-unused-vars
 async function validate_statsCompanionRaw(runData) {
+  // If no StatsCompanion file is uploaded, skip this check
+  if (!runData.statsCompanionUpload) {
+    return { result: true };
+  }
+
   // Validates that statsCompanionRaw is a valid JSON
   try {
     var parsedJSON = JSON.parse(JSON.stringify(runData.statsCompanionRaw));
