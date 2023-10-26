@@ -387,7 +387,7 @@ const CONFIG = {
   },
   submit_misc: {
     active_flagsets: [
-      "Ultros_League__Season_4",
+      "Ultros_League__Season_5",
       "Coliseum__Terra",
       "Coliseum__Locke",
       "Coliseum__Edgar",
