@@ -50,6 +50,7 @@ const config = {
         reqs: {
           chars: 9,
           espers: 12,
+          checks: 21,
         },
         conditionsMet: 1,
         operation: "OR",
