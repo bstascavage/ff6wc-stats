@@ -168,6 +168,13 @@ function validate_skip(runData) {
               )
                 skipChecks.push(true);
               break;
+            case "checks":
+              if (
+                runData.numOfChecks >=
+                config.flagsetRules[runData.flagset].skip.reqs.checks
+              )
+                skipChecks.push(true);
+              break;
             default:
               skipChecks.push(false);
               break;
