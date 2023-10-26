@@ -42,6 +42,20 @@ const config = {
       },
       excludedAbilities: ["Possess", "Shock"],
     },
+    Ultros_League__Season_5: {
+      startingChars: 3,
+      minChars: 6,
+      minEspers: 9,
+      skip: {
+        reqs: {
+          chars: 9,
+          espers: 12,
+        },
+        conditionsMet: 1,
+        operation: "OR",
+      },
+      excludedAbilities: ["Possess", "Shock"],
+    },
     Coliseum__Terra: {
       startingChars: 3,
       minChars: 6,
