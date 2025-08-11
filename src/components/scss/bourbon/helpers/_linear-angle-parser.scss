@@ -22,9 +22,11 @@
     $num: _str-to-num($first-val);
 
     @return (
-      webkit-image: -webkit- + $prefix + (
+      webkit-image: -webkit- + $prefix +
+        (
           $offset - $num,
-        ) + $suffix,
+        ) +
+        $suffix,
       spec-image: $image
     );
   }
